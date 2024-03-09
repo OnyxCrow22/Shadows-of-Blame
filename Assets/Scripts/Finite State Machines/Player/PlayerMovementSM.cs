@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovementSM : PlayerStateMachine
 {
-    public InputActionAsset actions;
+    public CharacterController pChar;
+    public float speed = 6f;
+    public Animator pAnim;
 
     [HideInInspector]
     public Idle idleState;
