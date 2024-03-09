@@ -30,7 +30,7 @@ public class Idle : PlayerBaseState
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             playerStateMachine.ChangeState(playsm.crouchingState);
-            playsm.pAnim.SetBool("Crouching", true);
+            playsm.ChangeAnimationState(PLAYER_WALK)
         }
     }
 }
