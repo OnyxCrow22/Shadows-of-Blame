@@ -1,10 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : PlayerBaseState
+public class Prone : PlayerBaseState
 {
     private PlayerMovementSM playsm;
 
-    public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
+    public Prone(PlayerMovementSM playerStateMachine) : base("Crouch", playerStateMachine)
     {
         playsm = playerStateMachine;
     }
@@ -17,8 +19,6 @@ public class Idle : PlayerBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-
-        playerStateMachine.ChangeState(playsm.walkingState);
 
         playerStateMachine.ChangeState(playsm.crouchingState);
     }

@@ -1,10 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : PlayerBaseState
+public class Sprint : PlayerBaseState
 {
     private PlayerMovementSM playsm;
 
-    public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
+    public Sprint(PlayerMovementSM playerStateMachine) : base("Sprint", playerStateMachine)
     {
         playsm = playerStateMachine;
     }
@@ -19,7 +21,5 @@ public class Idle : PlayerBaseState
         base.UpdateLogic();
 
         playerStateMachine.ChangeState(playsm.walkingState);
-
-        playerStateMachine.ChangeState(playsm.crouchingState);
     }
 }

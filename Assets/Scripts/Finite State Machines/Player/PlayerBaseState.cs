@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerBaseState
 {
     public string name;
-    protected PlayerStateMachine psm;
+    protected PlayerStateMachine playerStateMachine;
 
-    public PlayerBaseState(string name, PlayerStateMachine psm)
+    public PlayerBaseState(string name, PlayerStateMachine playerStateMachine)
     {
-        this.psm = psm;
+        this.playerStateMachine = playerStateMachine;
         this.name = name;
     }
 

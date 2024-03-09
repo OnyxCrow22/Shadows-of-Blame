@@ -9,7 +9,7 @@ public class PlayerStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentState = initialState;
+        currentState = GetInitialState();
     }
 
     // Update is called once per frame
