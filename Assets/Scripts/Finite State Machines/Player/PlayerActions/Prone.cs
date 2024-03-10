@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prone : PlayerBaseState
+public class CrouchWalking : PlayerBaseState
 {
     private PlayerMovementSM playsm;
 
-    public Prone(PlayerMovementSM playerStateMachine) : base("Crouch", playerStateMachine)
+    public CrouchWalking(PlayerMovementSM playerStateMachine) : base("Crouch", playerStateMachine)
     {
         playsm = playerStateMachine;
     }

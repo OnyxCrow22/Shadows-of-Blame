@@ -5,10 +5,9 @@ public class PlayerMovementSM : PlayerStateMachine
     public CharacterController har;
     public float speed;
     public float turnSmoothTime = 0.1f;
-    [HideInInspector]
-    public float turnSmoothVelocity;
     public Animator anim;
     public Transform cam;
+    public Transform player;
 
     [HideInInspector]
     public Idle idleState;
@@ -21,7 +20,7 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector]
     public Shoot firingState;
     [HideInInspector]
-    public Prone proningState;
+    public CrouchWalking crouchWalking;
     [HideInInspector]
     public Jump jumpingState;
     [HideInInspector]
@@ -34,7 +33,7 @@ public class PlayerMovementSM : PlayerStateMachine
         runningState = new Sprint(this);
         crouchingState = new Crouch(this);
         firingState = new Shoot(this);
-        proningState = new Prone(this);
+        crouchWalking = new CrouchWalking(this);
         jumpingState = new Jump(this);
         groundedState = new Grounded(this);
     }

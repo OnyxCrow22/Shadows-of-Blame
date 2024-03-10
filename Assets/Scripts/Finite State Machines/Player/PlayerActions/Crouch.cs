@@ -20,8 +20,12 @@ public class Crouch : PlayerBaseState
     {
         base.UpdateLogic();
 
-        playerStateMachine.ChangeState(playsm.idleState);
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            playerStateMachine.ChangeState(playsm.idleState);
+            playsm.anim.SetBool("Crouching", false);
+        }
 
-        playerStateMachine.ChangeState(playsm.proningState);
+        playerStateMachine.ChangeState(playsm.crouchWalking);
     }
 }

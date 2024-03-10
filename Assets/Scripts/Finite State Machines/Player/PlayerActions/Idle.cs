@@ -28,7 +28,7 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool("Walking", true);
             playsm.speed = 6;
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             playerStateMachine.ChangeState(playsm.crouchingState);
             playsm.anim.SetBool("Crouching", true);

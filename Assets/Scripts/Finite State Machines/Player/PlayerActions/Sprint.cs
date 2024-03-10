@@ -6,6 +6,7 @@ public class Sprint : PlayerBaseState
 {
     float horizontalInput;
     float verticalInput;
+    float turnSmoothVelocity;
     Vector3 direction;
     private PlayerMovementSM playsm;
 
@@ -32,14 +33,14 @@ public class Sprint : PlayerBaseState
 
         playsm.speed = 12;
 
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg * playsm.cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref playsm.turnSmoothVelocity, playsm.turnSmoothTime);
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playsm.cam.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, playsm.turnSmoothTime);
         playsm.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         playsm.har.Move(moveDir * playsm.speed * Time.deltaTime);
 
-        if (!Input.GetKeyDown(KeyCode.LeftShift))
+        if (!Input.GetKey(KeyCode.LeftShift))
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Sprinting", false);
