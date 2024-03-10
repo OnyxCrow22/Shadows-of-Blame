@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Idle : PlayerBaseState
 {
+    float horizontalInput;
+    float verticalInput;
+    Vector3 direction;
     private PlayerMovementSM playsm;
 
     public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
@@ -18,9 +21,9 @@ public class Idle : PlayerBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
         if (direction.magnitude >= 0.1f)
         {
@@ -30,7 +33,7 @@ public class Idle : PlayerBaseState
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             playerStateMachine.ChangeState(playsm.crouchingState);
-            playsm.ChangeAnimationState(PLAYER_WALK)
+            playsm.pAnim.SetBool("CrouchingIdle", true);
         }
     }
 }
