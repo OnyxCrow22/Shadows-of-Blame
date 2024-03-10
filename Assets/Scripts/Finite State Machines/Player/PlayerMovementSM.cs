@@ -3,12 +3,12 @@ using UnityEngine;
 public class PlayerMovementSM : PlayerStateMachine
 {
     public CharacterController har;
-    public Transform player;
-    public float rotationSpeed;
     public float speed;
+    public float turnSmoothTime = 0.1f;
+    [HideInInspector]
+    public float turnSmoothVelocity;
     public Animator anim;
     public Transform cam;
-    public Vector3 rotation;
 
     [HideInInspector]
     public Idle idleState;

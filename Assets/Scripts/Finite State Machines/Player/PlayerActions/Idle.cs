@@ -22,7 +22,7 @@ public class Idle : PlayerBaseState
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        if (direction.magnitude > 0.1f)
+        if (direction.magnitude >= 0.1f)
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Walking", true);

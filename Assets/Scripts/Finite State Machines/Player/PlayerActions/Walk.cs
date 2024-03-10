@@ -33,17 +33,14 @@ public class Walk : PlayerBaseState
 
         playsm.speed = 6;
 
-        playsm.rotation = new Vector3(0, horizontalInput * playsm.rotationSpeed * Time.deltaTime, 0);
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg * playsm.cam.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref playsm.turnSmoothVelocity, playsm.turnSmoothTime);
+        playsm.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-        Vector3 move = new Vector3(0, 0, verticalInput);
-        move = playsm.transform.TransformDirection(move);
-        playsm.har.Move(move * playsm.speed * Time.deltaTime);
-        playsm.transform.Rotate(playsm.rotation);
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        playsm.har.Move(moveDir * playsm.speed * Time.deltaTime);
 
-        playsm.cam.transform.position = playsm.player.transform.position;
-        playsm.cam.transform.rotation = playsm.player.transform.rotation;
-
-        if (direction.magnitude <= 0.01f)
+        if (direction.magnitude < 0.01f)
         {
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("Walking", false);
