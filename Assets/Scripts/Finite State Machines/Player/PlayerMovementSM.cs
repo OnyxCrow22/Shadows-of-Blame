@@ -8,6 +8,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public Animator anim;
     public Transform cam;
     public Transform player;
+    public bool Crouched;
 
     [HideInInspector]
     public Idle idleState;

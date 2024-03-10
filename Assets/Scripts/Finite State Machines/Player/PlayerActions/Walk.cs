@@ -50,6 +50,7 @@ public class Walk : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.runningState);
             playsm.anim.SetBool("Sprinting", true);
+            playsm.speed = 12;
         }
     }
 }
