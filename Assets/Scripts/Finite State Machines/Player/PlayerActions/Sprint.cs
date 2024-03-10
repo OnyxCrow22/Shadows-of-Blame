@@ -6,7 +6,6 @@ public class Sprint : PlayerBaseState
 {
     float horizontalInput;
     float verticalInput;
-    float turnVelocity;
     Vector3 direction;
     private PlayerMovementSM playsm;
 
@@ -27,21 +26,26 @@ public class Sprint : PlayerBaseState
     {
         base.UpdateLogic();
 
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg * playsm.cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(playsm.pChar.transform.eulerAngles.y, targetAngle, ref turnVelocity, playsm.turnSmooth);
-        playsm.pChar.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        playsm.speed = 12;
 
-        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        playsm.pChar.Move(moveDir * playsm.speed * Time.deltaTime);
+        playsm.rotation = new Vector3(0, horizontalInput * playsm.rotationSpeed * Time.deltaTime, 0);
+
+        Vector3 move = new Vector3(0, 0, verticalInput);
+        move = playsm.transform.TransformDirection(move);
+        playsm.har.Move(move * playsm.speed * Time.deltaTime);
+        playsm.transform.Rotate(playsm.rotation);
+
+        playsm.cam.transform.position = playsm.player.transform.position;
+        playsm.cam.transform.rotation = playsm.player.transform.rotation;
 
         if (!Input.GetKeyDown(KeyCode.LeftShift))
         {
             playerStateMachine.ChangeState(playsm.walkingState);
-            playsm.pAnim.SetBool("Sprinting", false);
+            playsm.anim.SetBool("Sprinting", false);
             playsm.speed = 6;
         }
     }

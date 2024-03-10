@@ -6,8 +6,8 @@ public class Walk : PlayerBaseState
 {
     float horizontalInput;
     float verticalInput;
-    float turnVelocity;
     Vector3 direction;
+    Vector3 rotation;
     private PlayerMovementSM playsm;
 
     public Walk(PlayerMovementSM playerStateMachine) : base("Walk", playerStateMachine)
@@ -27,29 +27,31 @@ public class Walk : PlayerBaseState
     {
         base.UpdateLogic();
 
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+        direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
         playsm.speed = 6;
 
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg * playsm.cam.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(playsm.pChar.transform.eulerAngles.y, targetAngle, ref turnVelocity, playsm.turnSmooth);
-        playsm.pChar.transform.rotation = Quaternion.Euler(0f, angle, 0f);
+        playsm.rotation = new Vector3(0, horizontalInput * playsm.rotationSpeed * Time.deltaTime, 0);
 
-        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        playsm.pChar.Move(moveDir * playsm.speed * Time.deltaTime);
+        Vector3 move = new Vector3(0, 0, verticalInput);
+        move = playsm.transform.TransformDirection(move);
+        playsm.har.Move(move * playsm.speed * Time.deltaTime);
+        playsm.transform.Rotate(playsm.rotation);
 
-        if (direction.magnitude < 0.01f)
+        playsm.cam.transform.position = playsm.player.transform.position;
+        playsm.cam.transform.rotation = playsm.player.transform.rotation;
+
+        if (direction.magnitude <= 0.01f)
         {
             playerStateMachine.ChangeState(playsm.idleState);
-            playsm.pAnim.SetBool("Walking", false);
+            playsm.anim.SetBool("Walking", false);
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             playerStateMachine.ChangeState(playsm.runningState);
-            playsm.pAnim.SetBool("Sprinting", true);
-            playsm.speed = 12;
+            playsm.anim.SetBool("Sprinting", true);
         }
     }
 }
