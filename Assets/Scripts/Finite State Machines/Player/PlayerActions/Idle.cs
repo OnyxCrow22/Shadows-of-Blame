@@ -39,11 +39,12 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool("Crouching", true);
         }
 
-        if (Input.GetKey(KeyCode.Space) && playsm.isGrounded)
+        if (Input.GetKey(KeyCode.Space) && playsm.Jumping == false)
         {
             playerStateMachine.ChangeState(playsm.jumpingState);
             playsm.anim.SetBool("Jump", true);
             playsm.isGrounded = false;
+            playsm.Jumping = true;
         }
     }
 }
