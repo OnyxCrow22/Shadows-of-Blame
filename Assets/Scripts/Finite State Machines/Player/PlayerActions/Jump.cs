@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Jump : PlayerBaseState
 {
+    Vector3 velocity;
     private PlayerMovementSM playsm;
 
     public Jump(PlayerMovementSM playerStateMachine) : base("Jump", playerStateMachine)
@@ -20,6 +21,19 @@ public class Jump : PlayerBaseState
     {
         base.UpdateLogic();
 
-        playerStateMachine.ChangeState(playsm.idleState);
+        playsm.isGrounded = Physics.CheckSphere(playsm.groundCheck.position, playsm.groundDistance, playsm.ground);
+
+        if (playsm.isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2;
+        }
+
+        velocity.y = Mathf.Sqrt(playsm.jumpHeight * -2 * playsm.gravity);
+
+        {
+            playerStateMachine.ChangeState(playsm.idleState);
+            playsm.anim.SetBool("Jump", false);
+            playsm.isGrounded = true;
+        }
     }
 }

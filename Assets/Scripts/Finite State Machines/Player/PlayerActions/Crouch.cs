@@ -28,14 +28,18 @@ public class Crouch : PlayerBaseState
         verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == true)
         {
             playsm.Crouched = false;
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("Crouching", false);
-            playsm.speed = 0;
         }
 
-        playerStateMachine.ChangeState(playsm.crouchWalking);
+        if (direction.magnitude > 0.01f && playsm.Crouched == true)
+        {
+            playerStateMachine.ChangeState(playsm.crouchWalking);
+            playsm.anim.SetBool("CrouchWalk", true);
+            playsm.speed = 6;
+        }
     }
 }

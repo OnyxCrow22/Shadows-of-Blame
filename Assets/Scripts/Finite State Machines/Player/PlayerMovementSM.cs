@@ -4,11 +4,18 @@ public class PlayerMovementSM : PlayerStateMachine
 {
     public CharacterController har;
     public float speed;
-    public float turnSmoothTime = 0.1f;
+    public float turnSmoothTime;
+    public float gravity;
+    public float jumpHeight;
+    public float groundDistance;
+    public LayerMask ground;
     public Animator anim;
     public Transform cam;
+    public Transform groundCheck;
     public Transform player;
     public bool Crouched;
+    public bool isGrounded;
+    public bool isShooting;
 
     [HideInInspector]
     public Idle idleState;

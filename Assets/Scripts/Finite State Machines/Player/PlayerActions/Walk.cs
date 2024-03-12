@@ -8,7 +8,7 @@ public class Walk : PlayerBaseState
     float verticalInput;
     float turnSmoothVelocity;
     Vector3 direction;
-    Vector3 rotation;
+    Vector3 velocity;
     private PlayerMovementSM playsm;
 
     public Walk(PlayerMovementSM playerStateMachine) : base("Walk", playerStateMachine)
@@ -40,6 +40,9 @@ public class Walk : PlayerBaseState
 
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         playsm.har.Move(moveDir.normalized * playsm.speed * Time.deltaTime);
+        velocity.y += playsm.gravity * Time.deltaTime;
+
+        playsm.har.Move(velocity * Time.deltaTime);
 
         if (direction.magnitude <= 0.01f)
         {

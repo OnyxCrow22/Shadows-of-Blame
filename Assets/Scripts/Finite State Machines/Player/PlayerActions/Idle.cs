@@ -32,11 +32,18 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool("Walking", true);
             playsm.speed = 6;
         }
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == false)
         {
             playsm.Crouched = true;
             playerStateMachine.ChangeState(playsm.crouchingState);
             playsm.anim.SetBool("Crouching", true);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && playsm.isGrounded)
+        {
+            playerStateMachine.ChangeState(playsm.jumpingState);
+            playsm.anim.SetBool("Jump", true);
+            playsm.isGrounded = false;
         }
     }
 }
