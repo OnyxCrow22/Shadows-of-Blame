@@ -31,8 +31,6 @@ public class PlayerMovementSM : PlayerStateMachine
     public CrouchWalking crouchWalking;
     [HideInInspector]
     public Jump jumpingState;
-    [HideInInspector]
-    public Grounded groundedState;
 
     private void Awake()
     {
@@ -43,7 +41,6 @@ public class PlayerMovementSM : PlayerStateMachine
         firingState = new Shoot(this);
         crouchWalking = new CrouchWalking(this);
         jumpingState = new Jump(this);
-        groundedState = new Grounded(this);
     }
 
     protected override PlayerBaseState GetInitialState()
