@@ -30,7 +30,7 @@ public class Idle : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Walking", true);
-            playsm.speed = 6;
+            playsm.speed = 3;
         }
         if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == false)
         {
@@ -39,11 +39,10 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool("Crouching", true);
         }
 
-        if (Input.GetKey(KeyCode.Space) && playsm.Jumping == false)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             playerStateMachine.ChangeState(playsm.jumpingState);
             playsm.anim.SetBool("Jump", true);
-            playsm.isGrounded = false;
             playsm.Jumping = true;
         }
     }

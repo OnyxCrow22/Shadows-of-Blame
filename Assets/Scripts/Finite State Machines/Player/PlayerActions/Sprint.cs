@@ -32,8 +32,6 @@ public class Sprint : PlayerBaseState
         verticalInput = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        playsm.speed = 12;
-
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playsm.cam.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, playsm.turnSmoothTime);
         playsm.transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -49,7 +47,7 @@ public class Sprint : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Sprinting", false);
-            playsm.speed = 6;
+            playsm.speed = 3;
         }
     }
 }

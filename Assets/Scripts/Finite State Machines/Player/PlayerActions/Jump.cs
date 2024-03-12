@@ -15,19 +15,26 @@ public class Jump : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        velocity.y = Mathf.Sqrt(playsm.jumpHeight * 1f * playsm.gravity);
+
+        velocity.y = Mathf.Sqrt(playsm.jumpHeight * -2f * playsm.gravity);
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        velocity.y -= playsm.gravity * Time.deltaTime;
+        if(playsm.har.isGrounded)
+        {
+            velocity.y = 2f;
+        }
+
+        velocity.y += playsm.gravity * Time.deltaTime;
 
         playsm.har.Move(velocity * Time.deltaTime);
 
-        if (playsm.isGrounded)
+        if (playsm.har.isGrounded)
         {
+            velocity.y = 0;
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("Jump", false);
             playsm.Jumping = false;

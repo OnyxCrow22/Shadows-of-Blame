@@ -14,7 +14,6 @@ public class PlayerMovementSM : PlayerStateMachine
     public Transform groundCheck;
     public Transform player;
     public bool Crouched;
-    public bool isGrounded = true;
     public bool Jumping = false;
     public bool isShooting;
 

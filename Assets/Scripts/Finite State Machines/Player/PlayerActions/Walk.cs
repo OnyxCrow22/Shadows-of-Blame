@@ -32,8 +32,6 @@ public class Walk : PlayerBaseState
         verticalInput = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        playsm.speed = 6;
-
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playsm.cam.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, playsm.turnSmoothTime);
         playsm.transform.rotation = Quaternion.Euler(0f, angle, 0f);
@@ -53,7 +51,7 @@ public class Walk : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.runningState);
             playsm.anim.SetBool("Sprinting", true);
-            playsm.speed = 12;
+            playsm.speed = 8;
         }
     }
 }
