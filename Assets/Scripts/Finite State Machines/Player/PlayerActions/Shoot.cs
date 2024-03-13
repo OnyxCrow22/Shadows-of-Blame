@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Shoot : PlayerBaseState
 {
@@ -17,43 +16,87 @@ public class Shoot : PlayerBaseState
     {
         base.Enter();
 
-        gun.ammo = 50;
-        gun.maxAmmo = 250;
-        gun.UpdateAmmo();
+        gun.bulletsLeft = gun.magSize;
+        gun.readyToFire = true;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        gun.UpdateAmmo();
-        gun.damage = 50;
+        gun.ammoText.text = gun.bulletsLeft + (" / " + gun.magSize).ToString();
+        InputCheck();
+        Reload();
+        FireWeapon();
+        ResetShot();
+        ReloadFinished();
+    }
 
-        RaycastHit weaponHit;
-        if (Physics.Raycast(gun.playerCam.transform.position, gun.playerCam.transform.forward, out weaponHit, gun.range))
+    void InputCheck()
+    {
+        if (gun.allowHold)
         {
-            Debug.Log(weaponHit.transform.name);
-            gun.ammoText.text = gun.ammo.ToString();
-            gun.maxAmmoText.text = gun.maxAmmo.ToString();
+            gun.shooting = Input.GetKey(KeyCode.Mouse0);
+        }
+        else
+        {
+            shooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
 
-        if (gun.ammo <= 0)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magSize && !reloading)
         {
-            ReloadWeapon();
+            Reload();
         }
 
-        void ReloadWeapon()
+        if (readyToFire && shooting && !reloading && bulletsLeft > 0)
         {
-            gun.ammo = gun.maxAmmo;
-            gun.ammoText.text = gun.ammo.ToString();
-            gun.maxAmmoText.text = gun.maxAmmo.ToString();
+            bulletsShot = bulletsPerTap;
+            FireWeapon();
+        }
+    }
+
+    void FireWeapon()
+    {
+        readyToFire = false;
+
+        // Weapon spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        // Calculate spread
+        Vector3 direction = playerCam.transform.forward + new Vector3(x, y, 0);
+
+        // Raycast Check
+        if (Physics.Raycast(playerCam.transform.position, direction, out weaponHit, range, WhatisEnemy))
+        {
+            Debug.Log(weaponHit.collider.name);
         }
 
-        if (!Input.GetMouseButton(0))
+        bulletsLeft--;
+        bulletsShot--;
+
+        Invoke("ResetShot", timeBetweenFire);
+
+        if (bulletsShot > 0 && bulletsLeft > 0)
         {
-            playerStateMachine.ChangeState(playsm.idleState);
-            playsm.anim.SetBool("Shoot", false);
-            playsm.isShooting = false;
+            Invoke("Shoot", timeBetweenShot);
         }
+    }
+
+    void ResetShot()
+    {
+        readyToFire = true;
+    }
+
+    void Reload()
+    {
+        reloading = true;
+        Invoke("ReloadFinished", reloadDelay);
+    }
+
+    void ReloadFinished()
+    {
+        gun.bulletsLeft = gun.magSize;
+        gun.reloading = false;
     }
 }

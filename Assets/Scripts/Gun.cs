@@ -1,34 +1,24 @@
-using System.Collections;
-using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+public class Gun : PlayerMovementSM
 {
-    public float damage;
-    public float range;
-    public int ammo;
-    public int maxAmmo;
-    public int spentAmmo;
+    // Gun statistics
+    public int damage;
+    public float timeBetweenFire, spread, range, reloadDelay, timeBetweenShot;
+    public int magSize, bulletsPerTap;
+    public bool allowHold;
+    public int bulletsLeft, bulletsShot;
+
+    // bools
+    public bool shooting, readyToFire, reloading;
+
+    // Text
     public TextMeshProUGUI ammoText;
-    public TextMeshProUGUI maxAmmoText;
+
+    // Reference
     public Camera playerCam;
-    public bool Rifle;
-    public bool Pistol;
-    public bool LMG;
-    public bool Sniper;
-
-
-    private void Update()
-    {
-        ammoText.text = ammo.ToString();
-        maxAmmoText.text = maxAmmo.ToString();
-        UpdateAmmo();
-    }
-
-    public void UpdateAmmo()
-    {
-        ammo--;
-    }
+    public Transform attackPoint;
+    public RaycastHit weaponHit;
+    public LayerMask WhatisEnemy, WhatisNPC;
 }

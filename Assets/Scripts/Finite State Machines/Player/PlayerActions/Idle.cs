@@ -5,6 +5,7 @@ public class Idle : PlayerBaseState
     float horizontalInput;
     float verticalInput;
     private PlayerMovementSM playsm;
+    private Gun gun;
 
     public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
     {
