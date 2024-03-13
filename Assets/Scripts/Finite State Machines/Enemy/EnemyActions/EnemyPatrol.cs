@@ -21,16 +21,32 @@ public class EnemyPatrol : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if(Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 20)
+        if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5)
+        {
+            GoToNextPoint();
+        }
+
+        if(Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 40)
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
             esm.isPatrol = false;
         }
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) == 10)
+        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) == 15)
         {
             Debug.Log("ATTACKING");
+        }
+
+        void GoToNextPoint()
+        {
+            // End of path
+            if (esm.waypoints.Length == 0)
+            {
+                return;
+            }
+            esm.agent.destination = esm.waypoints[esm.destinations].position;
+            esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
         }
     }
 }
