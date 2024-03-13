@@ -45,5 +45,13 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool("Jump", true);
             playsm.Jumping = true;
         }
+
+        if (Input.GetMouseButton(0))
+        {
+            playerStateMachine.ChangeState(playsm.firingState);
+            playsm.anim.SetBool("Shoot", true);
+            playsm.isShooting = true;
+        }
+
     }
 }
