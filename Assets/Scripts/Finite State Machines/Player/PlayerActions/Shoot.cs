@@ -5,8 +5,6 @@ using UnityEngine;
 public class Shoot : PlayerBaseState
 {
     private PlayerMovementSM playsm;
-    private Gun gun;
-    bool reloading;
 
     public Shoot(PlayerMovementSM playerStateMachine) : base("Shoot", playerStateMachine)
     {
@@ -27,12 +25,7 @@ public class Shoot : PlayerBaseState
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("shoot", false);
             playsm.isShooting = false;
-        }
-
-        if (Input.GetKey(KeyCode.R) && reloading == false)
-        {
-            playsm.anim.SetBool("reloading", true);
-            reloading = true;
+            playsm.weapon.gun.SetActive(false);
         }
     }
 }

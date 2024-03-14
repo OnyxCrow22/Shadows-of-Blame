@@ -5,7 +5,6 @@ public class Idle : PlayerBaseState
     float horizontalInput;
     float verticalInput;
     private PlayerMovementSM playsm;
-    private Gun gun;
 
     public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
     {
@@ -49,6 +48,7 @@ public class Idle : PlayerBaseState
 
         if (Input.GetMouseButton(0))
         {
+            playsm.weapon.gun.SetActive(true);
             playerStateMachine.ChangeState(playsm.firingState);
             playsm.anim.SetBool("shoot", true);
             playsm.isShooting = true;

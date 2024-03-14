@@ -17,6 +17,9 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool Jumping = false;
     public bool isShooting;
 
+    // Scripts
+    public Gun weapon;
+
     [HideInInspector]
     public Idle idleState;
     [HideInInspector]

@@ -921,7 +921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545345853}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300417, w: 0.65662634}
+  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300419, w: 0.65662634}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1366,14 +1366,16 @@ MonoBehaviour:
   magSize: 30
   bulletsPerTap: 1
   totalAmmo: 240
-  allowHold: 0
+  allowHold: 1
   bulletsLeft: 0
   bulletsShot: 0
   shooting: 0
   readyToFire: 0
   reloading: 0
   ammoText: {fileID: 245057999}
+  gun: {fileID: 919132148522973365}
   playerCam: {fileID: 963194227}
+  playsm: {fileID: 7228513800591849295}
   attackPoint: {fileID: 1399697153}
   WhatisEnemy:
     serializedVersion: 2
@@ -3457,8 +3459,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148522973365}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.020299373, y: -0.787558, z: 0.015869642, w: 0.61570156}
-  m_LocalPosition: {x: 0.5376997, y: 0.7858001, z: 0.11549943}
+  m_LocalRotation: {x: 0.4419281, y: -0.57801586, z: -0.53516144, w: 0.42918465}
+  m_LocalPosition: {x: 0.5377, y: 0.8511, z: 0.0341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3466,7 +3468,7 @@ Transform:
   - {fileID: 7969375937769864102}
   - {fileID: 8645538790017082836}
   m_Father: {fileID: 1343973823}
-  m_LocalEulerAnglesHint: {x: 2.866, y: -103.982, z: -0.713}
+  m_LocalEulerAnglesHint: {x: -13.847, y: -93.472, z: -87.839}
 --- !u!4 &584637744137140457
 Transform:
   m_ObjectHideFlags: 0
@@ -5757,6 +5759,7 @@ MonoBehaviour:
   Crouched: 0
   Jumping: 0
   isShooting: 0
+  weapon: {fileID: 864648533}
 --- !u!143 &7228513800591849296
 CharacterController:
   m_ObjectHideFlags: 0
