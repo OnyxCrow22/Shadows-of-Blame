@@ -50,7 +50,7 @@ public class Idle : PlayerBaseState
         if (Input.GetMouseButton(0))
         {
             playerStateMachine.ChangeState(playsm.firingState);
-            playsm.anim.SetBool("Shoot", true);
+            playsm.anim.SetBool("shoot", true);
             playsm.isShooting = true;
         }
 
