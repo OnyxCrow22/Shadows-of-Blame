@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap, totalAmmo;
     public bool allowButtonHold;
-    int bulletsLeft, bulletsShot;
+    int bulletsLeft, bulletsShot, bullet;
 
     // bools
     bool shooting, readyToShoot, reloading, aiming;
@@ -105,10 +105,10 @@ public class Gun : MonoBehaviour
         }
         bulletsLeft--;
 
-        if (bulletsShot == 0)
-        {
-            bulletsShot += 1;
-        }
+        bulletsShot = bulletsPerTap;
+        bulletsShot++;
+        bulletsPerTap = bulletsShot;
+
 
         Invoke("ResetShot", timeBetweenShooting);
 
@@ -134,7 +134,7 @@ public class Gun : MonoBehaviour
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
-        totalAmmo = bulletsLeft - bulletsShot;
+        totalAmmo -= bulletsShot;
         playsm.anim.SetBool("reloading", false);
         reloading = false;
         readyToShoot = true;
