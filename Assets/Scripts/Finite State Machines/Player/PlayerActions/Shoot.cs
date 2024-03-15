@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,6 @@ public class Shoot : PlayerBaseState
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("shoot", false);
             playsm.isShooting = false;
-            playsm.weapon.gun.SetActive(false);
-        }
+        } 
     }
 }

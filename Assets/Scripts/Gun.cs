@@ -1,126 +1,149 @@
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
     // Gun statistics
     public int damage;
-    public float timeBetweenFire, spread, range, reloadDelay, timeBetweenShot;
-    public int magSize, bulletsPerTap, totalAmmo;
-    public bool allowHold;
-    public int bulletsLeft, bulletsShot;
+    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public int magazineSize, bulletsPerTap, totalAmmo;
+    public bool allowButtonHold;
+    int bulletsLeft, bulletsShot;
 
     // bools
-    public bool shooting, readyToFire, reloading;
+    bool shooting, readyToShoot, reloading, aiming;
 
-    // Text
-    public TextMeshProUGUI ammoText;
+    // Reference
+    public Camera fpsCam;
+    public Camera aimCam;
     public GameObject gun;
-    public Camera playerCam;
-    public PlayerMovementSM playsm;
     public Transform attackPoint;
-    public RaycastHit weaponHit;
-    public LayerMask WhatisEnemy, WhatisNPC;
+    public RaycastHit hit;
+    public LayerMask Enemy;
+    public PlayerMovementSM playsm;
+    public TextMeshProUGUI ammoText;
 
     private void Awake()
     {
-        bulletsLeft = magSize;
-        readyToFire = true;
+        bulletsLeft = magazineSize;
+        readyToShoot = true;
+        aiming = false;
     }
 
     private void Update()
     {
-        ammoText.text = magSize + (" / " + totalAmmo);
-
         InputCheck();
-        ResetShot();
-        ReloadFinished();
-        AmmoEmpty();
+
+        ammoText.SetText(bulletsLeft + " / " + totalAmmo);
     }
 
-    void InputCheck()
+    private void InputCheck()
     {
-        if (allowHold)
+        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading || Input.GetMouseButton(0) && bulletsLeft == 0 && !reloading)
         {
-            shooting = Input.GetKey(KeyCode.Mouse0);
-        }
-        else
-        {
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
+            ReloadGun();
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && magSize < totalAmmo && !reloading)
-        {
-            Reload();
-            playsm.anim.SetBool("reloading", true);
-            reloading = true;
-        }
-
-        if (readyToFire && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
             bulletsShot = bulletsPerTap;
-            FireWeapon();
+            ShootGun();
+        }
+
+        if (Input.GetMouseButton(1) && !aiming)
+        {
+            Aiming();
+            aiming = true;
+        }
+
+        if (Input.GetMouseButton(0) && aiming)
+        {
+            shooting = Input.GetMouseButton(0);
+            playsm.anim.SetBool("shoot", true);
+            shooting = true;
+        }
+
+        if (!Input.GetMouseButton(1) && aiming && Input.GetMouseButton(0))
+        {
+            aiming = false;
+            fpsCam.gameObject.SetActive(true);
+            aimCam.gameObject.SetActive(false);
+            playsm.anim.SetBool("aiming", false);
+        }
+
+        else if (!Input.GetMouseButton(1) && aiming)
+        {
+            fpsCam.gameObject.SetActive(true);
+            aimCam.gameObject.SetActive(false);
+            aiming = false;
+            playsm.anim.SetBool("aiming", false);
         }
     }
 
-    void FireWeapon()
+    private void ShootGun()
     {
-        readyToFire = false;
+        readyToShoot = false;
 
-        // Weapon spread
+        // Spread
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        // Calculate spread
-        Vector3 direction = playerCam.transform.forward + new Vector3(x, y, 0);
+        // Direction of spread
+        Vector3 direction = fpsCam.transform.forward + new Vector3(x, y, 0);
 
-        // Raycast Check
-        if (Physics.Raycast(playerCam.transform.position, direction, out weaponHit, range, WhatisEnemy))
+        if (Physics.Raycast(fpsCam.transform.position, direction, out hit, range, Enemy))
         {
-            Debug.Log(weaponHit.collider.name);
-        }
+            Debug.Log(hit.collider.name);
 
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                
+            }
+        }
         bulletsLeft--;
-        bulletsShot--;
-        magSize--;
 
-        Invoke("ResetShot", timeBetweenFire);
-
-        if (bulletsShot > 0 && bulletsLeft > 0)
+        if (bulletsShot == 0)
         {
-            Invoke("Shoot", timeBetweenShot);
+            bulletsShot += 1;
+        }
+
+        Invoke("ResetShot", timeBetweenShooting);
+
+        if(bulletsShot > 0 && bulletsLeft > 0)
+        {
+            Invoke("Shoot", timeBetweenShots);
         }
     }
 
-    void ResetShot()
+    private void ResetShot()
     {
-        readyToFire = true;
+        readyToShoot = true;
     }
 
-    void Reload()
+    private void ReloadGun()
     {
-        totalAmmo -= bulletsShot;
-        Invoke("ReloadFinished", reloadDelay);
+        playsm.anim.SetBool("reloading", true);
         reloading = true;
+        readyToShoot = false;
+        Invoke("ReloadFinished", reloadTime);
     }
 
-    void ReloadFinished()
+    private void ReloadFinished()
     {
-        ammoText.text = magSize + (" / " + totalAmmo);
-        magSize = 30;
-        bulletsLeft = 30;
+        bulletsLeft = magazineSize;
+        totalAmmo = bulletsLeft - bulletsShot;
         playsm.anim.SetBool("reloading", false);
-        playsm.anim.SetBool("shoot", true);
         reloading = false;
+        readyToShoot = true;
     }
 
-    void AmmoEmpty()
+    private void Aiming()
     {
-        if(magSize == 0 && totalAmmo == 0 && shooting || !shooting)
-        {
-            playsm.anim.SetBool("shoot", false);
-            shooting = false;
-            gun.SetActive(false);
-        }
+        fpsCam.gameObject.SetActive(false);
+        aimCam.gameObject.SetActive(true);
+        playsm.anim.SetBool("aiming", true);
     }
 }
