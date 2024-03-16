@@ -33,8 +33,19 @@ public class EnemyPatrol : EnemyBaseState
             esm.isPatrol = false;
         }
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) == 15)
+        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 15)
         {
+            enemyStateMachine.ChangeState(esm.chaseState);
+            esm.eAnim.SetBool("chase", true);
+            esm.isPatrol = false;
+            Debug.Log("CHASING PLAYER");
+        }
+
+        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 15 && esm.playsm.weapon.gunEquipped)
+        {
+            enemyStateMachine.ChangeState(esm.fireState);
+            esm.eAnim.SetBool("shoot", true);
+            esm.isPatrol = false;
             Debug.Log("ATTACKING");
         }
 

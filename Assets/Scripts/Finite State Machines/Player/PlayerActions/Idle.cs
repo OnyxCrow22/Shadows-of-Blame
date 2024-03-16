@@ -12,6 +12,8 @@ public class Idle : PlayerBaseState
         playsm = playerStateMachine;
     }
 
+    private Gun gun;
+
     public override void Enter()
     {
         base.Enter();
@@ -47,11 +49,19 @@ public class Idle : PlayerBaseState
             playsm.Jumping = true;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && playsm.weapon.gunEquipped == true)
         {
             playerStateMachine.ChangeState(playsm.firingState);
             playsm.anim.SetBool("shoot", true);
             playsm.isShooting = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1) && playsm.weapon.pressCount == 0)
+        {
+            playsm.weapon.ammoText.gameObject.SetActive(true);
+            playsm.weapon.gun.SetActive(true);
+            playsm.weapon.pressCount = 1;
+            playsm.weapon.gunEquipped = true;
         }
 
     }

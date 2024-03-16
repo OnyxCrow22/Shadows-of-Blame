@@ -6,12 +6,17 @@ public class Gun : MonoBehaviour
     // Gun statistics
     public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap, totalAmmo;
+    public int magazineSize, bulletsPerTap, totalAmmo, bullet;
     public bool allowButtonHold;
-    int bulletsLeft, bulletsShot, bullet;
+    int bulletsLeft, bulletsShot;
+
+    // Gun allowed actions
+    public int pressCount;
 
     // bools
     bool shooting, readyToShoot, reloading, aiming;
+    public bool gunEquipped;
+    bool pistol, rifle, shotgun;
 
     // Reference
     public Camera fpsCam;
@@ -39,12 +44,16 @@ public class Gun : MonoBehaviour
 
     private void InputCheck()
     {
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        if (allowButtonHold && gunEquipped) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading || Input.GetMouseButton(0) && bulletsLeft == 0 && !reloading)
         {
+            // Reloads the gun, takes the totalAmmo away from how many shots were fired, and resets the bullet and bulletsShot count to zero.
             ReloadGun();
+            totalAmmo -= bulletsShot;
+            bulletsShot = 0;
+            bullet = 0;
         }
 
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
@@ -55,18 +64,19 @@ public class Gun : MonoBehaviour
 
         if (Input.GetMouseButton(1) && !aiming)
         {
+            // Aims the gun.
             Aiming();
             aiming = true;
         }
 
-        if (Input.GetMouseButton(0) && aiming)
+        if (Input.GetMouseButton(0) && aiming && gunEquipped)
         {
             shooting = Input.GetMouseButton(0);
             playsm.anim.SetBool("shoot", true);
             shooting = true;
         }
 
-        if (!Input.GetMouseButton(1) && aiming && Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(1) && aiming && gunEquipped && Input.GetMouseButton(0))
         {
             aiming = false;
             fpsCam.gameObject.SetActive(true);
@@ -74,12 +84,20 @@ public class Gun : MonoBehaviour
             playsm.anim.SetBool("aiming", false);
         }
 
-        else if (!Input.GetMouseButton(1) && aiming)
+        else if (!Input.GetMouseButton(1) && aiming && gunEquipped)
         {
             fpsCam.gameObject.SetActive(true);
             aimCam.gameObject.SetActive(false);
             aiming = false;
             playsm.anim.SetBool("aiming", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2) && gunEquipped && pressCount == 1)
+        {
+            gun.SetActive(false);
+            gunEquipped = false;
+            pressCount = 0;
+            ammoText.gameObject.SetActive(false);
         }
     }
 
@@ -105,17 +123,12 @@ public class Gun : MonoBehaviour
         }
         bulletsLeft--;
 
-        bulletsShot = bulletsPerTap;
+        bulletsShot = bullet;
         bulletsShot++;
-        bulletsPerTap = bulletsShot;
+        bullet = bulletsShot;
 
 
         Invoke("ResetShot", timeBetweenShooting);
-
-        if(bulletsShot > 0 && bulletsLeft > 0)
-        {
-            Invoke("Shoot", timeBetweenShots);
-        }
     }
 
     private void ResetShot()
@@ -134,7 +147,6 @@ public class Gun : MonoBehaviour
     private void ReloadFinished()
     {
         bulletsLeft = magazineSize;
-        totalAmmo -= bulletsShot;
         playsm.anim.SetBool("reloading", false);
         reloading = false;
         readyToShoot = true;

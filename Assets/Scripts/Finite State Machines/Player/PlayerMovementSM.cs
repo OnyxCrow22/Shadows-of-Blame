@@ -18,9 +18,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool Crouched;
     public bool Jumping = false;
     public bool isShooting;
-    public bool gunEquipped;
 
-    // Scripts
     public Gun weapon;
 
     // States
