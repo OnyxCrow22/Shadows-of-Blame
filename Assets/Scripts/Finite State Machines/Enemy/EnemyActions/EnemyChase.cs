@@ -19,7 +19,7 @@ public class EnemyChase : EnemyBaseState
         base.UpdateLogic();
 
         // Is the player more than 20 metres away?
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 20)
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 15)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);

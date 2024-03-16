@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Waypoint
+  - Enemy
+  - NPC
   layers:
   - Default
   - TransparentFX
