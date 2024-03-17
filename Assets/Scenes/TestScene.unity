@@ -120,6 +120,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &16108271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8421246071731764814, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
+  m_PrefabInstance: {fileID: 8992838499148271374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &16108277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16108271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566faa7d9065a584988a8cf528a88572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 110
+  maxHealth: 110
+  healthLoss: 10
+  deadDuration: 10
+  enemy: {fileID: 16108271}
 --- !u!1 &110595964
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +943,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545345853}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300417, w: 0.65662634}
+  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300419, w: 0.65662634}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6167,12 +6189,12 @@ MonoBehaviour:
   maxHealth: 100
   healthLoss: 5
   protectedDuration: 1
-  deadDuration: 5
+  deadDuration: 8
   healthBar: {fileID: 1158665656}
   HUD: {fileID: 1331564826}
-  respawnPoints:
-  - {fileID: 1950620552}
+  respawnPoint: {fileID: 1950620553}
   Protected: 0
+  isDead: 0
 --- !u!1 &7241224279666375697
 GameObject:
   m_ObjectHideFlags: 0
@@ -8103,7 +8125,7 @@ PrefabInstance:
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: health
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7228513800591849298}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: playsm
       value: 
@@ -8112,6 +8134,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 3652696187346414900}
+    - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
+      propertyPath: eHealth
+      value: 
+      objectReference: {fileID: 16108277}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: waypoints.Array.size
       value: 10
@@ -8344,6 +8370,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8421246071731764814, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8524813405951762089, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0000000018626451
@@ -8483,7 +8513,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8421246071731764814, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 16108277}
   m_SourcePrefab: {fileID: 100100000, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
 --- !u!4 &9091041810008812811
 Transform:

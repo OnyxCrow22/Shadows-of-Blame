@@ -16,6 +16,8 @@ public class EnemyMovementSM : EnemyStateMachine
     public NavMeshAgent agent;
     [HideInInspector]
     public int destinations;
+    public PlayerHealth health;
+    public EnemyHealth eHealth;
 
     [HideInInspector]
     public EnemyIdle idleState;

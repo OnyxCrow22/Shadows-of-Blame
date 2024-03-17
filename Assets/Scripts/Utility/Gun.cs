@@ -135,9 +135,7 @@ public class Gun : MonoBehaviour
             Debug.Log(hit.collider.name);
 
             if (hit.collider.CompareTag("Enemy"))
-            {
-                Debug.Log("HIT!");
-            }
+                hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
         }
         bulletsLeft--;
 

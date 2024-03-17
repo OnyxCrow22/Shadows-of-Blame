@@ -26,7 +26,7 @@ public class EnemyMelee : EnemyBaseState
             esm.eAnim.SetBool("punching", false);
         }
 
-        esm.playsm.health.LoseHealth(esm.damage);
+        esm.health.LoseHealth();
     }
 
     public override void UpdatePhysics()

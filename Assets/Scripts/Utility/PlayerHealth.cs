@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health;
-    public float maxHealth;
-    public float healthLoss;
+    public float health = 100;
+    public float maxHealth = 100;
+    public float healthLoss = 10;
     public float protectedDuration;
     public float deadDuration;
     public Image healthBar;
     public GameObject HUD;
     private PlayerMovementSM playsm;
-    public GameObject[] respawnPoints;
-    public bool Protected;
+    public Transform respawnPoint;
+    public bool Protected, isDead;
 
     private void Start()
     {
         maxHealth = health;
+        isDead = false;
+        Protected = false;
     }
 
     private void Update()
@@ -26,7 +29,7 @@ public class PlayerHealth : MonoBehaviour
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
     }
 
-    public void LoseHealth(float healthLoss)
+    public void LoseHealth()
     {
         health -= healthLoss;
         StartCoroutine(ProtectionTimer());
@@ -39,7 +42,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Dead();
+            health = 0;
+            maxHealth = 0;
+            StartCoroutine(Dead());
         }
     }
 
@@ -50,18 +55,11 @@ public class PlayerHealth : MonoBehaviour
         Protected = false;
     }
 
-    public void Dead()
+    IEnumerator Dead()
     {
-        playsm.anim.SetBool("dead", true);
-        Time.timeScale = 0.5f;
-        Invoke("Dead", deadDuration);
-        int RandomIndex = Random.Range(0, respawnPoints.Length);
-
-        if (respawnPoints.Length == 0)
-        {
-            Time.timeScale = 1;
-            playsm.transform.position = respawnPoints[0].transform.position;
-            playsm.anim.SetBool("dead", false);
-        }
+        isDead = true;
+        yield return new WaitForSeconds(deadDuration);
+        isDead = false;
+        playsm.har.transform.position = respawnPoint.transform.position;
     }
 }
