@@ -13,9 +13,10 @@ public class PlayerHealth : MonoBehaviour
     public float deadDuration;
     public Image healthBar;
     public GameObject HUD;
-    private PlayerMovementSM playsm;
     public Transform respawnPoint;
     public bool Protected, isDead;
+
+    public PlayerMovementSM playsm;
 
     private void Start()
     {
@@ -57,9 +58,12 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Dead()
     {
+        playsm.anim.SetBool("dead", true);
         isDead = true;
         yield return new WaitForSeconds(deadDuration);
         isDead = false;
-        playsm.har.transform.position = respawnPoint.transform.position;
+        playsm.player.transform.position = respawnPoint.transform.position;
+        health = 100;
+        maxHealth = 100;
     }
 }
