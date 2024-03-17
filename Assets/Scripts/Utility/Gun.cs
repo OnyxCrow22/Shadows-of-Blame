@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using TMPro;
 
@@ -7,7 +8,7 @@ public class Gun : MonoBehaviour
     public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap, totalAmmo, bullet;
-    public bool allowButtonHold;
+    public bool allowButtonHold, aiming;
     int bulletsLeft, bulletsShot;
 
     // Gun allowed actions
@@ -16,7 +17,7 @@ public class Gun : MonoBehaviour
     float xRot = 0f;
 
     // bools
-    bool shooting, readyToShoot, reloading, aiming;
+    bool shooting, readyToShoot, reloading;
     public bool gunEquipped;
     bool pistol, rifle, shotgun;
 
@@ -24,6 +25,7 @@ public class Gun : MonoBehaviour
     public GameObject fpsCam;
     public GameObject aimCam;
     public GameObject gun;
+    public GameObject reticle;
     public Transform attackPoint;
     public RaycastHit hit;
     public LayerMask Enemy;

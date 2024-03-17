@@ -204,7 +204,7 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8049257644713398173}
-    m_Position: {x: 1320, y: -70, z: 0}
+    m_Position: {x: 1220, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8937493211918954940}
     m_Position: {x: 610, y: -20, z: 0}
@@ -213,10 +213,10 @@ AnimatorStateMachine:
     m_Position: {x: 430, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -9038148744361697415}
-    m_Position: {x: 950, y: 90, z: 0}
+    m_Position: {x: 930, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3320729486170981103}
-    m_Position: {x: 960, y: 160, z: 0}
+    m_Position: {x: 980, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1044271340480869070}
     m_Position: {x: 960, y: 340, z: 0}
@@ -490,7 +490,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Dead
+  - m_Name: dead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0

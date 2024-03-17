@@ -13,6 +13,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public Transform cam;
     public Transform groundCheck;
     public Transform player;
+    private string currentAnimState;
 
     // bools
     public bool Crouched;
@@ -20,6 +21,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool isShooting;
 
     public Gun weapon;
+    public PlayerHealth health;
 
     // States
     [HideInInspector]

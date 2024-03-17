@@ -21,7 +21,7 @@ public class Shoot : PlayerBaseState
     {
         base.UpdateLogic();
 
-        if (!Input.GetKey(KeyCode.Mouse0))
+        if (!Input.GetKey(KeyCode.Mouse0) && !playsm.weapon.aiming)
         {
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("shoot", false);

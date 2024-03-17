@@ -29,7 +29,7 @@ public class Idle : PlayerBaseState
         verticalInput = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        if (direction.magnitude >= 0.1f && playsm.weapon.aiming == false)
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Walking", true);
@@ -60,6 +60,7 @@ public class Idle : PlayerBaseState
         {
             playsm.weapon.ammoText.gameObject.SetActive(true);
             playsm.weapon.gun.SetActive(true);
+            playsm.weapon.reticle.SetActive(true);
             playsm.weapon.pressCount = 1;
             playsm.weapon.gunEquipped = true;
         }
