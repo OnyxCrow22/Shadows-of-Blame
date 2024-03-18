@@ -20,17 +20,37 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 5 && !esm.playsm.weapon.gunEquipped)
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 5 && !esm.playsm.weapon.gunEquipped && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("punching", false);
+            esm.attacking = false;
+            esm.dealDamage = false;
         }
 
-        esm.health.LoseHealth();
+        if (esm.attacking)
+        {
+            esm.health.LoseHealth();
+            esm.eHealth.ResetAttack();
+        }
+
+        if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
+        {
+            enemyStateMachine.ChangeState(esm.patrolState);
+            esm.eAnim.SetBool("punching", false);
+            esm.attacking = false;
+            esm.dealDamage = false;
+            esm.isPatrol = true;
+        }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
+        {
+            esm.agent.SetDestination(esm.ePoint.transform.position);
+        }
     }
 }

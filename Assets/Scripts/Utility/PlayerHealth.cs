@@ -45,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 0;
             maxHealth = 0;
+            healthBar.enabled = false;
             StartCoroutine(Dead());
         }
     }
@@ -62,8 +63,12 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         yield return new WaitForSeconds(deadDuration);
         isDead = false;
+        playsm.anim.SetBool("dead", false);
         playsm.player.transform.position = respawnPoint.transform.position;
+        Physics.SyncTransforms();
+        healthBar.color = Color.clear;
         health = 100;
         maxHealth = 100;
+        healthBar.enabled = true;
     }
 }

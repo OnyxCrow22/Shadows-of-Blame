@@ -24,12 +24,15 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);
             esm.isPatrol = true;
+            esm.attacking = false;
         }
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5 && !esm.playsm.weapon.gunEquipped)
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5 && !esm.playsm.weapon.gunEquipped && !esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);
+            esm.attacking = true;
+            esm.dealDamage = true;
         }
     }
 

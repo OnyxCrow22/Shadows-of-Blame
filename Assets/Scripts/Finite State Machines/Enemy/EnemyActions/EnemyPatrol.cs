@@ -47,6 +47,7 @@ public class EnemyPatrol : EnemyBaseState
             esm.eAnim.SetBool("shoot", true);
             esm.isPatrol = false;
             Debug.Log("ATTACKING");
+            esm.shoot = true;
         }
 
         void GoToNextPoint()
