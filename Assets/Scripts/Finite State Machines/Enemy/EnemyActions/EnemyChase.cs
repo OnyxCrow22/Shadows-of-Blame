@@ -18,8 +18,8 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdateLogic();
 
-        // Is the player more than 20 metres away?
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 15)
+        // Is the player NOT in the FOV view?
+        if (esm.eFOV.alertLevel == 0)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);
@@ -27,7 +27,13 @@ public class EnemyChase : EnemyBaseState
             esm.attacking = false;
         }
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5 && !esm.playsm.weapon.gunEquipped && !esm.attacking)
+        if (esm.eHealth.health <= 50)
+        {
+            esm.eAnim.SetBool("injuredRun", true);
+            enemyStateMachine.ChangeState(esm.coverState);
+        }
+
+        if (esm.eFOV.alertLevel == 100 && !esm.playsm.weapon.gunEquipped && !esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);

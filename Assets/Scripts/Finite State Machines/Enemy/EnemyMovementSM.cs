@@ -25,6 +25,7 @@ public class EnemyMovementSM : EnemyStateMachine
     // Scripts
     public PlayerHealth health;
     public EnemyHealth eHealth;
+    public EnemyFOV eFOV;
 
     [HideInInspector]
     public EnemyIdle idleState;
@@ -36,6 +37,8 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyShoot fireState;
     [HideInInspector]
     public EnemyMelee meleeState;
+    [HideInInspector]
+    public EnemyCover coverState;
 
     private void Awake()
     {
@@ -44,6 +47,7 @@ public class EnemyMovementSM : EnemyStateMachine
         chaseState = new EnemyChase(this);
         fireState = new EnemyShoot(this);
         meleeState = new EnemyMelee(this);
+        coverState = new EnemyCover(this);
     }
 
     protected override EnemyBaseState GetInitialState()

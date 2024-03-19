@@ -20,9 +20,17 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 5 && !esm.playsm.weapon.gunEquipped && esm.attacking)
+        if (esm.eFOV.alertLevel == 100 && !esm.playsm.weapon.gunEquipped && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
+            esm.eAnim.SetBool("punching", false);
+            esm.attacking = false;
+            esm.dealDamage = false;
+        }
+
+        if (esm.eFOV.alertLevel == 0)
+        {
+            enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("punching", false);
             esm.attacking = false;
             esm.dealDamage = false;

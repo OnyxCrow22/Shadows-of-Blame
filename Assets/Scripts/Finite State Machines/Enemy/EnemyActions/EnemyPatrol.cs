@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
+
 
 public class EnemyPatrol : EnemyBaseState
 {
@@ -26,14 +28,14 @@ public class EnemyPatrol : EnemyBaseState
             GoToNextPoint();
         }
 
-        if(Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 40)
+        if(esm.eFOV.alertLevel == 0)
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
             esm.isPatrol = false;
         }
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 15)
+        if (!esm.playsm.weapon.gunEquipped && esm.eFOV.alertLevel == 100)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -41,7 +43,7 @@ public class EnemyPatrol : EnemyBaseState
             Debug.Log("CHASING PLAYER");
         }
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 15 && esm.playsm.weapon.gunEquipped)
+        if (esm.playsm.weapon.gunEquipped && esm.eFOV.alertLevel == 100)
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
@@ -60,5 +62,10 @@ public class EnemyPatrol : EnemyBaseState
             esm.agent.destination = esm.waypoints[esm.destinations].position;
             esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
         }
+    }
+
+    public void AlertSystem()
+    {
+        
     }
 }
