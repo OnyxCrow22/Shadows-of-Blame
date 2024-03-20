@@ -21,9 +21,11 @@ public class EnemyMovementSM : EnemyStateMachine
     public float distance;
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
-    public LayerMask HidableLayers;
+    public LayerMask hidableLayers;
     [HideInInspector]
     public int destinations;
+
+    public Collider[] cols = new Collider[10];
 
     // Scripts
     public PlayerHealth health;

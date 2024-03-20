@@ -42,6 +42,11 @@ public class EnemyMelee : EnemyBaseState
             esm.eHealth.ResetAttack();
         }
 
+        if (esm.eHealth.health <= 65)
+        {
+            enemyStateMachine.ChangeState(esm.coverState);
+        }
+
         if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.patrolState);

@@ -13,6 +13,7 @@ public class EnemyCoverSystem : MonoBehaviour
     public LoseSightEvent lostSight;
 
     private Coroutine CheckFOVCoroutine;
+    private Coroutine MovementCoroutine;
 
     private void Awake()
     {
@@ -59,6 +60,24 @@ public class EnemyCoverSystem : MonoBehaviour
         while (!CheckForFOV(target))
         {
             yield return wait;
+        }
+    }
+
+    public void HandleGainSight(Transform target)
+    {
+        if (MovementCoroutine != null)
+        {
+            StopCoroutine(MovementCoroutine);
+        }
+
+        MovementCoroutine = StartCoroutine(GetComponent<EnemyCover>().HideIntoCover(target));
+    }
+
+    public void HandleLostSight(Transform target)
+    {
+        if (MovementCoroutine != null)
+        {
+            StopCoroutine(MovementCoroutine);
         }
     }
 }
