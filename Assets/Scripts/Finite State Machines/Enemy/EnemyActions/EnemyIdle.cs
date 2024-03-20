@@ -20,7 +20,7 @@ public class EnemyIdle : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if(Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 40)
+        if(esm.eFOV.alertLevel > 0)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);

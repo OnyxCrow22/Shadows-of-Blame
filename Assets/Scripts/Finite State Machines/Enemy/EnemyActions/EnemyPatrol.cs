@@ -63,9 +63,4 @@ public class EnemyPatrol : EnemyBaseState
             esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
         }
     }
-
-    public void AlertSystem()
-    {
-        
-    }
 }

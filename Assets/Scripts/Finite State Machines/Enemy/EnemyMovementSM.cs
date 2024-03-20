@@ -13,12 +13,15 @@ public class EnemyMovementSM : EnemyStateMachine
     public Animator eAnim;
     public float damage;
     public float attackDelay = 1.2f;
+    [Range(-1, 1)]
+    public float hideSensitivty = 0;
     public Transform enemy;
     public Transform[] waypoints;
     public Transform ePoint;
     public float distance;
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
+    public LayerMask HidableLayers;
     [HideInInspector]
     public int destinations;
 
@@ -26,6 +29,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public PlayerHealth health;
     public EnemyHealth eHealth;
     public EnemyFOV eFOV;
+    public EnemyCoverSystem eCover;
 
     [HideInInspector]
     public EnemyIdle idleState;

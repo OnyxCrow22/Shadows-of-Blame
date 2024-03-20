@@ -19,6 +19,11 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
+        if (esm.eHealth.health <= 65)
+        {
+            enemyStateMachine.ChangeState(esm.coverState);
+        }
     }
 
     public override void UpdatePhysics()
