@@ -27,8 +27,6 @@ public class EnemyCover : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-
-        HideIntoCover(esm.agent.transform);
     }
 
     public IEnumerator HideIntoCover(Transform target)
@@ -46,15 +44,19 @@ public class EnemyCover : EnemyBaseState
 
             for (int i = 0; i < hits; i++)
             {
+                // Samples the position from any collider in the array.
                 if (NavMesh.SamplePosition(esm.cols[i].transform.position, out NavMeshHit hit, 2f, esm.agent.areaMask))
                 {
+                    // Cannot find closestEdge
                     if (!NavMesh.FindClosestEdge(hit.position, out hit, esm.agent.areaMask))
                     {
                         Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit.position}. THIS IS ATTEMPT 1 OF 2");
                     }
 
+                    // Finds the distance between the target and the hit position of the raycast.
                     if (Vector3.Dot(hit.normal, (target.position - hit.position).normalized) < esm.hideSensitivty)
                     {
+                        // Set the destination to the RayCastHit position.
                         esm.agent.SetDestination(hit.position);
                         break;
                     }
@@ -95,6 +97,7 @@ public class EnemyCover : EnemyBaseState
         }
         else
         {
+            // Compares the distance between Collider A and B.
             return Vector3.Distance(esm.agent.transform.position, A.transform.position).CompareTo(Vector3.Distance(esm.agent.transform.position, B.transform.position));
         }
     }

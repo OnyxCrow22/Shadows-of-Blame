@@ -28,14 +28,14 @@ public class EnemyPatrol : EnemyBaseState
             GoToNextPoint();
         }
 
-        if(esm.eFOV.alertLevel == 0)
+        if(Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 40)
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && esm.eFOV.alertLevel == 100)
+        if (!esm.playsm.weapon.gunEquipped && Vector3.Distance(esm.target.position, esm.enemy.transform.position) <= 10)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -43,7 +43,7 @@ public class EnemyPatrol : EnemyBaseState
             Debug.Log("CHASING PLAYER");
         }
 
-        if (esm.playsm.weapon.gunEquipped && esm.eFOV.alertLevel == 100)
+        if (esm.playsm.weapon.gunEquipped && Vector3.Distance(esm.target.position, esm.enemy.transform.position) <= 5)
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);

@@ -20,7 +20,7 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if (esm.eFOV.alertLevel == 100 && !esm.playsm.weapon.gunEquipped && esm.attacking)
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) >= 5 && !esm.playsm.weapon.gunEquipped && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("punching", false);
@@ -28,7 +28,7 @@ public class EnemyMelee : EnemyBaseState
             esm.dealDamage = false;
         }
 
-        if (esm.eFOV.alertLevel == 0)
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 20)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("punching", false);
@@ -42,11 +42,14 @@ public class EnemyMelee : EnemyBaseState
             esm.eHealth.ResetAttack();
         }
 
+        // Is the enemy's health below or equal to 65 HP?
         if (esm.eHealth.health <= 65)
         {
             enemyStateMachine.ChangeState(esm.coverState);
+            Debug.Log("DIVING INTO COVER!");
         }
 
+        // Player dead
         if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
@@ -61,6 +64,7 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdatePhysics();
 
+        //Move the enemy away from the player.
         if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
         {
             esm.agent.SetDestination(esm.ePoint.transform.position);

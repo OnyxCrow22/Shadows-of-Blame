@@ -18,22 +18,26 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdateLogic();
 
-        // Is the player NOT in the FOV view?
-        if (esm.eFOV.alertLevel == 0)
+        // Is the player more than or equal to 20 metres away from the enemy?
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) >= 20)
         {
+            // Enemy is patrolling
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);
             esm.isPatrol = true;
             esm.attacking = false;
         }
 
+        // Is the enemy's health below or equal to 50 HP?
         if (esm.eHealth.health <= 50)
         {
+            // Enemy is injured
             esm.eAnim.SetBool("injuredRun", true);
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
-        if (esm.eFOV.alertLevel == 100 && !esm.playsm.weapon.gunEquipped && !esm.attacking)
+        // Is the player less than three metres from the enemy?
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);
@@ -46,10 +50,13 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdatePhysics();
 
+        // Agent moves to the player
         esm.agent.SetDestination(esm.target.position);
 
+        // Finds the distance between the enemy and the player
         Vector3 direction = esm.target.position - esm.enemy.transform.position;
 
+        // Turns the enemy to face towards the player.
         esm.enemy.transform.rotation = Quaternion.Slerp(esm.enemy.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
     }
 }

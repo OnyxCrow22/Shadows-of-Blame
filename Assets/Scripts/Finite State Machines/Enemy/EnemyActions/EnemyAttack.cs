@@ -29,5 +29,11 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        // Finds the distance between the enemy and the player
+        Vector3 direction = esm.target.position - esm.enemy.transform.position;
+
+        // Turns the enemy to face towards the player.
+        esm.enemy.transform.rotation = Quaternion.Slerp(esm.enemy.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
     }
 }
