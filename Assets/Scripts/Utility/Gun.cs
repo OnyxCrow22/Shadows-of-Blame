@@ -99,6 +99,7 @@ public class Gun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2) && gunEquipped && pressCount == 1)
         {
             gun.SetActive(false);
+            reticle.SetActive(false);
             gunEquipped = false;
             pressCount = 0;
             ammoText.gameObject.SetActive(false);

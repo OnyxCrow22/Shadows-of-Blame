@@ -14,23 +14,25 @@ public class EnemyCoverSystem : MonoBehaviour
 
     private Coroutine CheckFOVCoroutine;
     private Coroutine MovementCoroutine;
+    private EnemyMovementSM esm;
 
     private void Awake()
     {
         sCol = GetComponent<SphereCollider>();
+        esm = GetComponent<EnemyMovementSM>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!CheckForFOV(other.transform))
         {
-            CheckFOVCoroutine = StartCoroutine(CheckForFieldOV(other.transform));
+            CheckFOVCoroutine = StartCoroutine(CheckForFieldOV(esm.enemy.transform));
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        lostSight?.Invoke(other.transform);
+        lostSight?.Invoke(esm.enemy.transform);
         if (CheckFOVCoroutine != null)
         {
             StopCoroutine(CheckFOVCoroutine);
@@ -39,13 +41,13 @@ public class EnemyCoverSystem : MonoBehaviour
 
     private bool CheckForFOV(Transform target)
     {
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        float dotProduct = Vector3.Dot(transform.forward, direction);
+        Vector3 direction = (esm.agent.transform.position - target.transform.position).normalized;
+        float dotProduct = Vector3.Dot(esm.enemy.transform.forward, direction);
         if (dotProduct >= Mathf.Cos(FOV))
         {
-            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, sCol.radius, LineofSight))
+            if (Physics.Raycast(esm.target.transform.position, direction, out RaycastHit hit, sCol.radius, LineofSight))
             {
-                sighted?.Invoke(target);
+                sighted?.Invoke(esm.enemy.transform);
                 return true;
             }
         }
@@ -57,7 +59,7 @@ public class EnemyCoverSystem : MonoBehaviour
     {
         WaitForSeconds wait = new WaitForSeconds(0.5f);
 
-        while (!CheckForFOV(target))
+        while (!CheckForFOV(esm.enemy.transform))
         {
             yield return wait;
         }
@@ -70,7 +72,7 @@ public class EnemyCoverSystem : MonoBehaviour
             StopCoroutine(MovementCoroutine);
         }
 
-        MovementCoroutine = StartCoroutine(GetComponent<EnemyCover>().HideIntoCover(target));
+        MovementCoroutine = StartCoroutine(GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform));
     }
 
     public void HandleLostSight(Transform target)

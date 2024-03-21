@@ -38,14 +38,14 @@ public class EnemyMelee : EnemyBaseState
 
         if (esm.attacking)
         {
-            esm.health.LoseHealth();
+            esm.health.LoseHealth(esm.health.healthLoss);
             esm.eHealth.ResetAttack();
         }
 
         // Is the enemy's health below or equal to 65 HP?
         if (esm.eHealth.health <= 65)
         {
-            enemyStateMachine.ChangeState(esm.coverState);
+            esm.GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform);
             Debug.Log("DIVING INTO COVER!");
         }
 

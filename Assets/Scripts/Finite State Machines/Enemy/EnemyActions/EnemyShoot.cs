@@ -22,9 +22,17 @@ public class EnemyShoot : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            enemyStateMachine.ChangeState(esm.coverState);
+            esm.GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform);
+        }
+
+        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 5)
+        {
+            enemyStateMachine.ChangeState(esm.chaseState);
+            esm.eAnim.SetBool("chase", true);
         }
     }
+
+
 
     public override void UpdatePhysics()
     {

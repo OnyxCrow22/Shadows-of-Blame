@@ -48,8 +48,14 @@ public class EnemyPatrol : EnemyBaseState
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
             esm.isPatrol = false;
-            Debug.Log("ATTACKING");
+            Debug.Log("FIRING GUN!");
             esm.shoot = true;
+        }
+
+        if (esm.eHealth.health <= 65)
+        {
+            esm.GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform);
+            Debug.Log("HIDING!");
         }
 
         void GoToNextPoint()

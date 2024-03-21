@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
     }
 
-    public void LoseHealth()
+    public void LoseHealth(float healthLoss)
     {
         health -= healthLoss;
         StartCoroutine(ProtectionTimer());
