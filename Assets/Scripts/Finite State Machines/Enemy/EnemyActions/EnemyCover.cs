@@ -13,6 +13,11 @@ public class EnemyCover : EnemyBaseState
         esm = enemyStateMachine;
     }
 
+    public void Awake()
+    {
+        esm.RandomIndex = Random.Range(0, esm.cols.Length);
+    }
+
     public override void Enter()
     {
         base.Enter();
@@ -21,11 +26,19 @@ public class EnemyCover : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        esm.agent.SetDestination(esm.cols[esm.RandomIndex].transform.position);
+
+        if(esm.agent.remainingDistance == 0)
+        {
+            esm.agent.isStopped = true;
+        }
 
     }
 

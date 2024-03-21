@@ -32,6 +32,7 @@ public class EnemyMelee : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("punching", false);
+            esm.agent.isStopped = false;
             esm.attacking = false;
             esm.dealDamage = false;
         }
@@ -45,7 +46,7 @@ public class EnemyMelee : EnemyBaseState
         // Is the enemy's health below or equal to 65 HP?
         if (esm.eHealth.health <= 65)
         {
-            esm.GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform);
+            enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("DIVING INTO COVER!");
         }
 
@@ -54,6 +55,7 @@ public class EnemyMelee : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("punching", false);
+            esm.agent.isStopped = false;
             esm.attacking = false;
             esm.dealDamage = false;
             esm.isPatrol = true;

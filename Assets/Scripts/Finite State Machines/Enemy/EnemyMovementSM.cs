@@ -19,11 +19,12 @@ public class EnemyMovementSM : EnemyStateMachine
     public Transform[] waypoints;
     public Transform ePoint;
     public float distance;
+    public int RandomIndex;
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
     public LayerMask hidableLayers;
     [HideInInspector]
-    public int destinations;
+    public int destinations; 
 
     public Collider[] cols = new Collider[10];
 
@@ -89,10 +90,11 @@ public class EnemyMovementSM : EnemyStateMachine
                     }
 
                     // Finds the distance between the target and the hit position of the raycast.
-                    if (Vector3.Dot(hit.normal, (agent.transform.position - hit.position).normalized) < hideSensitivty)
+                    if (Vector3.Dot(hit.normal, (target.position - hit.position).normalized) < hideSensitivty)
                     {
                         // Set the destination to the RayCastHit position.
                         agent.SetDestination(hit.position);
+                        agent.isStopped = true;
                         Debug.Log($"DIVERTING TO {hit.position}!");
                         break;
                     }
@@ -105,9 +107,10 @@ public class EnemyMovementSM : EnemyStateMachine
                                 Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit2.position} (THIS IS ATTEMPT 2 OF 2");
                             }
 
-                            if (Vector3.Dot(hit2.normal, (agent.transform.position - hit2.position).normalized) < hideSensitivty)
+                            if (Vector3.Dot(hit2.normal, (target.transform.position - hit2.position).normalized) < hideSensitivty)
                             {
                                 agent.SetDestination(hit2.position);
+                                agent.isStopped = true;
                                 Debug.Log($"DIVERTING TO {hit2.position}!");
                                 break;
                             }

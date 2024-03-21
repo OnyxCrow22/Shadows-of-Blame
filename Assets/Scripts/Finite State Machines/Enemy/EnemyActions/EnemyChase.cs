@@ -26,6 +26,7 @@ public class EnemyChase : EnemyBaseState
             esm.eAnim.SetBool("patrolling", true);
             esm.isPatrol = true;
             esm.attacking = false;
+            esm.agent.isStopped = false;
         }
 
         // Is the enemy's health below or equal to 50 HP?
@@ -43,6 +44,7 @@ public class EnemyChase : EnemyBaseState
             esm.eAnim.SetBool("punching", true);
             esm.attacking = true;
             esm.dealDamage = true;
+            esm.agent.isStopped = true;
         }
     }
 

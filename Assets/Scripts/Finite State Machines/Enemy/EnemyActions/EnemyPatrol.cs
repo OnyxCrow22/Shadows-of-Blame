@@ -54,7 +54,7 @@ public class EnemyPatrol : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            esm.GetComponent<EnemyMovementSM>().HideIntoCover(esm.enemy.transform);
+            enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
         }
 
