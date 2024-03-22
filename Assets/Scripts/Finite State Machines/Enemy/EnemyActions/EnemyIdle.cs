@@ -18,9 +18,12 @@ public class EnemyIdle : EnemyBaseState
 
     public override void UpdateLogic()
     {
+        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float PatrolDist = 20;
+
         base.UpdateLogic();
 
-        if(Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 20)
+        if(DistToPlayer <= PatrolDist)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);

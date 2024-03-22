@@ -20,6 +20,8 @@ public class EnemyMovementSM : EnemyStateMachine
     public Transform ePoint;
     public float distance;
     public int RandomIndex;
+    [HideInInspector]
+    public Collider coverObj;
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
     public LayerMask hidableLayers;
@@ -63,6 +65,12 @@ public class EnemyMovementSM : EnemyStateMachine
     protected override EnemyBaseState GetInitialState()
     {
         return idleState;
+    }
+
+    public void RandomIndexCheck()
+    {
+        RandomIndex = Random.Range(0, cols.Length);
+        coverObj = cols[RandomIndex];
     }
 
     public IEnumerator HideIntoCover(Transform target)

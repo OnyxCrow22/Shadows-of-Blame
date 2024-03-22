@@ -18,8 +18,12 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdateLogic();
 
+        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float PatrolDist = 20;
+        float MeleeDist = 10;
+
         // Is the player more than or equal to 20 metres away from the enemy?
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) >= 20)
+        if (DistToPlayer >= PatrolDist)
         {
             // Enemy is patrolling
             enemyStateMachine.ChangeState(esm.patrolState);
@@ -37,11 +41,12 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
-        // Is the player less than three metres from the enemy?
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5)
+        // Is the player less than five metres from the enemy?
+        if (DistToPlayer <= MeleeDist && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);
+            esm.isPatrol = false;
             esm.attacking = true;
             esm.dealDamage = true;
             esm.agent.isStopped = true;

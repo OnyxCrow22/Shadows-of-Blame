@@ -13,20 +13,25 @@ public class EnemyCover : EnemyBaseState
         esm = enemyStateMachine;
     }
 
-    public void Awake()
-    {
-        esm.RandomIndex = Random.Range(0, esm.cols.Length);
-    }
-
     public override void Enter()
     {
         base.Enter();
+
+        esm.RandomIndexCheck();
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
+        if (esm.agent.remainingDistance <= esm.agent.stoppingDistance)
+        {
+            enemyStateMachine.ChangeState(esm.idleState);
+            esm.eAnim.SetBool("patrolling", false);
+            esm.isPatrol = false;
+            esm.agent.isStopped = true;
+            Debug.Log("REACHED DESTINATION!");
+        }
     }
 
     public override void UpdatePhysics()
@@ -34,11 +39,6 @@ public class EnemyCover : EnemyBaseState
         base.UpdatePhysics();
 
         esm.agent.SetDestination(esm.cols[esm.RandomIndex].transform.position);
-
-        if(esm.agent.remainingDistance == 0)
-        {
-            esm.agent.isStopped = true;
-        }
 
     }
 

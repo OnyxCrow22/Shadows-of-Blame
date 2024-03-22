@@ -19,14 +19,19 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float ChaseDist = 5;
 
         if (esm.eHealth.health <= 65)
         {
             enemyStateMachine.ChangeState(esm.coverState);
-            Debug.Log($"running to hide!");
+            Debug.Log($"running to hide! Heading to {esm.coverObj}");
+            esm.eAnim.SetBool("shoot", false);
+            esm.shoot = false;
+            esm.attacking = false;
         }
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) < 5)
+        if (DistToPlayer >= ChaseDist)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);

@@ -23,19 +23,24 @@ public class EnemyPatrol : EnemyBaseState
     {
         base.UpdateLogic();
 
+        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float IdleDist = 40;
+        float ChaseDist = 10;
+        float ShootDist = 5;
+
         if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5)
         {
             GoToNextPoint();
         }
 
-        if(Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 40)
+        if(DistToPlayer >= IdleDist)
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && Vector3.Distance(esm.target.position, esm.enemy.transform.position) <= 10)
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -43,7 +48,7 @@ public class EnemyPatrol : EnemyBaseState
             Debug.Log("CHASING PLAYER");
         }
 
-        if (esm.playsm.weapon.gunEquipped && Vector3.Distance(esm.target.position, esm.enemy.transform.position) <= 5)
+        if (esm.playsm.weapon.gunEquipped && DistToPlayer <= ShootDist)
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);

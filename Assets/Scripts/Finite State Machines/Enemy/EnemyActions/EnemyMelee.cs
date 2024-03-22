@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMelee : EnemyBaseState
 {
     private EnemyMovementSM esm;
+    
 
     public EnemyMelee(EnemyMovementSM enemyStateMachine) : base("Punch", enemyStateMachine)
     {
@@ -20,18 +21,23 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) >= 5 && !esm.playsm.weapon.gunEquipped && esm.attacking)
+        float distToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float ChaseDist = 10;
+        float PatrolDist = 20;
+
+        if (distToPlayer >= ChaseDist && !esm.playsm.weapon.gunEquipped && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
-            esm.eAnim.SetBool("punching", false);
+            esm.eAnim.SetBool("chase", true);
             esm.attacking = false;
             esm.dealDamage = false;
+            esm.agent.isStopped = false;
         }
 
-        if (Vector3.Distance(esm.target.position, esm.enemy.transform.position) > 20)
+        if (distToPlayer >= PatrolDist && esm.attacking)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
-            esm.eAnim.SetBool("punching", false);
+            esm.eAnim.SetBool("patrolling", true);
             esm.agent.isStopped = false;
             esm.attacking = false;
             esm.dealDamage = false;
@@ -51,10 +57,10 @@ public class EnemyMelee : EnemyBaseState
         }
 
         // Player dead
-        if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
+        if (esm.health.health == 0 && esm.health.maxHealth == 0)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
-            esm.eAnim.SetBool("punching", false);
+            esm.eAnim.SetBool("patrolling", true);
             esm.agent.isStopped = false;
             esm.attacking = false;
             esm.dealDamage = false;
@@ -65,6 +71,12 @@ public class EnemyMelee : EnemyBaseState
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        // Finds the distance between the enemy and the player
+        Vector3 direction = esm.target.position - esm.enemy.transform.position;
+
+        // Turns the enemy to face towards the player.
+        esm.enemy.transform.rotation = Quaternion.Slerp(esm.enemy.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
 
         //Move the enemy away from the player.
         if (esm.health.health == 0 && esm.health.maxHealth == 0 && esm.attacking)
