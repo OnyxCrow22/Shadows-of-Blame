@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyChase : EnemyBaseState
@@ -18,12 +19,13 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdateLogic();
 
-        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
-        float PatrolDist = 20;
-        float MeleeDist = 10;
+
+        RaycastHit chaseHit;
+        float rayLength = 10f;
+        Ray chaseRay = new Ray(esm.FOV.transform.position, Vector3.forward);
 
         // Is the player more than or equal to 20 metres away from the enemy?
-        if (DistToPlayer >= PatrolDist)
+        if (!Physics.Raycast(chaseRay, out chaseHit, rayLength))
         {
             // Enemy is patrolling
             enemyStateMachine.ChangeState(esm.patrolState);
@@ -42,7 +44,7 @@ public class EnemyChase : EnemyBaseState
         }
 
         // Is the player less than five metres from the enemy?
-        if (DistToPlayer <= MeleeDist && esm.attacking)
+        if (Physics.Raycast(chaseRay, out chaseHit, rayLength))
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);

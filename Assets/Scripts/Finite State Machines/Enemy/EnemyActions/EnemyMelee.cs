@@ -25,7 +25,7 @@ public class EnemyMelee : EnemyBaseState
         float ChaseDist = 10;
         float PatrolDist = 20;
 
-        if (distToPlayer >= ChaseDist && !esm.playsm.weapon.gunEquipped && esm.attacking)
+        if (distToPlayer >= ChaseDist && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -34,7 +34,7 @@ public class EnemyMelee : EnemyBaseState
             esm.agent.isStopped = false;
         }
 
-        if (distToPlayer >= PatrolDist && esm.attacking)
+        if (distToPlayer >= PatrolDist)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);

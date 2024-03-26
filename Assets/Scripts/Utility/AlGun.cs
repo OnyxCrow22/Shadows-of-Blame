@@ -14,9 +14,10 @@ public class AlGun : MonoBehaviour
     bool readyToShoot, reloading;
 
     // Reference
+    public GameObject FOV;
     public GameObject eGun;
     public GameObject target;
-    public RaycastHit eHit;
+    RaycastHit eHit;
     public LayerMask Player;
     public EnemyMovementSM esm;
 
@@ -41,11 +42,13 @@ public class AlGun : MonoBehaviour
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        Vector3 direction = target.transform.forward + new Vector3(x, y, 0);
+        Ray gunHit = new Ray(transform.position, Vector3.forward);
 
-        if (Physics.Raycast(target.transform.position, direction, out eHit, range, Player))
+        if (Physics.Raycast(gunHit, out eHit, range, Player))
         {
             Debug.Log(eHit.collider.name);
+
+            Debug.DrawRay(transform.position, Vector3.forward * range, Color.green);
 
             if (eHit.collider.CompareTag("Player"))
             {

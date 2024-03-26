@@ -22,6 +22,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public int RandomIndex;
     [HideInInspector]
     public Collider coverObj;
+    public GameObject FOV;
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
     public LayerMask hidableLayers;

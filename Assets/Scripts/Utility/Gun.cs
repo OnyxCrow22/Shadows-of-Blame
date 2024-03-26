@@ -27,7 +27,8 @@ public class Gun : MonoBehaviour
     public GameObject gun;
     public GameObject reticle;
     public Transform attackPoint;
-    public RaycastHit hit;
+    RaycastHit hit;
+    public GameObject weapBullet;
     public LayerMask Enemy;
     public PlayerMovementSM playsm;
     public TextMeshProUGUI ammoText;
@@ -138,6 +139,7 @@ public class Gun : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
         }
+        Instantiate(weapBullet, attackPoint.position, Quaternion.identity);
         bulletsLeft--;
 
         bulletsShot = bullet;

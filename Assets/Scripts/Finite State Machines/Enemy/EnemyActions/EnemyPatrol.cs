@@ -25,22 +25,24 @@ public class EnemyPatrol : EnemyBaseState
 
         float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
         float IdleDist = 40;
-        float ChaseDist = 10;
-        float ShootDist = 5;
+
+        RaycastHit patrolHit;
+        float rayLength = 10f;
+        Ray patrolRay = new Ray(esm.FOV.transform.position, Vector3.forward);
 
         if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5)
         {
             GoToNextPoint();
         }
 
-        if(DistToPlayer >= IdleDist)
+        if (DistToPlayer >= IdleDist)
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist && esm.isPatrol)
+        if (!esm.playsm.weapon.gunEquipped && Physics.Raycast(patrolRay, out patrolHit, rayLength))
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -48,7 +50,7 @@ public class EnemyPatrol : EnemyBaseState
             Debug.Log("CHASING PLAYER");
         }
 
-        if (esm.playsm.weapon.gunEquipped && DistToPlayer <= ShootDist && esm.isPatrol)
+        if (esm.playsm.weapon.gunEquipped && Physics.Raycast(patrolRay, out patrolHit, rayLength))
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
