@@ -51,6 +51,7 @@ public class AlGun : MonoBehaviour
             {
                 PlayerHealth pHealth = eHit.collider.GetComponent<PlayerHealth>();
                 pHealth.LoseHealth(esm.health.healthLoss);
+                Debug.Log($"You was hit by {esm.enemy}");
             }
         }
         bulletsLeft--;

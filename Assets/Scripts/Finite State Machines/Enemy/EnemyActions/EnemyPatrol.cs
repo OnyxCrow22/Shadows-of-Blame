@@ -40,7 +40,7 @@ public class EnemyPatrol : EnemyBaseState
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist)
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist && esm.isPatrol)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -48,7 +48,7 @@ public class EnemyPatrol : EnemyBaseState
             Debug.Log("CHASING PLAYER");
         }
 
-        if (esm.playsm.weapon.gunEquipped && DistToPlayer <= ShootDist)
+        if (esm.playsm.weapon.gunEquipped && DistToPlayer <= ShootDist && esm.isPatrol)
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);

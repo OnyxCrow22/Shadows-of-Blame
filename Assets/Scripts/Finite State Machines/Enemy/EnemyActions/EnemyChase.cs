@@ -47,7 +47,6 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);
             esm.isPatrol = false;
-            esm.attacking = true;
             esm.dealDamage = true;
             esm.agent.isStopped = true;
         }
