@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public Transform player;
+    public Transform target;
+    public float offsetX, offsetZ;
+    public float lerpSpeed;
 
-    private void Update()
+    private void LateUpdate()
     {
         MinimapFollow();
     }
 
     void MinimapFollow()
     {
-        Vector3 newPos = player.position;
-        newPos.y = transform.position.y;
-        transform.position = newPos;
-
-        transform.rotation = Quaternion.Euler(90f, player.eulerAngles.y, 0f);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(target.position.x + offsetX, transform.position.y, target.position.z + offsetZ), lerpSpeed);
     }
 }

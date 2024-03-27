@@ -18,7 +18,7 @@ public class DoorSight : MonoBehaviour
         Ray doorRay = new Ray(transform.position, transform.forward);
         Debug.DrawRay(transform.position, transform.forward, Color.blue);
         RaycastHit doorHit;
-        float RayLength = 2;
+        float RayLength = 4;
         if (Physics.Raycast(doorRay, out doorHit, RayLength))
         {
             if (doorHit.collider.gameObject.tag == "Door")
