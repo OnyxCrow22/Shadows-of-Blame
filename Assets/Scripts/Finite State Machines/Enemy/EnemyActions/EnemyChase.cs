@@ -43,6 +43,7 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
+        /*
         // Is the player less than five metres from the enemy?
         if (Physics.Raycast(chaseRay, out chaseHit, rayLength))
         {
@@ -52,6 +53,7 @@ public class EnemyChase : EnemyBaseState
             esm.dealDamage = true;
             esm.agent.isStopped = true;
         }
+        */
     }
 
     public override void UpdatePhysics()

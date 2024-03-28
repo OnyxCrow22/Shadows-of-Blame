@@ -45,8 +45,8 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyChase chaseState;
     [HideInInspector]
     public EnemyShoot fireState;
-    [HideInInspector]
-    public EnemyMelee meleeState;
+    //[HideInInspector]
+    //public EnemyMelee meleeState;
     [HideInInspector]
     public EnemyCover coverState;
 
@@ -56,7 +56,7 @@ public class EnemyMovementSM : EnemyStateMachine
         patrolState = new EnemyPatrol(this);
         chaseState = new EnemyChase(this);
         fireState = new EnemyShoot(this);
-        meleeState = new EnemyMelee(this);
+        //meleeState = new EnemyMelee(this);
         coverState = new EnemyCover(this);
 
         eCover.sighted += eCover.HandleGainSight;
