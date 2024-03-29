@@ -12,17 +12,15 @@ public class CarController : MonoBehaviour
     public float motorForce;
     public float brakeForce;
 
-    [Header("Wheels")]
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
 
-    [Header("Car transforms")]
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
 
     public bool braking = false;
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         GetInput();
         Steer();
@@ -33,10 +31,10 @@ public class CarController : MonoBehaviour
 
     public void GetInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
+        horizontalInput = -Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) && !braking)
+        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.S)) && !braking)
         {
             Brake();
         }
@@ -53,12 +51,26 @@ public class CarController : MonoBehaviour
     {
         frontDriverW.motorTorque = verticalInput * motorForce;
         frontPassengerW.motorTorque = verticalInput * motorForce;
+        rearDriverW.motorTorque = verticalInput * motorForce;
+        rearPassengerW.motorTorque = verticalInput * motorForce;
     }
 
     private void Brake()
     {
-        frontDriverW.brakeTorque = brakeForce;
-        frontPassengerW.brakeTorque = brakeForce;
+        if (braking)
+        {
+            frontDriverW.brakeTorque = brakeForce;
+            frontPassengerW.brakeTorque = brakeForce;
+            rearDriverW.brakeTorque = brakeForce;
+            rearPassengerW.brakeTorque = brakeForce;
+        }
+        else
+        {
+            frontDriverW.brakeTorque = 0f;
+            frontPassengerW.brakeTorque = 0f;
+            rearDriverW.brakeTorque = 0f;
+            rearPassengerW.brakeTorque = 0f;
+        }
     }
 
     private void UpdateWheelPoses()
@@ -69,11 +81,14 @@ public class CarController : MonoBehaviour
         UpdateWheelPose(rearPassengerW, rearPassengerT);
     }
 
-    private void UpdateWheelPose(WheelCollider wCol, Transform vTransform)
+    private void UpdateWheelPose(WheelCollider wCol, Transform vtransform)
     {
-        Vector3 position = vTransform.position;
-        Quaternion quaternion = vTransform.rotation;
+        Vector3 carPos;
+        Quaternion carQuat;
 
-        wCol.GetWorldPose(out position, out quaternion);
+        wCol.GetWorldPose(out carPos, out carQuat);
+
+        vtransform.transform.position = carPos;
+        vtransform.transform.rotation = carQuat;
     }
 }
