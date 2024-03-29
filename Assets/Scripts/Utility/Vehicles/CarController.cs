@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -11,6 +12,10 @@ public class CarController : MonoBehaviour
     public float maxSteeringAngle;
     public float motorForce;
     public float brakeForce;
+    public float maxSpeed;
+
+    public Rigidbody target;
+    public TextMeshProUGUI speedText;
 
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
@@ -29,15 +34,27 @@ public class CarController : MonoBehaviour
         UpdateWheelPoses();
     }
 
+    private void Update()
+    {
+        UpdateSpeed();
+    }
+
     public void GetInput()
     {
-        horizontalInput = -Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = -Input.GetAxisRaw("Vertical");
 
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.S)) && !braking)
         {
             Brake();
         }
+    }
+
+    private void UpdateSpeed()
+    {
+        float currentSpeed = target.velocity.magnitude * 2.23694f;
+
+        speedText.text = currentSpeed.ToString("00" + " MPH");
     }
 
     private void Steer()
