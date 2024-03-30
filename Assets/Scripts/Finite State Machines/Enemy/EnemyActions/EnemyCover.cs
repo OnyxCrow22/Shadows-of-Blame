@@ -21,8 +21,6 @@ public class EnemyCover : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-
-        esm.ecMaster.HideIntoCover(esm.enemy);
     }
 
     public override void UpdatePhysics()

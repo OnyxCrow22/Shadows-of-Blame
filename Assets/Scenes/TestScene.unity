@@ -181,6 +181,16 @@ MonoBehaviour:
   eCover: {fileID: 1556380324}
   enemy: {fileID: 16108287}
   hideSensitivity: 0
+  cols:
+  - {fileID: 45214648}
+  - {fileID: 180041130}
+  - {fileID: 109449784}
+  - {fileID: 1167549667}
+  - {fileID: 1542089989}
+  - {fileID: 906450649}
+  - {fileID: 1089500236}
+  - {fileID: 1541972331}
+  - {fileID: 78456242}
 --- !u!1 &45214647
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class EnemyCoverMaster : MonoBehaviour
     public NavMeshAgent enemy;
     [Range(-1, 1f)] public float hideSensitivity;
     private Coroutine MovementCoroutine;
-    private Collider[] cols = new Collider[10];
+    public Collider[] cols = new Collider[10];
 
     private void Awake()
     {
@@ -36,63 +36,58 @@ public class EnemyCoverMaster : MonoBehaviour
         }
     }
 
-    public IEnumerator HideIntoCover(Transform target)
+    private IEnumerator HideIntoCover(Transform target)
     {
-        bool CoverFound = false;
-
-        for (int i = 0; i < cols.Length; i++)
+        while (true)
         {
-            cols[i] = null;
-        }
-
-        int hits = Physics.OverlapSphereNonAlloc(enemy.transform.position, eCover.sCol.radius, cols, hidableLayers);
-
-        System.Array.Sort(cols, ColliderArraySortComparer);
-
-        for (int i = 0; i < hits; i++)
-        {
-            // Samples the position from any collider in the array.
-            if (NavMesh.SamplePosition(cols[i].transform.position, out NavMeshHit hit, 2f, enemy.areaMask))
+            for (int i = 0; i < cols.Length; i++)
             {
-                // Cannot find closestEdge
-                if (!NavMesh.FindClosestEdge(hit.position, out hit, enemy.areaMask))
-                {
-                    Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit.position}. THIS IS ATTEMPT 1 OF 2");
-                }
+                cols[i] = null;
+            }
 
-                // Finds the distance between the target and the hit position of the raycast.
-                if (Vector3.Dot(hit.normal, (target.position - hit.position).normalized) < hideSensitivity)
+            int hits = Physics.OverlapSphereNonAlloc(enemy.transform.position, eCover.sCol.radius, cols, hidableLayers);
+
+            System.Array.Sort(cols, ColliderArraySortComparer);
+
+            for (int i = 0; i < hits; i++)
+            {
+                // Samples the position from any collider in the array.
+                if (NavMesh.SamplePosition(cols[i].transform.position, out NavMeshHit hit, 2f, enemy.areaMask))
                 {
-                    // Set the destination to the RayCastHit position.
-                    enemy.SetDestination(hit.position);
-                    Debug.Log($"DIVERTING TO {hit.position}!");
-                    CoverFound = true;
-                    break;
-                }
-                else
-                {
-                    if (NavMesh.SamplePosition(cols[i].transform.position, out NavMeshHit hit2, 2f, enemy.areaMask))
+                    // Cannot find closestEdge
+                    if (!NavMesh.FindClosestEdge(hit.position, out hit, enemy.areaMask))
                     {
-                        if (!NavMesh.FindClosestEdge(hit2.position, out hit2, enemy.areaMask))
-                        {
-                            Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit2.position} (THIS IS ATTEMPT 2 OF 2");
-                        }
+                        Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit.position}. THIS IS ATTEMPT 1 OF 2");
+                    }
 
-                        if (Vector3.Dot(hit2.normal, (target.transform.position - hit2.position).normalized) < hideSensitivity)
+                    // Finds the distance between the target and the hit position of the raycast.
+                    if (Vector3.Dot(hit.normal, (target.position - hit.position).normalized) < hideSensitivity)
+                    {
+                        // Set the destination to the RayCastHit position.
+                        enemy.SetDestination(hit.position);
+                        Debug.Log($"DIVERTING TO {hit.position}!");
+                        break;
+                    }
+                    else
+                    {
+                        if (NavMesh.SamplePosition(cols[i].transform.position - (target.position - hit.position).normalized * 2, out NavMeshHit hit2, 2f, enemy.areaMask))
                         {
-                            enemy.SetDestination(hit2.position);
-                            Debug.Log($"DIVERTING TO {hit2.position}!");
-                            CoverFound = true;
-                            yield break;
+                            if (!NavMesh.FindClosestEdge(hit2.position, out hit2, enemy.areaMask))
+                            {
+                                Debug.LogError($"UNABLE TO FIND EDGE CLOSE TO {hit2.position} (THIS IS ATTEMPT 2 OF 2");
+                            }
+
+                            if (Vector3.Dot(hit2.normal, (target.transform.position - hit2.position).normalized) < hideSensitivity)
+                            {
+                                enemy.SetDestination(hit2.position);
+                                Debug.Log($"DIVERTING TO {hit2.position}!");
+                                break;
+                            }
                         }
                     }
                 }
+                Debug.Log($"Unable to find any colliders at {cols[i].name}");
                 yield return null;
-            }
-
-            if (CoverFound)
-            {
-                break;
             }
         }
     }
