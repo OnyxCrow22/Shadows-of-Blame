@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyCover : EnemyBaseState
 {
-    private EnemyMovementSM esm;
+    EnemyMovementSM esm;
+    EnemyCoverMaster coverMast;
 
     public EnemyCover(EnemyMovementSM enemyStateMachine) : base("Cover", enemyStateMachine)
     {
@@ -16,25 +16,27 @@ public class EnemyCover : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+        coverMast = new EnemyCoverMaster();
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
+        coverMast.HandleGainSight(esm.enemy);
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
     }
 }
 
-public class EnemyCoverMaster : MonoBehaviour
+class EnemyCoverMaster : MonoBehaviour
 {
-    private Coroutine MovementCoroutine;
-    private Collider[] cols = new Collider[10];
-    private EnemyMovementSM esm;
+    Coroutine MovementCoroutine;
+    Collider[] cols = new Collider[10];
+    EnemyMovementSM esm;
 
     public void HandleGainSight(Transform target)
     {

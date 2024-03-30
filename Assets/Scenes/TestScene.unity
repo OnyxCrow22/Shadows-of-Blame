@@ -158,39 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3739c087b3edf744da271fd405200357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!195 &16108287 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 2496931245938280707, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
-  m_PrefabInstance: {fileID: 8992838499148271374}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &16108289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 16108271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a8a719bd896dc46a7138fc8ba93b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hidableLayers:
-    serializedVersion: 2
-    m_Bits: 512
-  eCover: {fileID: 1556380324}
-  enemy: {fileID: 16108287}
-  hideSensitivity: 0
-  cols:
-  - {fileID: 45214648}
-  - {fileID: 180041130}
-  - {fileID: 109449784}
-  - {fileID: 1167549667}
-  - {fileID: 1542089989}
-  - {fileID: 906450649}
-  - {fileID: 1089500236}
-  - {fileID: 1541972331}
-  - {fileID: 78456242}
 --- !u!1 &45214647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 545345853}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300419, w: 0.65662634}
+  m_LocalRotation: {x: 0.14839198, y: -0.7212845, z: 0.16300417, w: 0.65662634}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10057,7 +10024,7 @@ PrefabInstance:
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: ecMaster
       value: 
-      objectReference: {fileID: 16108289}
+      objectReference: {fileID: 0}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: eCoverMove
       value: 
@@ -10121,6 +10088,10 @@ PrefabInstance:
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: waypoints.Array.size
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
+      propertyPath: hideableLayers.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
@@ -10503,9 +10474,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8421246071731764814, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 16108277}
-    - targetCorrespondingSourceObject: {fileID: 8421246071731764814, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 16108289}
   m_SourcePrefab: {fileID: 100100000, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
 --- !u!1 &9099892898670226617
 GameObject:

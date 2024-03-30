@@ -31,7 +31,6 @@ public class EnemyMovementSM : EnemyStateMachine
     public PlayerHealth health;
     public EnemyHealth eHealth;
     public EnemyCoverSystem eCover;
-    public EnemyCoverMaster ecMaster;
     public AlGun eGun;
 
     [HideInInspector]
