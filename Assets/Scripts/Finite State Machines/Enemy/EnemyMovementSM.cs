@@ -21,7 +21,11 @@ public class EnemyMovementSM : EnemyStateMachine
     public PlayerMovementSM playsm;
     public NavMeshAgent agent;
     [HideInInspector]
-    public int destinations; 
+    public int destinations;
+
+    public LayerMask hideableLayers;
+    [Range(-1, 1)]
+    public float HideSensitvity;
 
     // Scripts
     public PlayerHealth health;

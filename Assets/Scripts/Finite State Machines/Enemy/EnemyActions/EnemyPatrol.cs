@@ -62,7 +62,7 @@ public class EnemyPatrol : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            esm.ecMaster.HandleGainSight(esm.enemy);
+            enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
         }
 

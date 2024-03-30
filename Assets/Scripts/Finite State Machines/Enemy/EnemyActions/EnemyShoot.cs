@@ -24,7 +24,7 @@ public class EnemyShoot : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            esm.ecMaster.HandleGainSight(esm.enemy);
+            enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
             esm.eAnim.SetBool("shoot", false);
             esm.shoot = false;

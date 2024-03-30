@@ -39,8 +39,7 @@ public class EnemyChase : EnemyBaseState
         {
             // Enemy is injured
             esm.eAnim.SetBool("injuredRun", true);
-            esm.ecMaster.HandleGainSight(esm.enemy);
-            Debug.Log("HIDING!");
+            enemyStateMachine.ChangeState(esm.coverState);
         }
 
         /*
