@@ -1,27 +1,29 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 
 public class Gun : MonoBehaviour
 {
-    // Gun statistics
+    [Header("Gun Statistics")]
     public int damage;
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap, totalAmmo, bullet;
     public bool allowButtonHold, aiming;
     int bulletsLeft, bulletsShot;
+    public int bulletSpeed;
 
-    // Gun allowed actions
+    [Header("Gun allowed actions")]
     public int pressCount;
     float aimSens = 100f;
     float xRot = 0f;
 
-    // bools
+    [Header("Booleans")]
     bool shooting, readyToShoot, reloading;
     public bool gunEquipped;
     bool pistol, rifle, shotgun;
 
-    // Reference
+    [Header("Gun References")]
     public GameObject fpsCam;
     public GameObject aimCam;
     public GameObject gun;
@@ -52,18 +54,21 @@ public class Gun : MonoBehaviour
         if (allowButtonHold && gunEquipped) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading || Input.GetMouseButton(0) && bulletsLeft == 0 && !reloading)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading || Input.GetKey(KeyCode.Mouse0) && bulletsLeft == 0 && !reloading)
         {
             // Reloads the gun, takes the totalAmmo away from how many shots were fired, and resets the bullet and bulletsShot count to zero.
             ReloadGun();
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("reloading");
             totalAmmo -= bulletsShot;
             bulletsShot = 0;
             bullet = 0;
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && gunEquipped && shooting && !reloading && bulletsLeft > 0)
         {
             bulletsShot = bulletsPerTap;
+            AudioManager.manager.Play("shootGun");
             ShootGun();
         }
 
@@ -74,26 +79,16 @@ public class Gun : MonoBehaviour
             aiming = true;
         }
 
-        if (Input.GetMouseButton(0) && aiming && gunEquipped)
+        if (Input.GetKey(KeyCode.Mouse0) && shooting && aiming && gunEquipped)
         {
-            shooting = Input.GetMouseButton(0);
             playsm.anim.SetBool("shoot", true);
-            shooting = true;
-        }
+        } 
 
-        if (!Input.GetMouseButton(1) && aiming && gunEquipped && Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(1) && aiming && gunEquipped)
         {
             aiming = false;
             fpsCam.gameObject.SetActive(true);
             aimCam.gameObject.SetActive(false);
-            playsm.anim.SetBool("aiming", false);
-        }
-
-        else if (!Input.GetMouseButton(1) && aiming && gunEquipped)
-        {
-            fpsCam.gameObject.SetActive(true);
-            aimCam.gameObject.SetActive(false);
-            aiming = false;
             playsm.anim.SetBool("aiming", false);
         }
 
@@ -109,15 +104,13 @@ public class Gun : MonoBehaviour
         if (aiming && gunEquipped)
         {
             float mouseX = Input.GetAxis("Mouse X") * aimSens * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * aimSens * Time.deltaTime;
+            playsm.transform.Rotate(Vector3.up * mouseX);
 
+            float mouseY = Input.GetAxis("Mouse Y") * aimSens * Time.deltaTime;
             xRot -= mouseY;
             xRot = Mathf.Clamp(xRot, -90, 90);
 
             aimCam.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
-            playsm.transform.Rotate(Vector3.up * mouseX);
-
-
         }
     }
 
@@ -139,7 +132,12 @@ public class Gun : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
         }
-        Instantiate(weapBullet, attackPoint.position, Quaternion.identity);
+        GameObject newBullet =  Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
+        Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
+
+        Vector3 bulletVel = direction.normalized * bulletSpeed;
+        bulletRB.velocity = bulletVel;
+
         bulletsLeft--;
 
         bulletsShot = bullet;
@@ -167,6 +165,7 @@ public class Gun : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         playsm.anim.SetBool("reloading", false);
+        AudioManager.manager.Stop("reloading");
         reloading = false;
         readyToShoot = true;
     }

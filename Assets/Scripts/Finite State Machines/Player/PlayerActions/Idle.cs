@@ -32,6 +32,7 @@ public class Idle : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Walking", true);
+            AudioManager.manager.Play("walk");
             playsm.speed = 3;
         }
         if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == false)
@@ -62,6 +63,7 @@ public class Idle : PlayerBaseState
             playsm.weapon.reticle.SetActive(true);
             playsm.weapon.pressCount = 1;
             playsm.weapon.gunEquipped = true;
+            AudioManager.manager.Play("equipGun");
         }
 
     }

@@ -16,29 +16,18 @@ public class EnemyCover : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
-
-        esm.RandomIndexCheck();
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        if (esm.agent.remainingDistance <= esm.agent.stoppingDistance)
-        {
-            enemyStateMachine.ChangeState(esm.idleState);
-            esm.eAnim.SetBool("patrolling", false);
-            esm.isPatrol = false;
-            esm.agent.isStopped = true;
-            Debug.Log("REACHED DESTINATION!");
-        }
+        esm.ecMaster.HideIntoCover(esm.enemy);
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        esm.agent.SetDestination(esm.cols[esm.RandomIndex].transform.position);
 
     }
 

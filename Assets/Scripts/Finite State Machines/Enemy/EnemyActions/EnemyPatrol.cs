@@ -52,6 +52,7 @@ public class EnemyPatrol : EnemyBaseState
 
         if (esm.playsm.weapon.gunEquipped && Physics.Raycast(patrolRay, out patrolHit, rayLength))
         {
+            esm.eGun.gameObject.SetActive(true);
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
             esm.isPatrol = false;
@@ -61,7 +62,7 @@ public class EnemyPatrol : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            enemyStateMachine.ChangeState(esm.coverState);
+            esm.ecMaster.HandleGainSight(esm.enemy);
             Debug.Log("HIDING!");
         }
 

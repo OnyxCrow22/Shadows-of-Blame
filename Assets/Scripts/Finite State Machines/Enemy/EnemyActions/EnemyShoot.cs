@@ -24,8 +24,8 @@ public class EnemyShoot : EnemyBaseState
 
         if (esm.eHealth.health <= 65)
         {
-            enemyStateMachine.ChangeState(esm.coverState);
-            Debug.Log($"running to hide! Heading to {esm.coverObj}");
+            esm.ecMaster.HandleGainSight(esm.enemy);
+            Debug.Log("HIDING!");
             esm.eAnim.SetBool("shoot", false);
             esm.shoot = false;
             esm.attacking = false;
@@ -37,6 +37,7 @@ public class EnemyShoot : EnemyBaseState
             esm.eAnim.SetBool("chase", true);
             esm.attacking = false;
             esm.shoot = false;
+            esm.eGun.gameObject.SetActive(false);
             esm.agent.isStopped = false;
         }
     }

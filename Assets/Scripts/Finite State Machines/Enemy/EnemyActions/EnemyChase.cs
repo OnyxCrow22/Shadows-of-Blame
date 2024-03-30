@@ -19,7 +19,6 @@ public class EnemyChase : EnemyBaseState
     {
         base.UpdateLogic();
 
-
         RaycastHit chaseHit;
         float rayLength = 10f;
         Ray chaseRay = new Ray(esm.FOV.transform.position, Vector3.forward);
@@ -40,7 +39,8 @@ public class EnemyChase : EnemyBaseState
         {
             // Enemy is injured
             esm.eAnim.SetBool("injuredRun", true);
-            enemyStateMachine.ChangeState(esm.coverState);
+            esm.ecMaster.HandleGainSight(esm.enemy);
+            Debug.Log("HIDING!");
         }
 
         /*

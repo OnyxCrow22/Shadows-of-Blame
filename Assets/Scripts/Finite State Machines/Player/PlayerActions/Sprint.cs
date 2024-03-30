@@ -47,6 +47,8 @@ public class Sprint : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             playsm.anim.SetBool("Sprinting", false);
+            AudioManager.manager.Stop("sprinting");
+            AudioManager.manager.Play("walk");
             playsm.speed = 3;
         }
     }

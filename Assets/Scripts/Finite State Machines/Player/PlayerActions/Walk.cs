@@ -46,11 +46,14 @@ public class Walk : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.idleState);
             playsm.anim.SetBool("Walking", false);
+            AudioManager.manager.Stop("walk");
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             playerStateMachine.ChangeState(playsm.runningState);
             playsm.anim.SetBool("Sprinting", true);
+            AudioManager.manager.Play("sprinting");
+            AudioManager.manager.Stop("walk");
             playsm.speed = 8;
         }
     }
