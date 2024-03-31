@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class AlGun : MonoBehaviour
 {
     // AI Gun Statistics
     public float damage;
-    public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
+    public float timeBetweenShooting, spread, range = 30f, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap, totalAmmo, bullet;
     int bulletsLeft;
 
@@ -17,7 +18,7 @@ public class AlGun : MonoBehaviour
     public GameObject FOV;
     public GameObject eGun;
     public GameObject target;
-    RaycastHit eHit;
+    public GameObject enemyCam;
     public LayerMask Player;
     public EnemyMovementSM esm;
 
@@ -38,26 +39,34 @@ public class AlGun : MonoBehaviour
     private void ShootGun()
     {
         readyToShoot = false;
-        Invoke("ResetShot", timeBetweenShooting);
+
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        Ray gunHit = new Ray(transform.position, Vector3.forward);
+        RaycastHit eHit;
+        float rayLength = range;
 
-        if (Physics.Raycast(gunHit, out eHit, range, Player))
+        Vector3 playerPos = esm.target.transform.position - esm.enemyCam.transform.position;
+
+        playerPos.Normalize();
+
+        Ray shootRay = new Ray(esm.enemyCam.transform.position, playerPos);
+
+        if (Physics.Raycast(shootRay, out eHit, range, Player))
         {
             Debug.Log(eHit.collider.name);
 
-            Debug.DrawRay(transform.position, Vector3.forward * range, Color.green);
-
             if (eHit.collider.CompareTag("Player"))
-            {
-                PlayerHealth pHealth = eHit.collider.GetComponent<PlayerHealth>();
-                pHealth.LoseHealth(esm.health.healthLoss);
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(eHit.point, 20f);
+
+                eHit.collider.GetComponent<PlayerHealth>().LoseHealth(esm.health.healthLoss);
                 Debug.Log($"You was hit by {esm.enemy}");
-            }
         }
         bulletsLeft--;
+
+        Invoke("ResetShot", timeBetweenShooting);
 
         if (bulletsLeft <= 0)
         {

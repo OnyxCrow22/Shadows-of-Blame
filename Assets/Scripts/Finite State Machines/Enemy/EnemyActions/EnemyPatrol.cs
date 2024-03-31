@@ -27,8 +27,8 @@ public class EnemyPatrol : EnemyBaseState
         float IdleDist = 40;
 
         RaycastHit patrolHit;
-        float rayLength = 10f;
-        Ray patrolRay = new Ray(esm.FOV.transform.position, Vector3.forward);
+        float rayLength = 20f;
+        Ray patrolRay = new Ray(esm.enemyCam.transform.position, Vector3.forward);
 
         if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5)
         {
@@ -46,6 +46,7 @@ public class EnemyPatrol : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
+            esm.isChasing = true;
             esm.isPatrol = false;
             Debug.Log("CHASING PLAYER");
         }
@@ -57,12 +58,14 @@ public class EnemyPatrol : EnemyBaseState
             esm.eAnim.SetBool("shoot", true);
             esm.isPatrol = false;
             Debug.Log("FIRING GUN!");
-            esm.shoot = true;
+            esm.isShooting = true;
         }
 
         if (esm.eHealth.health <= 65)
         {
             enemyStateMachine.ChangeState(esm.coverState);
+            esm.isPatrol = false;
+            esm.isHiding = true;
             Debug.Log("HIDING!");
         }
 

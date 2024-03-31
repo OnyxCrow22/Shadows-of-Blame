@@ -24,21 +24,23 @@ public class EnemyChase : EnemyBaseState
         Ray chaseRay = new Ray(esm.FOV.transform.position, Vector3.forward);
 
         // Is the player more than or equal to 20 metres away from the enemy?
-        if (!Physics.Raycast(chaseRay, out chaseHit, rayLength))
+        if (!Physics.Raycast(chaseRay, out chaseHit, rayLength) && !esm.playsm.weapon.gunEquipped)
         {
             // Enemy is patrolling
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);
             esm.isPatrol = true;
-            esm.attacking = false;
+            esm.isChasing = false;
             esm.agent.isStopped = false;
         }
 
         // Is the enemy's health below or equal to 50 HP?
-        if (esm.eHealth.health <= 50)
+        if (esm.eHealth.health <= 65)
         {
             // Enemy is injured
             esm.eAnim.SetBool("injuredRun", true);
+            esm.isChasing = false;
+            esm.isHiding = true;
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
@@ -48,9 +50,8 @@ public class EnemyChase : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.eAnim.SetBool("punching", true);
-            esm.isPatrol = false;
-            esm.dealDamage = true;
-            esm.agent.isStopped = true;
+            esm.isChasing = false;
+            esm.isMeleeAttack = true;
         }
         */
     }

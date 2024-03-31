@@ -23,7 +23,7 @@ public class EnemyIdle : EnemyBaseState
 
         base.UpdateLogic();
 
-        if(DistToPlayer <= PatrolDist)
+        if(DistToPlayer <= PatrolDist && !esm.isHiding)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);

@@ -66,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
         playsm.anim.SetBool("dead", false);
         playsm.player.transform.position = respawnPoint.transform.position;
         Physics.SyncTransforms();
-        healthBar.color = Color.clear;
+        healthBar.color = default;
         health = 100;
         maxHealth = 100;
         healthBar.enabled = true;

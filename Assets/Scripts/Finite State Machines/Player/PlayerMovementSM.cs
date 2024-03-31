@@ -13,7 +13,6 @@ public class PlayerMovementSM : PlayerStateMachine
     public Transform cam;
     public Transform groundCheck;
     public Transform player;
-    public GameObject FOV;
 
     // bools
     public bool Crouched;

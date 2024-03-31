@@ -19,26 +19,36 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
-        float ChaseDist = 5;
+        RaycastHit shootHit;
+        Ray shootRay = new Ray(esm.FOV.transform.position, Vector3.forward);
 
         if (esm.eHealth.health <= 65)
         {
             enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
             esm.eAnim.SetBool("shoot", false);
-            esm.shoot = false;
-            esm.attacking = false;
+            esm.eAnim.SetBool("patrolling", true);
+            esm.isShooting = false;
+            esm.isHiding = true;
         }
 
-        if (DistToPlayer >= ChaseDist)
+        if (!Physics.Raycast(shootRay, out shootHit) && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
-            esm.attacking = false;
-            esm.shoot = false;
+            esm.isChasing = true;
+            esm.isShooting = false;
             esm.eGun.gameObject.SetActive(false);
             esm.agent.isStopped = false;
+        }
+
+        if (esm.health.health <= 0)
+        {
+            enemyStateMachine.ChangeState(esm.patrolState);
+            esm.eAnim.SetBool("shoot", false);
+            esm.eAnim.SetBool("playerDead", true);
+            esm.isShooting = false;
+            esm.isPatrol = true;
         }
     }
 
@@ -47,6 +57,8 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        esm.enemy.LookAt(esm.target);
 
         // Finds the distance between the enemy and the player
         Vector3 direction = esm.target.position - esm.enemy.transform.position;

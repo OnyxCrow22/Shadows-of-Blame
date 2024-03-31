@@ -125,7 +125,7 @@ public class Gun : MonoBehaviour
         // Direction of spread
         Vector3 direction = aimCam.transform.forward + new Vector3(x, y, 0);
 
-        if (Physics.Raycast(aimCam.transform.position, direction, out hit, range, Enemy))
+        if (Physics.Raycast(aimCam.transform.position, direction, out hit, range, Enemy) || (Physics.Raycast(aimCam.transform.position, direction, out hit, range)))
         {
             Debug.Log(hit.collider.name);
 
