@@ -20,6 +20,7 @@ public class AlGun : MonoBehaviour
     public GameObject target;
     public GameObject enemyCam;
     public LayerMask Player;
+    private RaycastHit eHit;
     public EnemyMovementSM esm;
 
     private void Awake()
@@ -39,32 +40,25 @@ public class AlGun : MonoBehaviour
     private void ShootGun()
     {
         readyToShoot = false;
-
+        Invoke("ResetShot", timeBetweenShooting);
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        RaycastHit eHit;
-        float rayLength = range;
+        Ray gunHit = new Ray(transform.position, Vector3.forward);
 
-        Vector3 playerPos = esm.target.transform.position - esm.enemyCam.transform.position;
-
-        playerPos.Normalize();
-
-        Ray shootRay = new Ray(esm.enemyCam.transform.position, playerPos);
-
-        if (Physics.Raycast(shootRay, out eHit, range, Player))
+        if (Physics.Raycast(gunHit, out eHit, range, Player))
         {
             Debug.Log(eHit.collider.name);
 
+            Debug.DrawRay(transform.position, Vector3.forward * range, Color.green);
+
             if (eHit.collider.CompareTag("Player"))
-
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(eHit.point, 20f);
-
-                eHit.collider.GetComponent<PlayerHealth>().LoseHealth(esm.health.healthLoss);
+            {
+                PlayerHealth pHealth = eHit.collider.GetComponent<PlayerHealth>();
+                pHealth.LoseHealth(esm.health.healthLoss);
                 Debug.Log($"You was hit by {esm.enemy}");
+            }
         }
-        bulletsLeft--;
 
         Invoke("ResetShot", timeBetweenShooting);
 

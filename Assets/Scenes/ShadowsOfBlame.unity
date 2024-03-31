@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3505.4487, g: 3529.3657, b: 3660.7896, a: 1}
+  m_IndirectSpecularColor: {r: 3077.3496, g: 2898.5813, b: 2553.3284, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1712,6 +1712,63 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4438565898557856198, guid: ce9c313885293604d8cfbcf09de8dbb0, type: 3}
+--- !u!1001 &260671744
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 125.65671
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 24.045645
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2842.8682
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9576473
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.28794384
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 33.47
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
+      propertyPath: m_Name
+      value: OlympiaEntourage (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1ec4e4e5e91c35b4faf0825a49e2c90e, type: 3}
 --- !u!64 &341527525
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2236,7 +2293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 2.2590415
+  m_Intensity: 1.9556537
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -2358,7 +2415,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.2590415
+  m_Intensity: 1.9556537
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2401,7 +2458,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 19142.422
+  m_ColorTemperature: 18783.365
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: NaN, y: NaN, z: NaN, w: NaN}
   m_UseBoundingSphereOverride: 0
@@ -2416,7 +2473,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445055149}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.8241262, y: 0, z: 0, w: -0.56640637}
+  m_LocalRotation: {x: 0.87249607, y: 0, z: 0, w: -0.48862115}
   m_LocalPosition: {x: 72.560455, y: 27.96277, z: -4022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4248,7 +4305,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 71566.51
+  m_Intensity: 67825.96
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4291,7 +4348,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 9626.371
+  m_ColorTemperature: 9193.667
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 1.8906681e+30, z: 4.71e-43, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -4306,7 +4363,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072641131}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.56640625, y: 0, z: 0, w: 0.8241262}
+  m_LocalRotation: {x: 0.4886212, y: 0, z: 0, w: 0.872496}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4325,7 +4382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 71566.51
+  m_Intensity: 67825.96
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -4879,7 +4936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4704109afb30d7b4488cfd95333249de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTime: 10.6
+  currentTime: 9.9
   timeSpeed: 0.005
   time: {fileID: 402498648}
   currentTimeString: 
@@ -17831,7 +17888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &8454506173751619756
 GameObject:
   m_ObjectHideFlags: 0
@@ -18714,3 +18771,4 @@ SceneRoots:
   - {fileID: 1289375465}
   - {fileID: 1645693767}
   - {fileID: 9080590981490304696}
+  - {fileID: 260671744}
