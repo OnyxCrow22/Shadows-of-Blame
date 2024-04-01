@@ -19,8 +19,7 @@ public class EnemyShoot : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        RaycastHit shootHit;
-        Ray shootRay = new Ray(esm.FOV.transform.position, Vector3.forward);
+        float DistToPlayer = Vector3.Distance(esm.enemy.transform.position, esm.target.position);
 
         if (esm.eHealth.health <= 65)
         {
@@ -32,7 +31,7 @@ public class EnemyShoot : EnemyBaseState
             esm.isHiding = true;
         }
 
-        if (!Physics.Raycast(shootRay, out shootHit) && !esm.playsm.weapon.gunEquipped)
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);

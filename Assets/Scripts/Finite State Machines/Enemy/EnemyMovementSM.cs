@@ -11,6 +11,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public bool isShooting = false;
     public bool isDealDamage = false;
     public bool isHiding = false;
+    public bool attackedPlayer = false;
     public Transform target;
     public Animator eAnim;
     public float damage;
@@ -40,6 +41,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public PlayerHealth health;
     public EnemyHealth eHealth;
     public EnemyCoverSystem eCover;
+    public EnemyMeleeSystem eMSystem;
     public AlGun eGun;
 
     [HideInInspector]
@@ -50,8 +52,8 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyChase chaseState;
     [HideInInspector]
     public EnemyShoot fireState;
-    //[HideInInspector]
-    //public EnemyMelee meleeState;
+    [HideInInspector]
+    public EnemyMelee meleeState;
     [HideInInspector]
     public EnemyCover coverState;
 
@@ -61,7 +63,7 @@ public class EnemyMovementSM : EnemyStateMachine
         patrolState = new EnemyPatrol(this);
         chaseState = new EnemyChase(this);
         fireState = new EnemyShoot(this);
-        //meleeState = new EnemyMelee(this);
+        meleeState = new EnemyMelee(this);
         coverState = new EnemyCover(this);
 
         eCover.sighted += eCover.HandleGainSight;

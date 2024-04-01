@@ -44,16 +44,15 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
-        /*
-        // Is the player less than five metres from the enemy?
-        if (Physics.Raycast(chaseRay, out chaseHit, rayLength))
+        if (Physics.Raycast(chaseRay, out chaseHit, rayLength) && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
-            esm.eAnim.SetBool("punching", true);
             esm.isChasing = false;
             esm.isMeleeAttack = true;
+            esm.eAnim.SetBool("punching", true);
+            esm.eAnim.SetBool("chase", false);
+            Debug.Log("PUNCHING PLAYER");
         }
-        */
     }
 
     public override void UpdatePhysics()

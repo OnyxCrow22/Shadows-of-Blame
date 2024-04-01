@@ -28,23 +28,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void ResetAttack()
-    {
-        if (GetComponent<EnemyMovementSM>().isMeleeAttack == true)
-        {
-            StartCoroutine(ResetPunch());
-        }
-    }
-
-    IEnumerator ResetPunch()
-    {
-        GetComponent<EnemyMovementSM>().isMeleeAttack = false;
-        GetComponent<EnemyMovementSM>().eAnim.SetBool("punching", false);
-        yield return new WaitForSeconds(GetComponent<EnemyMovementSM>().attackDelay);
-        GetComponent<EnemyMovementSM>().isMeleeAttack = true;
-        GetComponent<EnemyMovementSM>().eAnim.SetBool("punching", true);
-    }
-
     IEnumerator Death()
     {
         GetComponent<EnemyMovementSM>().eAnim.SetBool("dead", true);
