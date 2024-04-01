@@ -44,20 +44,10 @@ public class AlGun : MonoBehaviour
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        Ray gunHit = new Ray(transform.position, Vector3.forward);
-
-        if (Physics.Raycast(gunHit, out eHit, range, Player))
+        if (Vector3.Distance(transform.position, target.transform.position) <= range)
         {
-            Debug.Log(eHit.collider.name);
-
-            Debug.DrawRay(transform.position, Vector3.forward * range, Color.green);
-
-            if (eHit.collider.CompareTag("Player"))
-            {
-                PlayerHealth pHealth = eHit.collider.GetComponent<PlayerHealth>();
-                pHealth.LoseHealth(esm.health.healthLoss);
-                Debug.Log($"You was hit by {esm.enemy}");
-            }
+            esm.health.LoseHealth(esm.health.healthLoss);
+            Debug.Log($"You was hit by {esm.enemy}");
         }
 
         Invoke("ResetShot", timeBetweenShooting);
