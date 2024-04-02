@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyMelee : EnemyBaseState
 {
     EnemyMovementSM esm;
-    float meleeDist = 8;
+    float meleeDist = 1.5f;
 
     public EnemyMelee(EnemyMovementSM enemyStateMachine) : base("Melee", enemyStateMachine)
     {
@@ -22,12 +22,7 @@ public class EnemyMelee : EnemyBaseState
     {
         base.UpdateLogic();
 
-        if (!esm.attackedPlayer)
-        {
-            esm.eMSystem.AttackPlayer();
-        }
-
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.transform.position) > meleeDist && !esm.playsm.weapon.gunEquipped)
+        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) > meleeDist && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.isMeleeAttack = false;
@@ -39,14 +34,25 @@ public class EnemyMelee : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.fireState);
             esm.isMeleeAttack = false;
+            esm.eGun.gameObject.SetActive(true);
             esm.isShooting = true;
             esm.eAnim.SetBool("shoot", true);
+        }
+
+        if (esm.health.health == 0)
+        {
+            esm.GoToNextPoint();
         }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        if (!esm.attackedPlayer)
+        {
+            esm.eMSystem.AttackPlayer();
+        }
 
         esm.enemy.LookAt(esm.target);
 

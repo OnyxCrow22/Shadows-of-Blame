@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,15 +26,11 @@ public class EnemyPatrol : EnemyBaseState
 
         float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
         float IdleDist = 40;
+        float ChaseDist = 5;
 
         RaycastHit patrolHit;
         float rayLength = 20f;
         Ray patrolRay = new Ray(esm.enemyCam.transform.position, Vector3.forward);
-
-        if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5)
-        {
-            GoToNextPoint();
-        }
 
         if (DistToPlayer >= IdleDist)
         {
@@ -42,7 +39,7 @@ public class EnemyPatrol : EnemyBaseState
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && Physics.Raycast(patrolRay, out patrolHit, rayLength))
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
@@ -56,6 +53,7 @@ public class EnemyPatrol : EnemyBaseState
             esm.eGun.gameObject.SetActive(true);
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
+            esm.eAnim.SetTrigger("gunEquipped");
             esm.isPatrol = false;
             Debug.Log("FIRING GUN!");
             esm.isShooting = true;
@@ -64,20 +62,20 @@ public class EnemyPatrol : EnemyBaseState
         if (esm.eHealth.health <= 65)
         {
             enemyStateMachine.ChangeState(esm.coverState);
+            esm.eAnim.SetFloat("health", esm.eHealth.health);
             esm.isPatrol = false;
             esm.isHiding = true;
             Debug.Log("HIDING!");
         }
+    }
 
-        void GoToNextPoint()
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
+
+        if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5 || esm.health.health == 0)
         {
-            // End of path
-            if (esm.waypoints.Length == 0)
-            {
-                return;
-            }
-            esm.agent.destination = esm.waypoints[esm.destinations].position;
-            esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
+            esm.GoToNextPoint();
         }
     }
 }

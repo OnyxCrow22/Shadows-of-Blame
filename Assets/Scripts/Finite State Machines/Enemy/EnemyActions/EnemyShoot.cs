@@ -26,15 +26,14 @@ public class EnemyShoot : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
             esm.eAnim.SetBool("shoot", false);
-            esm.eAnim.SetBool("patrolling", true);
             esm.isShooting = false;
             esm.isHiding = true;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
+        if (!esm.playsm.weapon.gunEquipped || esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
-            esm.eAnim.SetBool("chase", true);
+            esm.eAnim.SetBool("shoot", false);
             esm.isChasing = true;
             esm.isShooting = false;
             esm.eGun.gameObject.SetActive(false);
@@ -44,7 +43,6 @@ public class EnemyShoot : EnemyBaseState
         if (esm.health.health <= 0)
         {
             enemyStateMachine.ChangeState(esm.patrolState);
-            esm.eAnim.SetBool("shoot", false);
             esm.eAnim.SetBool("playerDead", true);
             esm.isShooting = false;
             esm.isPatrol = true;

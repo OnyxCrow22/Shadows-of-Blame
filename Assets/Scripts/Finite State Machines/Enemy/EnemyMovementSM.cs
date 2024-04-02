@@ -11,6 +11,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public bool isShooting = false;
     public bool isDealDamage = false;
     public bool isHiding = false;
+    public bool isAttacking = false;
     public bool attackedPlayer = false;
     public Transform target;
     public Animator eAnim;
@@ -73,6 +74,17 @@ public class EnemyMovementSM : EnemyStateMachine
     protected override EnemyBaseState GetInitialState()
     {
         return idleState;
+    }
+
+    public void GoToNextPoint()
+    {
+        // End of path
+        if (waypoints.Length == 0)
+        {
+            return;
+        }
+        agent.destination = waypoints[destinations].position;
+        destinations = (destinations + 1) % waypoints.Length;
     }
 
     public void RandomIndexCheck()
