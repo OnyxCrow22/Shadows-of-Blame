@@ -20,21 +20,19 @@ public class PlayerHealth : MonoBehaviour
     public bool Protected, isDead;
 
     public PlayerMovementSM playsm;
-    public EnemyMovementSM esm;
 
     private void Start()
     {
         maxHealth = health;
         isDead = false;
         Protected = false;
-        esm = GetComponent<EnemyMovementSM>();
     }
 
     private void Update()
     {
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
 
-        if (!esm.isAttacking && health < 100)
+        if (health < 100)
         {
             healthGain += healthPerSecond * Time.deltaTime;
 
@@ -74,7 +72,6 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator Dead()
     {
-        playsm.gameObject.SetActive(false);
         CapsuleCollider playCol = GetComponent<CapsuleCollider>();
         playCol.direction = 2;
         playsm.anim.SetBool("dead", true);
@@ -84,7 +81,6 @@ public class PlayerHealth : MonoBehaviour
         playsm.anim.SetBool("dead", false);
         playsm.player.transform.position = respawnPoint.transform.position;
         Physics.SyncTransforms();
-        playsm.gameObject.SetActive(true);
         healthBar.color = Color.clear;
         health = 100;
         maxHealth = 100;
