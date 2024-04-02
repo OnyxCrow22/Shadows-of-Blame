@@ -42,6 +42,10 @@ public class EnemyMelee : EnemyBaseState
         if (esm.health.health == 0)
         {
             esm.GoToNextPoint();
+            enemyStateMachine.ChangeState(esm.patrolState);
+            esm.isMeleeAttack = false;
+            esm.isChasing = true;
+            esm.eAnim.SetBool("patrolling", true);
         }
     }
 
