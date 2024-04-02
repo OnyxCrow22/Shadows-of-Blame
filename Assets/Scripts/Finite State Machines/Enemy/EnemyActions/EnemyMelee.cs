@@ -28,6 +28,8 @@ public class EnemyMelee : EnemyBaseState
             esm.isMeleeAttack = false;
             esm.isChasing = true;
             esm.eAnim.SetBool("chase", true);
+            AudioManager.manager.Stop("punch");
+            AudioManager.manager.Play("sprinting");
         }
 
         if (esm.playsm.weapon.gunEquipped)
@@ -37,15 +39,18 @@ public class EnemyMelee : EnemyBaseState
             esm.eGun.gameObject.SetActive(true);
             esm.isShooting = true;
             esm.eAnim.SetBool("shoot", true);
+            AudioManager.manager.Stop("punch");
+            AudioManager.manager.Play("shootGun");
         }
 
         if (esm.health.health == 0)
         {
-            esm.GoToNextPoint();
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.isMeleeAttack = false;
-            esm.isChasing = true;
-            esm.eAnim.SetBool("patrolling", true);
+            esm.playsm.isPlayerDead = true;
+            esm.eAnim.ResetTrigger("punching");
+            AudioManager.manager.Stop("punch");
+            AudioManager.manager.Play("walk");
         }
     }
 
@@ -59,6 +64,11 @@ public class EnemyMelee : EnemyBaseState
         }
 
         esm.enemy.LookAt(esm.target);
+
+        if (esm.health.health == 0)
+        {
+            esm.GoToNextPoint();
+        }
 
         // Finds the distance between the enemy and the player
         Vector3 direction = esm.target.position - esm.enemy.transform.position;

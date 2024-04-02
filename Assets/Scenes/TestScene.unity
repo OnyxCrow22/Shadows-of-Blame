@@ -142,6 +142,7 @@ MonoBehaviour:
   healthLoss: 10
   deadDuration: 10
   enemy: {fileID: 16108271}
+  esm: {fileID: 16108285}
 --- !u!4 &16108282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9193419156744692980, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
@@ -1005,7 +1006,7 @@ PrefabInstance:
       objectReference: {fileID: 1419557861171308048, guid: 0021a3445835b86429cb9892e5276c81, type: 2}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.data[0].clip
@@ -1050,9 +1051,21 @@ PrefabInstance:
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.data[4].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 8e415919eae543f4d873644632bea007, type: 3}
+      objectReference: {fileID: 8300000, guid: 5156b527c0066a746991bd595ce19cfa, type: 3}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[4].loop
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.data[4].name
+      value: punch
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e415919eae543f4d873644632bea007, type: 3}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[5].name
       value: equipGun
       objectReference: {fileID: 0}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
@@ -1096,6 +1109,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[5].group
+      value: 
+      objectReference: {fileID: 4564891329248976073, guid: 0021a3445835b86429cb9892e5276c81, type: 2}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[5].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.data[0].volume
       value: 1
       objectReference: {fileID: 0}
@@ -1113,6 +1134,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
       propertyPath: sounds.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913957807833783341, guid: e78fcf07c8fffb7429f62700091e2d4e, type: 3}
+      propertyPath: sounds.Array.data[5].volume
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3216,7 +3241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.14004253, g: 0.2830189, b: 0.10813458, a: 1}
+  m_Color: {r: 0.14117648, g: 0.28235295, b: 0.10980393, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7694,10 +7719,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.14444256
+  m_Radius: 0.39780307
   m_Height: 1.8200002
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0.006494522}
+  m_Center: {x: 0.006733179, y: 1, z: 0.006494522}
 --- !u!1 &6471235737243186322
 GameObject:
   m_ObjectHideFlags: 0
@@ -8365,6 +8390,7 @@ MonoBehaviour:
   Crouched: 0
   Jumping: 0
   isShooting: 0
+  isPlayerDead: 0
   weapon: {fileID: 4346069036147771150}
   health: {fileID: 7998025625398804844}
 --- !u!114 &7998025625398804844
@@ -8384,13 +8410,16 @@ MonoBehaviour:
   healthLoss: 5
   healthGain: 10
   protectedDuration: 0.05
-  healthPerSecond: 0
+  healthPerSecond: 5
   deadDuration: 8
   healthBar: {fileID: 1158665656}
+  defaultCol: {r: 0.14117648, g: 0.28235295, b: 0.10980393, a: 1}
   HUD: {fileID: 1331564826}
   respawnPoint: {fileID: 1950620553}
   Protected: 0
   isDead: 0
+  hasBeenAttacked: 0
+  healDelay: 1.5
   playsm: {fileID: 7998025625398804843}
 --- !u!4 &8117697476582639334
 Transform:
@@ -10274,7 +10303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: attackDelay
-      value: 0.05
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7449018451133402288, guid: dc5ecada7dc2137478cfd3266117f6eb, type: 3}
       propertyPath: Player.m_Bits

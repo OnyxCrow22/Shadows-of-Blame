@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -15,9 +16,11 @@ public class PlayerHealth : MonoBehaviour
     public float healthPerSecond;
     public float deadDuration;
     public Image healthBar;
+    public Color defaultCol = new Color32(36, 72, 28, 255);
     public GameObject HUD;
     public Transform respawnPoint;
-    public bool Protected, isDead;
+    public bool Protected, isDead, hasBeenAttacked = false;
+    public float healDelay = 1.5f;
 
     public PlayerMovementSM playsm;
 
@@ -32,15 +35,32 @@ public class PlayerHealth : MonoBehaviour
     {
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
 
-        if (health < 100)
+        if (health < 100 && !hasBeenAttacked)
         {
-            healthGain += healthPerSecond * Time.deltaTime;
-
-            if (healthGain == maxHealth)
-            {
-                healthGain = 100;
-            }
+            StartCoroutine(PlayerRegen());
         }
+    }
+
+    IEnumerator PlayerRegen()
+    {
+        yield return new WaitForSeconds(healDelay);
+
+        health += healthPerSecond * Time.deltaTime;
+
+        if (health > 20)
+        {
+            healthBar.color = defaultCol;
+        }
+
+        if (health == 100)
+        {
+            health = 100;
+        }
+        else if (health< 100 && hasBeenAttacked)
+        {
+            healthGain = health;
+        }
+
     }
 
     public void LoseHealth(float healthLoss)
@@ -81,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
         playsm.anim.SetBool("dead", false);
         playsm.player.transform.position = respawnPoint.transform.position;
         Physics.SyncTransforms();
-        healthBar.color = Color.clear;
+        healthBar.color = new Color32(36, 72, 28, 255);
         health = 100;
         maxHealth = 100;
         healthBar.enabled = true;

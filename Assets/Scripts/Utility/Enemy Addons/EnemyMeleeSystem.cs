@@ -16,6 +16,7 @@ public class EnemyMeleeSystem : MonoBehaviour
         esm.health.LoseHealth(esm.health.healthLoss);
         Debug.Log($"You was hit by {esm.enemy}");
         esm.attackedPlayer = true;
+        esm.health.hasBeenAttacked = true; 
 
         if (esm.attackedPlayer)
         {
@@ -41,6 +42,8 @@ public class EnemyMeleeSystem : MonoBehaviour
         esm.isMeleeAttack = true;
         esm.isDealDamage = true;
         esm.eAnim.SetBool("punching", true);
+
+        esm.health.hasBeenAttacked = false;
 
         esm.isAttacking = false;
     }

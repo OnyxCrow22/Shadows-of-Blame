@@ -26,11 +26,14 @@ public class EnemyShoot : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
             Debug.Log("HIDING!");
             esm.eAnim.SetBool("shoot", false);
+            esm.eGun.gameObject.SetActive(false);
             esm.isShooting = false;
             esm.isHiding = true;
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("walk");
         }
 
-        if (!esm.playsm.weapon.gunEquipped || esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range || esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("shoot", false);
@@ -38,6 +41,8 @@ public class EnemyShoot : EnemyBaseState
             esm.isShooting = false;
             esm.eGun.gameObject.SetActive(false);
             esm.agent.isStopped = false;
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("sprinting");
         }
 
         if (esm.health.health <= 0)
@@ -46,10 +51,10 @@ public class EnemyShoot : EnemyBaseState
             esm.eAnim.SetBool("playerDead", true);
             esm.isShooting = false;
             esm.isPatrol = true;
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("walk");
         }
     }
-
-
 
     public override void UpdatePhysics()
     {

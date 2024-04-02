@@ -20,7 +20,7 @@ public class EnemyChase : EnemyBaseState
         base.UpdateLogic();
 
         // Is the player more than or equal to 20 metres away from the enemy?
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 20 && !esm.playsm.weapon.gunEquipped || esm.health.health == 0)
+        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 20 && !esm.playsm.weapon.gunEquipped)
         {
             // Enemy is patrolling
             enemyStateMachine.ChangeState(esm.patrolState);
@@ -45,6 +45,8 @@ public class EnemyChase : EnemyBaseState
             esm.isChasing = false;
             esm.isMeleeAttack = true;
             esm.eAnim.SetTrigger("punching");
+            AudioManager.manager.Play("punch");
+            AudioManager.manager.Stop("sprinting");
             Debug.Log("PUNCHING PLAYER");
         }
 
@@ -55,6 +57,18 @@ public class EnemyChase : EnemyBaseState
             esm.eGun.gameObject.SetActive(true);
             esm.isShooting = true;
             esm.eAnim.SetBool("shoot", true);
+            AudioManager.manager.Stop("sprinting");
+            AudioManager.manager.Play("shootGun");
+        }
+
+        if (esm.health.health == 0)
+        {
+            enemyStateMachine.ChangeState(esm.patrolState);
+            esm.isChasing = false;
+            esm.playsm.isPlayerDead = true;
+            esm.eAnim.SetBool("patrolling", true);
+            AudioManager.manager.Play("walk");
+            AudioManager.manager.Stop("sprinting");
         }
     }
 
@@ -64,6 +78,11 @@ public class EnemyChase : EnemyBaseState
 
         // Agent moves to the player
         esm.agent.SetDestination(esm.target.position);
+
+        if (esm.health.health == 0)
+        {
+            esm.GoToNextPoint();
+        }
 
         // Finds the distance between the enemy and the player
         Vector3 direction = esm.target.position - esm.enemy.transform.position;

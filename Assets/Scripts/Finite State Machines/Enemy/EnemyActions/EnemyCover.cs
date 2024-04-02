@@ -27,9 +27,9 @@ public class EnemyCover : EnemyBaseState
         {
             Debug.Log("REACHED DESTINATION!");
             enemyStateMachine.ChangeState(esm.idleState);
-            esm.eAnim.SetBool("chase", false);
-            esm.eAnim.SetBool("hiding", true);
+            esm.eAnim.SetBool("patrolling", false);
             esm.agent.isStopped = true;
+            AudioManager.manager.Stop("walk");
         }
     }
 

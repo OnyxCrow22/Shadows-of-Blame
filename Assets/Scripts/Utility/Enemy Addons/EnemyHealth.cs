@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float healthLoss;
     public float deadDuration;
     public GameObject enemy;
+    public EnemyMovementSM esm;
 
     private void Start()
     {
@@ -23,14 +24,14 @@ public class EnemyHealth : MonoBehaviour
         {
             health = 0;
             maxHealth = 0;
-            GetComponent<EnemyMovementSM>().isDealDamage = false;
+            esm.isDealDamage = false;
             StartCoroutine(Death());
         }
     }
 
     IEnumerator Death()
     {
-        GetComponent<EnemyMovementSM>().eAnim.SetBool("dead", true);
+        esm.eAnim.SetBool("dead", true);
         yield return new WaitForSeconds(deadDuration);
         Destroy(enemy.gameObject);
     }

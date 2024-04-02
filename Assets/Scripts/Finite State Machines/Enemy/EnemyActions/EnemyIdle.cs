@@ -27,6 +27,7 @@ public class EnemyIdle : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.patrolState);
             esm.eAnim.SetBool("patrolling", true);
+            AudioManager.manager.Play("walk");
             esm.isPatrol = true;
         }
     }

@@ -48,6 +48,7 @@ public class AlGun : MonoBehaviour
         {
             esm.health.LoseHealth(esm.health.healthLoss);
             Debug.Log($"You was hit by {esm.enemy}");
+            esm.health.hasBeenAttacked = true;
         }
 
         Invoke("ResetShot", timeBetweenShooting);
@@ -55,6 +56,8 @@ public class AlGun : MonoBehaviour
         if (bulletsLeft <= 0)
         {
             ReloadGun();
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("reloading");
         }
     }
 
@@ -80,7 +83,9 @@ public class AlGun : MonoBehaviour
         bulletsLeft = bulletsReloaded;
         totalAmmo -= bulletsReloaded;
         esm.eAnim.SetBool("reloading", false);
+        AudioManager.manager.Stop("reloading");
         reloading = false;
         readyToShoot = true;
+        esm.health.hasBeenAttacked = false;
     }
 }

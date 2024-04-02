@@ -18,6 +18,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool Crouched;
     public bool Jumping = false;
     public bool isShooting;
+    public bool isPlayerDead = false;
 
     public Gun weapon;
     public PlayerHealth health;

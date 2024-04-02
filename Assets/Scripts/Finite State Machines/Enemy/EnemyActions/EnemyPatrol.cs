@@ -36,15 +36,18 @@ public class EnemyPatrol : EnemyBaseState
         {
             enemyStateMachine.ChangeState(esm.idleState);
             esm.eAnim.SetBool("patrolling", false);
+            AudioManager.manager.Stop("walk");
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist)
+        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist && !esm.playsm.isPlayerDead)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);
             esm.isChasing = true;
             esm.isPatrol = false;
+            AudioManager.manager.Play("sprinting");
+            AudioManager.manager.Stop("walk");
             Debug.Log("CHASING PLAYER");
         }
 
@@ -53,6 +56,8 @@ public class EnemyPatrol : EnemyBaseState
             esm.eGun.gameObject.SetActive(true);
             enemyStateMachine.ChangeState(esm.fireState);
             esm.eAnim.SetBool("shoot", true);
+            AudioManager.manager.Play("shootGun");
+            AudioManager.manager.Stop("walk");
             esm.eAnim.SetTrigger("gunEquipped");
             esm.isPatrol = false;
             Debug.Log("FIRING GUN!");
