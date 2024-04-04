@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class OnTheRun : MonoBehaviour
@@ -10,22 +11,28 @@ public class OnTheRun : MonoBehaviour
     public bool canAccessWesteria = false;
     public GameObject[] evidence;
     public Transform Compound;
+    public Collider WestralSquareCheck;
     public GameObject gangLeader;
     public GameObject[] enemies;
     // public PoliceLevel police;
     public GameObject otrTrigger;
+    public TextMeshProUGUI objective;
     public GameObject evidenceWall;
+    public int requiredEvidence = 3;
 
     private void Start()
     {
         inWestralSquare = false;
         canAccessWesteria = false;
+
+        GoToWestralSquare();
     }
 
     void GoToWestralSquare()
     {
-
-    }
+        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        if (WestralSquareCheck.bounds.Contains())
+    }   
 
     void FindEvidenceinWS()
     {

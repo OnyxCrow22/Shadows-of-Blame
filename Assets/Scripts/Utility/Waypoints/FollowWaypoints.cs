@@ -9,6 +9,7 @@ public class FollowWaypoints : MonoBehaviour
     public GameObject waypointManager;
     GameObject[] waypoints;
     GameObject currentNode;
+    GameObject currentDestinationNode;
     int currentWaypoint = 0;
     public NavMeshAgent vehicle;
     Graph g;
@@ -20,6 +21,7 @@ public class FollowWaypoints : MonoBehaviour
         waypoints = waypointManager.GetComponent<WaypointManager>().waypoints;
         g = waypointManager.GetComponent<WaypointManager>().graph;
         currentNode = waypoints[0];
+        currentDestinationNode = destination[0];
         vehicle = GetComponent<NavMeshAgent>();
 
         Invoke("AssignRandomDestination", 2);
@@ -28,8 +30,8 @@ public class FollowWaypoints : MonoBehaviour
     void AssignRandomDestination()
     {
         randomDestIndex = Random.Range(0, destination.Length);
-        g.AStar(currentNode, waypoints[randomIndex]);
-        destination[randomDestIndex].transform.position = waypoints[Random.Range(0, waypoints.Length)].transform.position;
+        g.AStar(currentDestinationNode, destination[randomDestIndex]);
+        destination[randomDestIndex].transform.position = destination[Random.Range(0, destination.Length)].transform.position;
         SetAIDestination();
     }
 
