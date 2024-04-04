@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class FollowWaypoints : MonoBehaviour
 {
-    public Vector3 destination;
+    public GameObject[] destination;
     public GameObject waypointManager;
     GameObject[] waypoints;
     GameObject currentNode;
@@ -13,6 +13,7 @@ public class FollowWaypoints : MonoBehaviour
     public NavMeshAgent vehicle;
     Graph g;
     int randomIndex;
+    int randomDestIndex;
 
     private void Start()
     {
@@ -26,9 +27,9 @@ public class FollowWaypoints : MonoBehaviour
 
     void AssignRandomDestination()
     {
-        randomIndex = Random.Range(0, waypoints.Length);
+        randomDestIndex = Random.Range(0, destination.Length);
         g.AStar(currentNode, waypoints[randomIndex]);
-        destination = waypoints[randomIndex].transform.position;
+        destination[randomDestIndex].transform.position = waypoints[Random.Range(0, waypoints.Length)].transform.position;
         SetAIDestination();
     }
 
@@ -36,6 +37,6 @@ public class FollowWaypoints : MonoBehaviour
     {
         currentWaypoint = 0;
         vehicle.isStopped = false;
-        vehicle.SetDestination(destination);
+        vehicle.SetDestination(destination[randomDestIndex].transform.position);
     }    
 }
