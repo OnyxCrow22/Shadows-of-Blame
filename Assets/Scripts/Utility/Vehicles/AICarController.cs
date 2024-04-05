@@ -15,6 +15,10 @@ public class AICarController : MonoBehaviour
     public GameObject[] rearLight;
     public GameObject[] reverseLight;
 
+    public GameObject player;
+    public LayerMask isPlayer;
+    RaycastHit playerHit;
+
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
 
     public bool braking = false;
@@ -25,6 +29,7 @@ public class AICarController : MonoBehaviour
         Accelerate();
         Brake();
         UpdateWheelRotations();
+        CheckPlayer();
     }
 
     private void Steer()
@@ -51,6 +56,28 @@ public class AICarController : MonoBehaviour
         {
             vehicle.SetDestination(transform.position);
             rearLight[rearLight.Length].SetActive(true);
+        }
+    }
+
+    void CheckPlayer()
+    {
+        float range = 20;
+
+        Ray watchRay = new Ray(transform.position, player.transform.position);
+        Debug.DrawRay(transform.position, player.transform.position);
+
+        if (Physics.Raycast(watchRay, out playerHit, range, isPlayer))
+        {
+            if (playerHit.collider.CompareTag("Player"))
+            {
+                // Stop the car, the player is crazy!
+                vehicle.isStopped = true;
+            }
+        }
+        else
+        {
+            // Player not in front of car
+            vehicle.isStopped = false;
         }
     }
 

@@ -18,9 +18,9 @@ public class CarController : MonoBehaviour
 
     public Rigidbody target;
     public TextMeshProUGUI speedText;
-    public GameObject leftIndicator, rightIndicator;
-    public GameObject rearLight;
-    public GameObject reverseLight;
+    public Light leftIndicator, rightIndicator;
+    public Light rearLight1, rearLight2;
+    public Light reverseLight1, reverseLight2;
 
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
@@ -51,7 +51,7 @@ public class CarController : MonoBehaviour
     public void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = -Input.GetAxisRaw("Vertical");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
         if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.S)) && !braking)
         {
@@ -60,20 +60,24 @@ public class CarController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            reverseLight.SetActive(true);
+            reverseLight1.gameObject.SetActive(true);
+            reverseLight1.gameObject.SetActive(true);
         }
         else
         {
-            reverseLight.SetActive(false);
+            reverseLight1.gameObject.SetActive(false);
+            reverseLight2.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.S) && (Input.GetKeyDown(KeyCode.W)))
         {
-            rearLight.SetActive(true);
+            rearLight1.gameObject.SetActive(true);
+            rearLight2.gameObject.SetActive(true);
         }
         else
         {
-            rearLight.SetActive(false);
+            rearLight1.gameObject.SetActive(false);
+            rearLight2.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
@@ -120,7 +124,8 @@ public class CarController : MonoBehaviour
             frontPassengerW.brakeTorque = brakeForce;
             rearDriverW.brakeTorque = brakeForce;
             rearPassengerW.brakeTorque = brakeForce;
-            rearLight.SetActive(true);
+            rearLight1.gameObject.SetActive(true);
+            rearLight2.gameObject.SetActive(true);
         }
         else
         {
@@ -128,7 +133,8 @@ public class CarController : MonoBehaviour
             frontPassengerW.brakeTorque = 0f;
             rearDriverW.brakeTorque = 0f;
             rearPassengerW.brakeTorque = 0f;
-            rearLight.SetActive(false);
+            rearLight1.gameObject.SetActive(false);
+            rearLight2.gameObject.SetActive(false);
         }
     }
 
@@ -142,15 +148,15 @@ public class CarController : MonoBehaviour
         while (indicating)
         if (turningRight)
         {
-            rightIndicator.SetActive(true);
+            rightIndicator.gameObject.SetActive(true);
             yield return new WaitForSeconds(indicator);
-            rightIndicator.SetActive(false);
+            rightIndicator.gameObject.SetActive(false);
         }
         else if (turningLeft)
         {
-            leftIndicator.SetActive(true);
+            leftIndicator.gameObject.SetActive(true);
             yield return new WaitForSeconds(indicator);
-            leftIndicator.SetActive(false);
+            leftIndicator.gameObject.SetActive(false);
         }
         
         if (!indicating)
