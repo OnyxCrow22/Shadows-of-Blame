@@ -41,11 +41,11 @@ Material:
     - _CullMode: 0
     - _CullModeForward: 0
     - _DoubleSidedEnable: 1
-    - _scall: 5
-    - _strength: 0.97
+    - _scall: 2.39
+    - _strength: 3.21
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
-    - _dir: {r: 0.74, g: 0.61, b: 0, a: 0}
+    - _dir: {r: -0.7, g: -0.78, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6119494708511709476
 MonoBehaviour:

@@ -15,7 +15,7 @@ public class VehicleEnterExit : MonoBehaviour
     public bool canEnter = false;
     public bool canExit = false;
     public bool inVehicle = false;
-    public Collider vehicleColEnter, ExitCol;
+    public Collider vehicleCol;
     public PlayerMovementSM playsm;
     public Animator carDoorAnim;
 
@@ -61,7 +61,7 @@ public class VehicleEnterExit : MonoBehaviour
 
     IEnumerator EnteringVehicle()
     {
-        vehicleColEnter.GetComponent<Collider>().enabled = false;
+        vehicleCol.GetComponent<Collider>().enabled = false;
         vehicleCam.SetActive(true);
         playerCam.SetActive(false);
         TPCam.SetActive(false);
@@ -79,7 +79,6 @@ public class VehicleEnterExit : MonoBehaviour
         inVehicle = true;
         canEnter = false;
         canExit = true;
-        ExitCol.GetComponent<Collider>().enabled = true;
     }
 
     public void ExitVehicle()
@@ -95,24 +94,22 @@ public class VehicleEnterExit : MonoBehaviour
 
     IEnumerator ExitingVehicle()
     {
-        ExitCol.GetComponent<Collider>().enabled = false;
+        vehicleCol.GetComponent<Collider>().enabled = true;
         vehicleCam.SetActive(false);
         playerCam.SetActive(true);
         TPCam.SetActive(true);
-        player.transform.parent = null;
         playsm.anim.SetBool("exitingCar", true);
         carDoorAnim.Play("CarDoor");
         yield return new WaitForSeconds(5);
         playsm.anim.SetBool("exitingCar", false);
+        player.transform.parent = null;
         player.GetComponent<PlayerMovementSM>().enabled = true;
         player.GetComponent<CapsuleCollider>().enabled = true;
         player.GetComponent<CharacterController>().enabled = true;
         vehicle.GetComponent<CarController>().enabled = false;
         inVehicle = false;
-        ExitCol.gameObject.SetActive(false);
         canEnter = true;
         canExit = false;
-        vehicleColEnter.GetComponent<Collider>().enabled = true;
     }
 }
 
