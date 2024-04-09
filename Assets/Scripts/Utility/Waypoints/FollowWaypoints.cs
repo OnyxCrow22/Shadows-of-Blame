@@ -5,12 +5,11 @@ using UnityEngine.AI;
 
 public class FollowWaypoints : MonoBehaviour
 {
-    public GameObject[] destination;
+    GameObject[] destination;
     public GameObject waypointManager;
     GameObject[] waypoints;
     GameObject currentNode;
     GameObject currentDestinationNode;
-    int currentWaypoint = 0;
     public NavMeshAgent vehicle;
     Graph g;
     int randomIndex;
@@ -21,7 +20,6 @@ public class FollowWaypoints : MonoBehaviour
         waypoints = waypointManager.GetComponent<WaypointManager>().waypoints;
         g = waypointManager.GetComponent<WaypointManager>().graph;
         currentNode = waypoints[0];
-        currentDestinationNode = destination[0];
         vehicle = GetComponent<NavMeshAgent>();
 
         Invoke("AssignRandomDestination", 2);
@@ -29,16 +27,16 @@ public class FollowWaypoints : MonoBehaviour
 
     void AssignRandomDestination()
     {
+        destination = GameObject.FindGameObjectsWithTag("Destination");
         randomDestIndex = Random.Range(0, destination.Length);
-        g.AStar(currentDestinationNode, destination[randomDestIndex]);
-        destination[randomDestIndex].transform.position = destination[Random.Range(0, destination.Length)].transform.position;
+        currentDestinationNode = destination[randomDestIndex];
+        g.AStar(currentNode, currentDestinationNode);
         SetAIDestination();
     }
 
     public void SetAIDestination()
     {
-        currentWaypoint = 0;
         vehicle.isStopped = false;
-        vehicle.SetDestination(destination[randomDestIndex].transform.position);
+        vehicle.SetDestination(currentDestinationNode.transform.position);
     }    
 }

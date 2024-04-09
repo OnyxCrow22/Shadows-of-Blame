@@ -11,11 +11,11 @@ public class OnTheRun : MonoBehaviour
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
     public bool leftSafehouse, Evidence, GangLeader, Escaped;
-    public GameObject[] evidence;
     public Transform Compound;
     public WestralSquareCheck WSCheck;
     public Collider PlayerHouseSTMCheck;
     public GameObject gangLeader;
+    public GameObject clue;
     public GameObject[] enemies;
     // public PoliceLevel police;
     public GameObject otrTrigger;
@@ -73,12 +73,11 @@ public class OnTheRun : MonoBehaviour
 
     void FindEvidenceinWS()
     {
-
-    }
-
-    void ReadEvidence()
-    {
-
+        if (collectedEvidence == totalEvidence)
+        {
+            GoToCompound();
+            objective.text = "Go to the gang compound.";
+        }
     }
 
     void GoToCompound()
@@ -103,12 +102,12 @@ public class OnTheRun : MonoBehaviour
 
     void LosePolice()
     {
-
+        objective.text = "Go to your safehouse.";
     }
 
     void GoToKingstonStreet()
     {
-
+        objective.text = "Place the evidence on the evidence board.";
     }
     
     void PlaceEvidence()

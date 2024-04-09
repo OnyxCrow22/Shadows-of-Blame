@@ -38,7 +38,6 @@ public class VolumeSettings : MonoBehaviour
     public void SetMusicVolume(float value)
     {
         master.SetFloat(MIXER_MUSIC, Mathf.Log10(value) * 20);
-        AudioManager.manager.musicGroup.audioMixer.SetFloat("MusicVol", Mathf.Log10(musicSlider.value) * 20);
         MusicVolText.text = value.ToString("0.00");
     }
 
@@ -46,7 +45,6 @@ public class VolumeSettings : MonoBehaviour
     public void SetSFXVolume(float value)
     {
         master.SetFloat(MIXER_SFX, Mathf.Log10(value) * 20);
-        AudioManager.manager.sfxGroup.audioMixer.SetFloat("SFXVol", Mathf.Log10(sfxSlider.value) * 20);
         SFXVolText.text = value.ToString("0.00");
     }
 }

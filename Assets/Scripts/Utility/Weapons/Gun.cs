@@ -21,7 +21,6 @@ public class Gun : MonoBehaviour
     [Header("Booleans")]
     bool shooting, readyToShoot, reloading;
     public bool gunEquipped;
-    bool pistol, rifle, shotgun;
 
     [Header("Gun References")]
     public GameObject fpsCam;
@@ -132,7 +131,7 @@ public class Gun : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
         }
-        GameObject newBullet =  Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
+        GameObject newBullet = Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
 
         Vector3 bulletVel = direction.normalized * bulletSpeed;
