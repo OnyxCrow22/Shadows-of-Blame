@@ -19,8 +19,7 @@ public class SpawnNPC : MonoBehaviour
         while (AICount < 75)
         {
             RaycastHit hitInfo;
-            Vector2 mousePos = Input.mousePosition;
-            Ray originPoint = Camera.main.ScreenPointToRay(mousePos);
+            Ray originPoint = transform.position, Vector3.down;
             if(Physics.Raycast(originPoint, out hitInfo, pavement))
             {
                 if (hitInfo.collider.CompareTag("Pavement"))
@@ -31,6 +30,7 @@ public class SpawnNPC : MonoBehaviour
                     AICount++;
                 }
             }
+            yield return null;
         }
         if (AICount > 75)
         {
