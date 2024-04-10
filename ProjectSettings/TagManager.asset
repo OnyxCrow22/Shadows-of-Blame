@@ -12,6 +12,9 @@ TagManager:
   - Hide
   - Evidence
   - Destination
+  - Pavement
+  - Spawn
+  - PedDests
   layers:
   - Default
   - TransparentFX

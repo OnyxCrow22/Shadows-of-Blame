@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoveNPC : MonoBehaviour
 {
-    public void DestroyNPC()
+    public void OnBecameInvisible()
     {
         Destroy(gameObject);
     }

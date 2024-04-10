@@ -5,10 +5,12 @@ using UnityEngine.AI;
 
 public class NPCMovementSM : NPCStateMachine
 {
-    public GameObject NPC;
+    public NavMeshAgent NPC;
     public PlayerMovementSM playsm;
     public RemoveNPC removed;
-    public SpawnNPC spawning;
+    public Animator NPCAnim;
+
+    public bool spawnedIn = false;
 
     [HideInInspector]
     public NPCIdle idleState;
