@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class NPCWalk : NPCBaseState
 {
     private NPCMovementSM AI;
+    float WalkDist = 40;
 
     public NPCWalk(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
@@ -19,9 +20,9 @@ public class NPCWalk : NPCBaseState
 
     public override void UpdateLogic()
     {
-        float distanceFromPlayer = Vector3.Distance(AI.NPC.transform.position, AI.playsm.transform.position);
+        float distanceFromPlayer = Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position);
 
-        if (distanceFromPlayer < 70)
+        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) < WalkDist)
         {
             npcStateMachine.ChangeState(AI.idleState);
             AI.NPCAnim.SetBool("walking", false);
@@ -31,7 +32,7 @@ public class NPCWalk : NPCBaseState
         if (AI.playsm.weapon.gunEquipped)
         {
           //  npcStateMachine.ChangeState(AI.fleeState);
-            AI.NPCAnim.SetBool("terrified", true);
+            AI.NPCAnim.SetBool("flee", true);
         }
     }
 

@@ -45,9 +45,11 @@ public class SpawnNPC : MonoBehaviour
             if (player != null)
             {
                 PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();
+                player.GetComponent<GameObject>();
                 if (playsm != null && NPCSM != null)
                 {
                     NPCSM.playsm = playsm;
+                    NPCSM.player = player;
                 }
 
             }

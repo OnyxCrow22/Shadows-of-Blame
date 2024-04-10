@@ -110,6 +110,8 @@ public class Gun : MonoBehaviour
             xRot = Mathf.Clamp(xRot, -90, 90);
 
             aimCam.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
+            gun.transform.parent = aimCam.gameObject.transform;
+            gun.transform.rotation = aimCam.transform.rotation;
         }
     }
 
@@ -124,7 +126,7 @@ public class Gun : MonoBehaviour
         // Direction of spread
         Vector3 direction = aimCam.transform.forward + new Vector3(x, y, 0);
 
-        if (Physics.Raycast(aimCam.transform.position, direction, out hit, range, Enemy) || (Physics.Raycast(aimCam.transform.position, direction, out hit, range)))
+        if (Physics.Raycast(aimCam.transform.forward, direction, out hit, range, Enemy) || (Physics.Raycast(aimCam.transform.forward, direction, out hit, range)))
         {
             Debug.Log(hit.collider.name);
 

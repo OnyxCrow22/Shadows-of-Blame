@@ -6,11 +6,15 @@ using UnityEngine.AI;
 public class NPCMovementSM : NPCStateMachine
 {
     public NavMeshAgent NPC;
+    public GameObject player;
     public PlayerMovementSM playsm;
     public RemoveNPC removed;
     public Animator NPCAnim;
 
     public bool spawnedIn = false;
+    public bool isWalking = false;
+    public bool isFleeing = false;
+    public bool isAttacking = false;
 
     [HideInInspector]
     public NPCIdle idleState;

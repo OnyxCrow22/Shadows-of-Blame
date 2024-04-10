@@ -19,13 +19,14 @@ public class NPCIdle : NPCBaseState
 
     public override void UpdateLogic()
     {
-        if (AI.spawnedIn == true)
+        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) == 10)
         {
             npcStateMachine.ChangeState(AI.walkingState);
             AI.NPCAnim.SetBool("walking", true);
+            AI.isWalking = true;
         }
 
-        if (Vector3.Distance(AI.NPC.transform.position, AI.playsm.transform.position) > 70)
+        if (Vector3.Distance(AI.playsm.player.position, AI.NPC.transform.position) > 70)
         {
             AI.NPC.AddComponent<RemoveNPC>().OnBecameInvisible();
         }

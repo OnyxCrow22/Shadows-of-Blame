@@ -69,7 +69,6 @@ public class VehicleEnterExit : MonoBehaviour
         carDoorAnim.Play("CarDoor");
         yield return new WaitForSeconds(5);
         player.transform.parent = carSeat.gameObject.transform;
-        player.transform.parent = carSeat;
         player.transform.rotation = carSeat.rotation;
         playsm.anim.SetBool("enteringCar", false);
         player.GetComponent<PlayerMovementSM>().enabled = false;
