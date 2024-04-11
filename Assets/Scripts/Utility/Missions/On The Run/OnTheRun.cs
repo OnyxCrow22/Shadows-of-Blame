@@ -100,11 +100,11 @@ public class OnTheRun : MonoBehaviour
             TakeEvidenceFromGang();
            // if (!GMLogic.enemiesDead)
             {
-                KillRemainingEnemies();
+               // KillRemainingEnemies();
             }
            // if (GMLogic.enemiesDead)
             {
-                TakeEvidenceFromGang();
+               // TakeEvidenceFromGang();
             }
         }    
     }

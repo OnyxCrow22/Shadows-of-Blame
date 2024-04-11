@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class GangLeaderLogic : MonoBehaviour
 {
-    public EnemyMovementSM esm;
     public EnemyHealth leaderHealth;
     public OnTheRun OTR;
-    public bool isDead = false;
+    public bool isDead;
 
     public void CheckForDeath()
     {
-        if (leaderHealth.healthLoss <= 0)
+        if (leaderHealth.health <= 0 && !isDead)
         {
             isDead = true;
+            OTR.GangLeader = true;
             OTR.subObjective.text = "";
             OTR.objective.text = "Take the evidence from the gang leader.";
         }

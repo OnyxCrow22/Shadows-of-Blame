@@ -33,6 +33,6 @@ public class EnemyHealth : MonoBehaviour
     {
         esm.eAnim.SetBool("dead", true);
         yield return new WaitForSeconds(deadDuration);
-        Destroy(enemy.gameObject);
+       // Destroy(enemy.gameObject);
     }
 }

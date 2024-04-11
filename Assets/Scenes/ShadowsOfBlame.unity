@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3946.6196, g: 3807.6997, b: 3685.938, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7216,7 +7216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &577451531
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7809,6 +7809,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5401897089061627791, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8112427896854162150, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
+      propertyPath: FOV
+      value: 
+      objectReference: {fileID: 727858749}
     - target: {fileID: 8112427896854162150, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
       propertyPath: pHand
       value: 
@@ -8861,17 +8869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566faa7d9065a584988a8cf528a88572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &679837626 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5710015831769227459, guid: 7cbb3b6ea7b435943983b25de38ce9da, type: 3}
-  m_PrefabInstance: {fileID: 1285523114}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679837621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3739c087b3edf744da271fd405200357, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &679837629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8884,7 +8881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0331e555e739048439a4964d8c23299f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  esm: {fileID: 679837626}
   leaderHealth: {fileID: 679837623}
   OTR: {fileID: 1790633498}
   isDead: 0
@@ -9660,7 +9656,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 727858750}
-  - component: {fileID: 727858752}
   - component: {fileID: 727858753}
   - component: {fileID: 727858754}
   m_Layer: 8
@@ -9685,27 +9680,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 607303724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &727858752
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 727858749}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &727858753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16385,7 +16359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1270058267
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16572,6 +16546,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1949353254643223624, guid: 7cbb3b6ea7b435943983b25de38ce9da, type: 3}
+      propertyPath: enemyCam
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4879066617942212486, guid: 7cbb3b6ea7b435943983b25de38ce9da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 338.18506
@@ -16618,7 +16596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5259709110199854396, guid: 7cbb3b6ea7b435943983b25de38ce9da, type: 3}
       propertyPath: m_TagString
-      value: GangLeader
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5710015831769227459, guid: 7cbb3b6ea7b435943983b25de38ce9da, type: 3}
       propertyPath: health
@@ -26461,7 +26439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1726236235
 RectTransform:
   m_ObjectHideFlags: 0

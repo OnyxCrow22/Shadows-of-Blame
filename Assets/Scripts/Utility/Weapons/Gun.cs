@@ -27,6 +27,7 @@ public class Gun : MonoBehaviour
     public GameObject aimCam;
     public GameObject gun;
     public GameObject reticle;
+    public GameObject FOV;
     public Transform attackPoint;
     RaycastHit hit;
     public GameObject weapBullet;
@@ -124,11 +125,13 @@ public class Gun : MonoBehaviour
         // Direction of spread
         Vector3 direction = aimCam.transform.forward + new Vector3(x, y, 0);
 
-        if (Physics.Raycast(aimCam.transform.forward, direction, out hit, range, Enemy) || (Physics.Raycast(aimCam.transform.forward, direction, out hit, range)))
+        Ray shootRay = new Ray(aimCam.transform.position, direction);
+        Debug.DrawRay(aimCam.transform.position, direction, Color.yellow);
+        if (Physics.Raycast(shootRay, out hit, range, Enemy) || (Physics.Raycast(shootRay, out hit, range)))
         {
             Debug.Log(hit.collider.name);
 
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.CompareTag("Enemy") || (hit.collider.CompareTag("GangLeader") || (hit.collider.CompareTag("GangMember"))))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
         }
         GameObject newBullet = Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
