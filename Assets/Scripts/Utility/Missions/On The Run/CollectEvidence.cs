@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,40 +9,34 @@ public class CollectEvidence : MonoBehaviour
     public GameObject evidence;
     public GameObject panel;
     public GameObject clueText;
+    public TextMeshProUGUI evidenceText;
     public bool reading = false;
-    public Transform interactTransform;
     public OnTheRun OTR;
-    public float interactRange;
+    public RaycastMaster rMaster;
 
-    private void Update()
+    public void PickUp()
     {
-        PickUp();
+        panel.SetActive(true);
+        evidenceText.enabled = true;
     }
 
-    private void PickUp()
+    public void CloseWindow()
     {
-        if(Input.GetKeyDown(KeyCode.E) && !reading)
+        OTR.collectedEvidence += 1;
+        panel.SetActive(false);
+        evidenceText.enabled = false;
+        reading = false;
+        clueText.SetActive(true);
+        OTR.clue.SetActive(true);
+        rMaster.interactKey.SetActive(false);
+        evidence.SetActive(false);
+        
+        OTR.objective.text = "Search Westral Square for evidence: " + OTR.collectedEvidence + " / " + OTR.totalEvidence;
+
+        if (OTR.collectedEvidence == OTR.totalEvidence)
         {
-            Ray eRay = new Ray(interactTransform.position, interactTransform.forward);
-            if (Physics.Raycast(eRay, out RaycastHit evidenceHit, interactRange))
-            {
-                if (evidenceHit.collider.gameObject.CompareTag("Evidence"))
-                {
-                    panel.SetActive(true);
-                    reading = true;
-
-                    if (Input.GetKeyDown(KeyCode.E) && reading)
-                    {
-                        OTR.collectedEvidence += 1;
-                        panel.SetActive(false);
-                        reading = false;
-                        clueText.SetActive(true);
-                        OTR.clue.SetActive(true);
-                        evidence.SetActive(false);
-                    }
-                }
-            }    
+            OTR.Evidence = true;
+            OTR.objective.text = "Go to the gang compound.";
         }
-
     }
 }

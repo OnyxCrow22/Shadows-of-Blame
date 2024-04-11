@@ -110,8 +110,6 @@ public class Gun : MonoBehaviour
             xRot = Mathf.Clamp(xRot, -90, 90);
 
             aimCam.transform.localRotation = Quaternion.Euler(xRot, 0, 0);
-            gun.transform.parent = aimCam.gameObject.transform;
-            gun.transform.rotation = aimCam.transform.rotation;
         }
     }
 

@@ -10,21 +10,25 @@ public class OnTheRun : MonoBehaviour
     public bool inWestralSquare = false;
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
-    public bool leftSafehouse, Evidence, GangLeader, Escaped;
-    public Transform Compound;
+    public bool leftSafehouse, Evidence, GangLeader, Escaped, InCompound, GangEvidence;
     public WestralSquareCheck WSCheck;
+    public GangCompoundCheck GCCheck;
+    public GangLeaderLogic GLLogic;
+   // public GangMemberLogic GMLogic;
+   // public GangEvidenceCollect GECollect;
     public Collider PlayerHouseSTMCheck;
-    public GameObject gangLeader;
     public GameObject clue;
     public GameObject[] enemies;
     // public PoliceLevel police;
-    public GameObject otrTrigger;
-    public TextMeshProUGUI objective;
+    public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
     public GameObject evidenceWall;
     public int requiredEvidence = 3;
     public int totalEvidence = 3;
     public int collectedEvidence = 0;
+
+    public int gangMemberCount = 5;
+    public int gangMembersKilled = 0;
 
     private void Start()
     {
@@ -73,31 +77,53 @@ public class OnTheRun : MonoBehaviour
 
     void FindEvidenceinWS()
     {
-        if (collectedEvidence == totalEvidence)
+        if (Evidence == true)
         {
             GoToCompound();
-            objective.text = "Go to the gang compound.";
         }
     }
 
     void GoToCompound()
     {
-
+        if (GCCheck.arrivedAtCompound)
+        {
+            InCompound = true;
+            KillGangLeader();
+        }
     }
 
     void KillGangLeader()
     {
-
+        if (GLLogic.isDead)
+        {
+            GangLeader = true;
+            TakeEvidenceFromGang();
+           // if (!GMLogic.enemiesDead)
+            {
+                KillRemainingEnemies();
+            }
+           // if (GMLogic.enemiesDead)
+            {
+                TakeEvidenceFromGang();
+            }
+        }    
     }
 
     void KillRemainingEnemies()
     {
-
+      //  if (GMLogic.enemiesDead)
+        {
+            TakeEvidenceFromGang();
+        }
     }
 
     void TakeEvidenceFromGang()
     {
-
+       // if (GECollect.evidence)
+        {
+            GangEvidence = true;
+            LosePolice();
+        }
     }
 
     void LosePolice()

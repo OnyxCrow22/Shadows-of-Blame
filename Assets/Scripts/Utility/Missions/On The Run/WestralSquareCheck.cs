@@ -17,7 +17,7 @@ public class WestralSquareCheck : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!OTR.Evidence)
         {
             WSquare = false;
             OTR.objective.text = "Go back to Westral Square.";
