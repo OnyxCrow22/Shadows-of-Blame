@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -30,7 +29,7 @@ public class EnemyPatrol : EnemyBaseState
 
         RaycastHit patrolHit;
         float rayLength = 20f;
-        Ray patrolRay = new Ray(esm.enemyCam.transform.position, Vector3.forward);
+        Ray patrolRay = new Ray(esm.FOV.transform.position, esm.FOV.transform.forward);
 
         if (DistToPlayer >= IdleDist)
         {

@@ -27,9 +27,14 @@ public class EnemyHealth : MonoBehaviour
             esm.isDealDamage = false;
             StartCoroutine(Death());
         }
+
+        if (enemy.CompareTag("GangLeader"))
+        {
+            esm.GGLogic.Check();
+        }
     }
 
-    IEnumerator Death()
+    public IEnumerator Death()
     {
         esm.eAnim.SetBool("dead", true);
         yield return new WaitForSeconds(deadDuration);

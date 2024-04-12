@@ -32,8 +32,6 @@ public class EnemyMovementSM : EnemyStateMachine
 
     public Collider[] cols;
 
-    public Camera enemyCam;
-
     public LayerMask hideableLayers, Player;
     [Range(-1, 1)]
     public float HideSensitvity;
@@ -44,6 +42,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyCoverSystem eCover;
     public EnemyMeleeSystem eMSystem;
     public AlGun eGun;
+    public GangLeaderLogic GGLogic;
 
     [HideInInspector]
     public EnemyIdle idleState;

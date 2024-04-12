@@ -33,6 +33,11 @@ public class EnemyShoot : EnemyBaseState
             AudioManager.manager.Play("walk");
         }
 
+        if (esm.eHealth.health == 0)
+        {
+            esm.eHealth.StartCoroutine(esm.eHealth.Death());
+        }
+
         if (!esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range || esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
         {
             enemyStateMachine.ChangeState(esm.chaseState);

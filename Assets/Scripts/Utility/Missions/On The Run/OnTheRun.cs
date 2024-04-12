@@ -10,7 +10,7 @@ public class OnTheRun : MonoBehaviour
     public bool inWestralSquare = false;
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
-    public bool leftSafehouse, Evidence, GangLeader, Escaped, InCompound, GangEvidence;
+    public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence;
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
@@ -96,16 +96,8 @@ public class OnTheRun : MonoBehaviour
     {
         if (GLLogic.isDead)
         {
-            GangLeader = true;
+            EliminatedGang = true;
             TakeEvidenceFromGang();
-           // if (!GMLogic.enemiesDead)
-            {
-               // KillRemainingEnemies();
-            }
-           // if (GMLogic.enemiesDead)
-            {
-               // TakeEvidenceFromGang();
-            }
         }    
     }
 

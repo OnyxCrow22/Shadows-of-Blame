@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5017099559957734490}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.10319619, z: -0, w: 0.9946611}
-  m_LocalPosition: {x: 0, y: 1.573, z: 0}
+  m_LocalPosition: {x: -0.016, y: 1.624, z: -0.076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -386,7 +386,6 @@ MonoBehaviour:
   FOV: {fileID: 7098461699919897324}
   eGun: {fileID: 2062957531886643400}
   target: {fileID: 0}
-  enemyCam: {fileID: 5017099559957734490}
   Player:
     serializedVersion: 2
     m_Bits: 256
@@ -2189,7 +2188,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemyCam: {fileID: 3628806596345544762}
   hideableLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -2202,6 +2200,7 @@ MonoBehaviour:
   eCover: {fileID: 6017666083457967554}
   eMSystem: {fileID: 3449760891492197593}
   eGun: {fileID: 1949353254643223624}
+  GGLogic: {fileID: 0}
 --- !u!195 &4702106345568439522
 NavMeshAgent:
   m_ObjectHideFlags: 0
