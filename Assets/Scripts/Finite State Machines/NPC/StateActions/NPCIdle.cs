@@ -19,7 +19,7 @@ public class NPCIdle : NPCBaseState
 
     public override void UpdateLogic()
     {
-        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) == 10)
+        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) >= 0.5f)
         {
             npcStateMachine.ChangeState(AI.walkingState);
             AI.NPCAnim.SetBool("walking", true);

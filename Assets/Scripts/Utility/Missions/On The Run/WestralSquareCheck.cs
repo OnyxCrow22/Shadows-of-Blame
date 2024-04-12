@@ -12,6 +12,7 @@ public class WestralSquareCheck : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             WSquare = true;
+            OTR.inWestralSquare = true;
             OTR.objective.text = "Search Westral Square for evidence: " + OTR.collectedEvidence + " / " + OTR.totalEvidence;
         }
     }
@@ -20,6 +21,7 @@ public class WestralSquareCheck : MonoBehaviour
         if (!OTR.Evidence)
         {
             WSquare = false;
+            OTR.inWestralSquare = false;
             OTR.objective.text = "Go back to Westral Square.";
         }
     }

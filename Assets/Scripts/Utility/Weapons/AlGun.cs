@@ -37,8 +37,10 @@ public class AlGun : MonoBehaviour
         }
     }
 
-    private void ShootGun()
+    public void ShootGun()
     {
+        enemyCam.transform.localRotation = Quaternion.Euler(90, 0, 0);
+
         readyToShoot = false;
         Invoke("ResetShot", timeBetweenShooting);
         float x = Random.Range(-spread, spread);

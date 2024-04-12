@@ -14,6 +14,7 @@ public class RaycastMaster : MonoBehaviour
     {
         EvidenceCollecting();
         DoorHandling();
+        GEvidenceCollect();
     }
 
     public void DoorHandling()
@@ -47,6 +48,31 @@ public class RaycastMaster : MonoBehaviour
         else
         {
             interactKey.SetActive(false);
+        }
+    }
+
+    public void GEvidenceCollect()
+    {
+        Ray gEvidenceRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
+        float gRayLength = 4;
+        if (Physics.Raycast(gEvidenceRay, out RaycastHit gEvidencehit, gRayLength))
+        {
+            if (gEvidencehit.collider.gameObject.tag == "GEvidence")
+            {
+                GangEvidenceCollect gECollect = gEvidencehit.collider.gameObject.GetComponent<GangEvidenceCollect>();
+                Debug.Log("Evidence hit!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !gECollect.isgReading)
+                {
+                    gECollect.GEPickup();
+                    gECollect.isgReading = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) &&  gECollect.isgReading)
+                {
+                    gECollect.GECloseWindow();
+                }
+            }
         }
     }
 }

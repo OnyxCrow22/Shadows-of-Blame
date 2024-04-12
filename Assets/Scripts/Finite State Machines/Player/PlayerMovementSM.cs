@@ -19,6 +19,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool Jumping = false;
     public bool isShooting;
     public bool isPlayerDead = false;
+    public bool inVehicle = false;
 
     public Gun weapon;
     public PlayerHealth health;

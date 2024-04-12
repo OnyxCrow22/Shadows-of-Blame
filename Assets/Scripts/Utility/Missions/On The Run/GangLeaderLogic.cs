@@ -6,6 +6,8 @@ public class GangLeaderLogic : MonoBehaviour
 {
     public EnemyMovementSM esm;
     public OnTheRun OTR;
+    public GangEvidenceCollect GECollect;
+    GameObject[] search;
     public bool isDead = false;
 
     public void Check()
@@ -14,8 +16,25 @@ public class GangLeaderLogic : MonoBehaviour
         if (esm.eHealth.health == 0)
         {
             isDead = true;
-            OTR.subObjective.text = "";
-            OTR.objective.text = "Take the evidence from the gang leader.";
+
+            search = GameObject.FindGameObjectsWithTag("GangMember");
+
+            if (search == GameObject.FindGameObjectsWithTag("GangMember"))
+            {
+                OTR.subObjective.text = "";
+                OTR.objective.text = "Kill the remaining enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+            }
+
+            else if (search != GameObject.FindGameObjectsWithTag("GangMember"))
+            {
+                OTR.subObjective.text = "";
+                OTR.objective.text = "Take the evidence from the gang leader.";
+                OTR.EliminatedGang = true;
+                if (OTR.EliminatedGang)
+                {
+                    GECollect.gEvidence.SetActive(true);
+                }
+            }
         }    
     }
 }

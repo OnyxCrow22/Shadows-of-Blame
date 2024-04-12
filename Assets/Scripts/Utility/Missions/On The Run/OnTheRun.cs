@@ -15,11 +15,11 @@ public class OnTheRun : MonoBehaviour
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
    // public GangMemberLogic GMLogic;
-   // public GangEvidenceCollect GECollect;
+    public GangEvidenceCollect GECollect;
     public Collider PlayerHouseSTMCheck;
     public GameObject clue;
     public GameObject[] enemies;
-    // public PoliceLevel police;
+    public PoliceLevel police;
     public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
     public GameObject evidenceWall;
@@ -70,7 +70,6 @@ public class OnTheRun : MonoBehaviour
     {
         if (WSCheck.WSquare)
         {
-            inWestralSquare = true;
             FindEvidenceinWS();
         }
     }   
@@ -87,7 +86,6 @@ public class OnTheRun : MonoBehaviour
     {
         if (GCCheck.arrivedAtCompound)
         {
-            InCompound = true;
             KillGangLeader();
         }
     }
@@ -96,7 +94,6 @@ public class OnTheRun : MonoBehaviour
     {
         if (GLLogic.isDead)
         {
-            EliminatedGang = true;
             TakeEvidenceFromGang();
         }    
     }
@@ -111,16 +108,18 @@ public class OnTheRun : MonoBehaviour
 
     void TakeEvidenceFromGang()
     {
-       // if (GECollect.evidence)
+        if (GECollect.evidence)
         {
-            GangEvidence = true;
             LosePolice();
         }
     }
 
     void LosePolice()
     {
-        objective.text = "Go to your safehouse.";
+        if(Escaped)
+        {
+            GoToKingstonStreet();
+        }
     }
 
     void GoToKingstonStreet()

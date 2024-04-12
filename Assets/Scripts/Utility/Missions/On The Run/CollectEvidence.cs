@@ -36,6 +36,7 @@ public class CollectEvidence : MonoBehaviour
         if (OTR.collectedEvidence == OTR.totalEvidence)
         {
             OTR.Evidence = true;
+            OTR.clue.SetActive(false);
             OTR.objective.text = "Go to the gang compound.";
         }
     }

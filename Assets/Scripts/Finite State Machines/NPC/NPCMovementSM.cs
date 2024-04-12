@@ -30,7 +30,7 @@ public class NPCMovementSM : NPCStateMachine
     {
         idleState = new NPCIdle(this);
         walkingState = new NPCWalk(this);
-       // fleeState = new NPCFlee(this);
+        fleeState = new NPCFlee(this);
        // fireState = new NPCShoot(this);
        // meleeState = new NPCAttack(this);
     }
