@@ -18,6 +18,9 @@ public class EnemyChase : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+        Ray punchRay = new Ray(esm.FOV.transform.position, Vector3.forward);
+        RaycastHit punchHit;
+        float punchLength = 2.5f;
 
         // Is the player more than or equal to 20 metres away from the enemy?
         if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) > 20 && !esm.playsm.weapon.gunEquipped)
@@ -39,7 +42,7 @@ public class EnemyChase : EnemyBaseState
             enemyStateMachine.ChangeState(esm.coverState);
         }
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 1.5f && !esm.playsm.weapon.gunEquipped)
+        if (Physics.Raycast(punchRay, out punchHit, punchLength) && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.meleeState);
             esm.isChasing = false;

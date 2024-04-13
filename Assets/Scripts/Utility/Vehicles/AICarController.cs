@@ -6,18 +6,15 @@ using UnityEngine.AI;
 
 public class AICarController : MonoBehaviour
 {
-    [Header("Car Settings")]
-    public float topSpeed;
-
     [Header("Car References")]
     public NavMeshAgent vehicle;
     public GameObject[] indicators;
     public GameObject[] rearLight;
     public GameObject[] reverseLight;
+    public GameObject carFOV;
 
     public GameObject player;
-    public LayerMask isPlayer;
-    RaycastHit playerHit;
+    public LayerMask isPlayer, isNPC;
 
     public Transform frontDriverT, frontPassengerT, rearDriverT, rearPassengerT;
 
@@ -42,12 +39,7 @@ public class AICarController : MonoBehaviour
 
     private void Accelerate()
     {
-        float speed = vehicle.velocity.magnitude;
-        if (speed < topSpeed && !braking)
-        {
-            vehicle.Move(transform.forward * topSpeed * Time.deltaTime);
-            vehicle.speed += 1;
-        }
+
     }
 
     private void Brake()
@@ -63,10 +55,10 @@ public class AICarController : MonoBehaviour
     {
         float range = 20;
 
-        Ray watchRay = new Ray(transform.position, player.transform.position);
-        Debug.DrawRay(transform.position, player.transform.position);
+        Ray watchRay = new Ray(carFOV.transform.position, Vector3.forward);
+        Debug.DrawRay(carFOV.transform.position, carFOV.transform.forward);
 
-        if (Physics.Raycast(watchRay, out playerHit, range, isPlayer))
+        if (Physics.Raycast(watchRay, out RaycastHit playerHit, range, isPlayer) || Physics.Raycast(watchRay, out RaycastHit NPChit, range, isNPC))
         {
             if (playerHit.collider.CompareTag("Player"))
             {

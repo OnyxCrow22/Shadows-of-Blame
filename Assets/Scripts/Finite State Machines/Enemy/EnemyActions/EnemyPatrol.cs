@@ -25,7 +25,6 @@ public class EnemyPatrol : EnemyBaseState
 
         float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
         float IdleDist = 40;
-        float ChaseDist = 5;
 
         RaycastHit patrolHit;
         float rayLength = 20f;
@@ -39,7 +38,7 @@ public class EnemyPatrol : EnemyBaseState
             esm.isPatrol = false;
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer <= ChaseDist && !esm.playsm.isPlayerDead)
+        if (Physics.Raycast(patrolRay, out patrolHit, rayLength) && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.eAnim.SetBool("chase", true);

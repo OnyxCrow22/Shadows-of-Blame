@@ -15,10 +15,10 @@ public class AlGun : MonoBehaviour
     bool readyToShoot, reloading;
 
     // Reference
+    public GameObject enemy;
     public GameObject FOV;
     public GameObject eGun;
     public GameObject target;
-    public GameObject enemyCam;
     public LayerMask Player;
     private RaycastHit eHit;
     public EnemyMovementSM esm;
@@ -39,19 +39,17 @@ public class AlGun : MonoBehaviour
 
     public void ShootGun()
     {
-        enemyCam.transform.localRotation = Quaternion.Euler(90, 0, 0);
-
         readyToShoot = false;
         Invoke("ResetShot", timeBetweenShooting);
         float x = Random.Range(-spread, spread);
         float y = Random.Range(-spread, spread);
 
-        Vector3 direction = enemyCam.transform.forward + new Vector3(x, y, 0);
+        Vector3 direction = FOV.transform.forward + new Vector3(x, y, 0);
 
-        Ray shooteRay = new Ray(enemyCam.transform.position, direction);
-        Debug.DrawRay(enemyCam.transform.position, direction, Color.red);
+        Ray shooteRay = new Ray(FOV.transform.position, direction);
+        Debug.DrawRay(FOV.transform.position, direction, Color.red);
 
-        if (Physics.Raycast(shooteRay, out eHit, range, Player))
+        if (Physics.Raycast(shooteRay, out eHit, range, Player) || (Physics.Raycast(shooteRay, out eHit, range)))
         {
             Debug.Log(eHit.collider.name);
 

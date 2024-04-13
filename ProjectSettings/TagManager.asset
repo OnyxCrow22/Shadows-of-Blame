@@ -20,6 +20,7 @@ TagManager:
   - GEvidence
   - FemaleNPC
   - MaleNPC
+  - Police
   layers:
   - Default
   - TransparentFX

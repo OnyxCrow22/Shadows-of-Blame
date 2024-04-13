@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyMelee : EnemyBaseState
 {
     EnemyMovementSM esm;
-    float meleeDist = 1.5f;
 
     public EnemyMelee(EnemyMovementSM enemyStateMachine) : base("Melee", enemyStateMachine)
     {
@@ -21,8 +20,11 @@ public class EnemyMelee : EnemyBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+        Ray meleeRay = new Ray(esm.FOV.transform.position, Vector3.forward);
+        RaycastHit meleeHit;
+        float meleeLength = 2.5f;
 
-        if (Vector3.Distance(esm.enemy.transform.position, esm.target.position) > meleeDist && !esm.playsm.weapon.gunEquipped)
+        if (Physics.Raycast(meleeRay, out meleeHit, meleeLength) && !esm.playsm.weapon.gunEquipped)
         {
             enemyStateMachine.ChangeState(esm.chaseState);
             esm.isMeleeAttack = false;

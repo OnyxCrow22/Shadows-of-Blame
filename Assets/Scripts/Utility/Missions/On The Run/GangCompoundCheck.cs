@@ -38,9 +38,11 @@ public class GangCompoundCheck : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!OTR.GLLogic.isDead)
-        arrivedAtCompound = false;
-        OTR.InCompound = false;
-        OTR.objective.text = "Go back to the gang compound.";
+        if (!OTR.EliminatedGang)
+        {
+            arrivedAtCompound = false;
+            OTR.InCompound = false;
+            OTR.objective.text = "Go back to the gang compound.";
+        }
     }
 }

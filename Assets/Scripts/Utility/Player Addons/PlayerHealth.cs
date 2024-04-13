@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public Color defaultCol = new Color32(36, 72, 28, 255);
     public GameObject HUD;
     public Transform respawnPoint;
+    public TextMeshProUGUI HealthText;
     public bool Protected, isDead, hasBeenAttacked = false;
     public float healDelay = 1.5f;
 
@@ -34,6 +36,8 @@ public class PlayerHealth : MonoBehaviour
     private void Update()
     {
         healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
+
+        HealthText.text = "HP: " + health;
 
         if (health < 100 && !hasBeenAttacked)
         {
@@ -66,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
     public void LoseHealth(float healthLoss)
     {
         health -= healthLoss;
+        HealthText.text = "HP: " + health;
         StartCoroutine(ProtectionTimer());
 
 

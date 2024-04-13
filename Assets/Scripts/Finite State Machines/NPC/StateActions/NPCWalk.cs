@@ -45,7 +45,7 @@ public class NPCWalk : NPCBaseState
             {
                 AudioManager.manager.Play("femaleScream");
             }
-            else if (male == GameObject.FindGameObjectsWithTag("MaleNPC"))
+            if (male == GameObject.FindGameObjectsWithTag("MaleNPC"))
             {
                 AudioManager.manager.Play("maleScream");
             }

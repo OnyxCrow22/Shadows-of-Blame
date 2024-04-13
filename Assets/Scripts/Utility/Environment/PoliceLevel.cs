@@ -121,6 +121,8 @@ public class PoliceLevel : MonoBehaviour
                 PoliceAI.SetDestination(player.transform.position);
             }
             yield return new WaitForSeconds(0.25f);
+
+            PoliceAI.SetDestination(playsm.player.transform.position);
             policeCount++;
         }
 
@@ -143,7 +145,6 @@ public class PoliceLevel : MonoBehaviour
             attainLevels[levelStage - 1].SetActive(true);
             yield return new WaitForSeconds(0.5f);
             attainLevels[levelStage - 1].SetActive(false);
-            yield break;
         }
     }
 }
