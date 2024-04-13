@@ -10,6 +10,7 @@ public class NPCMovementSM : NPCStateMachine
     public PlayerMovementSM playsm;
     public RemoveNPC removed;
     public Animator NPCAnim;
+    public GameObject NPCFOV;
 
     public bool spawnedIn = false;
     public bool isWalking = false;

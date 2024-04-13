@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class PoliceLevel : MonoBehaviour
 {
     public GameObject[] attainLevels;
-    public GameObject[] policeOfficers;
+    public GameObject policeOfficer;
     public GameObject[] policeVehicles;
     public GameObject border;
     public PlayerMovementSM playsm;
@@ -14,18 +14,17 @@ public class PoliceLevel : MonoBehaviour
     public static int levelStage;
     public static bool giveLevel;
     public int bustedTimer = 5;
-    GameObject[] spawns;
     GameObject[] pedestrianSpawns;
+    GameObject[] vehicleSpawns;
+    GameObject[] policeDests;
+    GameObject currentPoliceDest;
     GameObject newPoliceCar;
     GameObject newPolicePedestrian;
     NavMeshAgent PoliceAI;
 
-    private void Update()
+    private void Start()
     {
-        AddNewLevel();
-        SpawnPolice();
-        SpawnPedestrianPolice();
-        SpawnPoliceCars();
+        StartCoroutine(PolicePedestrians());
     }
 
     public void AddNewLevel()
@@ -62,32 +61,50 @@ public class PoliceLevel : MonoBehaviour
         AIgun.ShootGun();
     }
 
-    IEnumerator PolicePedestrians()
+    public IEnumerator PolicePedestrians()
     {
         int policePedestriansCount = 0;
-        while (policePedestriansCount < 15 && !playsm.inVehicle)
+        while (policePedestriansCount < 15)
         {
             pedestrianSpawns = GameObject.FindGameObjectsWithTag("Spawn");
-            int RandomIndex = Random.Range(0, policeOfficers.Length);
-            int SpawnIndex = Random.Range(0, spawns.Length);
-            newPolicePedestrian = Instantiate(policeOfficers[RandomIndex], pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
+            int SpawnIndex = Random.Range(0, pedestrianSpawns.Length);
+            policeDests = GameObject.FindGameObjectsWithTag("PedDests");
+            int RandomPoliceDest = Random.Range(0, policeDests.Length);
+            currentPoliceDest = policeDests[RandomPoliceDest];
+            newPolicePedestrian = Instantiate(policeOfficer, pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
 
+            PoliceMovementSM policesm = newPolicePedestrian.GetComponent<PoliceMovementSM>();
             PoliceAI = newPolicePedestrian.GetComponent<NavMeshAgent>();
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             if (player != null)
             {
+                PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();
+                player.GetComponent<GameObject>();
+                if (playsm != null && (policesm != null))
+                {
+                    policesm.player = player;
+                    policesm.playsm = playsm;
+                }
+            }
+
+            if (levelStage >= 1)
+            {
                 PoliceAI.SetDestination(player.transform.position);
             }
-            yield return new WaitForSeconds(0.25f);
+
+            else if (levelStage == 0)
+            {
+                PoliceAI.SetDestination(currentPoliceDest.transform.position);
+            }
+            yield return new WaitForSeconds(0.05f);
             policePedestriansCount++;
         }
 
-        if (policePedestriansCount > 15 || playsm.inVehicle)
+        if (policePedestriansCount > 15)
         {
             StopCoroutine(PolicePedestrians());
-            StartCoroutine(PoliceCars());
         }
 
         if (playsm.weapon.gunEquipped || levelStage >= 2)
@@ -106,11 +123,11 @@ public class PoliceLevel : MonoBehaviour
         int policeCount = 0;
         while (policeCount < 5 && playsm.inVehicle)
         {
-            spawns = GameObject.FindGameObjectsWithTag("PoliceSpawns");
+            vehicleSpawns = GameObject.FindGameObjectsWithTag("PoliceSpawns");
             int RandomIndex = Random.Range(0, policeVehicles.Length);
-            int RandomSpawns = Random.Range(0, spawns.Length);
+            int RandomSpawns = Random.Range(0, vehicleSpawns.Length);
 
-            newPoliceCar = Instantiate(policeVehicles[RandomIndex], spawns[RandomSpawns].transform.position, Quaternion.identity);
+            newPoliceCar = Instantiate(policeVehicles[RandomIndex], vehicleSpawns[RandomSpawns].transform.position, Quaternion.identity);
             PoliceAI = newPoliceCar.GetComponent<NavMeshAgent>();
 
 

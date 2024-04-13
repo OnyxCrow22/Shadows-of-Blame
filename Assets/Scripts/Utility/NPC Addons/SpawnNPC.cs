@@ -58,7 +58,7 @@ public class SpawnNPC : MonoBehaviour
             {
                 AI.SetDestination(currentPedDest.transform.position);
             }
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.05f);
             AICount++;
         }
         if (AICount > 75)

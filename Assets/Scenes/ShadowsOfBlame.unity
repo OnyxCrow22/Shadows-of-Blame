@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3948.0796, g: 3807.6704, b: 3683.7778, a: 1}
+  m_IndirectSpecularColor: {r: 3947.9116, g: 3807.6528, b: 3683.7505, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6761,6 +6761,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 621665972751779053, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
   m_PrefabInstance: {fileID: 3594466631454067842}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &492773354
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492773353}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.50000006
+  m_Center: {x: -0.00002670288, y: -0.0000038146973, z: -0.00012207031}
 --- !u!1 &495849977
 GameObject:
   m_ObjectHideFlags: 0
@@ -10858,6 +10879,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Destinations (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7413041152607729084, guid: 1ec31dfb6edd3e442bb9395616a88196, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ba56aecdb5ed3c444b47fbf02796e43b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15186,7 +15211,7 @@ MonoBehaviour:
   - {fileID: 1957492872}
   - {fileID: 1568433295}
   - {fileID: 2123141908}
-  policeOfficers: []
+  policeOfficer: {fileID: 6286261062433606043, guid: 0a553bfb38c96364daa4523c1d060de1, type: 3}
   policeVehicles: []
   border: {fileID: 1529941917}
   playsm: {fileID: 632803174}
@@ -23743,67 +23768,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5029330632170993099, guid: ce9c313885293604d8cfbcf09de8dbb0, type: 3}
---- !u!1001 &1683518347
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 63.659084
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 26.077078
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2808.839
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_Name
-      value: PolicePedestrian
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
-      propertyPath: m_TagString
-      value: Police
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4882d125bdd75034abd1b0701a7a9ca4, type: 3}
 --- !u!1001 &1687719909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34051,6 +34015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4095443565197437901, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
+    - {fileID: 7463314799437949659, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
     m_RemovedGameObjects:
     - {fileID: 293479963154401908, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
     m_AddedGameObjects: []
@@ -34070,6 +34035,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4412124668863448422, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 261717928}
+    - targetCorrespondingSourceObject: {fileID: 621665972751779053, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 492773354}
   m_SourcePrefab: {fileID: 100100000, guid: 360c492d1c0203545a0d169c73d3f3ec, type: 3}
 --- !u!1 &4316533145128449987 stripped
 GameObject:
@@ -34806,4 +34774,3 @@ SceneRoots:
   - {fileID: 1285523114}
   - {fileID: 393798055}
   - {fileID: 1924696889}
-  - {fileID: 1683518347}

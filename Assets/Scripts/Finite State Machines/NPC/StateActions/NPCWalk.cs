@@ -23,6 +23,9 @@ public class NPCWalk : NPCBaseState
     public override void UpdateLogic()
     {
         float distanceFromPlayer = Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position);
+        Ray gunRay = new Ray(AI.NPCFOV.transform.position, Vector3.forward);
+        RaycastHit gunHit;
+        float radius = 20;
 
         if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) < WalkDist)
         {
@@ -31,7 +34,7 @@ public class NPCWalk : NPCBaseState
         }
 
         // Player is crazy, run away!
-        if (AI.playsm.weapon.gunEquipped)
+        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.weapon.gunEquipped)
         {
             npcStateMachine.ChangeState(AI.fleeState);
             AI.isFleeing = true;
