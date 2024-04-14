@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,10 @@ public class NPCMovementSM : NPCStateMachine
     public RemoveNPC removed;
     public Animator NPCAnim;
     public GameObject NPCFOV;
+    public AudioSource NPCSound;
+    public AudioClip[] clips;
+    GameObject[] male;
+    GameObject[] female;
 
     public bool spawnedIn = false;
     public bool isWalking = false;
@@ -34,6 +39,17 @@ public class NPCMovementSM : NPCStateMachine
         fleeState = new NPCFlee(this);
        // fireState = new NPCShoot(this);
        // meleeState = new NPCAttack(this);
+    }
+
+    public void SearchNPCS()
+    {
+        male = GameObject.FindGameObjectsWithTag("MaleNPC");
+        female = GameObject.FindGameObjectsWithTag("FemaleNPC");
+
+        if (male.Length > 0 || female.Length > 0)
+        {
+            NPCSound.Play();
+        }
     }
 
     protected override NPCBaseState GetInitialState()

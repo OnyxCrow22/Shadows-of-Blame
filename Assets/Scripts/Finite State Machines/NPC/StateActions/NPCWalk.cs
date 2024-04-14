@@ -7,8 +7,6 @@ public class NPCWalk : NPCBaseState
 {
     private NPCMovementSM AI;
     float WalkDist = 0.5f;
-    GameObject[] male;
-    GameObject[] female;
 
     public NPCWalk(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
@@ -41,17 +39,7 @@ public class NPCWalk : NPCBaseState
             AI.isWalking = false;
             AI.NPCAnim.SetBool("flee", true);
 
-            female = GameObject.FindGameObjectsWithTag("FemaleNPC");
-            male = GameObject.FindGameObjectsWithTag("MaleNPC");
-
-            if (female == GameObject.FindGameObjectsWithTag("FemaleNPC"))
-            {
-                AudioManager.manager.Play("femaleScream");
-            }
-            if (male == GameObject.FindGameObjectsWithTag("MaleNPC"))
-            {
-                AudioManager.manager.Play("maleScream");
-            }
+            AI.SearchNPCS();
         }
     }
 
