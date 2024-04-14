@@ -75,4 +75,25 @@ public class RaycastMaster : MonoBehaviour
             }
         }
     }
+
+    public void PlaceEvidenceOnBoard()
+    {
+        Ray placeRay = new Ray(transform.position, Vector3.forward);
+        Debug.DrawRay(transform.position, Vector3.forward, Color.blue);
+        float placeLength = 4;
+        if (Physics.Raycast(placeRay, out RaycastHit placeHit, placeLength))
+        {
+            if (placeHit.collider.gameObject.tag == "EvidenceBoard")
+            {
+                EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !placeEvidence.EvidencePlaced)
+                {
+                    placeEvidence.PlaceOnBoard();
+                    placeEvidence.EvidencePlaced = true;
+                }
+            }
+        }
+
+    }
 }

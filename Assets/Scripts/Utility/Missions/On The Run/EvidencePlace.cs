@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class EvidencePlace : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public OnTheRun OTR;
+    public bool EvidencePlaced;
+    public GameObject blankEvidence;
+    public GameObject filledEvidence;
+    public AnimationClip fadeScreen;
+
+    public void PlaceOnBoard()
     {
-        
+        StartCoroutine(EvidenceSwap());
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator EvidenceSwap()
     {
-        
+        yield return new WaitForSeconds(3);
+        blankEvidence.SetActive(false);
+        filledEvidence.SetActive(true);
+        OTR.PlacedEvidence = true;
+        OTR.missionComplete = true;
+        OTR.canAccessWesteria = true;
+        OTR.westeriaUnlocked.SetActive(true);
     }
 }

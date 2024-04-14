@@ -26,6 +26,7 @@ public class PoliceLevel : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(PolicePedestrians());
         police = newPolicePedestrian.GetComponent<PoliceMovementSM>();
     }
 
@@ -34,7 +35,6 @@ public class PoliceLevel : MonoBehaviour
         AddNewLevel();
         LostVisual();
         LoseLevel();
-        StartCoroutine(PolicePedestrians());
     }
 
     public void AddNewLevel()

@@ -9,16 +9,17 @@ public class SafehouseCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && OTR.Escaped)
+        if (other.CompareTag("Player"))
         {
             inSafehouse = true;
+            OTR.inSafehouse = true;
             OTR.objective.text = "Place the evidence on the wall in the evidence room.";
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!inSafehouse && OTR.Escaped)
+        if (OTR.Escaped)
         {
             inSafehouse = false;
             OTR.objective.text = "Go back inside the safehouse";

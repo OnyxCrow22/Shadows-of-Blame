@@ -21,6 +21,7 @@ TagManager:
   - FemaleNPC
   - MaleNPC
   - Police
+  - EvidenceBoard
   layers:
   - Default
   - TransparentFX

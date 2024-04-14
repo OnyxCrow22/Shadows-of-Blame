@@ -10,7 +10,7 @@ public class OnTheRun : MonoBehaviour
     public bool inWestralSquare = false;
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
-    public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence;
+    public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
     public bool missionComplete = false;
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
@@ -27,6 +27,7 @@ public class OnTheRun : MonoBehaviour
     public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
     public GameObject evidenceWall;
+    public GameObject westeriaUnlocked;
     public int requiredEvidence = 3;
     public int totalEvidence = 3;
     public int collectedEvidence = 0;
@@ -128,7 +129,7 @@ public class OnTheRun : MonoBehaviour
 
     void LosePolice()
     {
-        if(GangEvidenceCollect.evidence && PoliceLevel.levelStage == 0)
+        if(GangEvidenceCollect.evidence && Escaped)
         {
             GoToKingstonStreet();
         }
@@ -136,7 +137,7 @@ public class OnTheRun : MonoBehaviour
 
     void GoToKingstonStreet()
     {
-        if (sCheck.inSafehouse)
+        if (sCheck.inSafehouse && Safehouse)
         {
             PlaceEvidence();
         }
