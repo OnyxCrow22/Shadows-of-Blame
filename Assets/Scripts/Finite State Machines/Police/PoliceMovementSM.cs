@@ -11,6 +11,7 @@ public class PoliceMovementSM : PoliceStateMachine
     public RemoveNPC removed;
     public Animator PoliceAnim;
     public GameObject PoliceFOV;
+    public GameObject pGun;
 
     public bool spawnedIn = false;
     public bool isPatrolling = false;
@@ -23,7 +24,7 @@ public class PoliceMovementSM : PoliceStateMachine
     [HideInInspector]
     public PolicePatrol patrolState;
     [HideInInspector]
-   // public PoliceChase ChaseState;
+    public PoliceChase chaseState;
    // [HideInInspector]
    // public PoliceShoot fireState;
    // [HideInInspector]
@@ -32,8 +33,8 @@ public class PoliceMovementSM : PoliceStateMachine
     {
         idleState = new PoliceIdle(this);
         patrolState = new PolicePatrol(this);
-     //   chaseState = new PoliceChase(this);
-       // fireState = new PoliceShoot(this);
+        chaseState = new PoliceChase(this);
+      //  fireState = new PoliceShoot(this);
        // meleeState = new PoliceAttack(this);
     }
 

@@ -26,6 +26,7 @@ public class NPCHealth : MonoBehaviour
         {
             health = 0;
             maxHealth = 0;
+            isDead = true;
             StartCoroutine(NPCDeath());
         }
     }

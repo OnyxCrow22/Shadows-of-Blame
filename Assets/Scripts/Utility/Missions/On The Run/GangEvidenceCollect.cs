@@ -10,9 +10,11 @@ public class GangEvidenceCollect : MonoBehaviour
     public GameObject coWorker;
     public TextMeshProUGUI coWorkerText;
     public bool isgReading = false;
-    public bool evidence = false;
+    public static bool evidence = false;
+    public bool Escaped;
     public OnTheRun OTR;
     public RaycastMaster rMaster;
+    GameObject[] police;
 
     public void GEPickup()
     {
@@ -32,5 +34,14 @@ public class GangEvidenceCollect : MonoBehaviour
         evidence = true;
         OTR.GangEvidence = true;
         OTR.objective.text = "Lose the police.";
+
+        if (police == null || police.Length == 0)
+        {
+            OTR.objective.text = "Go to your safehouse.";
+            PoliceLevel.giveLevel = false;
+            OTR.Escaped = true;
+            Escaped = true;
+            PoliceLevel.levelStage = 0;
+        }
     }
 }

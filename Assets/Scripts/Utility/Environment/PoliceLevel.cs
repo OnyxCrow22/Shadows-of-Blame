@@ -10,6 +10,7 @@ public class PoliceLevel : MonoBehaviour
     public GameObject[] policeVehicles;
     public GameObject border;
     public PlayerMovementSM playsm;
+    PoliceMovementSM police;
     public bool attainingLevel;
     public static int levelStage;
     public static bool giveLevel;
@@ -21,9 +22,18 @@ public class PoliceLevel : MonoBehaviour
     GameObject newPoliceCar;
     GameObject newPolicePedestrian;
     NavMeshAgent PoliceAI;
+    Vector3 lastKnownPos;
 
     private void Start()
     {
+        police = newPolicePedestrian.GetComponent<PoliceMovementSM>();
+    }
+
+    private void Update()
+    {
+        AddNewLevel();
+        LostVisual();
+        LoseLevel();
         StartCoroutine(PolicePedestrians());
     }
 
@@ -35,6 +45,45 @@ public class PoliceLevel : MonoBehaviour
             border.SetActive(true);
             attainingLevel = true;
             StartCoroutine(AddLevel());
+        }
+    }
+
+    public void LoseLevel()
+    {
+        if (attainingLevel == true && giveLevel == true)
+        {
+            giveLevel = false;
+            attainingLevel = false;
+            StartCoroutine(RemoveLevel());
+            if (levelStage == 0)
+            {
+                border.SetActive(false);
+            }
+        }
+    }
+
+    public void LostVisual()
+    {
+        Ray visualRay = new Ray(police.PoliceFOV.transform.position, police.playsm.player.transform.position);
+        RaycastHit visualHit;
+        float visualRange = 40;
+        if (Physics.Raycast(visualRay, out visualHit, visualRange))
+        {
+            if (visualHit.collider.name != "Player" || policeOfficer != GameObject.FindGameObjectWithTag("Police"))
+            {
+                LoseLevel();
+                StartCoroutine(SearchForPlayer());
+                StopCoroutine(AddLevel());
+                attainingLevel = false;
+                Debug.Log("ARGH! WE LOST THE PLAYER! Conduct a search!");
+                lastKnownPos = playsm.player.transform.position;
+            }
+
+            else if (policeOfficer == null)
+            {
+                LoseLevel();
+                StartCoroutine(RemoveLevel());
+            }
         }
     }
 
@@ -157,11 +206,52 @@ public class PoliceLevel : MonoBehaviour
 
     public IEnumerator AddLevel()
     {
-        while (true)
+        int runCount = 0;
+        while (runCount < 5)
         {
             attainLevels[levelStage - 1].SetActive(true);
             yield return new WaitForSeconds(0.5f);
             attainLevels[levelStage - 1].SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            attainLevels[levelStage - 1].SetActive(true);
+            runCount++;
+        }
+
+        if (runCount > 5)
+        {
+            StopCoroutine(AddLevel());
+            attainLevels[levelStage].SetActive(true);
+        }
+    }
+
+    public IEnumerator RemoveLevel()
+    {
+        int runCount = 0;
+        while (runCount < 2)
+        {
+            attainLevels[levelStage - 1].SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            runCount++;
+        }
+
+        if (runCount >= 2)
+        {
+            StopCoroutine(RemoveLevel());
+            attainLevels[levelStage].SetActive(false);
+            attainingLevel = false;
+            levelStage--;
+        }
+    }
+
+    public IEnumerator SearchForPlayer()
+    {
+        PoliceAI.SetDestination(lastKnownPos);
+        yield return new WaitForSeconds(10);
+        GameObject[] policeO = GameObject.FindGameObjectsWithTag("Police");
+
+        if (policeO.Length == 0)
+        {
+            StartCoroutine(RemoveLevel());
         }
     }
 }

@@ -11,11 +11,15 @@ public class OnTheRun : MonoBehaviour
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
     public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence;
+    public bool missionComplete = false;
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
    // public GangMemberLogic GMLogic;
     public GangEvidenceCollect GECollect;
+    public PoliceCheck pCheck;
+    public SafehouseCheck sCheck;
+    public EvidencePlace pEvidence;
     public Collider PlayerHouseSTMCheck;
     public GameObject clue;
     public GameObject[] enemies;
@@ -48,6 +52,14 @@ public class OnTheRun : MonoBehaviour
             GoToWestralSquare();
             objective.text = "Go to Westral Square.";
             inSafehouse = false;
+        }
+    }
+
+    private void Update()
+    {
+        if (PoliceLevel.levelStage >= 1)
+        {
+            objective.text = "Lose the police.";
         }
     }
 
@@ -108,7 +120,7 @@ public class OnTheRun : MonoBehaviour
 
     void TakeEvidenceFromGang()
     {
-        if (GECollect.evidence)
+        if (GangEvidenceCollect.evidence)
         {
             LosePolice();
         }
@@ -116,7 +128,7 @@ public class OnTheRun : MonoBehaviour
 
     void LosePolice()
     {
-        if(Escaped)
+        if(GangEvidenceCollect.evidence && PoliceLevel.levelStage == 0)
         {
             GoToKingstonStreet();
         }
@@ -124,11 +136,18 @@ public class OnTheRun : MonoBehaviour
 
     void GoToKingstonStreet()
     {
-        objective.text = "Place the evidence on the evidence board.";
+        if (sCheck.inSafehouse)
+        {
+            PlaceEvidence();
+        }
     }
     
     void PlaceEvidence()
     {
-        
+        if (pEvidence.EvidencePlaced)
+        {
+            canAccessWesteria = true;
+            missionComplete = true;
+        }
     }
 }

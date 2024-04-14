@@ -133,12 +133,17 @@ public class Gun : MonoBehaviour
 
             if (hit.collider.CompareTag("Enemy") || (hit.collider.CompareTag("GangLeader") || (hit.collider.CompareTag("GangMember"))))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
+
+            if (hit.collider.CompareTag("FemaleNPC") || (hit.collider.CompareTag("MaleNPC")))
+                hit.collider.GetComponent<NPCHealth>().LoseHealth(damage);
         }
         GameObject newBullet = Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
 
         Vector3 bulletVel = direction.normalized * bulletSpeed;
         bulletRB.velocity = bulletVel;
+
+        Destroy(newBullet, 5);
 
         bulletsLeft--;
 

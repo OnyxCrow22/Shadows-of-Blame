@@ -25,6 +25,10 @@ public class NPCFlee : NPCBaseState
         if (!AI.playsm.weapon.gunEquipped && FleeDist >= 64)
         {
             npcStateMachine.ChangeState(AI.walkingState);
+            AI.isFleeing = false;
+            AI.isWalking = true;
+            AI.NPCAnim.SetBool("walking", true);
+            AI.NPCAnim.SetBool("flee", false);
         }
     }
 

@@ -519,6 +519,7 @@ MonoBehaviour:
   isWalking: 0
   isFleeing: 0
   isAttacking: 0
+  nHealth: {fileID: -1805599384099908054}
   fireState: {fileID: 0}
   meleeState: {fileID: 0}
 --- !u!195 &1361333435694811851
@@ -578,10 +579,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd5e2f719bdd814f8ba1329b1a039a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  healthLoss: 0
-  deadDuration: 0
+  health: 100
+  maxHealth: 100
+  healthLoss: 10
+  deadDuration: 20
   isDead: 0
   nsm: {fileID: 1482817149575228153}
 --- !u!82 &6256828400225268280

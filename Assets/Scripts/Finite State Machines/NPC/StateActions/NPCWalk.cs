@@ -34,12 +34,14 @@ public class NPCWalk : NPCBaseState
         // Player is crazy, run away!
         if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.weapon.gunEquipped)
         {
-            npcStateMachine.ChangeState(AI.fleeState);
-            AI.isFleeing = true;
-            AI.isWalking = false;
-            AI.NPCAnim.SetBool("flee", true);
+            AI.StartCoroutine(AI.ScreamFlee());
 
             AI.SearchNPCS();
+        }
+
+        if (AI.nHealth.health <= 0)
+        {
+            AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
         }
     }
 

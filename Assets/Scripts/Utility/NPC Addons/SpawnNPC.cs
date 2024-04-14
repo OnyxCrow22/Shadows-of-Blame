@@ -19,7 +19,7 @@ public class SpawnNPC : MonoBehaviour
     [HideInInspector]
     public GameObject currentPedDest;
 
-    void Start()
+    void Update()
     {
         StartCoroutine(Spawn());
     }

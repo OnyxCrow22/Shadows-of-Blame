@@ -22,6 +22,8 @@ public class NPCMovementSM : NPCStateMachine
     public bool isFleeing = false;
     public bool isAttacking = false;
 
+    public NPCHealth nHealth;
+
     [HideInInspector]
     public NPCIdle idleState;
     [HideInInspector]
@@ -39,6 +41,18 @@ public class NPCMovementSM : NPCStateMachine
         fleeState = new NPCFlee(this);
        // fireState = new NPCShoot(this);
        // meleeState = new NPCAttack(this);
+    }
+
+    public IEnumerator ScreamFlee()
+    {
+        NPC.SetDestination(transform.position);
+        NPCAnim.SetBool("scream", true);
+        yield return new WaitForSeconds(3);
+        NPCAnim.SetBool("scream", false);
+        ChangeState(fleeState);
+        NPCAnim.SetBool("flee", true);
+        isWalking = false;
+        isFleeing = true;
     }
 
     public void SearchNPCS()
