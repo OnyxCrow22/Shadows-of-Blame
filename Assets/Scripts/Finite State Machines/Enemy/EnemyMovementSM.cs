@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,6 +44,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyMeleeSystem eMSystem;
     public AlGun eGun;
     public GangLeaderLogic GGLogic;
+    public GangMemberLogic GMLogic;
 
     [HideInInspector]
     public EnemyIdle idleState;

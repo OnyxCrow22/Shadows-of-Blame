@@ -12,10 +12,10 @@ public class OnTheRun : MonoBehaviour
     public bool inSafehouse = false;
     public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
     public bool missionComplete = false;
+    public bool allEnemiesKilled = false;
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
-    // public GangMemberLogic GMLogic;
     public StartSafehouse sSafehouse;
     public GangEvidenceCollect GECollect;
     public WesteriaAccessibility wAccess;
@@ -95,12 +95,16 @@ public class OnTheRun : MonoBehaviour
         if (GLLogic.isDead)
         {
             TakeEvidenceFromGang();
-        }    
+        }
+        else if (GLLogic.isDead && !allEnemiesKilled)
+        {
+            KillRemainingEnemies();
+        }
     }
 
     void KillRemainingEnemies()
     {
-      //  if (GMLogic.enemiesDead)
+        if (allEnemiesKilled)
         {
             TakeEvidenceFromGang();
         }

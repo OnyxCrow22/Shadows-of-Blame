@@ -32,6 +32,11 @@ public class EnemyHealth : MonoBehaviour
         {
             esm.GGLogic.Check();
         }
+
+        if (enemy.CompareTag("GangMember"))
+        {
+            esm.GMLogic.OnDeath();
+        }
     }
 
     public IEnumerator Death()
