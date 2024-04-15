@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class EvidencePlace : MonoBehaviour
@@ -8,21 +9,22 @@ public class EvidencePlace : MonoBehaviour
     public bool EvidencePlaced;
     public GameObject blankEvidence;
     public GameObject filledEvidence;
-    public AnimationClip fadeScreen;
-
-    public void PlaceOnBoard()
-    {
-        StartCoroutine(EvidenceSwap());
-    }
+    public Animator fadeScreen;
 
     public IEnumerator EvidenceSwap()
     {
         yield return new WaitForSeconds(3);
+        fadeScreen.SetBool("fading", true);
         blankEvidence.SetActive(false);
         filledEvidence.SetActive(true);
+        fadeScreen.SetBool("fading", false);
         OTR.PlacedEvidence = true;
         OTR.missionComplete = true;
         OTR.canAccessWesteria = true;
         OTR.westeriaUnlocked.SetActive(true);
+        OTR.objective.text = "";
+        OTR.mission.text = "";
+        OTR.objectiveHolder.SetActive(false);
+        
     }
 }

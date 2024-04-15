@@ -9,19 +9,15 @@ public class PoliceCheck : MonoBehaviour
     public PoliceLevel police;
     public bool Escaped;
 
-    // Update is called once per frame
-    void Update()
+    public void PoliceIntialise()
     {
-        CheckEscape();
+        PoliceLevel.levelStage += 1;
+        PoliceLevel.giveLevel = true;
+        OTR.objective.text = "Lose the police.";
     }
 
-    public void CheckEscape()
+    public void NoPolice()
     {
-        if (PoliceLevel.levelStage == 0 && GangEvidenceCollect.evidence)
-        {
-            Escaped = true;
-            OTR.objective.text = "Go to your safehouse.";
-            OTR.Escaped = true;
-        }
+        OTR.objective.text = "Go to your safehouse.";
     }
 }

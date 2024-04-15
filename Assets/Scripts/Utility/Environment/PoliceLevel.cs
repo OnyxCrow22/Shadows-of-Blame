@@ -33,7 +33,6 @@ public class PoliceLevel : MonoBehaviour
     private void Update()
     {
         AddNewLevel();
-        LostVisual();
         LoseLevel();
     }
 
@@ -209,12 +208,15 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 5)
         {
-            attainLevels[levelStage - 1].SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage - 1].SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage - 1].SetActive(true);
-            runCount++;
+            for (int i = 0; i < levelStage; i++)
+            {
+                attainLevels[i].SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+                attainLevels[i].SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+                attainLevels[i].SetActive(true);
+                runCount++;
+            }
         }
 
         if (runCount > 5)
@@ -229,9 +231,13 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 2)
         {
-            attainLevels[levelStage - 1].SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            runCount++;
+            for (int i = 0; i < levelStage; i++)
+            {
+                attainLevels[i].SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+                runCount++;
+                levelStage -= 1;
+            }
         }
 
         if (runCount >= 2)

@@ -119,15 +119,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 65.5128
+      value: 162.73672
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.065903
+      value: 25.935555
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2810.352
+      value: -2835.6038
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_LocalRotation.w
@@ -511,7 +511,7 @@ MonoBehaviour:
   NPCSound: {fileID: 4835470978508886793}
   clips:
   - {fileID: 8300000, guid: b0f15ff36d009b54fb9dd2a93ff6db0b, type: 3}
-  spawnedIn: 0
+  spawnedIn: 1
   isWalking: 0
   isFleeing: 0
   isAttacking: 0

@@ -15,19 +15,23 @@ public class OnTheRun : MonoBehaviour
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
-   // public GangMemberLogic GMLogic;
+    // public GangMemberLogic GMLogic;
+    public StartSafehouse sSafehouse;
     public GangEvidenceCollect GECollect;
-    public PoliceCheck pCheck;
+    public WesteriaAccessibility wAccess;
+    public WesteriaLocked wLocked;
     public SafehouseCheck sCheck;
     public EvidencePlace pEvidence;
-    public Collider PlayerHouseSTMCheck;
     public GameObject clue;
+    public GameObject objectiveHolder;
     public GameObject[] enemies;
     public PoliceLevel police;
     public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
+    public TextMeshProUGUI warningText, dangerText;
     public GameObject evidenceWall;
     public GameObject westeriaUnlocked;
+    public GameObject warningHolder, dangerPanel;
     public int requiredEvidence = 3;
     public int totalEvidence = 3;
     public int collectedEvidence = 0;
@@ -39,21 +43,11 @@ public class OnTheRun : MonoBehaviour
     {
         inWestralSquare = false;
         canAccessWesteria = false;
+        inSafehouse = true;
         mission.text = "On The Run";
 
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        if (PlayerHouseSTMCheck.bounds.Contains(playerPos) && leftSafehouse == false)
-        {
-            LeaveSafehouse();
-            inSafehouse = true;
-        }
-        else
-        {
-            GoToWestralSquare();
-            objective.text = "Go to Westral Square.";
-            inSafehouse = false;
-        }
+        objective.text = "Leave the safehouse.";
+        LeaveSafehouse();
     }
 
     private void Update()
@@ -66,15 +60,8 @@ public class OnTheRun : MonoBehaviour
 
     void LeaveSafehouse()
     {
-        objective.text = "Leave the safehouse.";
-
-        Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        if (!PlayerHouseSTMCheck.bounds.Contains(playerPos))
+        if (sSafehouse.left)
         {
-            objective.text = "Go to Westral Square.";
-            inSafehouse = false;
-            leftSafehouse = true;
             GoToWestralSquare();
         }
     }
@@ -137,7 +124,7 @@ public class OnTheRun : MonoBehaviour
 
     void GoToKingstonStreet()
     {
-        if (sCheck.inSafehouse && Safehouse)
+        if (sCheck.inSafehouse)
         {
             PlaceEvidence();
         }
@@ -147,8 +134,7 @@ public class OnTheRun : MonoBehaviour
     {
         if (pEvidence.EvidencePlaced)
         {
-            canAccessWesteria = true;
-            missionComplete = true;
+            this.gameObject.SetActive(false);
         }
     }
 }

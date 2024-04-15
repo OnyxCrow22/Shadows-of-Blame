@@ -9,7 +9,7 @@ public class SafehouseCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && OTR.GangEvidence)
         {
             inSafehouse = true;
             OTR.inSafehouse = true;

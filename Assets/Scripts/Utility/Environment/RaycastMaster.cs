@@ -15,6 +15,7 @@ public class RaycastMaster : MonoBehaviour
         EvidenceCollecting();
         DoorHandling();
         GEvidenceCollect();
+        PlaceEvidenceOnBoard();
     }
 
     public void DoorHandling()
@@ -68,7 +69,7 @@ public class RaycastMaster : MonoBehaviour
                     gECollect.GEPickup();
                     gECollect.isgReading = true;
                 }
-                else if (Input.GetKeyDown(KeyCode.E) &&  gECollect.isgReading)
+                else if (Input.GetKeyDown(KeyCode.E) && gECollect.isgReading)
                 {
                     gECollect.GECloseWindow();
                 }
@@ -78,19 +79,21 @@ public class RaycastMaster : MonoBehaviour
 
     public void PlaceEvidenceOnBoard()
     {
-        Ray placeRay = new Ray(transform.position, Vector3.forward);
-        Debug.DrawRay(transform.position, Vector3.forward, Color.blue);
-        float placeLength = 4;
+        Ray placeRay = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, transform.forward, Color.blue);
+        float placeLength = 8;
         if (Physics.Raycast(placeRay, out RaycastHit placeHit, placeLength))
         {
             if (placeHit.collider.gameObject.tag == "EvidenceBoard")
             {
                 EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
+                Debug.Log("Board hit!");
                 interactKey.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E) && !placeEvidence.EvidencePlaced)
                 {
-                    placeEvidence.PlaceOnBoard();
+                    placeEvidence.StartCoroutine(placeEvidence.EvidenceSwap());
                     placeEvidence.EvidencePlaced = true;
+                    interactKey.SetActive(false);
                 }
             }
         }
