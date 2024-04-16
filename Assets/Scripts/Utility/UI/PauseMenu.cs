@@ -11,7 +11,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject audioSettings;
     public GameObject instructionsPanel;
-    public SaveLoadSystem slSystem;
     public bool paused = false;
 
     private void Update()
@@ -45,17 +44,6 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1;
         AudioListener.pause = false;
-    }
-
-    public void SaveGame()
-    {
-        slSystem.SaveGame();
-    }
-
-    public void LoadGame()
-    {
-        slSystem.LoadGame(slSystem.data.Name);
-        Time.timeScale = 1;
     }
 
     public void Settings()
