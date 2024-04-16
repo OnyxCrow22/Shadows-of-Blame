@@ -29,5 +29,8 @@ public class WesteriaLocked : MonoBehaviour
         OTR.dangerPanel.SetActive(false);
         PoliceLevel.levelStage += 5;
         PoliceLevel.giveLevel = true;
+        OTR.missionFailed.SetActive(true);
+        Time.timeScale = 0;
+        OTR.failText.text = "Harrison attracted attention to himself.";
     }
 }

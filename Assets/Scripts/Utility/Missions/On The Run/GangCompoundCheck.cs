@@ -27,12 +27,6 @@ public class GangCompoundCheck : MonoBehaviour
                 OTR.subObjective.text = "Kill the Gang Leader";
                 OTR.InCompound = true;
             }
-
-            else if (search != GameObject.FindGameObjectsWithTag("GangLeader") && search != GameObject.FindGameObjectsWithTag("GangMember"))
-            {
-                OTR.objective.text = "Lose the police.";
-                OTR.InCompound = false;
-            }
         }
     }
 

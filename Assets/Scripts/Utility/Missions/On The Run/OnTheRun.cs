@@ -26,15 +26,18 @@ public class OnTheRun : MonoBehaviour
     public GameObject objectiveHolder;
     public GameObject[] enemies;
     public PoliceLevel police;
+    public GameObject missionFailed;
     public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
     public TextMeshProUGUI warningText, dangerText;
+    public TextMeshProUGUI failText;
     public GameObject evidenceWall;
     public GameObject westeriaUnlocked;
     public GameObject warningHolder, dangerPanel;
     public int requiredEvidence = 3;
     public int totalEvidence = 3;
     public int collectedEvidence = 0;
+    public GameObject player;
 
     public int gangMemberCount = 5;
     public int gangMembersKilled = 0;
@@ -55,6 +58,13 @@ public class OnTheRun : MonoBehaviour
         if (PoliceLevel.levelStage >= 1)
         {
             objective.text = "Lose the police.";
+        }
+
+        if (player.GetComponent<PlayerMovementSM>().health.health == 0)
+        {
+            Time.timeScale = 0;
+            missionFailed.SetActive(false);
+            failText.text = "Harrison died";
         }
     }
 
