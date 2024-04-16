@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class FileDataService : IDataService
 {
@@ -13,12 +12,12 @@ public class FileDataService : IDataService
 
     public FileDataService(ISerialiser serialiser)
     {
-        this.dataPath = Application.persistentDataPath;
-        this.fileExtension = "json";
+        dataPath = Application.persistentDataPath;
+        fileExtension = "json";
         this.serialiser = serialiser;
     }
 
-    public string GetPathToFile(string filename)
+    string GetPathToFile(string filename)
     {
         return Path.Combine(dataPath, string.Concat(filename, ".", fileExtension));
     }
@@ -29,7 +28,7 @@ public class FileDataService : IDataService
 
         if (!overwrite && File.Exists(fileLocation))
         {
-            throw new IOException($"The file '{data.Name}.{fileLocation}' already exists at this location. It cannot be overwritten");
+            throw new IOException($"The file '{data.Name}.{fileExtension}' already exists at this location. It cannot be overwritten");
         }
 
         File.WriteAllText(fileLocation, serialiser.Seralize(data));

@@ -9,8 +9,8 @@ public class JSONSerialiser : ISerialiser
         return JsonUtility.ToJson(obj, true);
     }
 
-    public T DeSerialize<T>(string jSON)
+    public T DeSerialize<T>(string json)
     {
-        return JsonUtility.FromJson<T>(jSON);
+        return JsonUtility.FromJson<T>(json);
     }
 }

@@ -10,12 +10,12 @@ public class Gun : MonoBehaviour
     public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap, totalAmmo, bullet;
     public bool allowButtonHold, aiming;
-    int bulletsLeft, bulletsShot;
+    public int bulletsLeft, bulletsShot;
     public int bulletSpeed;
 
     [Header("Gun allowed actions")]
     public int pressCount;
-    float aimSens = 100f;
+    readonly float aimSens = 100f;
     float xRot = 0f;
 
     [Header("Booleans")]
