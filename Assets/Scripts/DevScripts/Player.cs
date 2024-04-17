@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IBind<PlayerData>
 {
 
     public string ID { get; set; }
@@ -41,7 +43,7 @@ public class Player : MonoBehaviour
 }
 
 [Serializable]
-public class PlayerData
+public class PlayerData : ISavable
 {
    public string ID { get; set; }
    public float health;
