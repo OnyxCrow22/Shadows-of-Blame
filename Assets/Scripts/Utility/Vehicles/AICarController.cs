@@ -57,12 +57,13 @@ public class AICarController : MonoBehaviour
 
         Ray watchRay = new Ray(carFOV.transform.position, Vector3.forward);
         Debug.DrawRay(carFOV.transform.position, carFOV.transform.forward);
+        RaycastHit objectHit;
 
-        if (Physics.Raycast(watchRay, out RaycastHit playerHit, range, isPlayer) || Physics.Raycast(watchRay, out RaycastHit NPChit, range, isNPC))
+        if (Physics.Raycast(watchRay, out objectHit, range))
         {
-            if (playerHit.collider.CompareTag("Player"))
+            if (objectHit.collider.CompareTag("Player") || (objectHit.collider.CompareTag("FemaleNPC") || (objectHit.collider.CompareTag("MaleNPC"))))
             {
-                // Stop the car, the player is crazy!
+                // Stop the car, the player/NPC is crazy!
                 vehicle.isStopped = true;
             }
         }

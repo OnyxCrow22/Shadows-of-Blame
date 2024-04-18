@@ -7,6 +7,7 @@ public class SpawnNPC : MonoBehaviour
 {
     public GameObject[] WalkAI;
     public int AICount;
+    public GameObject player;
     public LayerMask pavement;
     GameObject[] spawnPoint;
     [HideInInspector]
@@ -19,7 +20,7 @@ public class SpawnNPC : MonoBehaviour
     [HideInInspector]
     public GameObject currentPedDest;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(Spawn());
     }

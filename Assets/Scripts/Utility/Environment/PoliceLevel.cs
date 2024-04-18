@@ -75,7 +75,6 @@ public class PoliceLevel : MonoBehaviour
                 StopCoroutine(AddLevel());
                 attainingLevel = false;
                 Debug.Log("ARGH! WE LOST THE PLAYER! Conduct a search!");
-                lastKnownPos = playsm.player.transform.position;
             }
 
             else if (policeOfficer == null)
@@ -207,11 +206,11 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 5)
         {
-            attainLevels[levelStage - 1].SetActive(true);
+            attainLevels[levelStage].SetActive(true);
             yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage - 1].SetActive(false);
+            attainLevels[levelStage].SetActive(false);
             yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage - 1].SetActive(true);
+            attainLevels[levelStage].SetActive(true);
             runCount++;
         }
 
@@ -227,7 +226,7 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 2)
         {
-            attainLevels[levelStage - 1].SetActive(false);
+            attainLevels[levelStage].SetActive(false);
             yield return new WaitForSeconds(0.5f);
             runCount++;
         }
@@ -245,6 +244,7 @@ public class PoliceLevel : MonoBehaviour
     {
         PoliceAI.SetDestination(lastKnownPos);
         yield return new WaitForSeconds(10);
+        attainingLevel = false;
         GameObject[] policeO = GameObject.FindGameObjectsWithTag("Police");
 
         if (policeO.Length == 0)

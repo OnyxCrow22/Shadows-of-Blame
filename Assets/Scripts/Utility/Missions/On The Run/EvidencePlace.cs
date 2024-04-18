@@ -14,10 +14,12 @@ public class EvidencePlace : MonoBehaviour
     public IEnumerator EvidenceSwap()
     {
         yield return new WaitForSeconds(3);
+        fadeScreen.GetComponent<Animator>().enabled = true;
         fadeScreen.SetBool("fading", true);
         blankEvidence.SetActive(false);
         filledEvidence.SetActive(true);
         fadeScreen.SetBool("fading", false);
+        fadeScreen.GetComponent<Animator>().enabled = false;
         OTR.PlacedEvidence = true;
         OTR.missionComplete = true;
         OTR.canAccessWesteria = true;

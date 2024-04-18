@@ -46,11 +46,18 @@ public class OnTheRun : MonoBehaviour
     {
         inWestralSquare = false;
         canAccessWesteria = false;
-        inSafehouse = true;
         mission.text = "On The Run";
 
-        objective.text = "Leave the safehouse.";
-        LeaveSafehouse();
+        if (leftSafehouse)
+        {
+            objective.text = "Go To Westral Square.";
+            GoToWestralSquare();
+        }
+        else if (!leftSafehouse)
+        {
+            objective.text = "Leave the safehouse.";
+            LeaveSafehouse();
+        }
     }
 
     private void Update()

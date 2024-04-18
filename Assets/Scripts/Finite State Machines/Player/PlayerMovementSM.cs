@@ -21,9 +21,11 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool isPlayerDead = false;
     public bool inVehicle = false;
     public bool isGrounded = true;
+    public bool isPunching;
 
     public Gun weapon;
     public PlayerHealth health;
+    public PlayerPunchAnimations ppunchAnim;
 
     // States
     [HideInInspector]
@@ -40,6 +42,8 @@ public class PlayerMovementSM : PlayerStateMachine
     public CrouchWalking crouchWalking;
     [HideInInspector]
     public Jump jumpingState;
+    [HideInInspector]
+    public Punch punchingState;
 
     private void Awake()
     {
@@ -50,6 +54,7 @@ public class PlayerMovementSM : PlayerStateMachine
         firingState = new Shoot(this);
         crouchWalking = new CrouchWalking(this);
         jumpingState = new Jump(this);
+        punchingState = new Punch(this);
     }
 
     protected override PlayerBaseState GetInitialState()
