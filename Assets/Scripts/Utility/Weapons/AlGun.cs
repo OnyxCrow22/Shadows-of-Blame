@@ -57,7 +57,6 @@ public class AlGun : MonoBehaviour
             {
                 esm.health.LoseHealth(esm.health.healthLoss);
                 Debug.Log($"You was hit by {esm.enemy}");
-                esm.health.hasBeenAttacked = true;
             }
 
         }
@@ -97,6 +96,5 @@ public class AlGun : MonoBehaviour
         AudioManager.manager.Stop("reloading");
         reloading = false;
         readyToShoot = true;
-        esm.health.hasBeenAttacked = false;
     }
 }

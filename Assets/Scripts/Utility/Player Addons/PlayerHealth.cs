@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject HUD;
     public Transform respawnPoint;
     public TextMeshProUGUI HealthText;
-    public bool Protected, isDead, hasBeenAttacked = false;
+    public bool Protected, isDead;
     public float healDelay = 1.5f;
 
     public PlayerMovementSM playsm;
@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
 
         HealthText.text = "HP: " + health;
 
-        if (health < 100 && !hasBeenAttacked)
+        if (health < 100)
         {
             StartCoroutine(PlayerRegen());
         }
@@ -57,17 +57,12 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 100;
         }
-        else if (health< 100 && hasBeenAttacked)
-        {
-            healthGain = health;
-        }
 
     }
 
     public void LoseHealth(float healthLoss)
     {
         health -= healthLoss;
-        HealthText.text = "HP: " + health;
         StartCoroutine(ProtectionTimer());
 
 

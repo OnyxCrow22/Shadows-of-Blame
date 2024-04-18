@@ -16,6 +16,8 @@ public class CollectEvidence : MonoBehaviour
 
     public void PickUp()
     {
+        Time.timeScale = 0;
+        AudioListener.pause = true;
         panel.SetActive(true);
         evidenceText.enabled = true;
     }
@@ -25,6 +27,8 @@ public class CollectEvidence : MonoBehaviour
         OTR.collectedEvidence += 1;
         panel.SetActive(false);
         evidenceText.enabled = false;
+        Time.timeScale = 1;
+        AudioListener.pause = false;
         reading = false;
         clueText.SetActive(true);
         OTR.clue.SetActive(true);

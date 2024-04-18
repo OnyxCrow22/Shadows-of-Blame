@@ -20,12 +20,16 @@ public class GangEvidenceCollect : MonoBehaviour
     {
         gPanel.SetActive(true);
         coWorkerText.enabled = true;
+        Time.timeScale = 0;
+        AudioListener.pause = true;
     }
 
     public void GECloseWindow()
     {
         gPanel.SetActive(false);
         gEvidence.SetActive(false);
+        Time.timeScale = 1;
+        AudioListener.pause = false;
         coWorkerText.enabled = false;
         isgReading = false;
         rMaster.interactKey.SetActive(false);
