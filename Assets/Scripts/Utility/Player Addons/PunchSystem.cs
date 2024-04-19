@@ -8,9 +8,6 @@ public class PunchSystem : MonoBehaviour
     public int damage;
     public bool allowButtonHold;
 
-    [Header("Punch allowed actions")]
-    public int pressCount;
-
     [Header("Booleans")]
     bool punching;
 
@@ -19,12 +16,6 @@ public class PunchSystem : MonoBehaviour
     RaycastHit punchHit;
     public LayerMask Enemy, NPC;
     public PlayerMovementSM playsm;
-
-    private void Awake()
-    {
-        punching = false;
-    }
-
     private void Update()
     {
         InputCheck();

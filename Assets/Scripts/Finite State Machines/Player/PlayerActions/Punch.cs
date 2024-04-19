@@ -20,7 +20,7 @@ public class Punch : PlayerBaseState
     {
         base.UpdateLogic();
 
-        if (!Input.GetMouseButton(0))
+        if (!Input.GetMouseButton(0) && !playsm.weapon.gunEquipped)
         {
             AudioManager.manager.Stop("Punch");
             playerStateMachine.ChangeState(playsm.idleState);

@@ -53,6 +53,7 @@ public class Idle : PlayerBaseState
         if (Input.GetMouseButton(0) && playsm.weapon.gunEquipped == true)
         {
             playerStateMachine.ChangeState(playsm.firingState);
+            AudioManager.manager.Play("shootGun");
             playsm.anim.SetBool("shoot", true);
             playsm.isShooting = true;
         }
@@ -61,6 +62,7 @@ public class Idle : PlayerBaseState
         {
             playerStateMachine.ChangeState(playsm.punchingState);
             playsm.isPunching = true;
+            AudioManager.manager.Play("Punch");
             playsm.anim.SetBool("punching", true);
         }
 
