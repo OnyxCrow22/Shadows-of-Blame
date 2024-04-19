@@ -67,8 +67,9 @@ public class VehicleEnterExit : MonoBehaviour
         TPCam.SetActive(false);
         playsm.anim.SetBool("enteringCar", true);
         carDoorAnim.Play("CarDoor");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         player.transform.parent = carSeat.gameObject.transform;
+        player.transform.parent = carSeat;
         player.transform.rotation = carSeat.rotation;
         playsm.anim.SetBool("enteringCar", false);
         player.GetComponent<PlayerMovementSM>().enabled = false;
@@ -76,6 +77,7 @@ public class VehicleEnterExit : MonoBehaviour
         player.GetComponent<CharacterController>().enabled = false;
         vehicle.GetComponent<CarController>().enabled = true;
         inVehicle = true;
+        playsm.inVehicle = true;
         canEnter = false;
         canExit = true;
     }
@@ -99,7 +101,7 @@ public class VehicleEnterExit : MonoBehaviour
         TPCam.SetActive(true);
         playsm.anim.SetBool("exitingCar", true);
         carDoorAnim.Play("CarDoor");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         playsm.anim.SetBool("exitingCar", false);
         player.transform.parent = null;
         player.GetComponent<PlayerMovementSM>().enabled = true;
@@ -107,6 +109,7 @@ public class VehicleEnterExit : MonoBehaviour
         player.GetComponent<CharacterController>().enabled = true;
         vehicle.GetComponent<CarController>().enabled = false;
         inVehicle = false;
+        playsm.inVehicle = false;
         canEnter = true;
         canExit = false;
     }

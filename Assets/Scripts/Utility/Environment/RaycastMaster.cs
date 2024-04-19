@@ -46,6 +46,10 @@ public class RaycastMaster : MonoBehaviour
 
             }
         }
+        else
+        {
+            interactKey.SetActive(false);
+        }
     }
 
     public void CarDoors()
@@ -72,6 +76,10 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            interactKey.SetActive(false);
+        }
     }
 
     public void EvidenceCollecting()
@@ -96,6 +104,10 @@ public class RaycastMaster : MonoBehaviour
                     collectEvidence.CloseWindow();
                 }
             }
+        }
+        else
+        {
+            interactKey.SetActive(false);
         }
     }
 
@@ -122,6 +134,10 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            interactKey.SetActive(false);
+        }
     }
 
     public void PlaceEvidenceOnBoard()
@@ -143,6 +159,10 @@ public class RaycastMaster : MonoBehaviour
                     interactKey.SetActive(false);
                 }
             }
+        }
+        else
+        {
+            interactKey.SetActive(false);
         }
 
     }

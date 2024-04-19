@@ -6,32 +6,12 @@ public class PunchSystem : MonoBehaviour
 {
     [Header("Punching statistics")]
     public int damage;
-    public bool allowButtonHold;
-
-    [Header("Booleans")]
-    bool punching;
 
     [Header("Punch References")]
     public GameObject FOV;
     RaycastHit punchHit;
     public LayerMask Enemy, NPC;
     public PlayerMovementSM playsm;
-    private void Update()
-    {
-        InputCheck();
-    }
-
-    public void InputCheck()
-    {
-        if (allowButtonHold) punching = Input.GetKey(KeyCode.Mouse0);
-        else punching = Input.GetKeyDown(KeyCode.Mouse0);
-
-        if (punching)
-        {
-            AudioManager.manager.Play("Punch");
-            PunchSomething();
-        }
-    }
 
     public void PunchSomething()
     {
@@ -47,6 +27,8 @@ public class PunchSystem : MonoBehaviour
 
             if (punchHit.collider.CompareTag("FemaleNPC") || (punchHit.collider.CompareTag("MaleNPC")))
                 punchHit.collider.GetComponent<NPCHealth>().LoseHealth(damage);
+
+            AudioManager.manager.Play("Punch");
         } 
     }
 }
