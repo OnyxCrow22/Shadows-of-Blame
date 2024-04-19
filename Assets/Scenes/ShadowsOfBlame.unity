@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 3058.4954, g: 3193.8872, b: 3550.2427, a: 1}
+  m_IndirectSpecularColor: {r: 3058.6028, g: 3194.4243, b: 3550.2036, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21174,6 +21174,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 110829155318950467, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
+      propertyPath: ppunchAnim
+      value: 
+      objectReference: {fileID: 632803180}
+    - target: {fileID: 110829155318950467, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
       propertyPath: groundCheck
       value: 
       objectReference: {fileID: 1036588509}
@@ -21281,6 +21285,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4018583015939159149, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 632803179}
+    - targetCorrespondingSourceObject: {fileID: 4018583015939159149, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 632803180}
   m_SourcePrefab: {fileID: 100100000, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
 --- !u!4 &607303724 stripped
 Transform:
@@ -21820,6 +21827,24 @@ MonoBehaviour:
     totalAmmo: 0
     bulletsLeft: 0
     bulletShot: 0
+--- !u!114 &632803180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632803171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41bc7cdce81aee04eac9cefde5c11f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playsm: {fileID: 632803174}
+  aClips:
+  - {fileID: 7400000, guid: 43f3fa87a3c1e9948bad3cc9bd1ccd6a, type: 2}
+  - {fileID: 7400000, guid: a255db3419bad524bb0591f129465bc6, type: 2}
+  - {fileID: 7400000, guid: ca8f4a3a7b78f0e44b7482303e725c66, type: 2}
+  - {fileID: 7400000, guid: 5ed1274518e5f0645bd2625dffd3a147, type: 2}
 --- !u!1001 &648465830
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class PlayerMovementSM : PlayerStateMachine
 
     public Gun weapon;
     public PlayerHealth health;
-    public PlayerPunchAnimations ppunchAnim;
+    public PunchSystem punching;
 
     // States
     [HideInInspector]

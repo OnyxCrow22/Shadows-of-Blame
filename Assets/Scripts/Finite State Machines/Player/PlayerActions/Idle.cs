@@ -57,10 +57,11 @@ public class Idle : PlayerBaseState
             playsm.isShooting = true;
         }
 
-        if (Input.GetMouseButton(0) && !playsm.weapon.gunEquipped)
+        if (Input.GetMouseButton(0) && playsm.weapon.gunEquipped == false)
         {
             playerStateMachine.ChangeState(playsm.punchingState);
             playsm.isPunching = true;
+            playsm.anim.SetBool("punching", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1) && playsm.weapon.pressCount == 0)

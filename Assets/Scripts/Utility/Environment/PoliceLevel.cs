@@ -206,11 +206,11 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 5)
         {
-            attainLevels[levelStage].SetActive(true);
+            attainLevels[levelStage - 1].SetActive(true);
             yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage].SetActive(false);
+            attainLevels[levelStage - 1].SetActive(false);
             yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage].SetActive(true);
+            attainLevels[levelStage - 1].SetActive(true);
             runCount++;
         }
 
@@ -226,7 +226,7 @@ public class PoliceLevel : MonoBehaviour
         int runCount = 0;
         while (runCount < 2)
         {
-            attainLevels[levelStage].SetActive(false);
+            attainLevels[levelStage - 1].SetActive(false);
             yield return new WaitForSeconds(0.5f);
             runCount++;
         }

@@ -20,12 +20,11 @@ public class Punch : PlayerBaseState
     {
         base.UpdateLogic();
 
-        playsm.ppunchAnim.RandomAnimation();
-
-        if (!Input.GetKeyDown(KeyCode.Mouse0))
+        if (!Input.GetMouseButton(0))
         {
+            AudioManager.manager.Stop("Punch");
             playerStateMachine.ChangeState(playsm.idleState);
-
+            playsm.anim.SetBool("punching", false);
             playsm.isPunching = false;
         }
     }

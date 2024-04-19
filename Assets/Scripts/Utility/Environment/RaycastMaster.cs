@@ -46,11 +46,6 @@ public class RaycastMaster : MonoBehaviour
 
             }
         }
-        // Raycast did not hit the door, set the key to false.
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void CarDoors()
@@ -77,10 +72,6 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void EvidenceCollecting()
@@ -92,7 +83,7 @@ public class RaycastMaster : MonoBehaviour
         {
             if (evidenceHit.collider.gameObject.tag == "Evidence")
             {
-                CollectEvidence collectEvidence = evidenceHit.collider.gameObject.GetComponent<CollectEvidence>();  
+                CollectEvidence collectEvidence = evidenceHit.collider.gameObject.GetComponent<CollectEvidence>();
                 Debug.Log("HIT THE EVIDENCE!");
                 interactKey.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E) && !collectEvidence.reading)
@@ -105,10 +96,6 @@ public class RaycastMaster : MonoBehaviour
                     collectEvidence.CloseWindow();
                 }
             }
-        }
-        else
-        {
-            interactKey.SetActive(false);
         }
     }
 

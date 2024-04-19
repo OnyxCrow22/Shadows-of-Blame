@@ -53,23 +53,29 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space) || (Input.GetKeyDown(KeyCode.S)) && !braking)
+        if (Input.GetKey(KeyCode.Space) || (Input.GetKey(KeyCode.S)) && !braking)
         {
             Brake();
+            braking = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        else if ((!Input.GetKey(KeyCode.Space) || (!Input.GetKeyDown(KeyCode.S)) && braking))
+        {
+            braking = false;
+        }
+
+        if (Input.GetKey(KeyCode.S) && !braking)
         {
             reverseLight1.gameObject.SetActive(true);
             reverseLight1.gameObject.SetActive(true);
         }
-        else
+        else if (braking)
         {
             reverseLight1.gameObject.SetActive(false);
             reverseLight2.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && (Input.GetKeyDown(KeyCode.W)))
+        if (Input.GetKey(KeyCode.S) && (Input.GetKey(KeyCode.W)))
         {
             rearLight1.gameObject.SetActive(true);
             rearLight2.gameObject.SetActive(true);
@@ -80,17 +86,29 @@ public class CarController : MonoBehaviour
             rearLight2.gameObject.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        if (Input.GetKey(KeyCode.LeftBracket))
         {
             TurnIndicators();
             turningLeft = true;
             indicating = true;
         }
-        else if (Input.GetKeyDown(KeyCode.RightBracket))
+        else if (!Input.GetKey(KeyCode.LeftBracket))
+        {
+            turningLeft = false;
+            indicating = false;
+        }
+
+        if (Input.GetKey(KeyCode.RightBracket))
         {
             TurnIndicators();
             turningRight = true;
             indicating = true;
+        }
+
+        else if ((!Input.GetKey(KeyCode.RightBracket)))
+        {
+            turningRight = false;
+            indicating = false;
         }
     }
 
