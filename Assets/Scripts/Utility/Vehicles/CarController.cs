@@ -14,6 +14,7 @@ public class CarController : MonoBehaviour
     public float motorForce;
     public float brakeForce;
     public float maxSpeed;
+    float currentSpeed;
     public float indicator = 0.5f;
 
     public Rigidbody target;
@@ -53,29 +54,29 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.Space) || (Input.GetKey(KeyCode.S)) && !braking)
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && !braking)
         {
             Brake();
             braking = true;
         }
 
-        else if ((!Input.GetKey(KeyCode.Space) || (!Input.GetKeyDown(KeyCode.S)) && braking))
+        else if (!Input.GetKey(KeyCode.Space) || !Input.GetKeyDown(KeyCode.S) && currentSpeed > 0 && braking)
         {
             braking = false;
         }
 
-        if (Input.GetKey(KeyCode.S) && !braking)
+        if (Input.GetKey(KeyCode.S) && !braking && currentSpeed <= 0)
         {
             reverseLight1.gameObject.SetActive(true);
             reverseLight1.gameObject.SetActive(true);
         }
-        else if (braking)
+        else if (braking || currentSpeed > 0)
         {
             reverseLight1.gameObject.SetActive(false);
             reverseLight2.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.S) && (Input.GetKey(KeyCode.W)))
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.W))
         {
             rearLight1.gameObject.SetActive(true);
             rearLight2.gameObject.SetActive(true);
@@ -86,35 +87,32 @@ public class CarController : MonoBehaviour
             rearLight2.gameObject.SetActive(false);
         }
 
-        if (Input.GetKey(KeyCode.LeftBracket))
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             TurnIndicators();
             turningLeft = true;
             indicating = true;
         }
-        else if (!Input.GetKey(KeyCode.LeftBracket))
-        {
-            turningLeft = false;
-            indicating = false;
-        }
 
-        if (Input.GetKey(KeyCode.RightBracket))
+        if (Input.GetKeyDown(KeyCode.RightBracket))
         {
             TurnIndicators();
             turningRight = true;
             indicating = true;
         }
 
-        else if ((!Input.GetKey(KeyCode.RightBracket)))
+        else 
         {
             turningRight = false;
             indicating = false;
+            turningLeft = false;
+            
         }
     }
 
     private void UpdateSpeed()
     {
-        float currentSpeed = target.velocity.magnitude * 2.23694f;
+        currentSpeed = target.velocity.magnitude * 2.23694f;
 
         speedText.text = currentSpeed.ToString("00" + " MPH");
     }
@@ -163,23 +161,29 @@ public class CarController : MonoBehaviour
 
     IEnumerator Turning()
     {
-        while (indicating)
-        if (turningRight)
+        while (true)
         {
-            rightIndicator.gameObject.SetActive(true);
-            yield return new WaitForSeconds(indicator);
-            rightIndicator.gameObject.SetActive(false);
-        }
-        else if (turningLeft)
-        {
-            leftIndicator.gameObject.SetActive(true);
-            yield return new WaitForSeconds(indicator);
-            leftIndicator.gameObject.SetActive(false);
-        }
+            if (turningRight)
+            {
+                rightIndicator.gameObject.SetActive(true);
+                rightIndicator.gameObject.SetActive(false);
+                yield return new WaitForSeconds(indicator);
+                rightIndicator.gameObject.SetActive(true);
+                yield return new WaitForSeconds(indicator);
+            }
+            else if (turningLeft)
+            {
+                leftIndicator.gameObject.SetActive(true);
+                yield return new WaitForSeconds(indicator);
+                leftIndicator.gameObject.SetActive(false);
+                yield return new WaitForSeconds(indicator);
+                leftIndicator.gameObject.SetActive(true);
+            }
         
-        if (!indicating)
-        {
-            yield break;
+            if (!indicating)
+            {
+                yield break;
+            }
         }
     }
 

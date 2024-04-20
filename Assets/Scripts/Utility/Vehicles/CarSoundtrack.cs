@@ -14,22 +14,26 @@ public class CarSoundtrack : MonoBehaviour
     int songSelect;
     public TextMeshProUGUI songName;
     bool canPlayRadio = false;
-    bool playedSong = true;
 
     private void Update()
     {
-        if (playsm.inVehicle && (Input.GetKeyDown(KeyCode.I)))
+        if (playsm.inVehicle && Input.GetKeyDown(KeyCode.I))
         {
             StartCoroutine(PlaySong());
             canPlayRadio = true;
         }
 
-        if (playsm.inVehicle && (Input.GetKeyDown(KeyCode.O)))
+        if (playsm.inVehicle && Input.GetKeyDown(KeyCode.O))
         {
             StartCoroutine(SkipSong());
         }
 
-        if (playsm.inVehicle && (Input.GetKeyDown(KeyCode.P)))
+        if (playsm.inVehicle && Input.GetKeyDown(KeyCode.P))
+        {
+            StartCoroutine(StopSong());
+        }
+
+        else if (!playsm.inVehicle)
         {
             StartCoroutine(StopSong());
         }
@@ -37,10 +41,15 @@ public class CarSoundtrack : MonoBehaviour
 
     IEnumerator PlaySong()
     {
+        List<int> playedSongs = new List<int>();
         int songCount = 0;
         while (songCount < 7)
         {
-            songSelect = Random.Range(0, songs.Length);
+            do
+            {
+                songSelect = Random.Range(0, songs.Length);
+            } while (playedSongs.Contains(songSelect));
+            playedSongs.Add(songSelect);
             currentSong = songs[songSelect];
             carRadio.PlayOneShot(currentSong);
             trackNames[songSelect] = currentSong.name;
