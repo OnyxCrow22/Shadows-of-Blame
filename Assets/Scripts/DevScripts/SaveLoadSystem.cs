@@ -29,6 +29,7 @@ public class SaveLoadSystem : MonoBehaviour
     [SerializeField] public GameData data;
 
     IDataService service;
+    public LoadingScreen load;
 
     public void Awake()
     {
@@ -90,7 +91,7 @@ public class SaveLoadSystem : MonoBehaviour
             Name = "New Game",
             currentLevelName = "ShadowsOfBlame",
         };
-        SceneManager.LoadScene("ShadowsOfBlame");
+        load.LoadLevel(data.currentLevelName);
     }
 
     public void SaveGame() => service.Save(data);
@@ -111,7 +112,7 @@ public class SaveLoadSystem : MonoBehaviour
             AudioListener.pause = false;
         }
 
-        SceneManager.LoadScene(data.currentLevelName, LoadSceneMode.Single);
+        load.LoadLevel(data.currentLevelName);
     }
 
     public void ReloadGame() => LoadGame(data.Name);
