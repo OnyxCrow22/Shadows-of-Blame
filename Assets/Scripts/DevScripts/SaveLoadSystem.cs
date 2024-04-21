@@ -110,8 +110,7 @@ public class SaveLoadSystem : MonoBehaviour
             Time.timeScale = 1;
             AudioListener.pause = false;
         }
-
-        LoadGame(data.Name);
+        SceneManager.LoadScene(data.currentLevelName);
     }
 
     public void ReloadGame() => LoadGame(data.Name);
