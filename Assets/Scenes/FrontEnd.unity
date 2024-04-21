@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 385786402}
   - component: {fileID: 385786401}
   m_Layer: 0
-  m_Name: EventSystem
+  m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1862984573}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &385786403
@@ -928,12 +928,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385786400}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -562, y: -306, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1484503269}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &467843639
 GameObject:
@@ -1467,6 +1467,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1919930759}
+        m_TargetAssemblyTypeName: SaveLoadJSON, Assembly-CSharp
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ShadowsOfBlame
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1904190036}
         m_TargetAssemblyTypeName: LoadingScreen, Assembly-CSharp
         m_MethodName: LoadLevel
@@ -2459,6 +2471,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1320331382}
   m_CullTransparentMesh: 1
+--- !u!1 &1348552748
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1348552749}
+  - component: {fileID: 1348552751}
+  - component: {fileID: 1348552750}
+  m_Layer: 0
+  m_Name: Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1348552749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348552748}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -562, y: -306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2007140913}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1348552750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348552748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1348552751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348552748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 2140859125}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
 --- !u!1 &1369492507
 GameObject:
   m_ObjectHideFlags: 0
@@ -2780,6 +2860,7 @@ RectTransform:
   - {fileID: 1288544070}
   - {fileID: 383911133}
   - {fileID: 1862984574}
+  - {fileID: 385786403}
   m_Father: {fileID: 1453698893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3607,16 +3688,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1919930757}
-        m_TargetAssemblyTypeName: SaveLoadSystem, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
+      - m_Target: {fileID: 1904190036}
+        m_TargetAssemblyTypeName: LoadingScreen, Assembly-CSharp
+        m_MethodName: LoadLevel
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ShadowsOfBlame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1862984576
@@ -3715,8 +3796,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1919930758}
-  - component: {fileID: 1919930757}
   - component: {fileID: 1919930756}
+  - component: {fileID: 1919930759}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -3736,31 +3817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4076c792fea752740b69786212bb8e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1919930757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919930755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43ed9378a7833a4b8b1f0ce31294ddc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    Name: Harrison
-    currentLevelName: 
-    pData:
-      health: 0
-      maxHealth: 0
-      position: {x: 0, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 0}
-      magSize: 0
-      totalAmmo: 0
-      bulletsLeft: 0
-      bulletShot: 0
-  load: {fileID: 0}
 --- !u!4 &1919930758
 Transform:
   m_ObjectHideFlags: 0
@@ -3776,6 +3832,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1919930759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919930755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba8aa6aa8ba4f1d44abf2c17267c6820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoSaveTimer: 0
+  autoSaveInterval: 120
+  playsm: {fileID: 0}
 --- !u!1 &1961135023
 GameObject:
   m_ObjectHideFlags: 0
@@ -4082,6 +4153,7 @@ RectTransform:
   - {fileID: 638523459}
   - {fileID: 18523190}
   - {fileID: 2140859126}
+  - {fileID: 1348552749}
   m_Father: {fileID: 1453698893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4633,7 +4705,6 @@ SceneRoots:
   - {fileID: 1369492510}
   - {fileID: 1089051974}
   - {fileID: 1453698893}
-  - {fileID: 385786403}
   - {fileID: 5691800446400157705}
   - {fileID: 1919930758}
   - {fileID: 1904190037}

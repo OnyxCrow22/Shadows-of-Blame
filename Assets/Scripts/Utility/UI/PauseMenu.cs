@@ -67,6 +67,8 @@ public class PauseMenu : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("FrontEnd");
+        Time.timeScale = 1;
+        AudioListener.pause = false;
     }
 
     public void QuitToDesktop()

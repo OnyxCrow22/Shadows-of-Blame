@@ -23,20 +23,12 @@ public class SaveLoadJSON : MonoBehaviour
     public float autoSaveTimer = 0;
     public float autoSaveInterval = 120;
     public PlayerMovementSM playsm;
-    public bool reloadedGame;
 
     private void Awake()
     {
         pData = new PlayerData();
         playsm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementSM>();
-        pData.health = playsm.health.health;
-        pData.maxHealth = playsm.health.maxHealth;
-        pData.position = playsm.player.transform.position;
-        pData.rotation = playsm.player.transform.rotation;
-        pData.magSize = playsm.weapon.magazineSize;
-        pData.totalAmmo = playsm.weapon.totalAmmo;
-        pData.bulletsShot = playsm.weapon.bulletsShot;
-        pData.bulletsLeft = playsm.weapon.bulletsLeft;
+        ApplyData();
 
         savePath = Application.persistentDataPath + "/Player.json";
     }
@@ -75,6 +67,8 @@ public class SaveLoadJSON : MonoBehaviour
         string savePData = JsonUtility.ToJson(pData);
         File.WriteAllText(savePath, savePData);
 
+        ApplyData();
+
         Debug.Log("File saved to: " + savePath);
     }
 
@@ -84,16 +78,15 @@ public class SaveLoadJSON : MonoBehaviour
         {
             string loadPData = File.ReadAllText(savePath);
             pData = JsonUtility.FromJson<PlayerData>(loadPData);
-            reloadedGame = true;
 
             pData.health = playsm.health.health;
             pData.maxHealth = playsm.health.maxHealth;
-            pData.position = playsm.player.transform.position;
-            pData.rotation = playsm.player.transform.rotation;
             pData.magSize = playsm.weapon.magazineSize;
             pData.totalAmmo = playsm.weapon.totalAmmo;
             pData.bulletsShot = playsm.weapon.bulletsShot;
             pData.bulletsLeft = playsm.weapon.bulletsLeft;
+            pData.position = playsm.player.transform.position;
+            pData.rotation = playsm.player.transform.rotation;
 
             Debug.Log("File requested from: " + savePath);
 
@@ -104,6 +97,21 @@ public class SaveLoadJSON : MonoBehaviour
             }
 
             SceneManager.LoadScene("ShadowsOfBlame");
+        }
+    }
+
+    public void ApplyData()
+    {
+        if (playsm.player != null)
+        {
+            pData.health = playsm.health.health;
+            pData.maxHealth = playsm.health.maxHealth;
+            pData.magSize = playsm.weapon.magazineSize;
+            pData.totalAmmo = playsm.weapon.totalAmmo;
+            pData.bulletsShot = playsm.weapon.bulletsShot;
+            pData.bulletsLeft = playsm.weapon.bulletsLeft;
+            pData.position = playsm.player.transform.position;
+            pData.rotation = playsm.player.transform.rotation;
         }
     }
 
