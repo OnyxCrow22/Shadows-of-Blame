@@ -18,14 +18,14 @@ public class PlayerData
 
 public class SaveLoadJSON : MonoBehaviour
 {
-    public static SaveLoadJSON saving;
     PlayerData pData;
     string savePath;
     public float autoSaveTimer = 0;
     public float autoSaveInterval = 120;
     public PlayerMovementSM playsm;
+    public bool reloadedGame;
 
-    private void Start()
+    private void Awake()
     {
         pData = new PlayerData();
         playsm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovementSM>();
@@ -38,23 +38,7 @@ public class SaveLoadJSON : MonoBehaviour
         pData.bulletsShot = playsm.weapon.bulletsShot;
         pData.bulletsLeft = playsm.weapon.bulletsLeft;
 
-        saving.playsm = playsm;
-
         savePath = Application.persistentDataPath + "/Player.json";
-    }
-
-    private void Awake()
-    {
-        if (SaveLoadJSON.saving == null)
-        {
-            saving = this;
-        }
-        else
-        {
-            Destroy(this);
-            return;
-        }
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -100,6 +84,16 @@ public class SaveLoadJSON : MonoBehaviour
         {
             string loadPData = File.ReadAllText(savePath);
             pData = JsonUtility.FromJson<PlayerData>(loadPData);
+            reloadedGame = true;
+
+            pData.health = playsm.health.health;
+            pData.maxHealth = playsm.health.maxHealth;
+            pData.position = playsm.player.transform.position;
+            pData.rotation = playsm.player.transform.rotation;
+            pData.magSize = playsm.weapon.magazineSize;
+            pData.totalAmmo = playsm.weapon.totalAmmo;
+            pData.bulletsShot = playsm.weapon.bulletsShot;
+            pData.bulletsLeft = playsm.weapon.bulletsLeft;
 
             Debug.Log("File requested from: " + savePath);
 
