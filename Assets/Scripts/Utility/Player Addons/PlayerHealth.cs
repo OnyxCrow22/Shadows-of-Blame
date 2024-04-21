@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float health;
-    public float maxHealth;
-    public float healthLoss;
-    public float healthGain;
+    public int health;
+    public int maxHealth;
+    public int healthLoss;
+    public int healthGain;
     public float protectedDuration;
-    public float healthPerSecond;
+    public int healthPerSecond;
     public float deadDuration;
     public Image healthBar;
     public Color defaultCol = new Color32(36, 72, 28, 255);
@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(healDelay);
 
-        health += healthPerSecond * Time.deltaTime;
+        health += healthPerSecond;
 
         if (health > 20)
         {
@@ -60,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    public void LoseHealth(float healthLoss)
+    public void LoseHealth(int healthLoss)
     {
         health -= healthLoss;
         StartCoroutine(ProtectionTimer());
