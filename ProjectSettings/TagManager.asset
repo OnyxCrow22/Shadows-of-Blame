@@ -22,6 +22,7 @@ TagManager:
   - MaleNPC
   - Police
   - EvidenceBoard
+  - VehicleDoor
   layers:
   - Default
   - TransparentFX
