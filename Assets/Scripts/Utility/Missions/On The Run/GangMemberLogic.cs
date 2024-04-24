@@ -8,6 +8,7 @@ public class GangMemberLogic : MonoBehaviour
     public EnemyMovementSM esm;
     public bool isDead = false;
     public bool enemiesDead = false;
+    public Collider capsule;
     
     public void OnDeath()
     {
@@ -17,6 +18,7 @@ public class GangMemberLogic : MonoBehaviour
             isDead = true;
 
             OTR.objective.text = "Kill the remaining enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+            capsule.enabled = false;
 
             if (OTR.gangMembersKilled == OTR.gangMemberCount && OTR.EliminatedGang)
             {

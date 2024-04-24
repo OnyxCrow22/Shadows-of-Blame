@@ -6,6 +6,7 @@ using UnityEngine;
 public class OnTheRun : MonoBehaviour
 {
     public Transform Player;
+
     [Header("Booleans")]
     public bool inWestralSquare = false;
     public bool canAccessWesteria = false;
@@ -13,6 +14,8 @@ public class OnTheRun : MonoBehaviour
     public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
     public bool missionComplete = false;
     public bool allEnemiesKilled = false;
+
+    [Header("Script references")]
     public WestralSquareCheck WSCheck;
     public GangCompoundCheck GCCheck;
     public GangLeaderLogic GLLogic;
@@ -22,23 +25,31 @@ public class OnTheRun : MonoBehaviour
     public WesteriaLocked wLocked;
     public SafehouseCheck sCheck;
     public EvidencePlace pEvidence;
+    public PoliceLevel police;
+    public WestralWoes WW;
+
+    [Header("Gameobject References")]
     public GameObject clue;
     public GameObject objectiveHolder;
     public GameObject[] enemies;
-    public PoliceLevel police;
     public GameObject missionFailed;
+    public GameObject evidenceWall;
+    public GameObject westeriaUnlocked;
+    public GameObject warningHolder, dangerPanel;
+    public GameObject player;
+    public GameObject OTRHolder;
+    public GameObject WWHolder;
+
+    [Header("Text references")]
     public TextMeshProUGUI objective, subObjective;
     public TextMeshProUGUI mission;
     public TextMeshProUGUI warningText, dangerText;
     public TextMeshProUGUI failText;
-    public GameObject evidenceWall;
-    public GameObject westeriaUnlocked;
-    public GameObject warningHolder, dangerPanel;
+
+    [Header("Int references")]
     public int requiredEvidence = 3;
     public int totalEvidence = 3;
     public int collectedEvidence = 0;
-    public GameObject player;
-
     public int gangMemberCount = 5;
     public int gangMembersKilled = 0;
 
@@ -156,6 +167,8 @@ public class OnTheRun : MonoBehaviour
         if (pEvidence.EvidencePlaced)
         {
             this.gameObject.SetActive(false);
+            OTRHolder.SetActive(false);
+            WW.enabled = true;
         }
     }
 }

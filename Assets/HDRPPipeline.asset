@@ -46,7 +46,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
     supportDistortion: 1
-    supportTransparentBackface: 1
+    supportTransparentBackface: 0
     supportTransparentDepthPrepass: 1
     supportTransparentDepthPostpass: 1
     colorBufferFormat: 74
@@ -72,7 +72,7 @@ MonoBehaviour:
     supportScreenSpaceLensFlare: 1
     supportDataDrivenLensFlare: 1
     supportRuntimeAOVAPI: 0
-    supportDitheringCrossFade: 1
+    supportDitheringCrossFade: 0
     supportTerrainHole: 0
     lightProbeSystem: 0
     probeVolumeMemoryBudget: 1024
@@ -81,7 +81,7 @@ MonoBehaviour:
     supportProbeVolumeScenarios: 0
     supportProbeVolumeScenarioBlending: 1
     probeVolumeBlendingMemoryBudget: 128
-    supportRayTracing: 1
+    supportRayTracing: 0
     supportVFXRayTracing: 1
     supportedRayTracingMode: 3
     lightLoopSettings:

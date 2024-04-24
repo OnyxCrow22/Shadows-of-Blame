@@ -5,7 +5,6 @@ using UnityEngine;
 public class GangCompoundCheck : MonoBehaviour
 {
     public OnTheRun OTR;
-    GameObject[] search;
     public bool arrivedAtCompound = false;
 
     private void OnTriggerEnter(Collider other)
@@ -13,15 +12,14 @@ public class GangCompoundCheck : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             arrivedAtCompound = true;
-            search = GameObject.FindGameObjectsWithTag("GangMember");
 
-            if (search != GameObject.FindGameObjectsWithTag("GangMember"))
+            if (OTR.enemies.Length <= 0)
             {
                 OTR.objective.text = "Kill the gang leader.";
                 OTR.InCompound = true;
                 OTR.subObjective.text = "";
             }
-            else if (search == GameObject.FindGameObjectsWithTag("GangMember"))
+            else if (OTR.enemies.Length > 0)
             {
                 OTR.objective.text = "Kill all enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
                 OTR.subObjective.text = "Kill the Gang Leader";

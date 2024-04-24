@@ -16,6 +16,8 @@ public class RaycastMaster : MonoBehaviour
         DoorHandling();
         CarDoors();
         GEvidenceCollect();
+        HParkEvidenceCollect();
+        PrescottEvidenceCollect();
         PlaceEvidenceOnBoard();
     }
 
@@ -102,6 +104,64 @@ public class RaycastMaster : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.E) && collectEvidence.reading)
                 {
                     collectEvidence.CloseWindow();
+                }
+            }
+        }
+        else
+        {
+            interactKey.SetActive(false);
+        }
+    }
+
+    public void HParkEvidenceCollect()
+    {
+        Ray evidenceRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
+        float rayLength = 4;
+        if (Physics.Raycast(evidenceRay, out RaycastHit evidenceHit, rayLength))
+        {
+            if (evidenceHit.collider.gameObject.tag == "Evidence")
+            {
+                WWCollectHParkEvidence HParkEvidence = evidenceHit.collider.gameObject.GetComponent<WWCollectHParkEvidence>();
+                Debug.Log("HIT THE EVIDENCE!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !HParkEvidence.reading)
+                {
+                    HParkEvidence.PickUp();
+                    HParkEvidence.reading = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && HParkEvidence.reading)
+                {
+                    HParkEvidence.CloseWindow();
+                }
+            }
+        }
+        else
+        {
+            interactKey.SetActive(false);
+        }
+    }
+
+    public void PrescottEvidenceCollect()
+    {
+        Ray evidenceRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
+        float rayLength = 4;
+        if (Physics.Raycast(evidenceRay, out RaycastHit evidenceHit, rayLength))
+        {
+            if (evidenceHit.collider.gameObject.tag == "Evidence")
+            {
+                WWCollectPrescottEvidence prescottEvidence = evidenceHit.collider.gameObject.GetComponent<WWCollectPrescottEvidence>();
+                Debug.Log("HIT THE EVIDENCE!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !prescottEvidence.reading)
+                {
+                    prescottEvidence.PickUp();
+                    prescottEvidence.reading = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && prescottEvidence.reading)
+                {
+                    prescottEvidence.CloseWindow();
                 }
             }
         }
