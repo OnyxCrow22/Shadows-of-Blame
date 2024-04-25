@@ -18,6 +18,7 @@ public class VehicleEnterExit : MonoBehaviour
     public Collider vehicleCol;
     public PlayerMovementSM playsm;
     public Animator carDoorAnim;
+    public RaycastMaster rMaster;
 
     private void Start()
     {
@@ -61,6 +62,7 @@ public class VehicleEnterExit : MonoBehaviour
 
     IEnumerator EnteringVehicle()
     {
+        rMaster.interactKey.SetActive(false);
         vehicleCol.GetComponent<Collider>().enabled = false;
         vehicleCam.SetActive(true);
         playerCam.SetActive(false);
@@ -86,6 +88,7 @@ public class VehicleEnterExit : MonoBehaviour
     {
         if (canExit == true)
         {
+            rMaster.interactKey.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E) && inVehicle)
             {
                 StartCoroutine(ExitingVehicle());
@@ -112,6 +115,7 @@ public class VehicleEnterExit : MonoBehaviour
         playsm.inVehicle = false;
         canEnter = true;
         canExit = false;
+        rMaster.interactKey.SetActive(false);
     }
 }
 

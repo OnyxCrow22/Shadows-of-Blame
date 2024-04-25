@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class RaycastMaster : MonoBehaviour
 {
     [Header("Raycast References")]
     public GameObject interactKey;
     public PlayerMovementSM playsm;
+
+    public bool door = false;
+    public bool evidence = false;
+    public bool carDoor = false;
+    public bool board = false;
 
     // Update is called once per frame
     void Update()
@@ -29,8 +33,9 @@ public class RaycastMaster : MonoBehaviour
         float RayLength = 4;
         if (Physics.Raycast(doorRay, out doorHit, RayLength))
         {
-            if (doorHit.collider.gameObject.tag == "Door")
+            if (doorHit.collider.CompareTag("Door"))
             {
+                door = true;
                 Door doorS = doorHit.collider.gameObject.GetComponent<Door>();
                 interactKey.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E) && doorS.isOpen)
@@ -47,10 +52,6 @@ public class RaycastMaster : MonoBehaviour
                 }
 
             }
-        }
-        else
-        {
-            interactKey.SetActive(false);
         }
     }
 
@@ -78,10 +79,6 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void EvidenceCollecting()
@@ -107,10 +104,6 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void HParkEvidenceCollect()
@@ -120,7 +113,7 @@ public class RaycastMaster : MonoBehaviour
         float rayLength = 4;
         if (Physics.Raycast(evidenceRay, out RaycastHit evidenceHit, rayLength))
         {
-            if (evidenceHit.collider.gameObject.tag == "Evidence")
+            if (evidenceHit.collider.gameObject.tag == "HParkEvidence")
             {
                 WWCollectHParkEvidence HParkEvidence = evidenceHit.collider.gameObject.GetComponent<WWCollectHParkEvidence>();
                 Debug.Log("HIT THE EVIDENCE!");
@@ -136,10 +129,6 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void PrescottEvidenceCollect()
@@ -149,7 +138,7 @@ public class RaycastMaster : MonoBehaviour
         float rayLength = 4;
         if (Physics.Raycast(evidenceRay, out RaycastHit evidenceHit, rayLength))
         {
-            if (evidenceHit.collider.gameObject.tag == "Evidence")
+            if (evidenceHit.collider.gameObject.tag == "PrescottEvidence")
             {
                 WWCollectPrescottEvidence prescottEvidence = evidenceHit.collider.gameObject.GetComponent<WWCollectPrescottEvidence>();
                 Debug.Log("HIT THE EVIDENCE!");
@@ -164,10 +153,6 @@ public class RaycastMaster : MonoBehaviour
                     prescottEvidence.CloseWindow();
                 }
             }
-        }
-        else
-        {
-            interactKey.SetActive(false);
         }
     }
 
@@ -194,10 +179,6 @@ public class RaycastMaster : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            interactKey.SetActive(false);
-        }
     }
 
     public void PlaceEvidenceOnBoard()
@@ -219,10 +200,6 @@ public class RaycastMaster : MonoBehaviour
                     interactKey.SetActive(false);
                 }
             }
-        }
-        else
-        {
-            interactKey.SetActive(false);
         }
 
     }

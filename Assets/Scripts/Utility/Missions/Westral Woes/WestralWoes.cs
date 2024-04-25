@@ -10,6 +10,7 @@ public class WestralWoes : MonoBehaviour
     public TextMeshProUGUI objective;
     public TextMeshProUGUI missionName;
     public TextMeshProUGUI subObjective;
+    public TextMeshProUGUI[] locationClues;
 
     [Header("Boolean references")]
     public bool inSafehouse = true;
@@ -19,6 +20,7 @@ public class WestralWoes : MonoBehaviour
     public bool inPrescott = false;
     public bool CollectedEvidencePrescott = false;
     public bool inNorthbyCompound = false;
+    public bool allNorthby = false;
 
     [Header("Int references")]
     public int HaliEvidenceCollected = 0;
@@ -30,13 +32,15 @@ public class WestralWoes : MonoBehaviour
 
     [Header("Gameobject references")]
     public GameObject clue;
+    public GameObject HParkHolder;
+    public GameObject PrescottHolder;
     public GameObject[] NorthbyGang;
+    public GameObject LocationClueHolder;
 
     [Header("Script references")]
     public WWSafehouseCheck safehouseVerify;
     public WWCrossedBridge bridgeCheck;
     public WWHalifaxPark halifaxPark;
-    public WWCollectHParkEvidence HParkCollect;
     public WWPrescott prescottCheck;
 
     private void Start()
@@ -113,17 +117,26 @@ public class WestralWoes : MonoBehaviour
 
     void CompoundInNortby()
     {
-        
+        if (inNorthbyCompound)
+        {
+            GangLeaderA();
+        }
     }
 
     void GangLeaderA()
     {
-
+        if (NorthbyGang.Length > 0)
+        {
+            RemainingEnemiesA();
+        }
     }
 
     void RemainingEnemiesA()
     {
-
+        if (allNorthby)
+        {
+            TakeEvidenceA();
+        }
     }
 
     void TakeEvidenceA()

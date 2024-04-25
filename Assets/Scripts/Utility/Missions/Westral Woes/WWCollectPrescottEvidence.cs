@@ -40,7 +40,11 @@ public class WWCollectPrescottEvidence : MonoBehaviour
         {
             WW.CollectedEvidencePrescott = true;
             WW.clue.SetActive(false);
-            WW.objective.text = "Go to the gang compound in Northby.";
+            WW.PrescottHolder.SetActive(false);
+            WW.objective.text = "Go to Northby Autos.";
+            WW.locationClues[0].text = "It's located NORTH of Prescott.";
+            WW.locationClues[1].text = "The auto shop is just off the M 150.";
+            WW.locationClues[2].text = "It's immediately EAST of Northby Roundabout";
         }
     }
 }

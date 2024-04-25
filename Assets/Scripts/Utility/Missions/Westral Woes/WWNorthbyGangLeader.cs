@@ -5,7 +5,7 @@ using UnityEngine;
 public class WWNorthbyGangLeader : MonoBehaviour
 {
     public EnemyMovementSM esm;
-    public OnTheRun OTR;
+    public WestralWoes WW;
     public GangEvidenceCollect GECollect;
     public bool isDead = false;
 
@@ -16,18 +16,18 @@ public class WWNorthbyGangLeader : MonoBehaviour
         {
             isDead = true;
 
-            if (OTR.enemies.Length > 0)
+            if (WW.NorthbyGang.Length > 0)
             {
-                OTR.subObjective.text = "";
-                OTR.objective.text = "Kill the remaining enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+                WW.subObjective.text = "";
+                WW.objective.text = "Kill the remaining enemies: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
             }
 
-            else if (OTR.enemies.Length <= 0)
+            else if (WW.NorthbyGang.Length <= 0)
             {
-                OTR.subObjective.text = "";
-                OTR.objective.text = "Take the evidence from the gang leader.";
-                OTR.EliminatedGang = true;
-                if (OTR.EliminatedGang)
+                WW.subObjective.text = "";
+                WW.objective.text = "Take the evidence from the gang leader.";
+                WW.allNorthby = true;
+                if (WW.allNorthby)
                 {
                     GECollect.gEvidence.SetActive(true);
                 }

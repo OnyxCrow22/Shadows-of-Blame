@@ -10,6 +10,7 @@ public class EnemyHealth : MonoBehaviour
     public float deadDuration;
     public GameObject enemy;
     public EnemyMovementSM esm;
+    public DeadCheck check;
 
     private void Start()
     {
@@ -28,14 +29,14 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(Death());
         }
 
-        if (enemy.CompareTag("GangLeader"))
+        if (enemy.CompareTag("NorthbyGangLeader"))
         {
-            esm.GGLogic.Check();
+            esm.northbyLeader.Check();
         }
 
-        if (enemy.CompareTag("GangMember"))
+        if (enemy.CompareTag("NorthbyGangMember"))
         {
-            esm.GMLogic.OnDeath();
+            check.Dead();
         }
     }
 

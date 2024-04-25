@@ -6,6 +6,7 @@ public class WWPrescott : MonoBehaviour
 {
     public WestralWoes WW;
     public bool inPrescott = false;
+    public bool CollectedPrescottEvidence = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,6 +15,19 @@ public class WWPrescott : MonoBehaviour
             inPrescott = true;
             WW.inPrescott = true;
             WW.objective.text = "Search for more evidence in Prescott: " + WW.PrescottEvidenceCollected + " / " + WW.PrescottEvidenceTotal;
+            WW.locationClues[0].text = "";
+            WW.locationClues[1].text = "";
+            WW.locationClues[2].text = "";
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!WW.CollectedEvidencePrescott)
+        {
+            inPrescott = false;
+            WW.inPrescott = false;
+            WW.objective.text = "Go back to Prescott.";
         }
     }
 }

@@ -53,9 +53,10 @@ public class PlayerHealth : MonoBehaviour
             healthBar.color = defaultCol;
         }
 
-        if (health == 100)
+        if (health >= 100)
         {
             health = 100;
+            maxHealth = 100;
         }
 
     }

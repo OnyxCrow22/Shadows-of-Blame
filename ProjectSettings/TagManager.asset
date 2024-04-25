@@ -23,6 +23,8 @@ TagManager:
   - Police
   - EvidenceBoard
   - VehicleDoor
+  - HParkEvidence
+  - PrescottEvidence
   layers:
   - Default
   - TransparentFX
