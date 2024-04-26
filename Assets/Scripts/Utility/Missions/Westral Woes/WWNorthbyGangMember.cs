@@ -5,27 +5,42 @@ using UnityEngine;
 public class WWNorthbyGangMember : MonoBehaviour
 {
     public WestralWoes WW;
-    public DeadCheck dead;
     public EnemyMovementSM esm;
     public bool isDead = false;
     public bool enemiesDead = false;
-    
+    public Collider hitBox;
+
     public void OnDeath()
     {
         if (esm.eHealth.health <= 0)
         {
             WW.NorthbyGangEliminated += 1;
             isDead = true;
-
-            WW.objective.text = "Kill the remaining enemies: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
-            gameObject.SetActive(false);
-
-            if (WW.NorthbyGangEliminated == WW.NorthbyGangAmount)
-            {
-                WW.objective.text = "Take the evidence from the gang leader.";
-                enemiesDead = true;
-                WW.allNorthby = true;
-            }
+            hitBox.enabled = false;
         }
-    } 
+
+        if (WW.northbyLeaderdown)
+        {
+            WW.objective.text = "Kill the gang members: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
+            WW.subObjective.text = "";
+        }
+        else if (!WW.northbyLeaderdown)
+        {
+            WW.objective.text = "Kill the gang leader.";
+            WW.subObjective.text = "Kill the gang members: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
+        }
+
+        if (WW.NorthbyGangEliminated == WW.NorthbyGangAmount && !WW.northbyLeaderdown)
+        {
+            WW.objective.text = "Kill the gang leader.";
+            WW.subObjective.text = "";
+        }
+
+        if (WW.NorthbyGangEliminated == WW.NorthbyGangAmount && WW.northbyLeaderdown)
+        {
+            WW.objective.text = "Take the evidence from the gang leader.";
+            WW.subObjective.text = "";
+            WW.allNorthby = true;
+        }
+    }
 }

@@ -6,30 +6,30 @@ public class WWNorthbyGangLeader : MonoBehaviour
 {
     public EnemyMovementSM esm;
     public WestralWoes WW;
-    public GangEvidenceCollect GECollect;
+    public WWNorthbyGangEvidence northbyEvidence;
     public bool isDead = false;
 
     public void Check()
     {
-
         if (esm.eHealth.health == 0)
         {
             isDead = true;
+            WW.northbyLeaderdown = true;
 
-            if (WW.NorthbyGang.Length > 0)
+            if (WW.NorthbyGangEliminated < WW.NorthbyGangAmount)
             {
                 WW.subObjective.text = "";
-                WW.objective.text = "Kill the remaining enemies: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
+                WW.objective.text = "Kill the gang members: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
             }
 
-            else if (WW.NorthbyGang.Length <= 0)
+            else if (WW.NorthbyGangEliminated == WW.NorthbyGangAmount && WW.northbyLeaderdown)
             {
                 WW.subObjective.text = "";
                 WW.objective.text = "Take the evidence from the gang leader.";
                 WW.allNorthby = true;
                 if (WW.allNorthby)
                 {
-                    GECollect.gEvidence.SetActive(true);
+                    northbyEvidence.gEvidence.SetActive(true);
                 }
             }
         }    

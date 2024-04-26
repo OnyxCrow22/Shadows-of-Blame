@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Waypoint
-  - Enemy
   - Door
   - Hide
   - Evidence
@@ -15,8 +14,6 @@ TagManager:
   - Spawn
   - PedDests
   - PedestrianDestinations
-  - GangLeader
-  - GangMember
   - GEvidence
   - FemaleNPC
   - MaleNPC
@@ -25,6 +22,12 @@ TagManager:
   - VehicleDoor
   - HParkEvidence
   - PrescottEvidence
+  - NorthbyGangMember
+  - NorthbyGangLeader
+  - SaintMarysGangMember
+  - SaintMarysGangLeader
+  - NorthbyEvidence
+  - Vehicle
   layers:
   - Default
   - TransparentFX

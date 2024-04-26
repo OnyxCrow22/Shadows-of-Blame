@@ -9,11 +9,14 @@ public class WWCompoundNorthby : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !WW.collectedNorthbyEvidence)
         {
             inCompound = true;
             WW.inNorthbyCompound = true;
             WW.objective.text = "Kill the gang leader.";
+            WW.locationClues[0].text = "";
+            WW.locationClues[1].text = "";
+            WW.locationClues[2].text = "";
             if (WW.NorthbyGang.Length > 0)
             {
                 WW.subObjective.text = "Kill the gang members: " + WW.NorthbyGangEliminated + " / " + WW.NorthbyGangAmount;
@@ -22,6 +25,15 @@ public class WWCompoundNorthby : MonoBehaviour
             {
                 WW.objective.text = "Take the evidence from the gang leader.";
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (!inCompound && !WW.allNorthby && !WW.northbyLeaderdown && !WW.collectedNorthbyEvidence)
+        {
+            inCompound = false;
+            WW.objective.text = "Go back to Northby Autos.";
         }
     }
 }

@@ -43,11 +43,10 @@ public class EnemyMovementSM : EnemyStateMachine
     public EnemyCoverSystem eCover;
     public EnemyMeleeSystem eMSystem;
     public AlGun eGun;
-    public DeadCheck check;
     public GangLeaderLogic GGLogic;
     public GangMemberLogic GMLogic;
     public WWNorthbyGangMember northbyGang;
-    public WWNorthbyGangMember northbyLeader;
+    public WWNorthbyGangLeader northbyLeader;
 
     [HideInInspector]
     public EnemyIdle idleState;

@@ -22,6 +22,8 @@ public class RaycastMaster : MonoBehaviour
         GEvidenceCollect();
         HParkEvidenceCollect();
         PrescottEvidenceCollect();
+        NorthbyEvidenceCollect();
+        NorthBeachEvidenceCollect();
         PlaceEvidenceOnBoard();
     }
 
@@ -176,6 +178,55 @@ public class RaycastMaster : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.E) && gECollect.isgReading)
                 {
                     gECollect.GECloseWindow();
+                }
+            }
+        }
+    }
+
+    public void NorthbyEvidenceCollect()
+    {
+        Ray gEvidenceRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
+        float gRayLength = 4;
+        if (Physics.Raycast(gEvidenceRay, out RaycastHit gEvidencehit, gRayLength))
+        {
+            if (gEvidencehit.collider.gameObject.tag == "NorthbyEvidence")
+            {
+                WWNorthbyGangEvidence northbyCollect = gEvidencehit.collider.gameObject.GetComponent<WWNorthbyGangEvidence>();
+                Debug.Log("Evidence hit!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !northbyCollect.isgReading)
+                {
+                    northbyCollect.GEPickup();
+                    northbyCollect.isgReading = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && northbyCollect.isgReading)
+                {
+                    northbyCollect.GECloseWindow();
+                }
+            }
+        }
+    }
+    public void NorthBeachEvidenceCollect()
+    {
+        Ray gEvidenceRay = new Ray(transform.position, Vector3.down);
+        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
+        float gRayLength = 4;
+        if (Physics.Raycast(gEvidenceRay, out RaycastHit gEvidencehit, gRayLength))
+        {
+            if (gEvidencehit.collider.gameObject.tag == "NorthBeachEvidence")
+            {
+                WWNorthBeachEvidence northBeachCollect = gEvidencehit.collider.gameObject.GetComponent<WWNorthBeachEvidence>();
+                Debug.Log("Evidence hit!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !northBeachCollect.isgReading)
+                {
+                    northBeachCollect.GEPickup();
+                    northBeachCollect.isgReading = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && northBeachCollect.isgReading)
+                {
+                    northBeachCollect.GECloseWindow();
                 }
             }
         }

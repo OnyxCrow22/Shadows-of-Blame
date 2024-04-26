@@ -20,7 +20,13 @@ public class WestralWoes : MonoBehaviour
     public bool inPrescott = false;
     public bool CollectedEvidencePrescott = false;
     public bool inNorthbyCompound = false;
+    public bool northbyLeaderdown = false;
     public bool allNorthby = false;
+    public bool collectedNorthbyEvidence = false;
+    public bool enteredNorthBeach = false;
+    public bool inNorthBeachcompound = false;
+    public bool allNorthBeachGangsters = false;
+    public bool collectedNorthBeachEvidence = false;
 
     [Header("Int references")]
     public int HaliEvidenceCollected = 0;
@@ -29,12 +35,15 @@ public class WestralWoes : MonoBehaviour
     public int PrescottEvidenceTotal;
     public int NorthbyGangEliminated = 0;
     public int NorthbyGangAmount;
+    public int NorthBeachGangEliminated = 0;
+    public int NorthBeachGangAmount;
 
     [Header("Gameobject references")]
     public GameObject clue;
     public GameObject HParkHolder;
     public GameObject PrescottHolder;
     public GameObject[] NorthbyGang;
+    public GameObject[] NorthBeachGang;
     public GameObject LocationClueHolder;
 
     [Header("Script references")]
@@ -42,6 +51,7 @@ public class WestralWoes : MonoBehaviour
     public WWCrossedBridge bridgeCheck;
     public WWHalifaxPark halifaxPark;
     public WWPrescott prescottCheck;
+    public WWNorthBeachCheck northBeach;
 
     private void Start()
     {
@@ -111,11 +121,11 @@ public class WestralWoes : MonoBehaviour
     {
         if (CollectedEvidencePrescott)
         {
-            CompoundInNortby();
+            CompoundInNorthby();
         }    
     }
 
-    void CompoundInNortby()
+    void CompoundInNorthby()
     {
         if (inNorthbyCompound)
         {
@@ -125,15 +135,19 @@ public class WestralWoes : MonoBehaviour
 
     void GangLeaderA()
     {
-        if (NorthbyGang.Length > 0)
+        if (NorthbyGang.Length > 0 && northbyLeaderdown)
         {
             RemainingEnemiesA();
+        }
+        if (NorthbyGang.Length <= 0)
+        {
+            TakeEvidenceA();
         }
     }
 
     void RemainingEnemiesA()
     {
-        if (allNorthby)
+        if (allNorthby && northbyLeaderdown)
         {
             TakeEvidenceA();
         }
@@ -141,22 +155,34 @@ public class WestralWoes : MonoBehaviour
 
     void TakeEvidenceA()
     {
+        if (collectedNorthbyEvidence)
+        {
+            NorthBeach();
+        }
+    }
 
+    void NorthBeach()
+    {
+        if (northBeach.enteredNorthBeach)
+        {
+            CompoundInNorthBeach();
+        }
     }
 
     void CompoundInNorthBeach()
     {
-
+        if (inNorthBeachcompound)
+        {
+            NorthBeachGangsters();
+        }
     }
 
-    void GangLeaderB()
+    void NorthBeachGangsters()
     {
-
-    }
-
-    void RemainingEnemiesB()
-    {
-
+        if (allNorthBeachGangsters)
+        {
+            TakeEvidenceB();
+        }
     }
 
     void TakeEvidenceB()

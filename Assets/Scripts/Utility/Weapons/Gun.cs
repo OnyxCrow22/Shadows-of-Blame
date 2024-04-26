@@ -130,7 +130,7 @@ public class Gun : MonoBehaviour
         {
             Debug.Log(hit.collider.name);
 
-            if (hit.collider.CompareTag("Enemy") || (hit.collider.CompareTag("GangLeader") || (hit.collider.CompareTag("GangMember"))))
+            if (hit.collider.CompareTag("SaintMarysGangMember") || hit.collider.CompareTag("SaintMarysGangLeader") || hit.collider.CompareTag("NorthbyGangMember") || hit.collider.CompareTag("NorthbyGangLeader") || hit.collider.CompareTag("NorthBeachGangMember"))
                 hit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
 
             if (hit.collider.CompareTag("FemaleNPC") || (hit.collider.CompareTag("MaleNPC")))

@@ -14,7 +14,9 @@ public class WWHalifaxPark : MonoBehaviour
             HPark = true;
             WW.HaliPark = true;
             WW.objective.text = "Search for evidence in Halifax Park: " + WW.HaliEvidenceCollected + " / " + WW.HaliEvidenceTotal;
-            WW.locationClues[WW.locationClues.Length].text = "";
+            WW.locationClues[0].text = "";
+            WW.locationClues[1].text = "";
+            WW.locationClues[2].text = "";
         }
     }
 

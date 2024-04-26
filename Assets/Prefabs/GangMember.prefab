@@ -248,9 +248,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8895184578440918862}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6743124923449879909}
   m_SourcePrefab: {fileID: 100100000, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
 --- !u!4 &2670305113538238356 stripped
 Transform:
@@ -336,7 +333,6 @@ MonoBehaviour:
   deadDuration: 10
   enemy: {fileID: 8355260722970935046}
   esm: {fileID: 8126634793417477190}
-  check: {fileID: 6743124923449879909}
 --- !u!114 &6995042504308259444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,25 +421,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WW: {fileID: 0}
-  dead: {fileID: 6743124923449879909}
   esm: {fileID: 8126634793417477190}
   isDead: 0
   enemiesDead: 0
-  capsule: {fileID: 3543802091450260195}
---- !u!114 &6743124923449879909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8355260722970935046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa40b0bba63c19c448e20f265143ab67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eHealth: {fileID: 2516307298543315707}
-  isDead: 0
+  hitBox: {fileID: 0}
 --- !u!4 &8698713609293063612 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
