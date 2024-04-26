@@ -28,6 +28,8 @@ TagManager:
   - SaintMarysGangLeader
   - NorthbyEvidence
   - Vehicle
+  - NorthBeachGangMember
+  - NorthBeachEvidence
   layers:
   - Default
   - TransparentFX

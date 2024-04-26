@@ -47,6 +47,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public GangMemberLogic GMLogic;
     public WWNorthbyGangMember northbyGang;
     public WWNorthbyGangLeader northbyLeader;
+    public WWNorthBeachGangMember northBeachGang;
 
     [HideInInspector]
     public EnemyIdle idleState;

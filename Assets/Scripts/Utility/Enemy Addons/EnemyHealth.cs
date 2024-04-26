@@ -47,6 +47,11 @@ public class EnemyHealth : MonoBehaviour
         {
             esm.northbyGang.OnDeath();
         }
+
+        if (enemy.CompareTag("NorthBeachGangMember"))
+        {
+            esm.northBeachGang.OnDeath();
+        }
     }
 
     public IEnumerator Death()

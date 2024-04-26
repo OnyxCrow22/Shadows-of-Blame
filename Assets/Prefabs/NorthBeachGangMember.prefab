@@ -207,11 +207,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
       propertyPath: m_Name
-      value: GangMember
+      value: NorthBeachGangMember
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
       propertyPath: m_TagString
-      value: NorthbyGangMember
+      value: NorthBeachGangMember
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
       propertyPath: m_Controller
@@ -247,7 +247,7 @@ PrefabInstance:
       addedObject: {fileID: 3543802091450260195}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8895184578440918862}
+      addedObject: {fileID: -7319527457188759884}
   m_SourcePrefab: {fileID: 100100000, guid: e8cfde4efef83d840a0ad8db4fb321bd, type: 3}
 --- !u!4 &2670305113538238356 stripped
 Transform:
@@ -313,7 +313,7 @@ MonoBehaviour:
   eGun: {fileID: 1248722150945281206}
   GGLogic: {fileID: 0}
   GMLogic: {fileID: 0}
-  northbyGang: {fileID: 8895184578440918862}
+  northbyGang: {fileID: 0}
   northbyLeader: {fileID: 0}
   northBeachGang: {fileID: 0}
 --- !u!114 &2516307298543315707
@@ -409,7 +409,7 @@ CapsuleCollider:
   m_Height: 1.8792725
   m_Direction: 1
   m_Center: {x: 0, y: 0.8290825, z: 0}
---- !u!114 &8895184578440918862
+--- !u!114 &-7319527457188759884
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,13 +418,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8355260722970935046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 992a054f409ff53468ab191faa16950a, type: 3}
+  m_Script: {fileID: 11500000, guid: a9d5858815053594b8679ac15b802289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   WW: {fileID: 0}
-  esm: {fileID: 8126634793417477190}
+  esm: {fileID: 0}
   isDead: 0
   enemiesDead: 0
+  NEvidence: {fileID: 0}
   hitBox: {fileID: 0}
 --- !u!4 &8698713609293063612 stripped
 Transform:
