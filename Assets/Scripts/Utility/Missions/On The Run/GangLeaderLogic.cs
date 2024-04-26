@@ -11,27 +11,28 @@ public class GangLeaderLogic : MonoBehaviour
 
     public void Check()
     {
-
         if (esm.eHealth.health == 0)
         {
             isDead = true;
+            OTR.gangLeaderdead = true;
 
-            if (OTR.enemies.Length > 0)
+            if (OTR.gangMembersKilled < OTR.gangMemberCount)
             {
                 OTR.subObjective.text = "";
-                OTR.objective.text = "Kill the remaining enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+                OTR.objective.text = "Kill the gang members: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
             }
 
-            else if (OTR.enemies.Length <= 0)
+            else if (OTR.gangMembersKilled == OTR.gangMemberCount && OTR.gangLeaderdead)
             {
                 OTR.subObjective.text = "";
                 OTR.objective.text = "Take the evidence from the gang leader.";
                 OTR.EliminatedGang = true;
-                if (OTR.EliminatedGang)
+                OTR.allenemiesKilled = true;
+                if (OTR.allenemiesKilled)
                 {
                     GECollect.gEvidence.SetActive(true);
                 }
             }
-        }    
+        }
     }
 }

@@ -53,8 +53,9 @@ public class WestralWoes : MonoBehaviour
     public WWPrescott prescottCheck;
     public WWNorthBeachCheck northBeach;
 
-    private void Start()
+    public void Start()
     {
+        this.GetComponent<WestralWoes>().enabled = true;
         missionName.text = "Westral Woes";
 
         if (!inSafehouse)

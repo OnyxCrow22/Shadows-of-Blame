@@ -9,6 +9,7 @@ public class WWNorthbyGangMember : MonoBehaviour
     public bool isDead = false;
     public bool enemiesDead = false;
     public Collider hitBox;
+    public WWNorthbyGangLeader leader;
 
     public void OnDeath()
     {
@@ -41,6 +42,10 @@ public class WWNorthbyGangMember : MonoBehaviour
             WW.objective.text = "Take the evidence from the gang leader.";
             WW.subObjective.text = "";
             WW.allNorthby = true;
+            if (WW.allNorthby)
+            {
+                leader.northbyEvidence.gEvidence.SetActive(true);
+            }
         }
     }
 }

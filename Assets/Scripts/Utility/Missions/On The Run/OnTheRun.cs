@@ -13,7 +13,8 @@ public class OnTheRun : MonoBehaviour
     public bool inSafehouse = false;
     public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
     public bool missionComplete = false;
-    public bool allEnemiesKilled = false;
+    public bool gangLeaderdead = false;
+    public bool allenemiesKilled = false;
 
     [Header("Script references")]
     public WestralSquareCheck WSCheck;
@@ -124,7 +125,7 @@ public class OnTheRun : MonoBehaviour
         {
             TakeEvidenceFromGang();
         }
-        else if (GLLogic.isDead && !allEnemiesKilled)
+        else if (GLLogic.isDead && !EliminatedGang && !allenemiesKilled)
         {
             KillRemainingEnemies();
         }
@@ -132,7 +133,7 @@ public class OnTheRun : MonoBehaviour
 
     void KillRemainingEnemies()
     {
-        if (allEnemiesKilled)
+        if (EliminatedGang && GLLogic.isDead && allenemiesKilled)
         {
             TakeEvidenceFromGang();
         }
@@ -168,7 +169,7 @@ public class OnTheRun : MonoBehaviour
         {
             this.gameObject.SetActive(false);
             OTRHolder.SetActive(false);
-            WW.enabled = true;
+            WW.gameObject.SetActive(true);
         }
     }
 }

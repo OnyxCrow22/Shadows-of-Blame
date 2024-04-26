@@ -9,22 +9,44 @@ public class GangMemberLogic : MonoBehaviour
     public bool isDead = false;
     public bool enemiesDead = false;
     public Collider capsule;
+    public GangLeaderLogic leader;
     
     public void OnDeath()
     {
-        if (esm.eHealth.health == 0)
+        if (esm.eHealth.health <= 0)
         {
             OTR.gangMembersKilled += 1;
             isDead = true;
-
-            OTR.objective.text = "Kill the remaining enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
             capsule.enabled = false;
+        }
 
-            if (OTR.gangMembersKilled == OTR.gangMemberCount && OTR.EliminatedGang)
+        if (OTR.gangLeaderdead)
+        {
+            OTR.objective.text = "Kill the gang members: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+            OTR.subObjective.text = "";
+        }
+        else if (!OTR.gangLeaderdead)
+        {
+            OTR.objective.text = "Kill the gang leader.";
+            OTR.subObjective.text = "Kill the gang members: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
+        }
+
+        if (OTR.gangMembersKilled == OTR.gangMemberCount && !OTR.gangLeaderdead)
+        {
+            OTR.objective.text = "Kill the gang leader.";
+            OTR.subObjective.text = "";
+        }
+
+        else if (OTR.gangMembersKilled == OTR.gangMemberCount && OTR.gangLeaderdead)
+        {
+            OTR.subObjective.text = "";
+            OTR.objective.text = "Take the evidence from the gang leader.";
+            OTR.EliminatedGang = true;
+            OTR.allenemiesKilled = true;
+
+            if (OTR.allenemiesKilled)
             {
-                OTR.objective.text = "Take the evidence from the gang leader.";
-                enemiesDead = true;
-                OTR.allEnemiesKilled = true;
+                leader.GECollect.gEvidence.SetActive(true);
             }
         }
     } 
