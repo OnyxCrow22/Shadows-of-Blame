@@ -44,6 +44,7 @@ public class WestralWoes : MonoBehaviour
     public GameObject PrescottHolder;
     public GameObject[] NorthbyGang;
     public GameObject[] NorthBeachGang;
+    public GameObject[] NorthBeachEvidence;
     public GameObject LocationClueHolder;
 
     [Header("Script references")]

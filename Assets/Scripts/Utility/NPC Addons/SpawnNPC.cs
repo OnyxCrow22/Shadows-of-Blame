@@ -9,31 +9,24 @@ public class SpawnNPC : MonoBehaviour
     public int AICount;
     public GameObject player;
     public LayerMask pavement;
-    GameObject[] spawnPoint;
+    public GameObject[] spawnPoint;
     [HideInInspector]
     public GameObject newNPC;
     [HideInInspector]
     public NavMeshAgent AI;
     [HideInInspector]
     public NPCMovementSM NPCSM;
-    GameObject[] pedestrianDests;
+    public GameObject[] pedestrianDests;
     [HideInInspector]
     public GameObject currentPedDest;
-
-    private void Start()
-    {
-        StartCoroutine(Spawn());
-    }
 
     public IEnumerator Spawn()
     {
         int AICount = 0;
         while (AICount < 75)
         {
-            spawnPoint = GameObject.FindGameObjectsWithTag("Spawn");
             int RandomIndex = Random.Range(0, WalkAI.Length);
             int RandomSpawnIndex = Random.Range(0, spawnPoint.Length);
-            pedestrianDests = GameObject.FindGameObjectsWithTag("PedDests");
             int RandomDest = Random.Range(0, pedestrianDests.Length);
             currentPedDest = pedestrianDests[RandomDest];
             newNPC = Instantiate(WalkAI[RandomIndex], spawnPoint[RandomSpawnIndex].transform.position, Quaternion.identity);
@@ -41,8 +34,7 @@ public class SpawnNPC : MonoBehaviour
             NPCSM = newNPC.GetComponent<NPCMovementSM>();
             AI = newNPC.GetComponent<NavMeshAgent>();
             newNPC.GetComponent<NPCMovementSM>().spawnedIn = true;
-
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            ;
             if (player != null)
             {
                 PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();

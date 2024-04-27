@@ -8,6 +8,7 @@ public class PoliceLevel : MonoBehaviour
     public GameObject[] attainLevels;
     public GameObject policeOfficer;
     public GameObject[] policeVehicles;
+    public GameObject player;
     public GameObject border;
     public PlayerMovementSM playsm;
     PoliceMovementSM police;
@@ -15,9 +16,9 @@ public class PoliceLevel : MonoBehaviour
     public static int levelStage;
     public static bool giveLevel;
     public int bustedTimer = 5;
-    GameObject[] pedestrianSpawns;
-    GameObject[] vehicleSpawns;
-    GameObject[] policeDests;
+    public GameObject[] pedestrianSpawns;
+    public GameObject[] vehicleSpawns;
+    public GameObject[] policeDests;
     GameObject currentPoliceDest;
     GameObject newPoliceCar;
     GameObject newPolicePedestrian;
@@ -68,7 +69,7 @@ public class PoliceLevel : MonoBehaviour
         float visualRange = 40;
         if (Physics.Raycast(visualRay, out visualHit, visualRange))
         {
-            if (visualHit.collider.name != "Player" || policeOfficer != GameObject.FindGameObjectWithTag("Police"))
+            if (visualHit.collider.name != "Player" || policeOfficer.activeInHierarchy)
             {
                 LoseLevel();
                 StartCoroutine(SearchForPlayer());
@@ -113,17 +114,13 @@ public class PoliceLevel : MonoBehaviour
         int policePedestriansCount = 0;
         while (policePedestriansCount < 15)
         {
-            pedestrianSpawns = GameObject.FindGameObjectsWithTag("Spawn");
             int SpawnIndex = Random.Range(0, pedestrianSpawns.Length);
-            policeDests = GameObject.FindGameObjectsWithTag("PedDests");
             int RandomPoliceDest = Random.Range(0, policeDests.Length);
             currentPoliceDest = policeDests[RandomPoliceDest];
             newPolicePedestrian = Instantiate(policeOfficer, pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
 
             PoliceMovementSM policesm = newPolicePedestrian.GetComponent<PoliceMovementSM>();
             PoliceAI = newPolicePedestrian.GetComponent<NavMeshAgent>();
-
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             if (player != null)
             {
@@ -170,15 +167,12 @@ public class PoliceLevel : MonoBehaviour
         int policeCount = 0;
         while (policeCount < 5 && playsm.inVehicle)
         {
-            vehicleSpawns = GameObject.FindGameObjectsWithTag("PoliceSpawns");
             int RandomIndex = Random.Range(0, policeVehicles.Length);
             int RandomSpawns = Random.Range(0, vehicleSpawns.Length);
 
             newPoliceCar = Instantiate(policeVehicles[RandomIndex], vehicleSpawns[RandomSpawns].transform.position, Quaternion.identity);
             PoliceAI = newPoliceCar.GetComponent<NavMeshAgent>();
 
-
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
                 player.GetComponent<PlayerMovementSM>();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WWNorthBeachGangMember : MonoBehaviour
@@ -20,13 +21,15 @@ public class WWNorthBeachGangMember : MonoBehaviour
             hitBox.enabled = false;
         }
 
+        WW.objective.text = "Kill the gangsters: " + WW.NorthBeachGangEliminated + " / " + WW.NorthBeachGangAmount;
+
         if (WW.NorthBeachGangEliminated == WW.NorthBeachGangAmount)
         {
-            WW.objective.text = "Take the evidence from one of the gang members";
+            WW.objective.text = "Take the evidence from one of the gang members.";
             WW.allNorthBeachGangsters = true;
 
-            int RandomIndex = Random.Range(0, WW.NorthBeachGang.Length);
-            WW.NorthBeachGang[RandomIndex].GetComponent<WWNorthBeachEvidence>().gameObject.SetActive(true);
+            int RandomIndex = Random.Range(0, WW.NorthBeachEvidence.Length);
+            WW.NorthBeachEvidence[RandomIndex].gameObject.SetActive(true);
         }
     }
 }
