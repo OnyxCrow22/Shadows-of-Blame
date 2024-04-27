@@ -27,6 +27,9 @@ public class WestralWoes : MonoBehaviour
     public bool inNorthBeachcompound = false;
     public bool allNorthBeachGangsters = false;
     public bool collectedNorthBeachEvidence = false;
+    public bool evadedPolice = false;
+    public bool backHome = false;
+    public bool missionComplete = false;
 
     [Header("Int references")]
     public int HaliEvidenceCollected = 0;
@@ -46,6 +49,7 @@ public class WestralWoes : MonoBehaviour
     public GameObject[] NorthBeachGang;
     public GameObject[] NorthBeachEvidence;
     public GameObject LocationClueHolder;
+    public GameObject WWHolder;
 
     [Header("Script references")]
     public WWSafehouseCheck safehouseVerify;
@@ -53,6 +57,8 @@ public class WestralWoes : MonoBehaviour
     public WWHalifaxPark halifaxPark;
     public WWPrescott prescottCheck;
     public WWNorthBeachCheck northBeach;
+    public WWWesteriaPlayerHome home;
+    public PoliceLevel police;
 
     public void Start()
     {
@@ -74,7 +80,7 @@ public class WestralWoes : MonoBehaviour
 
     void Update()
     {
-        if (PoliceLevel.levelStage >= 1)
+        if (PoliceLevel.policeLevels >= 1)
         {
             objective.text = "Lose the police.";
         }
@@ -189,16 +195,28 @@ public class WestralWoes : MonoBehaviour
 
     void TakeEvidenceB()
     {
-
+        if (collectedNorthBeachEvidence)
+        {
+            LosePolice();
+        }
     }
 
     void LosePolice()
     {
-
+        if (collectedNorthBeachEvidence && evadedPolice)
+        {
+            GoToSafehouseKensingtonBoulevard();
+        }
     }
 
     void GoToSafehouseKensingtonBoulevard()
     {
-
+        if (backHome)
+        {
+            missionComplete = true;
+            backHome = true;
+            WWHolder.SetActive(false);
+            this.GetComponent<WestralWoes>().enabled = false;
+        }
     }
 }

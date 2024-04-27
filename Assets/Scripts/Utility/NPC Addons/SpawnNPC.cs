@@ -20,6 +20,13 @@ public class SpawnNPC : MonoBehaviour
     [HideInInspector]
     public GameObject currentPedDest;
 
+    public GameObject gameManager;
+
+    private void Start()
+    {
+        StartCoroutine(Spawn());
+    }
+
     public IEnumerator Spawn()
     {
         int AICount = 0;
@@ -34,7 +41,12 @@ public class SpawnNPC : MonoBehaviour
             NPCSM = newNPC.GetComponent<NPCMovementSM>();
             AI = newNPC.GetComponent<NavMeshAgent>();
             newNPC.GetComponent<NPCMovementSM>().spawnedIn = true;
-            ;
+
+            if (gameManager != null && NPCSM != null)
+            {
+                NPCSM.police = gameManager.GetComponent<PoliceLevel>();
+            }
+            
             if (player != null)
             {
                 PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();

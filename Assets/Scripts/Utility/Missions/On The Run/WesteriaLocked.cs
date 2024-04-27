@@ -27,8 +27,8 @@ public class WesteriaLocked : MonoBehaviour
         OTR.dangerText.text = "YOU WAS WARNED! YOU WILL NOW FACE THE WRATH OF THE WESTRAL POLICE!!";
         yield return new WaitForSeconds(5);
         OTR.dangerPanel.SetActive(false);
-        PoliceLevel.levelStage += 5;
-        PoliceLevel.giveLevel = true;
+        PoliceLevel.policeLevels += 5;
+        PoliceLevel.activateLevel = true;
         OTR.missionFailed.SetActive(true);
         Time.timeScale = 0;
         OTR.failText.text = "Harrison attracted attention to himself.";

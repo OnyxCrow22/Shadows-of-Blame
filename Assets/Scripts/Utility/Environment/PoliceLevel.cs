@@ -5,245 +5,56 @@ using UnityEngine.AI;
 
 public class PoliceLevel : MonoBehaviour
 {
-    public GameObject[] attainLevels;
-    public GameObject policeOfficer;
-    public GameObject[] policeVehicles;
-    public GameObject player;
-    public GameObject border;
-    public PlayerMovementSM playsm;
-    PoliceMovementSM police;
-    public bool attainingLevel;
-    public static int levelStage;
-    public static bool giveLevel;
-    public int bustedTimer = 5;
-    public GameObject[] pedestrianSpawns;
-    public GameObject[] vehicleSpawns;
-    public GameObject[] policeDests;
-    GameObject currentPoliceDest;
-    GameObject newPoliceCar;
-    GameObject newPolicePedestrian;
-    NavMeshAgent PoliceAI;
-    Vector3 lastKnownPos;
-
-    private void Start()
-    {
-        StartCoroutine(PolicePedestrians());
-        police = newPolicePedestrian.GetComponent<PoliceMovementSM>();
-    }
+    public GameObject[] levels;
+    public GameObject policeBorder;
+    public bool addingLevel;
+    public static int policeLevels;
+    public static bool activateLevel;
+    public int killedNPCS = 0;
+    public float flashDelay = 0.5f;
+    public int currentPoliceLevel;
 
     private void Update()
     {
-        AddNewLevel();
-        LoseLevel();
+        AddingLevel();
     }
 
-    public void AddNewLevel()
+    public void AddingLevel()
     {
-        if (attainingLevel == false && giveLevel == true)
+        if (!addingLevel && activateLevel)
         {
-            giveLevel = false;
-            border.SetActive(true);
-            attainingLevel = true;
+            activateLevel = false;
+            addingLevel = true;
+            policeBorder.SetActive(true);
             StartCoroutine(AddLevel());
         }
     }
 
-    public void LoseLevel()
+    void RemovingLevel()
     {
-        if (attainingLevel == true && giveLevel == true)
+        if (addingLevel && !activateLevel)
         {
-            giveLevel = false;
-            attainingLevel = false;
-            StartCoroutine(RemoveLevel());
-            if (levelStage == 0)
-            {
-                border.SetActive(false);
-            }
-        }
-    }
-
-    public void LostVisual()
-    {
-        Ray visualRay = new Ray(police.PoliceFOV.transform.position, police.playsm.player.transform.position);
-        RaycastHit visualHit;
-        float visualRange = 40;
-        if (Physics.Raycast(visualRay, out visualHit, visualRange))
-        {
-            if (visualHit.collider.name != "Player" || policeOfficer.activeInHierarchy)
-            {
-                LoseLevel();
-                StartCoroutine(SearchForPlayer());
-                StopCoroutine(AddLevel());
-                attainingLevel = false;
-                Debug.Log("ARGH! WE LOST THE PLAYER! Conduct a search!");
-            }
-
-            else if (policeOfficer == null)
-            {
-                LoseLevel();
-                StartCoroutine(RemoveLevel());
-            }
-        }
-    }
-
-    public void SpawnPolice()
-    {
-        if (playsm.inVehicle == false)
-        {
-            SpawnPedestrianPolice();
-        }
-        else if (playsm.inVehicle == true)
-        {
-            SpawnPoliceCars();
-        }
-    }
-
-    public void SpawnPedestrianPolice()
-    {
-        StartCoroutine(PolicePedestrians());
-    }
-
-    public void ShootPlayer()
-    {
-        AlGun AIgun = newPolicePedestrian.AddComponent<AlGun>();
-        AIgun.ShootGun();
-    }
-
-    public IEnumerator PolicePedestrians()
-    {
-        int policePedestriansCount = 0;
-        while (policePedestriansCount < 15)
-        {
-            int SpawnIndex = Random.Range(0, pedestrianSpawns.Length);
-            int RandomPoliceDest = Random.Range(0, policeDests.Length);
-            currentPoliceDest = policeDests[RandomPoliceDest];
-            newPolicePedestrian = Instantiate(policeOfficer, pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
-
-            PoliceMovementSM policesm = newPolicePedestrian.GetComponent<PoliceMovementSM>();
-            PoliceAI = newPolicePedestrian.GetComponent<NavMeshAgent>();
-
-            if (player != null)
-            {
-                PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();
-                player.GetComponent<GameObject>();
-                if (playsm != null && (policesm != null))
-                {
-                    policesm.player = player;
-                    policesm.playsm = playsm;
-                }
-            }
-
-            if (levelStage >= 1)
-            {
-                PoliceAI.SetDestination(player.transform.position);
-            }
-
-            else if (levelStage == 0)
-            {
-                PoliceAI.SetDestination(currentPoliceDest.transform.position);
-            }
-            yield return new WaitForSeconds(0.05f);
-            policePedestriansCount++;
-        }
-
-        if (policePedestriansCount > 15)
-        {
-            StopCoroutine(PolicePedestrians());
-        }
-
-        if (playsm.weapon.gunEquipped || levelStage >= 2)
-        {
-            ShootPlayer();
-        }
-    }
-
-    public void SpawnPoliceCars()
-    {
-        StartCoroutine(PoliceCars());
-    }
-
-    IEnumerator PoliceCars()
-    {
-        int policeCount = 0;
-        while (policeCount < 5 && playsm.inVehicle)
-        {
-            int RandomIndex = Random.Range(0, policeVehicles.Length);
-            int RandomSpawns = Random.Range(0, vehicleSpawns.Length);
-
-            newPoliceCar = Instantiate(policeVehicles[RandomIndex], vehicleSpawns[RandomSpawns].transform.position, Quaternion.identity);
-            PoliceAI = newPoliceCar.GetComponent<NavMeshAgent>();
-
-            if (player != null)
-            {
-                player.GetComponent<PlayerMovementSM>();
-                PoliceAI.SetDestination(player.transform.position);
-            }
-            yield return new WaitForSeconds(0.25f);
-
-            PoliceAI.SetDestination(playsm.player.transform.position);
-            policeCount++;
-        }
-
-        if (policeCount > 5 || !playsm.inVehicle)
-        {
-            StopCoroutine(PoliceCars());
-        }
-
-        if (playsm.weapon.gunEquipped || !playsm.inVehicle)
-        {
-            StopCoroutine(PoliceCars());
-            StartCoroutine(PolicePedestrians());
-        }
-    }
-    public IEnumerator AddLevel()
-    {
-        int runCount = 0;
-        while (runCount < 5)
-        {
-            attainLevels[levelStage + 1].SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage + 1].SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            attainLevels[levelStage + 1].SetActive(true);
-            runCount++;
-        }
-
-        if (runCount > 5)
-        {
-            StopCoroutine(AddLevel());
-            attainLevels[levelStage].SetActive(true);
-        }
-    }
-
-    public IEnumerator RemoveLevel()
-    {
-        int runCount = 0;
-        while (runCount < 2)
-        {
-            attainLevels[levelStage + 1].SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            runCount++;
-        }
-
-        if (runCount >= 2)
-        {
-            StopCoroutine(RemoveLevel());
-            attainLevels[levelStage].SetActive(false);
-            attainingLevel = false;
-            levelStage--;
-        }
-    }
-
-    public IEnumerator SearchForPlayer()
-    {
-        PoliceAI.SetDestination(lastKnownPos);
-        yield return new WaitForSeconds(10);
-        attainingLevel = false;
-        GameObject[] policeO = GameObject.FindGameObjectsWithTag("Police");
-
-        if (policeO.Length == 0)
-        {
+            activateLevel = true;
+            addingLevel = false;
             StartCoroutine(RemoveLevel());
         }
+    }
+
+    IEnumerator AddLevel()
+    {
+        levels[policeLevels - 1].SetActive(true);
+        yield return new WaitForSeconds(flashDelay);
+        levels[policeLevels - 1].SetActive(false);
+        yield return new WaitForSeconds(flashDelay);
+        levels[policeLevels - 1].SetActive(true);
+    }
+
+    IEnumerator RemoveLevel()
+    {
+        levels[policeLevels - 1].SetActive(false);
+        yield return new WaitForSeconds(flashDelay);
+        levels[policeLevels - 1].SetActive(true);
+        yield return new WaitForSeconds(flashDelay);
+        levels[policeLevels - 1].SetActive(false);
     }
 }

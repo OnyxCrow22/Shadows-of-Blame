@@ -15,7 +15,7 @@ public class TheRivalsTribulations : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PoliceLevel.levelStage >= 1)
+        if (PoliceLevel.policeLevels >= 1)
         {
             objective.text = "Lose the police";
         }

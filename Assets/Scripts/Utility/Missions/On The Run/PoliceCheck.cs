@@ -11,8 +11,8 @@ public class PoliceCheck : MonoBehaviour
 
     public void PoliceIntialise()
     {
-        PoliceLevel.levelStage += 1;
-        PoliceLevel.giveLevel = true;
+        PoliceLevel.policeLevels += 1;
+        PoliceLevel.activateLevel = true;
         OTR.objective.text = "Lose the police.";
     }
 

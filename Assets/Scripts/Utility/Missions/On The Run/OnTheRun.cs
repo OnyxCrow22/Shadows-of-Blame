@@ -74,7 +74,7 @@ public class OnTheRun : MonoBehaviour
 
     private void Update()
     {
-        if (PoliceLevel.levelStage >= 1)
+        if (PoliceLevel.policeLevels >= 1)
         {
             objective.text = "Lose the police.";
         }
@@ -167,9 +167,10 @@ public class OnTheRun : MonoBehaviour
     {
         if (pEvidence.EvidencePlaced)
         {
-            this.gameObject.SetActive(false);
+            this.GetComponent<OnTheRun>().enabled = false;
             OTRHolder.SetActive(false);
-            WW.gameObject.SetActive(true);
+            WWHolder.SetActive(true);
+            WW.GetComponent<WestralWoes>().enabled = true;
         }
     }
 }

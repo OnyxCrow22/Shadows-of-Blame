@@ -33,8 +33,8 @@ public class GangEvidenceCollect : MonoBehaviour
         coWorkerText.enabled = false;
         isgReading = false;
         rMaster.interactKey.SetActive(false);
-        PoliceLevel.levelStage += 1;
-        PoliceLevel.giveLevel = true;
+        PoliceLevel.policeLevels += 1;
+        PoliceLevel.activateLevel = true;
         evidence = true;
         OTR.GangEvidence = true;
         OTR.objective.text = "Lose the police.";
@@ -42,10 +42,10 @@ public class GangEvidenceCollect : MonoBehaviour
         if (police == null || police.Length == 0)
         {
             OTR.objective.text = "Go to your safehouse.";
-            PoliceLevel.giveLevel = false;
+            PoliceLevel.activateLevel = false;
             OTR.Escaped = true;
             Escaped = true;
-            PoliceLevel.levelStage = 0;
+            PoliceLevel.policeLevels = 0;
         }
     }
 }

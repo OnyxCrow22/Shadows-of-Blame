@@ -22,6 +22,7 @@ public class NPCMovementSM : NPCStateMachine
     public bool isAttacking = false;
 
     public NPCHealth nHealth;
+    public PoliceLevel police;
 
     [HideInInspector]
     public NPCIdle idleState;

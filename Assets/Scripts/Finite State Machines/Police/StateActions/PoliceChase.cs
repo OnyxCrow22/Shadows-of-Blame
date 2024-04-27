@@ -23,7 +23,7 @@ public class PoliceChase : PoliceBaseState
         float punchLength = 2.5f;
 
         // Is the player more than or equal to 20 metres away from the enemy?
-        if (PoliceLevel.levelStage == 0 || police.playsm.health.health == 0)
+        if (PoliceLevel.policeLevels == 0 || police.playsm.health.health == 0)
         {
             // Go back on patrol.
             policeMachine.ChangeState(police.patrolState);

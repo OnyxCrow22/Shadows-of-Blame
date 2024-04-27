@@ -34,8 +34,9 @@ public class NPCHealth : MonoBehaviour
     public IEnumerator NPCDeath()
     {
         nsm.NPCAnim.SetBool("dead", true);
-        PoliceLevel.levelStage += 1;
-        PoliceLevel.giveLevel = true;
+        PoliceLevel.policeLevels += 1;
+        nsm.police.killedNPCS += 1;
+        PoliceLevel.activateLevel = true;
         yield return new WaitForSeconds(deadDuration);
         this.AddComponent<RemoveNPC>();
     }
