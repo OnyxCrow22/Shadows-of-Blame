@@ -23,6 +23,8 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool isGrounded = true;
     public bool isPunching;
 
+    public bool throwingGrenade = false;
+
     public Gun weapon;
     public PlayerHealth health;
     public PunchSystem punching;

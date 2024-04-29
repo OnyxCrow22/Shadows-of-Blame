@@ -78,7 +78,18 @@ public class EnemyPatrol : EnemyBaseState
 
         if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5 || esm.health.health == 0)
         {
-            esm.GoToNextPoint();
+            GoToNextPoint();
+        }
+
+        void GoToNextPoint()
+        {
+            // End of path
+            if (esm.waypoints.Length == 0)
+            {
+                return;
+            }
+            esm.agent.destination = esm.waypoints[esm.destinations].position;
+           esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
         }
     }
 }

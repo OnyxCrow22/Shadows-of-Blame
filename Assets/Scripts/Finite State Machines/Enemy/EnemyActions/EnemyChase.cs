@@ -84,7 +84,18 @@ public class EnemyChase : EnemyBaseState
 
         if (esm.health.health == 0)
         {
-            esm.GoToNextPoint();
+            GoToNextPoint();
+        }
+
+        void GoToNextPoint()
+        {
+            // End of path
+            if (esm.waypoints.Length == 0)
+            {
+                return;
+            }
+            esm.agent.destination = esm.waypoints[esm.destinations].position;
+            esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
         }
 
         // Finds the distance between the enemy and the player

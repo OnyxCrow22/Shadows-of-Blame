@@ -80,17 +80,6 @@ public class EnemyMovementSM : EnemyStateMachine
         return idleState;
     }
 
-    public void GoToNextPoint()
-    {
-        // End of path
-        if (waypoints.Length == 0)
-        {
-            return;
-        }
-        agent.destination = waypoints[destinations].position;
-        destinations = (destinations + 1) % waypoints.Length;
-    }
-
     public void RandomIndexCheck()
     {
         RandomIndex = Random.Range(0, cols.Length);
