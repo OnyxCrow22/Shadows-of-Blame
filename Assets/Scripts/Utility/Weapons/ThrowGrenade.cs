@@ -16,13 +16,13 @@ public class ThrowGrenade : MonoBehaviour
 
     void InputCheck()
     {
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetMouseButtonDown(1))
         {
             Throw();
             playsm.throwingGrenade = true;
         }
 
-        if (!Input.GetMouseButtonDown(2))
+        if (!Input.GetMouseButtonDown(1))
         {
             playsm.throwingGrenade = false;
         }
