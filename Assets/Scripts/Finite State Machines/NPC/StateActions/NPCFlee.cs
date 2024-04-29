@@ -22,7 +22,7 @@ public class NPCFlee : NPCBaseState
     {
         base.UpdateLogic();
         // Okay, we can calm down now, as the player is no longer holding a gun.
-        if (!AI.playsm.weapon.gunEquipped && FleeDist >= 64)
+        if (!AI.playsm.weapon.gunEquipped && FleeDist >= 64 || !AI.playsm.throwingGrenade && FleeDist >= 64)
         {
             npcStateMachine.ChangeState(AI.walkingState);
             AI.isFleeing = false;
@@ -36,7 +36,7 @@ public class NPCFlee : NPCBaseState
     {
         base.UpdatePhysics();
 
-        if (AI.playsm.weapon.gunEquipped)
+        if (AI.playsm.weapon.gunEquipped || AI.playsm.throwingGrenade)
         {
             Vector3 runDist = AI.NPC.transform.position - AI.player.transform.position;
 

@@ -20,6 +20,7 @@ public class NPCMovementSM : NPCStateMachine
     public bool isWalking = false;
     public bool isFleeing = false;
     public bool isAttacking = false;
+    public float returnDelay = 20;
 
     public NPCHealth nHealth;
     public PoliceLevel police;
@@ -41,6 +42,22 @@ public class NPCMovementSM : NPCStateMachine
         fleeState = new NPCFlee(this);
        // fireState = new NPCShoot(this);
        // meleeState = new NPCAttack(this);
+    }
+
+    private void Update()
+    {
+        if (playsm.throwingGrenade)
+        {
+            returnDelay -= Time.deltaTime;
+            if (returnDelay <= 0)
+            {
+                returnDelay = 0;
+            }
+        }
+        else if (!playsm.throwingGrenade)
+        {
+            returnDelay = 20;
+        }
     }
 
     public IEnumerator ScreamFlee()
