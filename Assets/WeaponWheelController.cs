@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class WeaponWheelController : MonoBehaviour
 {
-    public Animator anim;
     public bool weaponWheelSelected = false;
     public Image selectedItem;
     public Sprite[] icons;
@@ -14,7 +13,6 @@ public class WeaponWheelController : MonoBehaviour
     public void WeaponWheel()
     {
         weaponWheelSelected = true;
-        anim.SetBool("OpenWeaponWheel", true);
         Time.timeScale = 1f;
         AudioListener.pause = true;
 
@@ -25,6 +23,7 @@ public class WeaponWheelController : MonoBehaviour
                 break;
             case 1:
                 selectedItem.sprite = icons[1];
+                gun.gun.SetActive(true);
                 break;
             case 2:
                 selectedItem.sprite = icons[2];
@@ -37,7 +36,6 @@ public class WeaponWheelController : MonoBehaviour
     public void CloseWheel()
     {
         weaponWheelSelected = false;
-        anim.SetBool("OpenWeaponWheel", false);
         Time.timeScale = 1f;
         AudioListener.pause = false;
     }

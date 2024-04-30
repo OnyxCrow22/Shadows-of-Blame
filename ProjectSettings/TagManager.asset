@@ -30,6 +30,9 @@ TagManager:
   - Vehicle
   - NorthBeachGangMember
   - NorthBeachEvidence
+  - Enemy
+  - TrafficLIghtChecker
+  - TrafficLightChecker
   layers:
   - Default
   - TransparentFX

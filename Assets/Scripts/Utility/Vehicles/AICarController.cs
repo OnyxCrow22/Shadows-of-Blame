@@ -23,10 +23,10 @@ public class AICarController : MonoBehaviour
     public void FixedUpdate()
     {
         Steer();
-        Accelerate();
         Brake();
         UpdateWheelRotations();
         CheckPlayer();
+        CheckTrafficLight();
     }
 
     private void Steer()
@@ -36,12 +36,6 @@ public class AICarController : MonoBehaviour
             Brake();
         }
     }
-
-    private void Accelerate()
-    {
-
-    }
-
     private void Brake()
     {
         if (braking)
@@ -71,6 +65,34 @@ public class AICarController : MonoBehaviour
         {
             // Player not in front of car
             vehicle.isStopped = false;
+        }
+    }
+
+    void CheckTrafficLight()
+    {
+        float range = 20;
+
+        Ray watchRay = new Ray(carFOV.transform.position, Vector3.forward);
+        Debug.DrawRay(carFOV.transform.position, carFOV.transform.forward);
+        RaycastHit objectHit;
+
+        if (Physics.Raycast(watchRay, out objectHit, range))
+        {
+            if (objectHit.collider.CompareTag("TrafficLightChecker"))
+            {
+                TrafficLightCheck checking = objectHit.collider.GetComponent<TrafficLightCheck>();
+
+                if (checking.lights.red == true || checking.lights.amber == true)
+                {
+                    // Light is red or amber, stop the car.
+                    vehicle.isStopped = true;
+                }
+                else if (checking.lights.green == true)
+                {
+                    // Player not in front of car
+                    vehicle.isStopped = false;
+                }
+            }
         }
     }
 
