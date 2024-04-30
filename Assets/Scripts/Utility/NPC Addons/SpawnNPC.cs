@@ -22,9 +22,9 @@ public class SpawnNPC : MonoBehaviour
 
     public GameObject gameManager;
 
-    private void Start()
+    public void Start()
     {
-        StartCoroutine(Spawn());
+        StartCoroutine("Spawn");
     }
 
     public IEnumerator Spawn()
@@ -46,7 +46,7 @@ public class SpawnNPC : MonoBehaviour
             {
                 NPCSM.police = gameManager.GetComponent<PoliceLevel>();
             }
-            
+
             if (player != null)
             {
                 PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();

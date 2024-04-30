@@ -802,6 +802,7 @@ MonoBehaviour:
   isWalking: 0
   isFleeing: 0
   isAttacking: 0
+  returnDelay: 20
   nHealth: {fileID: 7404998095976963190}
   police: {fileID: 0}
   fireState: {fileID: 0}

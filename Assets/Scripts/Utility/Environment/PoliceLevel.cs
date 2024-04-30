@@ -14,9 +14,14 @@ public class PoliceLevel : MonoBehaviour
     public float flashDelay = 0.5f;
     public int currentPoliceLevel;
 
+    public bool spottedPlayer = false;
+    float lastSighted = 0;
+    const float pursuitAbort = 20f;
+
     private void Update()
     {
         AddingLevel();
+        AbortPursuit();
     }
 
     public void AddingLevel()
@@ -56,5 +61,21 @@ public class PoliceLevel : MonoBehaviour
         levels[policeLevels - 1].SetActive(true);
         yield return new WaitForSeconds(flashDelay);
         levels[policeLevels - 1].SetActive(false);
+    }
+
+    public void PlayerSpotted()
+    {
+        spottedPlayer = true;
+        lastSighted = Time.time;
+        levels[policeLevels - 1].SetActive(true);
+    }
+
+    public void AbortPursuit()
+    {
+        if (!spottedPlayer && Time.time - lastSighted > pursuitAbort)
+        {
+            policeLevels = 0;
+            levels[policeLevels].SetActive(false);
+        }
     }
 }

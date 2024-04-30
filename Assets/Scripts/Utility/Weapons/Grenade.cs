@@ -51,13 +51,13 @@ public class Grenade : MonoBehaviour
             EnemyHealth damage = nearbyObject.GetComponent<EnemyHealth>();
             if (damage != null)
             {
-                damage.LoseHealth(grenadeDamage);
+                damage.LoseHealth(damage.healthLoss + grenadeDamage);
             }
 
             NPCHealth NPCS = nearbyObject.GetComponent<NPCHealth>();
             if (NPCS != null)
             {
-                NPCS.LoseHealth(grenadeDamage);
+                NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
             }
         }
         Destroy(gameObject);
