@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08352656, g: 0.07811082, b: 0.09371961, a: 1}
+  m_IndirectSpecularColor: {r: 2991.425, g: 3158.2036, b: 3580.5278, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26710,7 +26710,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 16
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &445055150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26723,7 +26723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 3.1690633
+  m_Intensity: 4.036473
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -26845,13 +26845,13 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 3.1690633
+  m_Intensity: 4.036473
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -26888,7 +26888,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 15577.528
+  m_ColorTemperature: 19753.18
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: NaN, y: NaN, z: NaN, w: NaN}
   m_UseBoundingSphereOverride: 0
@@ -26903,7 +26903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445055149}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9469301, y: 0, z: 0, w: 0.32143947}
+  m_LocalRotation: {x: 0.7163019, y: 0, z: 0, w: -0.69779056}
   m_LocalPosition: {x: 72.560455, y: 27.96277, z: -4022}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41490,7 +41490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 16
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &941541559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47596,7 +47596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &1072641132
 Light:
   m_ObjectHideFlags: 0
@@ -47609,13 +47609,13 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 25918.805
+  m_Intensity: 73548.516
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -47652,7 +47652,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 4024.7803
+  m_ColorTemperature: 9843.308
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 1.8906681e+30, z: 4.71e-43, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -47667,7 +47667,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072641131}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.32143945, y: 0, z: 0, w: 0.9469301}
+  m_LocalRotation: {x: 0.69779044, y: 0, z: 0, w: 0.716302}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47686,7 +47686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 25918.805
+  m_Intensity: 73548.516
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -51393,7 +51393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4704109afb30d7b4488cfd95333249de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTime: 3.5
+  currentTime: 11.9
   timeSpeed: 0.005
   time: {fileID: 402498648}
   currentTimeString: 
@@ -51590,9 +51590,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   moonVol: {fileID: 1391849753}
-  isDay: 0
-  sunActive: 0
-  moonActive: 1
+  isDay: 1
+  sunActive: 1
+  moonActive: 0
 --- !u!114 &1216640985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53222,7 +53222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -262456954974596061, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 127
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 321606721630604077, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -53236,13 +53236,17 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 127
       objectReference: {fileID: 0}
+    - target: {fileID: 2274847112390955377, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
+      propertyPath: m_CookingOptions
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 3941200090253214393, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 123
       objectReference: {fileID: 0}
     - target: {fileID: 4037072862193077261, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 127
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_FadeMode
@@ -53255,7 +53259,7 @@ PrefabInstance:
     - target: {fileID: 5029926052080546403, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
-      objectReference: {fileID: 2100000, guid: 136bf04bbd1d39b47add3905cd70cff8, type: 2}
+      objectReference: {fileID: 8556262120643298411, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
     - target: {fileID: 6452046629825625268, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 123
@@ -53270,7 +53274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7393969629292870724, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 127
+      value: 126
       objectReference: {fileID: 0}
     - target: {fileID: 7709653027157086417, guid: 8a7a9340fbf506d40a7ec1889ed7cf09, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -58152,7 +58156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 16
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1391849753
 MonoBehaviour:
   m_ObjectHideFlags: 0
