@@ -8,8 +8,8 @@ public class BlinkingLights : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine("AircraftLights");
-        lights[lights.Length - 1].SetActive(true);
+        StartCoroutine(AircraftLights());
+        lights[lights.Length - 1].SetActive(false);
     }
 
     public IEnumerator AircraftLights()

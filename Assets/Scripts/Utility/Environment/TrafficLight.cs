@@ -59,7 +59,7 @@ public class TrafficLight : MonoBehaviour
         {
             greenLights.gameObject.SetActive(true);
             green = true;
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(8);
             amberLights.gameObject.SetActive(true);
             greenLights.gameObject.SetActive(false);
             amber = true;
