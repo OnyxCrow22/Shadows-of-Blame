@@ -24,6 +24,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public bool isPunching;
 
     public bool throwingGrenade = false;
+    public bool hasThrownGrenade = false;
 
     public Gun weapon;
     public PlayerHealth health;

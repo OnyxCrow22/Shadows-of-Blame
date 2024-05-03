@@ -8,6 +8,7 @@ public class NPCWalk : NPCBaseState
     private NPCMovementSM AI;
     float WalkDist = 0.5f;
 
+
     public NPCWalk(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
         AI = npcStateMachine;
@@ -32,7 +33,7 @@ public class NPCWalk : NPCBaseState
         }
 
         // Player is crazy, run away!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || AI.playsm.throwingGrenade)
+        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || AI.playsm.hasThrownGrenade)
         {
             AI.StartCoroutine(AI.ScreamFlee());
 

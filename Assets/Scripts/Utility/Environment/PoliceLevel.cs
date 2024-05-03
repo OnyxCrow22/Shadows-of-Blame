@@ -10,9 +10,8 @@ public class PoliceLevel : MonoBehaviour
     public bool addingLevel;
     public static int policeLevels;
     public static bool activateLevel;
-    public int killedNPCS = 0;
+    public int killedNPCS;
     public float flashDelay = 0.5f;
-    public int currentPoliceLevel;
 
     public bool spottedPlayer = false;
     float lastSighted = 0;
@@ -70,12 +69,32 @@ public class PoliceLevel : MonoBehaviour
         levels[policeLevels - 1].SetActive(true);
     }
 
+    public void UpdateLevel()
+    {
+        if (killedNPCS > 3)
+        {
+            policeLevels += 2;
+        }
+        if (killedNPCS > 5)
+        {
+            policeLevels += 3;
+        }
+        if (killedNPCS > 9)
+        {
+            policeLevels += 4;
+        }
+        if (killedNPCS > 15)
+        {
+            policeLevels += 5;
+        }
+    }
+
     public void AbortPursuit()
     {
         if (!spottedPlayer && Time.time - lastSighted > pursuitAbort)
         {
             policeLevels = 0;
-            levels[policeLevels].SetActive(false);
+            levels[policeLevels - 1].SetActive(false);
         }
     }
 }

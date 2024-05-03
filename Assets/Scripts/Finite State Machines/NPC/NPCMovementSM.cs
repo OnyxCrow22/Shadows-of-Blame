@@ -20,6 +20,7 @@ public class NPCMovementSM : NPCStateMachine
     public bool isWalking = false;
     public bool isFleeing = false;
     public bool isAttacking = false;
+    public bool canReturn = false;
 
     public NPCHealth nHealth;
     public PoliceLevel police;
