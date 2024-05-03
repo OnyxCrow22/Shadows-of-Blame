@@ -35,6 +35,8 @@ public class SpawnNPC : MonoBehaviour
             int RandomIndex = Random.Range(0, WalkAI.Length);
             int RandomSpawnIndex = Random.Range(0, spawnPoint.Length);
             int RandomDest = Random.Range(0, pedestrianDests.Length);
+            int RandomSpawnDelay = Random.Range(0, 10);
+            int RandomSpeed = Random.Range(0, 3);
             currentPedDest = pedestrianDests[RandomDest];
             newNPC = Instantiate(WalkAI[RandomIndex], spawnPoint[RandomSpawnIndex].transform.position, Quaternion.identity);
 
@@ -63,7 +65,8 @@ public class SpawnNPC : MonoBehaviour
             {
                 AI.SetDestination(currentPedDest.transform.position);
             }
-            yield return new WaitForSeconds(0.05f);
+            AI.speed = RandomSpeed;
+            yield return new WaitForSeconds(RandomSpawnDelay);
             AICount++;
         }
         if (AICount > 75)
