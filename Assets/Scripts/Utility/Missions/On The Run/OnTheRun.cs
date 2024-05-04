@@ -167,9 +167,7 @@ public class OnTheRun : MonoBehaviour
     {
         if (pEvidence.EvidencePlaced)
         {
-            this.GetComponent<OnTheRun>().enabled = false;
-            OTRHolder.SetActive(false);
-            WWHolder.SetActive(true);
+            GetComponent<OnTheRun>().enabled = false;
             WW.GetComponent<WestralWoes>().enabled = true;
         }
     }

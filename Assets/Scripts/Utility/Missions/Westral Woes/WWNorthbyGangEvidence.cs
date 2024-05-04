@@ -7,8 +7,6 @@ public class WWNorthbyGangEvidence : MonoBehaviour
 {
     public GameObject gEvidence;
     public GameObject gPanel;
-    public GameObject coWorker;
-    public TextMeshProUGUI coWorkerText;
     public bool isgReading = false;
     public static bool evidence = false;
     public WestralWoes WW;
@@ -17,7 +15,6 @@ public class WWNorthbyGangEvidence : MonoBehaviour
     public void GEPickup()
     {
         gPanel.SetActive(true);
-        coWorkerText.enabled = true;
         Time.timeScale = 0;
         AudioListener.pause = true;
     }
@@ -28,7 +25,6 @@ public class WWNorthbyGangEvidence : MonoBehaviour
         gEvidence.SetActive(false);
         Time.timeScale = 1;
         AudioListener.pause = false;
-        coWorkerText.enabled = false;
         isgReading = false;
         rMaster.interactKey.SetActive(false);
         evidence = true;

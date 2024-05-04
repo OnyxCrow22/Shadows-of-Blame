@@ -43,6 +43,7 @@ public class WestralWoes : MonoBehaviour
 
     [Header("Gameobject references")]
     public GameObject clue;
+    public GameObject magGlass;
     public GameObject HParkHolder;
     public GameObject PrescottHolder;
     public GameObject[] NorthbyGang;
@@ -62,7 +63,6 @@ public class WestralWoes : MonoBehaviour
 
     public void Start()
     {
-        this.GetComponent<WestralWoes>().enabled = true;
         missionName.text = "Westral Woes";
 
         if (!inSafehouse)

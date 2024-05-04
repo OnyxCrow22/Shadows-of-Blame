@@ -8,7 +8,6 @@ public class WWNorthBeachEvidence : MonoBehaviour
     public GameObject gEvidence;
     public GameObject gPanel;
     public GameObject coWorker;
-    public TextMeshProUGUI coWorkerText;
     public bool isgReading = false;
     public static bool evidence = false;
     public WestralWoes WW;
@@ -19,7 +18,6 @@ public class WWNorthBeachEvidence : MonoBehaviour
     public void GEPickup()
     {
         gPanel.SetActive(true);
-        coWorkerText.enabled = true;
         Time.timeScale = 0;
         AudioListener.pause = true;
     }
@@ -30,13 +28,12 @@ public class WWNorthBeachEvidence : MonoBehaviour
         gEvidence.SetActive(false);
         Time.timeScale = 1;
         AudioListener.pause = false;
-        coWorkerText.enabled = false;
         isgReading = false;
         rMaster.interactKey.SetActive(false);
         evidence = true;
         WW.collectedNorthBeachEvidence = true;
         WW.objective.text = "Lose the police.";
-        PoliceLevel.policeLevels = 1;
+        PoliceLevel.policeLevels += 1;
         PoliceLevel.activateLevel = true;
 
         if (police == null || police.Length == 0)

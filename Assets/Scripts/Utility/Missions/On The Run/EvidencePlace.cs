@@ -26,7 +26,10 @@ public class EvidencePlace : MonoBehaviour
         OTR.westeriaUnlocked.SetActive(true);
         OTR.objective.text = "";
         OTR.mission.text = "";
-        OTR.objectiveHolder.SetActive(false);
+        OTR.OTRHolder.SetActive(false);
+        OTR.WWHolder.SetActive(true);
+        OTR.enabled = false;
+        OTR.WW.enabled = true;
         
     }
 }

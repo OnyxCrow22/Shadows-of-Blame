@@ -8,7 +8,6 @@ public class WWCollectPrescottEvidence : MonoBehaviour
     public GameObject evidence;
     public GameObject panel;
     public GameObject clueText;
-    public TextMeshProUGUI evidenceText;
     public bool reading = false;
     public WestralWoes WW;
     public RaycastMaster rMaster;
@@ -18,14 +17,12 @@ public class WWCollectPrescottEvidence : MonoBehaviour
         Time.timeScale = 0;
         AudioListener.pause = true;
         panel.SetActive(true);
-        evidenceText.enabled = true;
     }
 
     public void CloseWindow()
     {
         WW.PrescottEvidenceCollected += 1;
         panel.SetActive(false);
-        evidenceText.enabled = false;
         Time.timeScale = 1;
         AudioListener.pause = false;
         reading = false;
