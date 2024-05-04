@@ -5,6 +5,7 @@ public class Door : MonoBehaviour
 {
     public bool isOpen = false;
     public Animator doorAnim;
+    public RaycastMaster rMaster;
     public AudioSource doorSound;
     public AudioClip[] doorClips;
 
@@ -15,6 +16,7 @@ public class Door : MonoBehaviour
         doorAnim.SetBool("closeDoor", false);
         Debug.Log("DOOR OPENING");
         isOpen = true;
+        rMaster.interactKey.SetActive(false);
         yield return new WaitForSeconds(2);
         StopCoroutine(OpeningDoor());
     }
@@ -26,6 +28,7 @@ public class Door : MonoBehaviour
         doorAnim.SetBool("openDoor", false);
         Debug.Log("DOOR NOW CLOSING");
         isOpen = false;
+        rMaster.interactKey.SetActive(false);
         yield return new WaitForSeconds(2);
         StopCoroutine(ClosingDoor());
     }

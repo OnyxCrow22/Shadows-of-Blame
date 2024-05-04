@@ -33,6 +33,7 @@ TagManager:
   - Enemy
   - TrafficLIghtChecker
   - TrafficLightChecker
+  - MissionChecker
   layers:
   - Default
   - TransparentFX

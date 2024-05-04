@@ -77,6 +77,7 @@ public class VehicleEnterExit : MonoBehaviour
         player.GetComponent<PlayerMovementSM>().enabled = false;
         player.GetComponent<CapsuleCollider>().enabled = false;
         player.GetComponent<CharacterController>().enabled = false;
+        player.GetComponent<ThrowGrenade>().enabled = false;
         vehicle.GetComponent<CarController>().enabled = true;
         inVehicle = true;
         playsm.inVehicle = true;
@@ -110,6 +111,7 @@ public class VehicleEnterExit : MonoBehaviour
         player.GetComponent<PlayerMovementSM>().enabled = true;
         player.GetComponent<CapsuleCollider>().enabled = true;
         player.GetComponent<CharacterController>().enabled = true;
+        player.GetComponent<ThrowGrenade>().enabled = true;
         vehicle.GetComponent<CarController>().enabled = false;
         inVehicle = false;
         playsm.inVehicle = false;

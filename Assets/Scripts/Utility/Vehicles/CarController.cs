@@ -29,6 +29,7 @@ public class CarController : MonoBehaviour
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
 
+
     public bool braking = false;
     public bool turningLeft = false;
     public bool turningRight = false;
@@ -109,6 +110,8 @@ public class CarController : MonoBehaviour
             
         }
     }
+
+
 
     private void UpdateSpeed()
     {

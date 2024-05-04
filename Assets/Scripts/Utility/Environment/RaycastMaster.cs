@@ -55,6 +55,11 @@ public class RaycastMaster : MonoBehaviour
 
             }
         }
+        // We did not hit a door, set the interact key to false.
+        else
+        {
+            interactKey.SetActive(false);
+        }
     }
 
     public void CarDoors()
@@ -80,6 +85,10 @@ public class RaycastMaster : MonoBehaviour
                     interactKey.SetActive(false);
                 }
             }
+        }
+        else
+        {
+            interactKey.SetActive(false);
         }
     }
 
