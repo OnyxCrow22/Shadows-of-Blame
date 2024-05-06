@@ -22,23 +22,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6888604
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.68886024
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.15959778
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.15959777
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -46,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -26.089
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_Name
@@ -55,6 +55,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
+      propertyPath: m_FadeMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: 274a33e7954d8a140a868b05ca5dee77, type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

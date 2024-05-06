@@ -7,6 +7,7 @@ public class RaycastMaster : MonoBehaviour
     [Header("Raycast References")]
     public GameObject interactKey;
     public PlayerMovementSM playsm;
+    public OnTheRun OTR;
 
     public bool door = false;
     public bool evidence = false;
@@ -248,7 +249,7 @@ public class RaycastMaster : MonoBehaviour
         float placeLength = 8;
         if (Physics.Raycast(placeRay, out RaycastHit placeHit, placeLength))
         {
-            if (placeHit.collider.gameObject.tag == "EvidenceBoard")
+            if (placeHit.collider.gameObject.tag == "EvidenceBoard" && OTR.GangEvidence)
             {
                 EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
                 Debug.Log("Board hit!");

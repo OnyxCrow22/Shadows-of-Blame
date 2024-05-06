@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3045084773009546755}
+  m_Father: {fileID: 7163665626827928108}
   m_LocalEulerAnglesHint: {x: -0.752, y: 179.872, z: -160.746}
 --- !u!108 &6366970906333326605
 Light:
@@ -248,7 +248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3045084773009546755}
+  m_Father: {fileID: 7163665626827928108}
   m_LocalEulerAnglesHint: {x: -361.425, y: -180.242, z: -160.744}
 --- !u!108 &1778129536052504521
 Light:
@@ -494,6 +494,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_FadeMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4742473837712756890, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_AnimateCrossFading
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5050422055867433376, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -521,16 +529,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5666261585234168772, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8386860411340813283}
-    - targetCorrespondingSourceObject: {fileID: 5666261585234168772, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1661645898959321136}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
---- !u!4 &3045084773009546755 stripped
+--- !u!4 &7163665626827928108 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5666261585234168772, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
   m_PrefabInstance: {fileID: 7269032534212367815}
   m_PrefabAsset: {fileID: 0}
