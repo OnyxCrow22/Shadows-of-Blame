@@ -171,7 +171,7 @@ public class WestralWoes : MonoBehaviour
 
     void NorthBeach()
     {
-        if (northBeach.enteredNorthBeach)
+        if (northBeach.enteredNorthBeach && collectedNorthbyEvidence)
         {
             CompoundInNorthBeach();
         }

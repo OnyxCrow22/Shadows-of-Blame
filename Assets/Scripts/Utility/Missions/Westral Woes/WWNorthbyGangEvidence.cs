@@ -31,7 +31,7 @@ public class WWNorthbyGangEvidence : MonoBehaviour
         WW.collectedNorthbyEvidence = true;
         WW.objective.text = "Go to North Beach.";
         WW.locationClues[0].text = "It's located WEST of Northby.";
-        WW.locationClues[1].text = "The district has neon lighting at night.";
-        WW.locationClues[2].text = "It's sandwiched between the M 150.";
+        WW.locationClues[1].text = "The Oasis Hotel is the highest building in the district.";
+        WW.locationClues[2].text = "It's northwest of the Financial District.";
     }
 }

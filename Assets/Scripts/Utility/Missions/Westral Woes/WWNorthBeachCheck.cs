@@ -8,14 +8,14 @@ public class WWNorthBeachCheck : MonoBehaviour
     public WestralWoes WW;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
+        if (other.CompareTag("Player") && WW.collectedNorthbyEvidence || other.CompareTag("Vehicle") && WW.collectedNorthbyEvidence)
         {
             enteredNorthBeach = true;
             WW.enteredNorthBeach = true;
             WW.objective.text = "Go to Palm Surf.";
             WW.locationClues[0].text = "Palm Surf is located on Beachfront Avenue.";
-            WW.locationClues[1].text = "The shop has surf-boards outside of it.";
-            WW.locationClues[2].text = "It's in the NORTH of North Beach.";
+            WW.locationClues[1].text = "The road has apartment buildings with neon lighting.";
+            WW.locationClues[2].text = "It's in the NORTHEAST of North Beach.";
         }
     }
 }

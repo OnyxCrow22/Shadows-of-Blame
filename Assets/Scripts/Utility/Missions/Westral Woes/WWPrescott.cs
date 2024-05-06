@@ -10,7 +10,7 @@ public class WWPrescott : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && WW.CollectedEvidenceHPark || other.CompareTag("Vehicle") && WW.CollectedEvidenceHPark)
         {
             inPrescott = true;
             WW.inPrescott = true;

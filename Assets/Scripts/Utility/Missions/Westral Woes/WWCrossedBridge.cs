@@ -15,8 +15,8 @@ public class WWCrossedBridge : MonoBehaviour
             WW.onWestInsbury = true;
             WW.objective.text = "Go to Halifax Park.";
             WW.locationClues[0].text = "It's located in the CENTRE of WEST INSBURY.";
-            WW.locationClues[1].text = "It's accessible by the M150.";
-            WW.locationClues[2].text = "The park is surrounded by tall skyscrapers.";
+            WW.locationClues[1].text = "The Kensington Boulevard skyscrapers are in the northern part of the district.";
+            WW.locationClues[2].text = "The park is surrounded by a cluster of tall skyscrapers.";
         }
     }
 }

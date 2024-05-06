@@ -22,6 +22,7 @@ public class WWCollectPrescottEvidence : MonoBehaviour
     public void CloseWindow()
     {
         WW.PrescottEvidenceCollected += 1;
+        WW.magGlass.SetActive(true);
         panel.SetActive(false);
         Time.timeScale = 1;
         AudioListener.pause = false;
@@ -37,6 +38,7 @@ public class WWCollectPrescottEvidence : MonoBehaviour
         {
             WW.CollectedEvidencePrescott = true;
             WW.clue.SetActive(false);
+            WW.magGlass.SetActive(false);
             WW.PrescottHolder.SetActive(false);
             WW.objective.text = "Go to Northby Autos.";
             WW.locationClues[0].text = "It's located NORTH of Prescott.";

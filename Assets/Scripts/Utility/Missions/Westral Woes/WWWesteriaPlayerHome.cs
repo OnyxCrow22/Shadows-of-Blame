@@ -13,7 +13,9 @@ public class WWWesteriaPlayerHome : MonoBehaviour
         {
             nowHome = true;
             WW.backHome = true;
-            WW.objective.text = "";
+            WW.objective.text = "Head upstairs to the North Beach Suite";
+            WW.locationClues[0].text = "It's on the 21st Floor.";
+            WW.locationClues[0].text = "The lift in the lobby goes to the top floor.";
         }
     }
 }

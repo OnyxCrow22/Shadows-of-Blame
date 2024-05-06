@@ -9,7 +9,7 @@ public class WWCompoundNorthby : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !WW.collectedNorthbyEvidence)
+        if (other.CompareTag("Player") && WW.CollectedEvidencePrescott || other.CompareTag("Vehicle") && WW.CollectedEvidencePrescott)
         {
             inCompound = true;
             WW.inNorthbyCompound = true;
@@ -30,7 +30,7 @@ public class WWCompoundNorthby : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!inCompound && !WW.allNorthby && !WW.northbyLeaderdown && !WW.collectedNorthbyEvidence)
+        if (!inCompound && !WW.allNorthby && !WW.northbyLeaderdown && !WW.collectedNorthbyEvidence && WW.CollectedEvidencePrescott)
         {
             inCompound = false;
             WW.objective.text = "Go back to Northby Autos.";

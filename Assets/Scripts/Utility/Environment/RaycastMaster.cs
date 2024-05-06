@@ -218,14 +218,14 @@ public class RaycastMaster : MonoBehaviour
     }
     public void NorthBeachEvidenceCollect()
     {
-        Ray gEvidenceRay = new Ray(transform.position, Vector3.down);
+        Ray NorthBeachRay = new Ray(transform.position, Vector3.down);
         Debug.DrawRay(transform.position, Vector3.down, Color.blue);
-        float gRayLength = 4;
-        if (Physics.Raycast(gEvidenceRay, out RaycastHit gEvidencehit, gRayLength))
+        float NorthBeachLength = 4;
+        if (Physics.Raycast(NorthBeachRay, out RaycastHit NorthBeachHit, NorthBeachLength))
         {
-            if (gEvidencehit.collider.gameObject.tag == "NorthBeachEvidence")
+            if (NorthBeachHit.collider.gameObject.tag == "NorthBeachEvidence")
             {
-                WWNorthBeachEvidence northBeachCollect = gEvidencehit.collider.gameObject.GetComponent<WWNorthBeachEvidence>();
+                WWNorthBeachEvidence northBeachCollect = NorthBeachHit.collider.gameObject.GetComponent<WWNorthBeachEvidence>();
                 Debug.Log("Evidence hit!");
                 interactKey.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E) && !northBeachCollect.isgReading)

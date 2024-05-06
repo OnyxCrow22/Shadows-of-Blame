@@ -28,6 +28,7 @@ public class WWCollectHParkEvidence : MonoBehaviour
         reading = false;
         clueText.SetActive(true);
         WW.clue.SetActive(true);
+        WW.magGlass.SetActive(true);
         rMaster.interactKey.SetActive(false);
         evidence.SetActive(false);
 
@@ -37,10 +38,11 @@ public class WWCollectHParkEvidence : MonoBehaviour
         {
             WW.CollectedEvidenceHPark = true;
             WW.clue.SetActive(false);
+            WW.magGlass.SetActive(false);
             WW.HParkHolder.SetActive(false);
             WW.objective.text = "Go to Prescott.";
             WW.locationClues[0].text = "It's located in the SOUTHEAST of WEST INSBURY.";
-            WW.locationClues[1].text = "The casino by the M150 is part of Prescott.";
+            WW.locationClues[1].text = "The Roulette Hotel & Casino is the tallest building in the city.";
             WW.locationClues[2].text = "The district is next to the PORT OF WEST INSBURY.";
         }
     }
