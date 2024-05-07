@@ -17,7 +17,7 @@ public class TrafficLight : MonoBehaviour
             StartCoroutine("Traffic");
             redLights.gameObject.SetActive(true);
         }
-        if (reversed)
+        else if (reversed)
         {
             StartCoroutine("ReversedTraffic");
             greenLights.gameObject.SetActive(true);
@@ -74,9 +74,6 @@ public class TrafficLight : MonoBehaviour
             yield return new WaitForSeconds(2);
             amberLights.gameObject.SetActive(false);
             redLights.gameObject.SetActive(false);
-            greenLights.gameObject.SetActive(true);
-            amber = false;
-            red = false;
             green = true;
         }
     }
