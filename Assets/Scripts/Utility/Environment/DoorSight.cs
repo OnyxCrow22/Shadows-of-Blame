@@ -7,6 +7,11 @@ public class Door : MonoBehaviour
     public Animator doorAnim;
     public RaycastMaster rMaster;
     public AudioSource doorSound;
+
+    // Use this only for buttons, otherwise leave blank.
+    public GameObject doorReference;
+
+    // Use the same sound twice in the array if a garage door.
     public AudioClip[] doorClips;
 
     public IEnumerator OpeningDoor()
