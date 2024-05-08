@@ -815,6 +815,7 @@ MonoBehaviour:
   isWalking: 0
   isFleeing: 0
   isAttacking: 0
+  canReturn: 0
   nHealth: {fileID: -1805599384099908054}
   police: {fileID: 0}
   fireState: {fileID: 0}
@@ -882,6 +883,7 @@ MonoBehaviour:
   deadDuration: 20
   isDead: 0
   nsm: {fileID: 1482817149575228153}
+  hitbox: {fileID: 4278863628304365691}
 --- !u!82 &6256828400225268280
 AudioSource:
   m_ObjectHideFlags: 0

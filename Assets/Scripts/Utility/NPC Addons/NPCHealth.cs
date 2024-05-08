@@ -11,6 +11,7 @@ public class NPCHealth : MonoBehaviour
     public float deadDuration;
     public bool isDead = false;
     public NPCMovementSM nsm;
+    public Collider hitbox;
 
     private void Start()
     {
@@ -27,6 +28,12 @@ public class NPCHealth : MonoBehaviour
             health = 0;
             maxHealth = 0;
             isDead = true;
+            nsm.police.killedNPCS += 1;
+            if (nsm.police.killedNPCS > 1 || nsm.police.killedNPCS > 3 || nsm.police.killedNPCS > 9 || nsm.police.killedNPCS > 12 || nsm.police.killedNPCS > 15)
+            {
+                nsm.police.UpdateLevel();
+                PoliceLevel.activateLevel = true;
+            }
             StartCoroutine(NPCDeath());
         }
     }
@@ -34,9 +41,7 @@ public class NPCHealth : MonoBehaviour
     public IEnumerator NPCDeath()
     {
         nsm.NPCAnim.SetBool("dead", true);
-        PoliceLevel.policeLevels += 1;
-        nsm.police.killedNPCS += 1;
-        PoliceLevel.activateLevel = true;
+        hitbox.enabled = false;
         yield return new WaitForSeconds(deadDuration);
         this.AddComponent<RemoveNPC>();
     }

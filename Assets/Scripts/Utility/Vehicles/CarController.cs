@@ -10,6 +10,7 @@ public class CarController : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     float steeringAngle;
+    float reverse;
     public float maxSteeringAngle;
     public float motorForce;
     public float brakeForce;
@@ -21,7 +22,7 @@ public class CarController : MonoBehaviour
     public TextMeshProUGUI speedText;
     public Light leftIndicator, rightIndicator;
     public Light rearLight1, rearLight2;
-    public Light reverseLight1, reverseLight2;
+    public Light[] reverseLight;
 
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
@@ -34,12 +35,14 @@ public class CarController : MonoBehaviour
     public bool turningLeft = false;
     public bool turningRight = false;
     public bool indicating = false;
+    public bool reversing = false;
 
     public void FixedUpdate()
     {
         GetInput();
         Steer();
         Accelerate();
+        Reverse();
         Brake();
         TurnIndicators();
         UpdateWheelPoses();
@@ -54,38 +57,18 @@ public class CarController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+        reverse = -Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && !braking)
+
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && !braking && reverse == 0)
         {
             Brake();
             braking = true;
         }
 
-        else if (!Input.GetKey(KeyCode.Space) || !Input.GetKeyDown(KeyCode.S) && currentSpeed > 0 && braking)
+        else if (reverse > 0)
         {
             braking = false;
-        }
-
-        if (Input.GetKey(KeyCode.S) && !braking && currentSpeed <= 0)
-        {
-            reverseLight1.gameObject.SetActive(true);
-            reverseLight1.gameObject.SetActive(true);
-        }
-        else if (braking || currentSpeed > 0)
-        {
-            reverseLight1.gameObject.SetActive(false);
-            reverseLight2.gameObject.SetActive(false);
-        }
-
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.W))
-        {
-            rearLight1.gameObject.SetActive(true);
-            rearLight2.gameObject.SetActive(true);
-        }
-        else
-        {
-            rearLight1.gameObject.SetActive(false);
-            rearLight2.gameObject.SetActive(false);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket))
@@ -106,8 +89,7 @@ public class CarController : MonoBehaviour
         {
             turningRight = false;
             indicating = false;
-            turningLeft = false;
-            
+            turningLeft = false;  
         }
     }
 
@@ -115,7 +97,8 @@ public class CarController : MonoBehaviour
 
     private void UpdateSpeed()
     {
-        currentSpeed = target.velocity.magnitude * 2.23694f;
+        const float MPH_CONVERSION = 2.23694f;
+        currentSpeed = target.velocity.magnitude * MPH_CONVERSION;
 
         speedText.text = currentSpeed.ToString("00" + " MPH");
     }
@@ -154,6 +137,23 @@ public class CarController : MonoBehaviour
             rearPassengerW.brakeTorque = 0f;
             rearLight1.gameObject.SetActive(false);
             rearLight2.gameObject.SetActive(false);
+        }
+    }
+
+    private void Reverse()
+    {
+        if (reversing)
+        {
+            frontDriverW.motorTorque = -verticalInput * motorForce;
+            frontPassengerW.motorTorque = -verticalInput * motorForce;
+            rearDriverW.motorTorque = -verticalInput * motorForce;
+            rearPassengerW.motorTorque = -verticalInput * motorForce;
+
+            reverseLight[reverseLight.Length - 1].gameObject.SetActive(true);
+        }
+        else
+        {
+            reverseLight[reverseLight.Length - 1].gameObject.SetActive(false);
         }
     }
 
