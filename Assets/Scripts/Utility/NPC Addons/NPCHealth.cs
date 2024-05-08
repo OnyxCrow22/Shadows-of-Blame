@@ -29,11 +29,6 @@ public class NPCHealth : MonoBehaviour
             maxHealth = 0;
             isDead = true;
             nsm.police.killedNPCS += 1;
-            if (nsm.police.killedNPCS > 1 || nsm.police.killedNPCS > 3 || nsm.police.killedNPCS > 9 || nsm.police.killedNPCS > 12 || nsm.police.killedNPCS > 15)
-            {
-                nsm.police.UpdateLevel();
-                PoliceLevel.activateLevel = true;
-            }
             StartCoroutine(NPCDeath());
         }
     }
