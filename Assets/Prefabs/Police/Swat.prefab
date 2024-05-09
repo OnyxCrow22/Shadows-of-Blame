@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 868333635394697170}
   - component: {fileID: 3762439890774868244}
   - component: {fileID: 8479604729053062254}
+  - component: {fileID: 2766078713733263742}
   m_Layer: 0
   m_Name: PoliceOfficerFOV
   m_TagString: Untagged
@@ -99,12 +100,61 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0.000061035156, y: 0, z: 0}
+--- !u!114 &2766078713733263742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1373081742375500551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3632ede71f7faae4e9301a6fb7e07269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player:
+    serializedVersion: 2
+    m_Bits: 256
+  rayLength: 30
+  playerSpotted: 0
+--- !u!1 &6605942884534285841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6458791025246381866}
+  m_Layer: 0
+  m_Name: GunHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6458791025246381866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6605942884534285841}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.022635998, y: -0.7107253, z: 0.7027489, w: 0.022390427}
+  m_LocalPosition: {x: 0.122, y: 0.303, z: 0.203}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7064126644732550458}
+  m_Father: {fileID: 4776503064748051202}
+  m_LocalEulerAnglesHint: {x: -626.294, y: 79.944, z: 259.964}
 --- !u!1001 &6628208969761731786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -315,7 +365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_Name
-      value: SWAT
+      value: Swat
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_TagString
@@ -463,6 +513,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 234583936526980402}
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 049932f08e07a354180d143fdfec198d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6458791025246381866}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       insertIndex: -1
@@ -473,10 +526,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2486435456871804160}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8014230036406733024}
   m_SourcePrefab: {fileID: 100100000, guid: 049932f08e07a354180d143fdfec198d, type: 3}
 --- !u!95 &762996581958158683 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 049932f08e07a354180d143fdfec198d, type: 3}
+  m_PrefabInstance: {fileID: 6628208969761731786}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4776503064748051202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 049932f08e07a354180d143fdfec198d, type: 3}
   m_PrefabInstance: {fileID: 6628208969761731786}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6286261062433606043 stripped
@@ -502,7 +563,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.76
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -543,18 +604,132 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoliceAI: {fileID: 6094094448019760474}
   player: {fileID: 0}
+  officer: {fileID: 0}
   playsm: {fileID: 0}
-  removed: {fileID: 0}
+  removed: {fileID: 8014230036406733024}
   PoliceAnim: {fileID: 762996581958158683}
   PoliceFOV: {fileID: 1373081742375500551}
-  pGun: {fileID: 0}
+  pGun: {fileID: 7584907765371864960}
+  policeGun: {fileID: 7683433645317778868}
   spawnedIn: 0
   isPatrolling: 0
   isChasing: 0
   isAttacking: 0
   isShooting: 0
+--- !u!114 &8014230036406733024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286261062433606043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9fa65e23deee8940a708d04f0569af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6662681533050639137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 049932f08e07a354180d143fdfec198d, type: 3}
   m_PrefabInstance: {fileID: 6628208969761731786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7314523905578416849
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6458791025246381866}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.017116986
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00004197564
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0037168874
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9992013
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0000001443986
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.039958376
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00045107474
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -4.58
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.052
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_Name
+      value: WestTechTN90Pistol
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7683433645317778868}
+  m_SourcePrefab: {fileID: 100100000, guid: 7129305751009b346b45662458c39d55, type: 3}
+--- !u!4 &7064126644732550458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+  m_PrefabInstance: {fileID: 7314523905578416849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7584907765371864960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+  m_PrefabInstance: {fileID: 7314523905578416849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7683433645317778868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584907765371864960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be846f134bdd9374ebca258559bfff1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 60
+  timeBetweenShooting: 1
+  spread: 0.01
+  range: 30
+  reloadTime: 3
+  timeBetweenShots: 0.01
+  magazineSize: 30
+  bulletsPerTap: 1
+  totalAmmo: 240
+  bullet: 0
+  policeOfficer: {fileID: 6286261062433606043}
+  FOV: {fileID: 1373081742375500551}
+  policeGun: {fileID: 7584907765371864960}
+  target: {fileID: 0}
+  Player:
+    serializedVersion: 2
+    m_Bits: 256
+  police: {fileID: -2486435456871804160}

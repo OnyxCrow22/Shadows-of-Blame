@@ -6,6 +6,6 @@ public class RemoveNPC : MonoBehaviour
 {
     public void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        Destroy(this);
     }
 }

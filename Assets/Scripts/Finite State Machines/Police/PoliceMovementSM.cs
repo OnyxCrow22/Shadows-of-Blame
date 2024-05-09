@@ -7,11 +7,14 @@ public class PoliceMovementSM : PoliceStateMachine
 {
     public NavMeshAgent PoliceAI;
     public GameObject player;
+    public Transform officer;
     public PlayerMovementSM playsm;
     public RemoveNPC removed;
     public Animator PoliceAnim;
     public GameObject PoliceFOV;
     public GameObject pGun;
+
+    public PoliceGun policeGun;
 
     public bool spawnedIn = false;
     public bool isPatrolling = false;
@@ -25,8 +28,8 @@ public class PoliceMovementSM : PoliceStateMachine
     public PolicePatrol patrolState;
     [HideInInspector]
     public PoliceChase chaseState;
-   // [HideInInspector]
-   // public PoliceShoot fireState;
+    [HideInInspector]
+    public PoliceShoot fireState;
    // [HideInInspector]
    // public PoliceAttack meleeState;
     private void Awake()
@@ -34,7 +37,7 @@ public class PoliceMovementSM : PoliceStateMachine
         idleState = new PoliceIdle(this);
         patrolState = new PolicePatrol(this);
         chaseState = new PoliceChase(this);
-      //  fireState = new PoliceShoot(this);
+        fireState = new PoliceShoot(this);
        // meleeState = new PoliceAttack(this);
     }
 

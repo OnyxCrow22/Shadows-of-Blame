@@ -31,7 +31,7 @@ public class PolicePatrol : PoliceBaseState
             wanted.PoliceAnim.SetBool("walking", false);
         }
 
-        if (PoliceLevel.policeLevels == 1)
+        if (PoliceLevel.policeLevels >= 1)
         {
             policeMachine.ChangeState(wanted.chaseState);
             wanted.PoliceAnim.SetBool("chase", true);
@@ -40,7 +40,7 @@ public class PolicePatrol : PoliceBaseState
         // Player is crazy, shoot them!
         if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || PoliceLevel.policeLevels >= 2)
         {
-           // policeMachine.ChangeState(wanted.fireState);
+            policeMachine.ChangeState(wanted.fireState);
             wanted.isPatrolling = false;
             wanted.isShooting = true;
             wanted.PoliceAnim.SetBool("shoot", true);

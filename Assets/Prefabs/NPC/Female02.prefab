@@ -763,6 +763,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75dbc006743341a4c9400c29623be326, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6110362525940630156}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75dbc006743341a4c9400c29623be326, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838069881859464187}
   m_SourcePrefab: {fileID: 100100000, guid: 75dbc006743341a4c9400c29623be326, type: 3}
 --- !u!95 &4248687899316436816 stripped
 Animator:
@@ -789,7 +792,7 @@ MonoBehaviour:
   NPC: {fileID: 8985296989086788614}
   player: {fileID: 0}
   playsm: {fileID: 0}
-  removed: {fileID: 0}
+  removed: {fileID: 1838069881859464187}
   NPCAnim: {fileID: 4248687899316436816}
   NPCFOV: {fileID: 911002572316409007}
   NPCSound: {fileID: 6110362525940630156}
@@ -964,6 +967,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1838069881859464187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448288967151861648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9fa65e23deee8940a708d04f0569af7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7788540109426287914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 75dbc006743341a4c9400c29623be326, type: 3}

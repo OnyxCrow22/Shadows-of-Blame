@@ -36,16 +36,6 @@ public class PoliceLevel : MonoBehaviour
         }
     }
 
-    void RemovingLevel()
-    {
-        if (addingLevel && !activateLevel)
-        {
-            activateLevel = true;
-            addingLevel = false;
-            StartCoroutine(RemoveLevel());
-        }
-    }
-
     IEnumerator AddLevel()
     {
         for (int i = 0; i < policeLevels; i++)
@@ -58,13 +48,29 @@ public class PoliceLevel : MonoBehaviour
         }
     }
 
-    IEnumerator RemoveLevel()
+    public void LostPlayer()
     {
-        levels[policeLevels - 1].SetActive(false);
-        yield return new WaitForSeconds(flashDelay);
-        levels[policeLevels - 1].SetActive(true);
-        yield return new WaitForSeconds(flashDelay);
-        levels[policeLevels - 1].SetActive(false);
+        if (!spottedPlayer && policeLevels >= 1)
+        {
+            StartCoroutine(PlayerSearch());
+        }
+    }
+
+    public IEnumerator PlayerSearch()
+    {
+        float elapsedTime = 0;
+        float searchTime = 5;
+        float maxSearchTime = 10;
+        while (!spottedPlayer && elapsedTime < maxSearchTime)
+        {
+            yield return new WaitForSeconds(searchTime);
+            elapsedTime += searchTime;
+
+            if (!spottedPlayer && elapsedTime >= maxSearchTime)
+            {
+                AbortPursuit();
+            }
+        }
     }
 
     public void PlayerSpotted()
@@ -110,10 +116,13 @@ public class PoliceLevel : MonoBehaviour
 
     public void AbortPursuit()
     {
-        if (!spottedPlayer && Time.time - lastSighted > pursuitAbort)
+        policeLevels = 0;
+        for (int i = 0; i < levels.Length;i++)
         {
-            policeLevels = 0;
-            levels[policeLevels - 1].SetActive(false);
+            levels[i].SetActive(false);
+            activateLevel = false;
+            addingLevel = false;
+            policeBorder.SetActive(false);
         }
     }
 }
