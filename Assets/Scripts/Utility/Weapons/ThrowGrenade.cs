@@ -10,9 +10,9 @@ public class ThrowGrenade : MonoBehaviour
     public PlayerMovementSM playsm;
     public float delay = 20;
 
-    void Update()
+    private void Update()
     {
-        InputCheck();
+        InputCheck();   
     }
 
     void InputCheck()

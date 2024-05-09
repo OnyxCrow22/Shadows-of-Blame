@@ -29,6 +29,8 @@ public class NPCHealth : MonoBehaviour
             maxHealth = 0;
             isDead = true;
             nsm.police.killedNPCS += 1;
+            nsm.police.cancelPursuit = false;
+            PoliceLevel.activateLevel = true;
             nsm.police.UpdateLevel();
             StartCoroutine(NPCDeath());
         }

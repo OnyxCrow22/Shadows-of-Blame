@@ -122,6 +122,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rayLength: 30
+  policeSystem: {fileID: 0}
   playerSpotted: 0
 --- !u!1 &6605942884534285841
 GameObject:
@@ -684,6 +685,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_Name
       value: WestTechTN90Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

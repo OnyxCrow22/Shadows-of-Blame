@@ -28,8 +28,8 @@ public class VehicleEnterExit : MonoBehaviour
 
     private void Update()
     {
-        EnterVehicle();
-        ExitVehicle();
+        EnteringVehicle();
+        ExitingVehicle();
     }
 
     void OnTriggerEnter(Collider other)

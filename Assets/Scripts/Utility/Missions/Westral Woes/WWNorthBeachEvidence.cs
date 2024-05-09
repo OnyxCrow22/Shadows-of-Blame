@@ -35,16 +35,14 @@ public class WWNorthBeachEvidence : MonoBehaviour
         PoliceLevel.policeLevels += 1;
         PoliceLevel.activateLevel = true;
 
-        if (police == null || police.Length == 0)
+        if (WW.police.cancelPursuit)
         {
             WW.objective.text = "Go to 22 Kensington Boulevard.";
             WW.locationClues[0].text = "It's located in TANWORTH.";
             WW.locationClues[1].text = "The building has neon lighting outside.";
             WW.locationClues[2].text = "The building is on THE ORBITAL.";
-            PoliceLevel.activateLevel = false;
             WW.evadedPolice = true;
             evadedPolice = true;
-            PoliceLevel.policeLevels = 0;
         }
     }
 }

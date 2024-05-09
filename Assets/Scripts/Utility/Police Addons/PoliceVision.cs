@@ -7,14 +7,16 @@ public class PoliceVision : MonoBehaviour
     public LayerMask player;
     public float rayLength = 30;
     public GameObject policeSystem;
+    PoliceLevel policing;
     public bool playerSpotted = false;
 
     private void Start()
     {
         policeSystem = GameObject.FindGameObjectWithTag("GameManager");
+        policing = policeSystem.GetComponent<PoliceLevel>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         VisionCheck();
     }
@@ -27,14 +29,24 @@ public class PoliceVision : MonoBehaviour
             if (playerHit.collider.CompareTag("Player"))
             {
                 playerSpotted = true;
-                policeSystem.GetComponent<PoliceLevel>().spottedPlayer = true;
-                policeSystem.GetComponent<PoliceLevel>().PlayerSpotted();
+                policing.spottedPlayer = true;
+                policing.PlayerSpotted();
             }
         }
-        else
+        if (PoliceLevel.policeLevels >= 1 && !playerSpotted && !policing.cancelPursuit)
         {
-            policeSystem.GetComponent<PoliceLevel>().spottedPlayer = false;
-            playerSpotted = false;
+            StartCoroutine(SearchForPlayer());
+        }
+    }
+
+    private IEnumerator SearchForPlayer()
+    {
+        yield return new WaitForSeconds(5);
+
+        if (!playerSpotted)
+        {
+            policing.spottedPlayer = false;
+            policing.LostPlayer();
         }
     }
 }

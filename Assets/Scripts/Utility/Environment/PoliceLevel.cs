@@ -15,19 +15,23 @@ public class PoliceLevel : MonoBehaviour
     public float flashDelay = 0.5f;
 
     public bool spottedPlayer = false;
+    public bool cancelPursuit = false;
     float lastSighted = 0;
-    const float pursuitAbort = 20f;
 
     private void Update()
     {
-        AddingLevel();
-        UpdateLevel();
+        if (!cancelPursuit)
+        {
+            AddingLevel();
+            UpdateLevel();
+        }
     }
 
     public void AddingLevel()
     {
         if (!addingLevel && activateLevel)
         {
+            cancelPursuit = false;
             activateLevel = false;
             addingLevel = true;
             policeBorder.SetActive(true);
@@ -50,18 +54,30 @@ public class PoliceLevel : MonoBehaviour
 
     public void LostPlayer()
     {
-        if (!spottedPlayer && policeLevels >= 1)
+        if (!spottedPlayer && policeLevels >= 1 && !cancelPursuit)
         {
             StartCoroutine(PlayerSearch());
+            Debug.Log("Begin search...");
+        }
+        else if (cancelPursuit)
+        {
+            AbortPursuit();
         }
     }
 
     public IEnumerator PlayerSearch()
     {
-        if (!spottedPlayer)
+        float searchTime = 0;
+
+        while (searchTime < 5)
         {
-            AbortPursuit();
-            yield break;
+            yield return new WaitForSeconds(1);
+            searchTime++;
+            if (!spottedPlayer && searchTime >= 5)
+            {
+                AbortPursuit();
+                yield break;
+            }
         }
     }
 
@@ -108,13 +124,16 @@ public class PoliceLevel : MonoBehaviour
 
     public void AbortPursuit()
     {
+        activateLevel = false;
+        addingLevel = false;
+        policeBorder.SetActive(false);
+        cancelPursuit = true;
         policeLevels = 0;
-        for (int i = 0; i < levels.Length;i++)
+        killedNPCS = 0;
+
+        for (int i = 0; i < levels.Length; i++)
         {
             levels[i].SetActive(false);
-            activateLevel = false;
-            addingLevel = false;
-            policeBorder.SetActive(false);
         }
     }
 }

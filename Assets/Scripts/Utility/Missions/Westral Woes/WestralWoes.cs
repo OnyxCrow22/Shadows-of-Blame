@@ -41,6 +41,9 @@ public class WestralWoes : MonoBehaviour
     public int NorthBeachGangEliminated = 0;
     public int NorthBeachGangAmount;
 
+    [Header("String references")]
+    public string currentObjective;
+
     [Header("Gameobject references")]
     public GameObject clue;
     public GameObject magGlass;
@@ -65,26 +68,13 @@ public class WestralWoes : MonoBehaviour
     {
         missionName.text = "Westral Woes";
 
-        if (!inSafehouse)
-        {
-            objective.text = "Go to West Insbury.";
-            WesteriaIsland();
-        }
-
-        else if (inSafehouse)
+        if (inSafehouse)
         {
             LeaveSTMSafehouse();
             objective.text = "Leave the safehouse.";
         }
     }
 
-    void Update()
-    {
-        if (PoliceLevel.policeLevels >= 1)
-        {
-            objective.text = "Lose the police.";
-        }
-    }
     void LeaveSTMSafehouse()
     {
         if (safehouseVerify.hasLeft)
