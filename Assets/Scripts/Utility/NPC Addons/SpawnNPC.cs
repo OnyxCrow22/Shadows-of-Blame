@@ -69,4 +69,9 @@ public class SpawnNPC : MonoBehaviour
             StopCoroutine(Spawn());
         }
     }
+
+    public void OnBecameInvisible()
+    {
+        Destroy(newNPC, 1.5f);
+    }
 }
