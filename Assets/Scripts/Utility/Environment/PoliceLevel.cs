@@ -58,18 +58,10 @@ public class PoliceLevel : MonoBehaviour
 
     public IEnumerator PlayerSearch()
     {
-        float elapsedTime = 0;
-        float searchTime = 5;
-        float maxSearchTime = 10;
-        while (!spottedPlayer && elapsedTime < maxSearchTime)
+        if (!spottedPlayer)
         {
-            yield return new WaitForSeconds(searchTime);
-            elapsedTime += searchTime;
-
-            if (!spottedPlayer && elapsedTime >= maxSearchTime)
-            {
-                AbortPursuit();
-            }
+            AbortPursuit();
+            yield break;
         }
     }
 
