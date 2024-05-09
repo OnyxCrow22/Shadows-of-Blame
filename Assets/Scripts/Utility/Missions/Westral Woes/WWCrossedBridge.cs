@@ -25,23 +25,22 @@ public class WWCrossedBridge : MonoBehaviour
         }
         if (WW.police.cancelPursuit)
         {
-            CheckPlayer();
+            WW.objective.text = "Go to Halifax Park.";
+            WW.locationClues[0].text = "It's located in the CENTRE of WEST INSBURY.";
+            WW.locationClues[1].text = "The Kensington Boulevard skyscrapers are in the northern part of the district.";
+            WW.locationClues[2].text = "The park is surrounded by a cluster of tall skyscrapers.";
         }
     }
-
-    void CheckPlayer()
+    private void OnTriggerEnter(Collider other)
     {
-        void OnTriggerEnter(Collider other)
+        if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
         {
-            if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
-            {
-                WestInsbury = true;
-                WW.onWestInsbury = true;
-                WW.objective.text = "Go to Halifax Park.";
-                WW.locationClues[0].text = "It's located in the CENTRE of WEST INSBURY.";
-                WW.locationClues[1].text = "The Kensington Boulevard skyscrapers are in the northern part of the district.";
-                WW.locationClues[2].text = "The park is surrounded by a cluster of tall skyscrapers.";
-            }
+            WestInsbury = true;
+            WW.onWestInsbury = true;
+            WW.objective.text = "Go to Halifax Park.";
+            WW.locationClues[0].text = "It's located in the CENTRE of WEST INSBURY.";
+            WW.locationClues[1].text = "The Kensington Boulevard skyscrapers are in the northern part of the district.";
+            WW.locationClues[2].text = "The park is surrounded by a cluster of tall skyscrapers.";
         }
     }
 }
