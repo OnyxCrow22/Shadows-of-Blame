@@ -3613,7 +3613,6 @@ GameObject:
   - component: {fileID: 6408932620288566795}
   - component: {fileID: 5669890521429970867}
   - component: {fileID: 3400031318202311822}
-  - component: {fileID: 5884427150707830209}
   m_Layer: 0
   m_Name: OlympiaEntourage
   m_TagString: Vehicle
@@ -3748,8 +3747,7 @@ MonoBehaviour:
   rightIndicator: {fileID: 3974823341477343110}
   rearLight1: {fileID: 3460046233600917149}
   rearLight2: {fileID: 9187718007375076123}
-  reverseLight1: {fileID: 1636153336153761698}
-  reverseLight2: {fileID: 5258874355157738613}
+  reverseLight: []
   frontDriverW: {fileID: 4300579529230423770}
   frontPassengerW: {fileID: 8396837710076746336}
   rearDriverW: {fileID: 588397112262821234}
@@ -3762,6 +3760,7 @@ MonoBehaviour:
   turningLeft: 0
   turningRight: 0
   indicating: 0
+  reversing: 0
 --- !u!65 &3400031318202311822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3783,22 +3782,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.88, y: 1.68, z: 4.32}
   m_Center: {x: 0.05, y: 1.1, z: -1.51}
---- !u!114 &5884427150707830209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3974183197408000083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70fc91ceafa3dcc4795b28e3c9c2e80b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FrontPlate: {fileID: 4901745337092377062}
-  BackPlate: {fileID: 539145533809262545}
-  letters: 5
-  numbers: 2
 --- !u!1 &4002937218387728568
 GameObject:
   m_ObjectHideFlags: 0
@@ -7446,17 +7429,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db9206a24b79754cab3de9556130965, type: 3}
---- !u!114 &539145533809262545 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4561075882973893851, guid: 6db9206a24b79754cab3de9556130965, type: 3}
-  m_PrefabInstance: {fileID: 4050807923921840906}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &8029813944869094759 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6294059089665486445, guid: 6db9206a24b79754cab3de9556130965, type: 3}
@@ -7596,14 +7568,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6294059089665486445, guid: 6db9206a24b79754cab3de9556130965, type: 3}
   m_PrefabInstance: {fileID: 8883998084746648893}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4901745337092377062 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4561075882973893851, guid: 6db9206a24b79754cab3de9556130965, type: 3}
-  m_PrefabInstance: {fileID: 8883998084746648893}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

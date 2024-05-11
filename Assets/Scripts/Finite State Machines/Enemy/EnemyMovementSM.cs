@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyMovementSM : EnemyStateMachine
 {
+    [Header("Boolean References")]
     public bool isPatrol = false;
     public bool isChasing = false;
     public bool isMeleeAttack = false;
@@ -14,30 +15,34 @@ public class EnemyMovementSM : EnemyStateMachine
     public bool isHiding = false;
     public bool isAttacking = false;
     public bool attackedPlayer = false;
+
+    [Header("Transform References")]
     public Transform target;
-    public Animator eAnim;
-    public float damage;
-    public float attackDelay = 1.2f;
     public Transform enemy;
     public Transform[] waypoints;
     public Transform ePoint;
+
+    [Header("Float/int references")]
+    public float damage;
+    public float attackDelay = 1.2f;
     public float distance;
-    public GameObject FOV;
-    public PlayerMovementSM playsm;
-    public NavMeshAgent agent;
     [HideInInspector]
     public int destinations;
     public int RandomIndex;
-    [HideInInspector]
-    public Collider coverObj;
-
-    public Collider[] cols;
-
-    public LayerMask hideableLayers, Player;
     [Range(-1, 1)]
     public float HideSensitvity;
 
-    // Scripts
+    [Header("Other references")]
+    public Animator eAnim;
+    public GameObject FOV;
+    public NavMeshAgent agent;
+    [HideInInspector]
+    public Collider coverObj;
+    public Collider[] cols;
+    public LayerMask hideableLayers, Player;
+
+    [Header("External Scripts")]
+    public PlayerMovementSM playsm;
     public PlayerHealth health;
     public EnemyHealth eHealth;
     public EnemyCoverSystem eCover;

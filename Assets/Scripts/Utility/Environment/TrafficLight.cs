@@ -15,12 +15,14 @@ public class TrafficLight : MonoBehaviour
         if (!reversed)
         {
             StartCoroutine("Traffic");
-            redLights[redLights.Length + 1].gameObject.SetActive(true);
+            redLights[0].gameObject.SetActive(true);
+            redLights[1].gameObject.SetActive(true);
         }
         else if (reversed)
         {
             StartCoroutine("ReversedTraffic");
-            greenLights[greenLights.Length + 1].gameObject.SetActive(true);
+            greenLights[0].gameObject.SetActive(true);
+            greenLights[1].gameObject.SetActive(true);
         }
     }
 

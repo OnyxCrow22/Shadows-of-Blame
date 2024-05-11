@@ -91,7 +91,7 @@ public class Gun : MonoBehaviour
             playsm.anim.SetBool("aiming", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && gunEquipped && pressCount == 1)
+        if (Input.GetKeyDown(KeyCode.Alpha2) && gunEquipped && pressCount == 1 && !aiming)
         {
             gun.SetActive(false);
             reticle.SetActive(false);
