@@ -605,7 +605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PoliceAI: {fileID: 6094094448019760474}
   player: {fileID: 0}
-  officer: {fileID: 0}
+  officer: {fileID: 6662681533050639137}
   playsm: {fileID: 0}
   removed: {fileID: 8014230036406733024}
   PoliceAnim: {fileID: 762996581958158683}

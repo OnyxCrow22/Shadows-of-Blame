@@ -17,14 +17,14 @@ public class ThrowGrenade : MonoBehaviour
 
     void InputCheck()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.G) && !playsm.weapon.gunEquipped)
         {
             Throw();
             playsm.throwingGrenade = true;
             playsm.hasThrownGrenade = true;
         }
 
-        if (!Input.GetMouseButtonDown(1))
+        if (!Input.GetKeyDown(KeyCode.G))
         {
             playsm.throwingGrenade = false;
         }
@@ -43,5 +43,6 @@ public class ThrowGrenade : MonoBehaviour
         GameObject newGrenade = Instantiate(grenade, transform.position, transform.rotation);
         Rigidbody rb = newGrenade.GetComponent<Rigidbody>();
         rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+        Destroy(newGrenade, 2);
     }
 }

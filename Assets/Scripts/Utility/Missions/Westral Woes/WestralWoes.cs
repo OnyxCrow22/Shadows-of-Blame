@@ -13,7 +13,7 @@ public class WestralWoes : MonoBehaviour
     public TextMeshProUGUI[] locationClues;
 
     [Header("Boolean references")]
-    public bool inSafehouse = true;
+    public bool inSafehouse = false;
     public bool onWestInsbury = false;
     public bool HaliPark = false;
     public bool CollectedEvidenceHPark = false;
@@ -72,6 +72,11 @@ public class WestralWoes : MonoBehaviour
         {
             LeaveSTMSafehouse();
             objective.text = "Leave the safehouse.";
+        }
+        else if (!inSafehouse)
+        {
+            WesteriaIsland();
+            objective.text = "Go to Westeria Island.";
         }
     }
 

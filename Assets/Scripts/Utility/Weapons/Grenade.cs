@@ -12,6 +12,7 @@ public class Grenade : MonoBehaviour
     public float force = 700;
     public float grenadeDamage = 100;
     public GameObject explosionVFX;
+    public GameObject grenade;
     public bool hasExploded = false;
     public AudioSource explosion;
 
@@ -32,7 +33,7 @@ public class Grenade : MonoBehaviour
         }
     }
 
-    void Explode()
+    public void Explode()
     {
         Instantiate(explosionVFX, transform.position, transform.rotation);
 
@@ -49,18 +50,12 @@ public class Grenade : MonoBehaviour
             }
 
             EnemyHealth damage = nearbyObject.GetComponent<EnemyHealth>();
-            if (damage != null)
-            {
-                damage.LoseHealth(damage.healthLoss + grenadeDamage);
-            }
+            damage.LoseHealth(damage.healthLoss + grenadeDamage);
 
             NPCHealth NPCS = nearbyObject.GetComponent<NPCHealth>();
-            if (NPCS != null)
-            {
-                NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
-            }
+            NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
         }
-        Destroy(gameObject);
+        Destroy(grenade, 2);
     }
 }
 

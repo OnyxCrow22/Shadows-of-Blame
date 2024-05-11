@@ -12,18 +12,6 @@ public class WWCollectHParkEvidence : MonoBehaviour
     public WestralWoes WW;
     public RaycastMaster rMaster;
 
-    private void Update()
-    {
-        if (PoliceLevel.policeLevels >= 1)
-        {
-            WW.objective.text = "Lose the police.";
-        }
-        if (WW.police.cancelPursuit)
-        {
-            WW.objective.text = "Search Halifax Park for evidence: " + WW.HaliEvidenceCollected + " / " + WW.HaliEvidenceTotal;
-        }
-    }
-
     public void PickUp()
     {
         Time.timeScale = 0;

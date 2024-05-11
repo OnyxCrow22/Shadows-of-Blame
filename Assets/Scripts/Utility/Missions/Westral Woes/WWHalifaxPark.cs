@@ -7,28 +7,9 @@ public class WWHalifaxPark : MonoBehaviour
     public WestralWoes WW;
     public bool HPark = false;
 
-    private void Update()
-    {
-        if (HPark)
-        {
-            CheckPolice();
-        }
-    }
-
-    void CheckPolice()
-    {
-        if (PoliceLevel.policeLevels >= 1)
-        {
-            WW.objective.text = "Lose the police.";
-        }
-        if (WW.police.cancelPursuit)
-        {
-            WW.objective.text = "Search for evidence in Halifax Park: " + WW.HaliEvidenceCollected + " / " + WW.HaliEvidenceTotal;
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
         {
             HPark = true;
             WW.HaliPark = true;

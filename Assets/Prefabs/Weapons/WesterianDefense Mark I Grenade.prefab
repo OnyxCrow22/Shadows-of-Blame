@@ -118,6 +118,7 @@ MonoBehaviour:
   force: 700
   grenadeDamage: 100
   explosionVFX: {fileID: 0}
+  grenade: {fileID: 92930332898233918}
   hasExploded: 0
   explosion: {fileID: 9028938995210883405}
   countdown: 0

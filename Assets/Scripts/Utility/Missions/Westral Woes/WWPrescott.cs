@@ -8,27 +8,6 @@ public class WWPrescott : MonoBehaviour
     public bool inPrescott = false;
     public bool CollectedPrescottEvidence = false;
 
-    private void Update()
-    {
-        if (inPrescott)
-        {
-            CheckPolice();
-        }
-    }
-    void CheckPolice()
-    {
-        if (PoliceLevel.policeLevels >= 1)
-        {
-            WW.objective.text = "Lose the police.";
-            WW.locationClues[0].text = "";
-            WW.locationClues[1].text = "";
-            WW.locationClues[2].text = "";
-        }
-        if (WW.police.cancelPursuit)
-        {
-            WW.objective.text = "Search for more evidence in Prescott: " + WW.PrescottEvidenceCollected + " / " + WW.PrescottEvidenceTotal;
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && WW.CollectedEvidenceHPark || other.CompareTag("Vehicle") && WW.CollectedEvidenceHPark)

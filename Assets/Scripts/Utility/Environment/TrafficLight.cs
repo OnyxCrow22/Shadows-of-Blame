@@ -5,9 +5,9 @@ using UnityEngine;
 public class TrafficLight : MonoBehaviour
 {
     public bool reversed = false;
-    public Light redLights;
-    public Light greenLights;
-    public Light amberLights;
+    public Light[] redLights;
+    public Light[] greenLights;
+    public Light[] amberLights;
     public bool green, amber, red;
 
     private void Start()
@@ -15,12 +15,12 @@ public class TrafficLight : MonoBehaviour
         if (!reversed)
         {
             StartCoroutine("Traffic");
-            redLights.gameObject.SetActive(true);
+            redLights[redLights.Length + 1].gameObject.SetActive(true);
         }
         else if (reversed)
         {
             StartCoroutine("ReversedTraffic");
-            greenLights.gameObject.SetActive(true);
+            greenLights[greenLights.Length + 1].gameObject.SetActive(true);
         }
     }
 
@@ -28,27 +28,36 @@ public class TrafficLight : MonoBehaviour
     {
         while (true)
         {
-            redLights.gameObject.SetActive(true);
+            redLights[0].gameObject.SetActive(true);
+            redLights[1].gameObject.SetActive(true);
             red = true;
             yield return new WaitForSeconds(8);
-            amberLights.gameObject.SetActive(true);
+            amberLights[0].gameObject.SetActive(true);
+            amberLights[1].gameObject.SetActive(true);
             amber = true;
             yield return new WaitForSeconds(2);
-            redLights.gameObject.SetActive(false);
-            amberLights.gameObject.SetActive(false);
-            greenLights.gameObject.SetActive(true);
+            redLights[0].gameObject.SetActive(false);
+            redLights[1].gameObject.SetActive(false);
+            amberLights[0].gameObject.SetActive(false);
+            amberLights[1].gameObject.SetActive(false);
+            greenLights[0].gameObject.SetActive(true);
+            greenLights[1].gameObject.SetActive(true);
             red = false;
             amber = false;
             green = true;
             yield return new WaitForSeconds(10);
-            amberLights.gameObject.SetActive(true);
+            amberLights[0].gameObject.SetActive(true);
+            amberLights[1].gameObject.SetActive(true);
             amber = true;
             green = false;
-            greenLights.gameObject.SetActive(false);
+            greenLights[0].gameObject.SetActive(false);
+            greenLights[1].gameObject.SetActive(false);
             yield return new WaitForSeconds(2);
-            redLights.gameObject.SetActive(true);
+            redLights[0].gameObject.SetActive(true);
+            redLights[1].gameObject.SetActive(true);
             red = true;
-            amberLights.gameObject.SetActive(false);
+            amberLights[0].gameObject.SetActive(false);
+            amberLights[1].gameObject.SetActive(false);
             amber = false;
         }
     }
@@ -57,23 +66,31 @@ public class TrafficLight : MonoBehaviour
     {
         while (true)
         {
-            greenLights.gameObject.SetActive(true);
+            greenLights[0].gameObject.SetActive(true);
+            greenLights[1].gameObject.SetActive(true);
             green = true;
             yield return new WaitForSeconds(8);
-            amberLights.gameObject.SetActive(true);
-            greenLights.gameObject.SetActive(false);
+            amberLights[0].gameObject.SetActive(true);
+            amberLights[1].gameObject.SetActive(true);
+            greenLights[0].gameObject.SetActive(false);
+            greenLights[1].gameObject.SetActive(false);
             amber = true;
             green = false;
             yield return new WaitForSeconds(2);
-            redLights.gameObject.SetActive(true);
-            amberLights.gameObject.SetActive(false);
+            redLights[0].gameObject.SetActive(true);
+            redLights[1].gameObject.SetActive(true);
+            amberLights[0].gameObject.SetActive(false);
+            amberLights[1].gameObject.SetActive(false);
             red = true;
             amber = false;
             yield return new WaitForSeconds(8);
-            amberLights.gameObject.SetActive(true);
+            amberLights[0].gameObject.SetActive(true);
+            amberLights[1].gameObject.SetActive(true);
             yield return new WaitForSeconds(2);
-            amberLights.gameObject.SetActive(false);
-            redLights.gameObject.SetActive(false);
+            amberLights[0].gameObject.SetActive(false);
+            amberLights[1].gameObject.SetActive(false);
+            redLights[0].gameObject.SetActive(false);
+            redLights[1].gameObject.SetActive(false);
             green = true;
         }
     }

@@ -38,7 +38,7 @@ public class PolicePatrol : PoliceBaseState
         }
 
         // Player is crazy, shoot them!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || PoliceLevel.policeLevels >= 2)
+        if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.throwingGrenade || PoliceLevel.policeLevels >= 2))
         {
             policeMachine.ChangeState(wanted.fireState);
             wanted.isPatrolling = false;

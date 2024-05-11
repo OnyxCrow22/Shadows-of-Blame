@@ -11,7 +11,6 @@ public class WWNorthBeachEvidence : MonoBehaviour
     public static bool evidence = false;
     public WestralWoes WW;
     public RaycastMaster rMaster;
-    GameObject[] police;
     public bool evadedPolice;
 
     public void GEPickup()
@@ -35,14 +34,14 @@ public class WWNorthBeachEvidence : MonoBehaviour
         PoliceLevel.policeLevels += 1;
         PoliceLevel.activateLevel = true;
 
-        if (WW.police.cancelPursuit)
+        if (PoliceLevel.policeLevels == 0)
         {
             WW.objective.text = "Go to 22 Kensington Boulevard.";
             WW.locationClues[0].text = "It's located in TANWORTH.";
             WW.locationClues[1].text = "The building has neon lighting outside.";
             WW.locationClues[2].text = "The building is on THE ORBITAL.";
-            WW.evadedPolice = true;
             evadedPolice = true;
+            WW.evadedPolice = true;
         }
     }
 }

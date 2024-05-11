@@ -33,7 +33,7 @@ public class NPCWalk : NPCBaseState
         }
 
         // Player is crazy, run away!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || AI.playsm.hasThrownGrenade)
+        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade))
         {
             AI.StartCoroutine(AI.ScreamFlee());
 
