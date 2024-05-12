@@ -15,7 +15,7 @@ public class CarController : MonoBehaviour
     public float brakeForce;
     public float maxSpeed;
     float currentSpeed;
-    public float indicator = 0.5f;
+    public float indicator;
 
     public Rigidbody target;
     public TextMeshProUGUI speedText;
