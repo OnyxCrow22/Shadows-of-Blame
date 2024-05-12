@@ -86,14 +86,14 @@ public class CarController : MonoBehaviour
             braking = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftBracket))
+        if (Input.GetKey(KeyCode.LeftBracket))
         {
             TurnIndicators();
             turningLeft = true;
             indicating = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightBracket))
+        if (Input.GetKey(KeyCode.RightBracket))
         {
             TurnIndicators();
             turningRight = true;
@@ -188,10 +188,10 @@ public class CarController : MonoBehaviour
             if (turningRight)
             {
                 rightIndicator.gameObject.SetActive(true);
+                yield return new WaitForSeconds(indicator);
                 rightIndicator.gameObject.SetActive(false);
                 yield return new WaitForSeconds(indicator);
                 rightIndicator.gameObject.SetActive(true);
-                yield return new WaitForSeconds(indicator);
             }
             else if (turningLeft)
             {
