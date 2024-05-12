@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,7 @@ public class NPCMovementSM : NPCStateMachine
 {
     public NavMeshAgent NPC;
     public GameObject player;
+    public GameObject hiddenGun;
     public PlayerMovementSM playsm;
     public RemoveNPC removed;
     public Animator NPCAnim;
@@ -20,10 +22,17 @@ public class NPCMovementSM : NPCStateMachine
     public bool isWalking = false;
     public bool isFleeing = false;
     public bool isAttacking = false;
+    public bool isShooting = false;
     public bool canReturn = false;
+    public bool hostileNPC = false;
+    public bool neturalNPC = false;
+
+    public List<GameObject[]> neutralNPCList = new List<GameObject[]>();
+    public List<GameObject[]> hostileNPCList = new List<GameObject[]>();
 
     public NPCHealth nHealth;
     public PoliceLevel police;
+    public NPCGun hidden;
 
     [HideInInspector]
     public NPCIdle idleState;
@@ -40,7 +49,7 @@ public class NPCMovementSM : NPCStateMachine
         idleState = new NPCIdle(this);
         walkingState = new NPCWalk(this);
         fleeState = new NPCFlee(this);
-       // fireState = new NPCShoot(this);
+        fireState = new NPCShoot(this);
        // meleeState = new NPCAttack(this);
     }
 
@@ -61,9 +70,44 @@ public class NPCMovementSM : NPCStateMachine
         male = GameObject.FindGameObjectsWithTag("MaleNPC");
         female = GameObject.FindGameObjectsWithTag("FemaleNPC");
 
-        if (male.Length > 0 || female.Length > 0)
+        if (male.Length > 0 && hostileNPC)
+        {
+            hostileNPCList.Add(male);
+        }
+        else if (male.Length > 0 && neturalNPC)
+        {
+            neutralNPCList.Add(male);
+        }
+
+        if (female.Length > 0 && hostileNPC)
+        {
+            hostileNPCList.Add(female);
+        }
+        else if (female.Length > 0 && neturalNPC)
+        {
+            neutralNPCList.Add(female);
+        }
+
+        if (male.Length > 0 || female.Length > 0 && neturalNPC)
         {
             NPCSound.Play();
+        }
+
+        if (nHealth.health <= 0 && male.Length > 0 && hostileNPC)
+        {
+            hostileNPCList.Remove(male);
+        }
+        else if (nHealth.health <= 0 && male.Length > 0 && neturalNPC)
+        {
+            neutralNPCList.Remove(male);
+        }
+        if (nHealth.health <= 0 && female.Length > 0 && hostileNPC)
+        {
+            hostileNPCList.Remove(female);
+        }
+        else if (nHealth.health <= 0 && female.Length > 0 && neturalNPC)
+        {
+            neutralNPCList.Remove(female);
         }
     }
 

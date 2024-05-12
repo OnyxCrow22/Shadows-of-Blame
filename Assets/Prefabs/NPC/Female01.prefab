@@ -801,6 +801,7 @@ MonoBehaviour:
   NPCSound: {fileID: 2613361804133689577}
   clips:
   - {fileID: 8300000, guid: 66b7099b74f8ce6448950c44403df2f8, type: 3}
+  - {fileID: 8300000, guid: 6c7ad94754dba154e88347d06450e52f, type: 3}
   spawnedIn: 1
   isWalking: 0
   isFleeing: 0

@@ -25,11 +25,6 @@ public class NPCIdle : NPCBaseState
             AI.NPCAnim.SetBool("walking", true);
             AI.isWalking = true;
         }
-
-        if (Vector3.Distance(AI.playsm.player.position, AI.NPC.transform.position) > 70)
-        {
-            AI.NPC.AddComponent<RemoveNPC>().OnBecameInvisible();
-        }
     }
 
     public override void UpdatePhysics()

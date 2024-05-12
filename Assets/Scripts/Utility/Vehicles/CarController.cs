@@ -9,6 +9,7 @@ public class CarController : MonoBehaviour
     [Header("Car Settings")]
     float horizontalInput;
     float verticalInput;
+    float reverse;
     float steeringAngle;
     public float maxSteeringAngle;
     public float motorForce;
@@ -38,6 +39,7 @@ public class CarController : MonoBehaviour
     public bool turningRight = false;
     public bool indicating = false;
     public bool reversing = false;
+    public bool negative = false;
 
     [Header("Float references")]
     public float minSpeedArrowAngle;
@@ -46,6 +48,11 @@ public class CarController : MonoBehaviour
     [Header("UI Elements")]
     public RectTransform needle;
     public GameObject speedometer;
+
+    private void Start()
+    {
+        currentSpeed = 0;
+    }
 
     public void FixedUpdate()
     {
@@ -66,7 +73,7 @@ public class CarController : MonoBehaviour
     public void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");  
+        verticalInput = Input.GetAxisRaw("Vertical");
 
 
         if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && verticalInput <= 0 && !braking && currentSpeed > 0)
@@ -80,11 +87,12 @@ public class CarController : MonoBehaviour
             braking = false;
         }
 
-        if (verticalInput < 0 && currentSpeed == 0) 
+        if (verticalInput == -1f && braking && currentSpeed <= 0.02)
         {
             Reverse();
             reversing = true;
             braking = false;
+            negative = true;
         }
 
         if (Input.GetKeyDown(KeyCode.LeftBracket) && !turningLeft && pressCount == 1)
@@ -144,7 +152,7 @@ public class CarController : MonoBehaviour
 
     private void Brake()
     {
-        if (braking && currentSpeed >= 0)
+        if (braking && currentSpeed >= 0.25f && !reversing)
         {
             frontDriverW.brakeTorque = brakeForce;
             frontPassengerW.brakeTorque = brakeForce;
@@ -166,7 +174,7 @@ public class CarController : MonoBehaviour
 
     private void Reverse()
     {
-        if (verticalInput < 0 && currentSpeed == 0)
+        if (verticalInput == -1f && reversing && !braking && currentSpeed >= 0.01 && negative)
         {
             frontDriverW.motorTorque = verticalInput * motorForce;
             frontPassengerW.motorTorque = verticalInput * motorForce;
@@ -177,11 +185,12 @@ public class CarController : MonoBehaviour
             reverseLight[1].gameObject.SetActive(true);
         }
         // No longer reversing, turn off lights.
-        else if (verticalInput > 0.01f) 
+        else if (verticalInput >= 0f) 
         {
             reverseLight[0].gameObject.SetActive(false);
             reverseLight[1].gameObject.SetActive(false);
             reversing = false;
+            negative = false;
         }
     }
 

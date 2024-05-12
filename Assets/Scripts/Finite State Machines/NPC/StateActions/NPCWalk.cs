@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,15 +36,40 @@ public class NPCWalk : NPCBaseState
         // Player is crazy, run away!
         if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade))
         {
-            AI.StartCoroutine(AI.ScreamFlee());
+            int Aggression = Random.Range(0, 1);
+            
+            // NPC is not aggressive, they need to run away!
+            if (Aggression == 0)
+            {
+                AI.StartCoroutine(AI.ScreamFlee());
+                AI.neturalNPC = true;
 
-            AI.SearchNPCS();
+                AI.SearchNPCS();
+            }
+            // NPC is aggressive, they will not run away easily.
+            else if (Aggression == 1)
+            {
+                npcStateMachine.ChangeState(AI.fireState);
+                AI.hiddenGun.SetActive(true);
+                AI.NPCAnim.SetBool("shoot", true);
+                AudioManager.manager.Play("shoot");
+                AudioManager.manager.Stop("walk");
+                AI.NPCAnim.SetTrigger("gunEquipped");
+                AI.isWalking = false;
+                AI.isShooting = true;
+                AI.hostileNPC = true;
+            }
         }
 
         if (AI.nHealth.health <= 0)
         {
             AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
         }
+    }
+
+    public void OnBecameInvisible()
+    {
+        AI.AddComponent<RemoveNPC>();
     }
 
     public override void UpdatePhysics()

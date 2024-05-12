@@ -17,8 +17,8 @@ NavMeshProjectSettings:
     cost: 1
   - name: Banned Road
     cost: 1
-  - name: 
-    cost: 1
+  - name: Ground
+    cost: 3
   - name: 
     cost: 1
   - name: 
