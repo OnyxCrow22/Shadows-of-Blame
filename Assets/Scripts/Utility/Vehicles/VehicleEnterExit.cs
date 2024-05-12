@@ -11,6 +11,7 @@ public class VehicleEnterExit : MonoBehaviour
     public GameObject TPCam;
     public GameObject player;
     public GameObject vehicle;
+    public GameObject exitPoint;
     public Transform carSeat;
     public bool canEnter = false;
     public bool canExit = false;
@@ -28,15 +29,35 @@ public class VehicleEnterExit : MonoBehaviour
 
     private void Update()
     {
-        EnteringVehicle();
-        ExitingVehicle();
+        EnterVehicle();
+        ExitVehicle();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            canEnter = true;
+        }
+        if (other.CompareTag("Player") && inVehicle)
+        {
+            canExit = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        canEnter = false;
     }
 
     public void EnterVehicle()
     {
         if (canEnter == true)
         {
-            StartCoroutine(EnteringVehicle());
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                StartCoroutine(EnteringVehicle());
+            }
         }
     }
 
@@ -44,22 +65,25 @@ public class VehicleEnterExit : MonoBehaviour
     {
         rMaster.interactKey.SetActive(false);
         vehicleCol.GetComponent<Collider>().enabled = false;
-        vehicleCam.SetActive(true);
-        playerCam.SetActive(false);
-        TPCam.SetActive(false);
-        playsm.anim.SetBool("enteringCar", true);
-        carDoorAnim.Play("CarDoor");
-        yield return new WaitForSeconds(5);
-        playsm.anim.SetBool("enteringCar", false);
-        player.transform.parent = carSeat.transform;
-        player.transform.rotation = carSeat.transform.rotation;
-        player.transform.position = carSeat.transform.position;
         player.GetComponent<PlayerMovementSM>().enabled = false;
         player.GetComponent<CapsuleCollider>().enabled = false;
         player.GetComponent<CharacterController>().enabled = false;
         player.GetComponent<ThrowGrenade>().enabled = false;
+        vehicleCam.SetActive(true);
+        playerCam.SetActive(false);
+        TPCam.SetActive(false);
+        playsm.anim.SetBool("enteringCar", true);
+        carDoorAnim.SetBool("doorOpen", true);
+        AudioManager.manager.Play("CarDoor");
+        yield return new WaitForSeconds(5);
+        playsm.anim.SetBool("enteringCar", false);
+        carDoorAnim.SetBool("doorOpen", false);
+        AudioManager.manager.Stop("CarDoor");
         vehicle.GetComponent<CarController>().speedometer.SetActive(true);
         vehicle.GetComponent<CarController>().enabled = true;
+        player.transform.parent = carSeat.transform;
+        player.transform.rotation = carSeat.transform.rotation;
+        player.transform.position = carSeat.transform.position;
         inVehicle = true;
         playsm.inVehicle = true;
         canEnter = false;
@@ -81,15 +105,19 @@ public class VehicleEnterExit : MonoBehaviour
     IEnumerator ExitingVehicle()
     {
         vehicleCol.GetComponent<Collider>().enabled = true;
+        vehicle.GetComponent<CarController>().speedometer.SetActive(false);
+        playsm.anim.SetBool("exitingCar", true);
+        carDoorAnim.SetBool("doorOpen", true);
+        AudioManager.manager.Play("CarDoor");
+        yield return new WaitForSeconds(5);
         vehicleCam.SetActive(false);
         playerCam.SetActive(true);
         TPCam.SetActive(true);
-        vehicle.GetComponent<CarController>().speedometer.SetActive(false);
-        playsm.anim.SetBool("exitingCar", true);
-        carDoorAnim.Play("CarDoor");
-        yield return new WaitForSeconds(5);
-        playsm.anim.SetBool("exitingCar", false);
         player.transform.parent = null;
+        player.transform.position = exitPoint.transform.position;
+        player.transform.rotation = exitPoint.transform.rotation;
+        playsm.anim.SetBool("exitingCar", false);
+        carDoorAnim.SetBool("doorOpen", false);
         player.GetComponent<PlayerMovementSM>().enabled = true;
         player.GetComponent<CapsuleCollider>().enabled = true;
         player.GetComponent<CharacterController>().enabled = true;
