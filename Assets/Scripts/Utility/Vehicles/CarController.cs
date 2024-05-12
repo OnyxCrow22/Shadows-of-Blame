@@ -23,18 +23,28 @@ public class CarController : MonoBehaviour
     public Light rearLight1, rearLight2;
     public Light[] reverseLight;
 
+    [Header("Wheel colliders")]
     public WheelCollider frontDriverW, frontPassengerW;
     public WheelCollider rearDriverW, rearPassengerW;
 
+    [Header("Transforms")]
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
 
-
+    [Header("Booleans")]
     public bool braking = false;
     public bool turningLeft = false;
     public bool turningRight = false;
     public bool indicating = false;
     public bool reversing = false;
+
+    [Header("Float references")]
+    public float minSpeedArrowAngle;
+    public float maxSpeedArrowAngle;
+
+    [Header("UI Elements")]
+    public RectTransform needle;
+    public GameObject speedometer;
 
     public void FixedUpdate()
     {
@@ -106,6 +116,7 @@ public class CarController : MonoBehaviour
         currentSpeed = target.velocity.magnitude * MPH_CONVERSION;
 
         speedText.text = currentSpeed.ToString("00" + " MPH");
+        needle.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, currentSpeed / maxSpeed));
     }
 
     private void Steer()
@@ -125,7 +136,7 @@ public class CarController : MonoBehaviour
 
     private void Brake()
     {
-        if (braking)
+        if (braking && currentSpeed >= 0)
         {
             frontDriverW.brakeTorque = brakeForce;
             frontPassengerW.brakeTorque = brakeForce;
@@ -147,7 +158,7 @@ public class CarController : MonoBehaviour
 
     private void Reverse()
     {
-        if (reversing)
+        if (reversing && currentSpeed <= 0)
         {
             frontDriverW.motorTorque = verticalInput * motorForce;
             frontPassengerW.motorTorque = verticalInput * motorForce;
@@ -158,7 +169,7 @@ public class CarController : MonoBehaviour
             reverseLight[1].gameObject.SetActive(true);
         }
         // No longer reversing, turn off lights.
-        else if (verticalInput >= 0.25f | horizontalInput >= 0.25f) 
+        else if (verticalInput > 0.01f | horizontalInput > 0.01f) 
         {
             reverseLight[0].gameObject.SetActive(false);
             reverseLight[1].gameObject.SetActive(false);
