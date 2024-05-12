@@ -80,7 +80,7 @@ public class CarController : MonoBehaviour
             braking = false;
         }
 
-        if (Input.GetKey(KeyCode.S) && braking && -verticalInput >= 0 && currentSpeed == 0) 
+        if (verticalInput < 0 && currentSpeed == 0) 
         {
             Reverse();
             reversing = true;
@@ -166,7 +166,7 @@ public class CarController : MonoBehaviour
 
     private void Reverse()
     {
-        if (verticalInput < 0)
+        if (verticalInput < 0 && currentSpeed == 0)
         {
             frontDriverW.motorTorque = verticalInput * motorForce;
             frontPassengerW.motorTorque = verticalInput * motorForce;
