@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
     public float maxSpeed;
     float currentSpeed;
     public float indicator;
+    public int pressCount;
 
     public Rigidbody target;
     public TextMeshProUGUI speedText;
@@ -68,43 +69,50 @@ public class CarController : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");  
 
 
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && verticalInput <= 0 && !braking)
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && verticalInput >= 0 && !braking && currentSpeed > 0)
         {
             Brake();
             braking = true;
         }
 
-        else if (verticalInput > 0.01f)
+        else if (verticalInput >= 0.01f)
         {
             braking = false;
         }
 
-        if (Input.GetKey(KeyCode.S) && braking && verticalInput <= 0.01f)
+        if (Input.GetKey(KeyCode.S) && braking && verticalInput == 0 && currentSpeed <= 0) 
         {
             Reverse();
             reversing = true;
             braking = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftBracket))
+        if (Input.GetKeyDown(KeyCode.LeftBracket) && !turningLeft && pressCount == 1)
         {
             TurnIndicators();
             turningLeft = true;
             indicating = true;
+            pressCount += 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftBracket) && turningLeft && pressCount == 2)
+        {
+            turningLeft = false;
+            indicating = false;
+            pressCount -= 1;
         }
 
-        if (Input.GetKey(KeyCode.RightBracket))
+        if (Input.GetKeyDown(KeyCode.RightBracket) && !turningRight && pressCount == 1)
         {
             TurnIndicators();
             turningRight = true;
             indicating = true;
+            pressCount += 1;
         }
-
-        else 
+        else if (Input.GetKeyDown(KeyCode.RightBracket) && turningRight && pressCount == 2)
         {
             turningRight = false;
             indicating = false;
-            turningLeft = false;  
+            pressCount -= 1;
         }
     }
 
@@ -169,43 +177,51 @@ public class CarController : MonoBehaviour
             reverseLight[1].gameObject.SetActive(true);
         }
         // No longer reversing, turn off lights.
-        else if (verticalInput > 0.01f | horizontalInput > 0.01f) 
+        if (verticalInput > 0.01f && reversing | horizontalInput > 0.01f && reversing) 
         {
             reverseLight[0].gameObject.SetActive(false);
             reverseLight[1].gameObject.SetActive(false);
+            reversing = false;
         }
     }
 
     private void TurnIndicators()
     {
-        StartCoroutine(Turning());
+        if (turningLeft)
+        {
+            StartCoroutine(TurningLeft());
+            indicating = true;
+        }
+        if (turningRight)
+        {
+            indicating = true;
+            StartCoroutine(TurningRight());
+        }
     }
 
-    IEnumerator Turning()
+    IEnumerator TurningLeft()
     {
-        while (true)
+        while (turningLeft)
         {
-            if (turningRight)
-            {
-                rightIndicator.gameObject.SetActive(true);
-                yield return new WaitForSeconds(indicator);
-                rightIndicator.gameObject.SetActive(false);
-                yield return new WaitForSeconds(indicator);
-                rightIndicator.gameObject.SetActive(true);
-            }
-            else if (turningLeft)
-            {
-                leftIndicator.gameObject.SetActive(true);
-                yield return new WaitForSeconds(indicator);
-                leftIndicator.gameObject.SetActive(false);
-                yield return new WaitForSeconds(indicator);
-                leftIndicator.gameObject.SetActive(true);
-            }
-        
-            if (!indicating)
-            {
-                yield break;
-            }
+            leftIndicator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(indicator);
+            leftIndicator.gameObject.SetActive(false);
+            yield return new WaitForSeconds(indicator);
+            leftIndicator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(indicator);
+        }
+    }
+
+    IEnumerator TurningRight()
+    {
+        while (turningRight)
+        {
+            rightIndicator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(indicator);
+            rightIndicator.gameObject.SetActive(false);
+            yield return new WaitForSeconds(indicator);
+            rightIndicator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(indicator);
         }
     }
 
