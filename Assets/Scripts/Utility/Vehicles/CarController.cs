@@ -10,7 +10,6 @@ public class CarController : MonoBehaviour
     float horizontalInput;
     float verticalInput;
     float steeringAngle;
-    float reverse;
     public float maxSteeringAngle;
     public float motorForce;
     public float brakeForce;
@@ -56,18 +55,24 @@ public class CarController : MonoBehaviour
     public void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        reverse = -Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");  
 
 
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && !braking && reverse == 0)
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && verticalInput <= 0 && !braking)
         {
             Brake();
             braking = true;
         }
 
-        else if (reverse > 0)
+        else if (verticalInput > 0.01f)
         {
+            braking = false;
+        }
+
+        if (Input.GetKey(KeyCode.S) && braking && verticalInput <= 0.01f)
+        {
+            Reverse();
+            reversing = true;
             braking = false;
         }
 
@@ -129,7 +134,7 @@ public class CarController : MonoBehaviour
             rearLight1.gameObject.SetActive(true);
             rearLight2.gameObject.SetActive(true);
         }
-        else
+        else if (horizontalInput > 0.01f | verticalInput > 0.01f) 
         {
             frontDriverW.brakeTorque = 0f;
             frontPassengerW.brakeTorque = 0f;
@@ -144,16 +149,19 @@ public class CarController : MonoBehaviour
     {
         if (reversing)
         {
-            frontDriverW.motorTorque = -verticalInput * motorForce;
-            frontPassengerW.motorTorque = -verticalInput * motorForce;
-            rearDriverW.motorTorque = -verticalInput * motorForce;
-            rearPassengerW.motorTorque = -verticalInput * motorForce;
+            frontDriverW.motorTorque = verticalInput * motorForce;
+            frontPassengerW.motorTorque = verticalInput * motorForce;
+            rearDriverW.motorTorque = verticalInput * motorForce;
+            rearPassengerW.motorTorque = verticalInput * motorForce;
 
-            reverseLight[reverseLight.Length - 1].gameObject.SetActive(true);
+            reverseLight[0].gameObject.SetActive(true);
+            reverseLight[1].gameObject.SetActive(true);
         }
-        else
+        // No longer reversing, turn off lights.
+        else if (verticalInput >= 0.25f | horizontalInput >= 0.25f) 
         {
-            reverseLight[reverseLight.Length - 1].gameObject.SetActive(false);
+            reverseLight[0].gameObject.SetActive(false);
+            reverseLight[1].gameObject.SetActive(false);
         }
     }
 

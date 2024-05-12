@@ -75,6 +75,7 @@ public class RaycastMaster : MonoBehaviour
             {
                 VehicleEnterExit vehicular = carDoorHit.collider.gameObject.GetComponent<VehicleEnterExit>();
                 interactKey.SetActive(true);
+                vehicular.canEnter = true;
                 if (Input.GetKeyDown(KeyCode.E) && !vehicular.inVehicle)
                 {
                     vehicular.EnterVehicle();
@@ -83,6 +84,7 @@ public class RaycastMaster : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.E) && vehicular.inVehicle)
                 {
                     vehicular.ExitVehicle();
+                    vehicular.canExit = true;
                     interactKey.SetActive(false);
                 }
             }

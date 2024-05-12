@@ -32,31 +32,11 @@ public class VehicleEnterExit : MonoBehaviour
         ExitingVehicle();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            canEnter = true;
-        }
-        if (other.CompareTag("Player") && inVehicle)
-        {
-            canExit = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        canEnter = false;
-    }
-
     public void EnterVehicle()
     {
         if (canEnter == true)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                StartCoroutine(EnteringVehicle());
-            }
+            StartCoroutine(EnteringVehicle());
         }
     }
 
@@ -70,10 +50,10 @@ public class VehicleEnterExit : MonoBehaviour
         playsm.anim.SetBool("enteringCar", true);
         carDoorAnim.Play("CarDoor");
         yield return new WaitForSeconds(2);
-        player.transform.parent = carSeat.gameObject.transform;
-        player.transform.parent = carSeat;
-        player.transform.rotation = carSeat.rotation;
         playsm.anim.SetBool("enteringCar", false);
+        player.transform.parent = carSeat.transform;
+        player.transform.rotation = carSeat.transform.rotation;
+        player.transform.position = carSeat.transform.position;
         player.GetComponent<PlayerMovementSM>().enabled = false;
         player.GetComponent<CapsuleCollider>().enabled = false;
         player.GetComponent<CharacterController>().enabled = false;
