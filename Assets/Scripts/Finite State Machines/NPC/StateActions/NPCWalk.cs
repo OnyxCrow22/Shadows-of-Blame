@@ -49,6 +49,7 @@ public class NPCWalk : NPCBaseState
             // NPC is aggressive, they will not run away easily.
             else if (Aggression == 1)
             {
+                AI.SearchNPCS();
                 npcStateMachine.ChangeState(AI.fireState);
                 AI.hiddenGun.SetActive(true);
                 AI.NPCAnim.SetBool("shoot", true);
