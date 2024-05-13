@@ -43,6 +43,11 @@ public class VehicleEnterExit : MonoBehaviour
         {
             canExit = true;
         }
+        else
+        {
+            canEnter = false;
+            canExit = false;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -125,7 +130,6 @@ public class VehicleEnterExit : MonoBehaviour
         vehicle.GetComponent<CarController>().enabled = false;
         inVehicle = false;
         playsm.inVehicle = false;
-        canEnter = true;
         canExit = false;
         rMaster.interactKey.SetActive(false);
     }

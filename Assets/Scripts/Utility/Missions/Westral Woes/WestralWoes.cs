@@ -41,9 +41,6 @@ public class WestralWoes : MonoBehaviour
     public int NorthBeachGangEliminated = 0;
     public int NorthBeachGangAmount;
 
-    [Header("String references")]
-    public string currentObjective;
-
     [Header("Gameobject references")]
     public GameObject clue;
     public GameObject magGlass;
@@ -77,6 +74,14 @@ public class WestralWoes : MonoBehaviour
         {
             WesteriaIsland();
             objective.text = "Go to Westeria Island.";
+        }
+    }
+
+    private void Update()
+    {
+        if (police.cancelPursuit)
+        {
+            evadedPolice = true;
         }
     }
 
@@ -198,7 +203,7 @@ public class WestralWoes : MonoBehaviour
 
     void LosePolice()
     {
-        if (collectedNorthBeachEvidence && evadedPolice)
+        if (collectedNorthBeachEvidence && police.cancelPursuit)
         {
             GoToSafehouseKensingtonBoulevard();
         }

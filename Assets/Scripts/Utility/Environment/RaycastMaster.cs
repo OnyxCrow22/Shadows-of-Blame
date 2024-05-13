@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class RaycastMaster : MonoBehaviour
@@ -13,6 +14,7 @@ public class RaycastMaster : MonoBehaviour
     public bool evidence = false;
     public bool carDoor = false;
     public bool board = false;
+    public bool buttonPressed = false;
 
     // Update is called once per frame
     void Update()
@@ -26,6 +28,7 @@ public class RaycastMaster : MonoBehaviour
         NorthbyEvidenceCollect();
         NorthBeachEvidenceCollect();
         PlaceEvidenceOnBoard();
+        LiftOperate();
     }
 
     public void DoorHandling()
@@ -79,12 +82,14 @@ public class RaycastMaster : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E) && !vehicular.inVehicle)
                 {
                     vehicular.EnterVehicle();
+                    vehicular.canEnter = false;
                     interactKey.SetActive(false);
                 }
                 else if (Input.GetKeyDown(KeyCode.E) && vehicular.inVehicle)
                 {
                     vehicular.ExitVehicle();
                     vehicular.canExit = true;
+                    vehicular.canEnter = false;
                     interactKey.SetActive(false);
                 }
             }
@@ -265,5 +270,35 @@ public class RaycastMaster : MonoBehaviour
             }
         }
 
+    }
+
+    public void LiftOperate()
+    {
+        Ray liftRay = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, transform.forward, Color.black);
+        float liftLength = 8;
+        if (Physics.Raycast(liftRay, out RaycastHit liftHit, liftLength))
+        {
+            if (liftHit.collider.tag == "LiftObj")
+            {
+                Lift newLift = liftHit.collider.gameObject.GetComponent<Lift>();
+                Debug.Log("Going up or down?");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && newLift.atBottom)
+                {
+                    newLift.OperateLift();
+                    interactKey.SetActive(false);
+                    buttonPressed = true;
+                    Debug.Log("Please stand clear of the doors. We are now going up to the 21st Floor.");
+                }
+                else if (Input.GetKeyDown(KeyCode.E) && newLift.atTop)
+                {
+                    newLift.GoingDown();
+                    interactKey.SetActive(false);
+                    buttonPressed = true;
+                    Debug.Log("Please stand clear of the doors. We are now going up to the ground floor.");
+                }
+            }
+        }
     }
 }
