@@ -105,6 +105,142 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.000030517578, z: 0.0009765625}
+--- !u!1 &5644873664929306511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4303038210271014328}
+  m_Layer: 7
+  m_Name: GunHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4303038210271014328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5644873664929306511}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3049308286377028027}
+  m_Father: {fileID: 5860021918827537471}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3304490690764148304
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4303038210271014328}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0488
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1155
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.198
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.67393994
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.00000037299452
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00000060722203
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.7387861
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -624.744
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_Name
+      value: WestTechTN90Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5257452052915358036}
+  m_SourcePrefab: {fileID: 100100000, guid: 7129305751009b346b45662458c39d55, type: 3}
+--- !u!1 &2385360891091104513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
+  m_PrefabInstance: {fileID: 3304490690764148304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5257452052915358036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2385360891091104513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e308421d3119674683c01adc961d270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 60
+  timeBetweenShooting: 1
+  spread: 0.01
+  range: 30
+  reloadTime: 3
+  timeBetweenShots: 0.01
+  magazineSize: 30
+  bulletsPerTap: 1
+  totalAmmo: 240
+  bullet: 0
+  currentNPC: {fileID: 4910682780273288870}
+  FOV: {fileID: 4084889407590207688}
+  hiddenGun: {fileID: 2385360891091104513}
+  target: {fileID: 0}
+  Player:
+    serializedVersion: 2
+    m_Bits: 256
+  NPC: {fileID: 1482817149575228153}
+--- !u!4 &3049308286377028027 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
+  m_PrefabInstance: {fileID: 3304490690764148304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5253262226170321911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -763,6 +899,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7198100846466725353}
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4303038210271014328}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}
       insertIndex: -1
@@ -807,6 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPC: {fileID: 1361333435694811851}
   player: {fileID: 0}
+  hiddenGun: {fileID: 2385360891091104513}
   playsm: {fileID: 0}
   removed: {fileID: 691966221650295482}
   NPCAnim: {fileID: 1841342779823531622}
@@ -819,10 +959,13 @@ MonoBehaviour:
   isWalking: 0
   isFleeing: 0
   isAttacking: 0
+  isShooting: 0
   canReturn: 0
+  hostileNPC: 0
+  neturalNPC: 0
   nHealth: {fileID: -1805599384099908054}
   police: {fileID: 0}
-  fireState: {fileID: 0}
+  hidden: {fileID: 5257452052915358036}
   meleeState: {fileID: 0}
 --- !u!195 &1361333435694811851
 NavMeshAgent:
@@ -999,5 +1142,10 @@ MonoBehaviour:
 --- !u!4 &5723493845923101724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}
+  m_PrefabInstance: {fileID: 5253262226170321911}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5860021918827537471 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}
   m_PrefabInstance: {fileID: 5253262226170321911}
   m_PrefabAsset: {fileID: 0}

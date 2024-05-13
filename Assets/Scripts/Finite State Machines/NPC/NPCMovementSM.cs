@@ -27,8 +27,10 @@ public class NPCMovementSM : NPCStateMachine
     public bool hostileNPC = false;
     public bool neturalNPC = false;
 
-    public List<GameObject[]> neutralNPCList = new List<GameObject[]>();
-    public List<GameObject[]> hostileNPCList = new List<GameObject[]>();
+    public bool isMale = false;
+    public bool isFemale = false;
+
+    public int aggression;
 
     public NPCHealth nHealth;
     public PoliceLevel police;
@@ -42,6 +44,7 @@ public class NPCMovementSM : NPCStateMachine
     public NPCFlee fleeState;
     [HideInInspector]
     public NPCShoot fireState;
+    // DEPRACATED SCRIPTS - DO NOT ADD
     [HideInInspector]
     public NPCAttack meleeState;
     private void Awake()
@@ -50,19 +53,27 @@ public class NPCMovementSM : NPCStateMachine
         walkingState = new NPCWalk(this);
         fleeState = new NPCFlee(this);
         fireState = new NPCShoot(this);
-       // meleeState = new NPCAttack(this);
+
+        // DEPRACATED SCRIPTS - DO NOT ADD
+
+        // meleeState = new NPCAttack(this);
+
+        aggression = Random.Range(0, 2);
     }
 
     public IEnumerator ScreamFlee()
     {
-        NPC.SetDestination(transform.position);
-        NPCAnim.SetBool("scream", true);
-        yield return new WaitForSeconds(3);
-        NPCAnim.SetBool("scream", false);
-        ChangeState(fleeState);
-        NPCAnim.SetBool("flee", true);
-        isWalking = false;
-        isFleeing = true;
+        if (neturalNPC)
+        {
+            NPC.SetDestination(transform.position);
+            NPCAnim.SetBool("scream", true);
+            yield return new WaitForSeconds(3);
+            NPCAnim.SetBool("scream", false);
+            ChangeState(fleeState);
+            NPCAnim.SetBool("flee", true);
+            isWalking = false;
+            isFleeing = true;
+        }
     }
 
     public void SearchNPCS()
@@ -70,44 +81,9 @@ public class NPCMovementSM : NPCStateMachine
         male = GameObject.FindGameObjectsWithTag("MaleNPC");
         female = GameObject.FindGameObjectsWithTag("FemaleNPC");
 
-        if (male.Length > 0 && hostileNPC)
-        {
-            hostileNPCList.Add(male);
-        }
-        else if (male.Length > 0 && neturalNPC)
-        {
-            neutralNPCList.Add(male);
-        }
-
-        if (female.Length > 0 && hostileNPC)
-        {
-            hostileNPCList.Add(female);
-        }
-        else if (female.Length > 0 && neturalNPC)
-        {
-            neutralNPCList.Add(female);
-        }
-
         if (male.Length > 0 || female.Length > 0 && neturalNPC)
         {
             NPCSound.Play();
-        }
-
-        if (nHealth.health <= 0 && male.Length > 0 && hostileNPC)
-        {
-            hostileNPCList.Remove(male);
-        }
-        else if (nHealth.health <= 0 && male.Length > 0 && neturalNPC)
-        {
-            neutralNPCList.Remove(male);
-        }
-        if (nHealth.health <= 0 && female.Length > 0 && hostileNPC)
-        {
-            hostileNPCList.Remove(female);
-        }
-        else if (nHealth.health <= 0 && female.Length > 0 && neturalNPC)
-        {
-            neutralNPCList.Remove(female);
         }
     }
 

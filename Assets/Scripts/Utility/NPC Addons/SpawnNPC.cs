@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -42,6 +43,16 @@ public class SpawnNPC : MonoBehaviour
             NPCSM = newNPC.GetComponent<NPCMovementSM>();
             AI = newNPC.GetComponent<NavMeshAgent>();
             newNPC.GetComponent<NPCMovementSM>().spawnedIn = true;
+
+            if (newNPC.tag == "MaleNPC")
+            {
+                NPCSM.isMale = true;
+            }
+            else if (newNPC.tag == "FemaleNPC")
+            {
+                NPCSM.isFemale = true;
+                NPCSM.aggression = 0;
+            }
 
             if (gameManager != null && NPCSM != null)
             {

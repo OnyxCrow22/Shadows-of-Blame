@@ -36,10 +36,13 @@ public class NPCWalk : NPCBaseState
         // Player is crazy, run away!
         if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade))
         {
-            int Aggression = Random.Range(0, 1);
-            
+            // NPC is a female, they aren't aggressive.
+            if (AI.isFemale)
+            {
+                AI.aggression = 0;
+            }
             // NPC is not aggressive, they need to run away!
-            if (Aggression == 0)
+            if (AI.aggression == 0)
             {
                 AI.StartCoroutine(AI.ScreamFlee());
                 AI.neturalNPC = true;
@@ -47,9 +50,8 @@ public class NPCWalk : NPCBaseState
                 AI.SearchNPCS();
             }
             // NPC is aggressive, they will not run away easily.
-            else if (Aggression == 1)
+            else if (AI.aggression == 1 && AI.isMale)
             {
-                AI.SearchNPCS();
                 npcStateMachine.ChangeState(AI.fireState);
                 AI.hiddenGun.SetActive(true);
                 AI.NPCAnim.SetBool("shoot", true);

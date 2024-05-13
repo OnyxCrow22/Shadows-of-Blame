@@ -15,9 +15,9 @@ public class NPCGun : MonoBehaviour
     bool readyToShoot, reloading;
 
     // Reference
-    public GameObject policeOfficer;
+    public GameObject currentNPC;
     public GameObject FOV;
-    public GameObject policeGun;
+    public GameObject hiddenGun;
     public GameObject target;
     public LayerMask Player;
     private RaycastHit eHit;
@@ -61,7 +61,7 @@ public class NPCGun : MonoBehaviour
             if (eHit.collider.tag == "Player")
             {
                 NPC.playsm.health.LoseHealth(NPC.playsm.health.healthLoss);
-                Debug.Log($"You was hit by {NPC}");
+                Debug.Log($"You was hit by {currentNPC}");
             }
 
         }

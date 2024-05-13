@@ -22,7 +22,7 @@ public class NPCShoot : NPCBaseState
             AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
         }
 
-        if (!AI.playsm.weapon.gunEquipped && DistToPlayer >= AI.hidden.range || AI.playsm.weapon.gunEquipped && DistToPlayer >= AI.hidden.range)
+        if (!AI.playsm.weapon.gunEquipped && DistToPlayer >= 50)
         {
             npcStateMachine.ChangeState(AI.walkingState);
             AI.NPCAnim.SetBool("shoot", false);
