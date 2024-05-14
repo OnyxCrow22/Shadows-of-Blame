@@ -9,10 +9,12 @@ public class PoliceLevel : MonoBehaviour
     public GameObject policeBorder;
     public bool addingLevel;
     public static int policeLevels;
-    public int currentPolice = 0;
     public static bool activateLevel;
     public int killedNPCS;
     public float flashDelay = 0.5f;
+
+    public GangEvidenceCollect alejandro;
+    public WWNorthBeachEvidence NorthBeach;
 
     public bool spottedPlayer = false;
     public bool cancelPursuit = false;
@@ -35,7 +37,6 @@ public class PoliceLevel : MonoBehaviour
             activateLevel = false;
             addingLevel = true;
             policeBorder.SetActive(true);
-            currentPolice = policeLevels;
             StartCoroutine(AddLevel());
         }
     }
@@ -113,6 +114,18 @@ public class PoliceLevel : MonoBehaviour
         if (killedNPCS == 15)
         {
             policeLevels = 5;
+            activateLevel = true;
+        }
+
+        if (alejandro.evidence)
+        {
+            policeLevels = 1;
+            activateLevel = true;
+        }
+
+        if (WWNorthBeachEvidence.evidence)
+        {
+            policeLevels = 1;
             activateLevel = true;
         }
 

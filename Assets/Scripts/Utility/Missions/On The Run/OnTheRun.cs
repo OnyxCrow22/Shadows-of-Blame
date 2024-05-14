@@ -65,7 +65,7 @@ public class OnTheRun : MonoBehaviour
             objective.text = "Go To Westral Square.";
             GoToWestralSquare();
         }
-        else if (!leftSafehouse)
+        if (!leftSafehouse)
         {
             objective.text = "Leave the safehouse.";
             LeaveSafehouse();
@@ -74,11 +74,6 @@ public class OnTheRun : MonoBehaviour
 
     private void Update()
     {
-        if (PoliceLevel.policeLevels >= 1)
-        {
-            objective.text = "Lose the police.";
-        }
-
         if (player.GetComponent<PlayerMovementSM>().health.health == 0)
         {
             Time.timeScale = 0;
@@ -141,7 +136,7 @@ public class OnTheRun : MonoBehaviour
 
     void TakeEvidenceFromGang()
     {
-        if (GangEvidenceCollect.evidence)
+        if (GangEvidence)
         {
             LosePolice();
         }
@@ -149,7 +144,7 @@ public class OnTheRun : MonoBehaviour
 
     void LosePolice()
     {
-        if(GangEvidenceCollect.evidence && Escaped)
+        if(GangEvidence && PoliceLevel.policeLevels == 0)
         {
             GoToKingstonStreet();
         }

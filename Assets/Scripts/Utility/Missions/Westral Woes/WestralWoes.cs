@@ -77,14 +77,6 @@ public class WestralWoes : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (police.cancelPursuit)
-        {
-            evadedPolice = true;
-        }
-    }
-
     void LeaveSTMSafehouse()
     {
         if (safehouseVerify.hasLeft)
@@ -203,7 +195,7 @@ public class WestralWoes : MonoBehaviour
 
     void LosePolice()
     {
-        if (collectedNorthBeachEvidence && police.cancelPursuit)
+        if (collectedNorthBeachEvidence && evadedPolice)
         {
             GoToSafehouseKensingtonBoulevard();
         }

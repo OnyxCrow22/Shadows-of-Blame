@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using TMPro;
 using UnityEngine;
 
@@ -9,11 +10,17 @@ public class GangEvidenceCollect : MonoBehaviour
     public GameObject gPanel;
     public GameObject coWorker;
     public bool isgReading = false;
-    public static bool evidence = false;
-    public bool Escaped;
+    public bool evidence = false;
+    public bool Escaped = false;
     public OnTheRun OTR;
     public RaycastMaster rMaster;
-    GameObject[] police;
+    public PoliceLevel police;
+    public PoliceEvaded policeCheck;
+
+    private void Start()
+    {
+        police.cancelPursuit = false;
+    }
 
     public void GEPickup()
     {
@@ -25,24 +32,20 @@ public class GangEvidenceCollect : MonoBehaviour
     public void GECloseWindow()
     {
         gPanel.SetActive(false);
-        gEvidence.SetActive(false);
         Time.timeScale = 1;
         AudioListener.pause = false;
         isgReading = false;
         rMaster.interactKey.SetActive(false);
-        PoliceLevel.policeLevels += 1;
-        PoliceLevel.activateLevel = true;
         evidence = true;
         OTR.GangEvidence = true;
+        gEvidence.SetActive(false);
+        police.UpdateLevel();
+        PoliceLevel.activateLevel = true;
         OTR.objective.text = "Lose the police.";
 
-        if (police == null || police.Length == 0)
+        if (OTR.police.cancelPursuit)
         {
-            OTR.objective.text = "Go to your safehouse.";
-            PoliceLevel.activateLevel = false;
-            OTR.Escaped = true;
-            Escaped = true;
-            PoliceLevel.policeLevels = 0;
+            policeCheck.EvadedPolice();
         }
     }
 }

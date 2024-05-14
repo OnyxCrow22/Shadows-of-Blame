@@ -12,6 +12,7 @@ public class WWNorthBeachEvidence : MonoBehaviour
     public WestralWoes WW;
     public RaycastMaster rMaster;
     public PoliceLevel police;
+    public bool evadedPolice = false;
 
     public void GEPickup()
     {
@@ -30,20 +31,17 @@ public class WWNorthBeachEvidence : MonoBehaviour
         rMaster.interactKey.SetActive(false);
         evidence = true;
         WW.collectedNorthBeachEvidence = true;
+        WW.objective.text = "Lose the police.";
+        PoliceLevel.policeLevels += 1;
 
-        if (WW.collectedNorthBeachEvidence && !isgReading)
+        if (WW.police.cancelPursuit)
         {
-            WW.objective.text = "Lose the police.";
-            PoliceLevel.policeLevels += 1;
-            PoliceLevel.activateLevel = true;
-
-            if (police.cancelPursuit)
-            {
-                WW.objective.text = "Go to 22 Kensington Boulevard.";
-                WW.locationClues[0].text = "It's located in TANWORTH.";
-                WW.locationClues[1].text = "The building has neon lighting outside.";
-                WW.locationClues[2].text = "The building is on THE ORBITAL.";
-            }
+            WW.objective.text = "Go to 22 Kensington Boulevard.";
+            WW.locationClues[0].text = "It's located in TANWORTH.";
+            WW.locationClues[1].text = "The building has neon lighting outside.";
+            WW.locationClues[2].text = "The building is on THE ORBITAL.";
+            evadedPolice = true;
+            WW.evadedPolice = true;
         }
     }
 }
