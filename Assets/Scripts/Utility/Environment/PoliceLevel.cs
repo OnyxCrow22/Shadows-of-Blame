@@ -15,6 +15,7 @@ public class PoliceLevel : MonoBehaviour
 
     public GangEvidenceCollect alejandro;
     public WWNorthBeachEvidence NorthBeach;
+    public PoliceEvaded evaded;
 
     public bool spottedPlayer = false;
     public bool cancelPursuit = false;
@@ -123,7 +124,7 @@ public class PoliceLevel : MonoBehaviour
             activateLevel = true;
         }
 
-        if (WWNorthBeachEvidence.evidence)
+        if (NorthBeach.evidence)
         {
             policeLevels = 1;
             activateLevel = true;
@@ -143,6 +144,16 @@ public class PoliceLevel : MonoBehaviour
         cancelPursuit = true;
         policeLevels = 0;
         killedNPCS = 0;
+        Debug.Log("All units: Harrison Felton has escaped. Return to patrols. Repeat: Return to patrols, Felton has escaped. Don't tell the police commissioner..");
+
+        if (alejandro.evidence)
+        {
+            alejandro.CancelPursuit();
+        }
+        if (NorthBeach.evidence)
+        {
+            NorthBeach.Next();
+        }
 
         for (int i = 0; i < levels.Length; i++)
         {

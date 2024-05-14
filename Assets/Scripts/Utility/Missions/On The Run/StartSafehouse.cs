@@ -9,11 +9,11 @@ public class StartSafehouse : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!OTR.GangEvidence)
+        if (!OTR.GangEvidence && !OTR.inSafehouse)
         {
             OTR.objective.text = "Go to Westral Square.";
             left = true;
-            OTR.leftSafehouse = true;
+            OTR.inSafehouse = false;
         }
     }
 }

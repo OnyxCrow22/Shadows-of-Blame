@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.AccessControl;
-using TMPro;
 using UnityEngine;
 
 public class GangEvidenceCollect : MonoBehaviour
@@ -17,11 +13,11 @@ public class GangEvidenceCollect : MonoBehaviour
     public PoliceLevel police;
     public PoliceEvaded policeCheck;
 
-    private void Start()
+    public void Start()
     {
-        police.cancelPursuit = false;
+        OTR.Escaped = false;
+        Escaped = false;
     }
-
     public void GEPickup()
     {
         gPanel.SetActive(true);
@@ -39,13 +35,19 @@ public class GangEvidenceCollect : MonoBehaviour
         evidence = true;
         OTR.GangEvidence = true;
         gEvidence.SetActive(false);
-        police.UpdateLevel();
+        PoliceLevel.policeLevels = 1;
         PoliceLevel.activateLevel = true;
         OTR.objective.text = "Lose the police.";
 
-        if (OTR.police.cancelPursuit)
-        {
-            policeCheck.EvadedPolice();
-        }
+        Debug.Log($"Cancel the pursuit, Felton is gone: {OTR.police.cancelPursuit}");
+    }
+
+    public void CancelPursuit()
+    {
+        Debug.Log($"SUCCESSFULLY EVADED THE POLICE");
+        OTR.objective.text = "Go to your safehouse.";
+        OTR.Escaped = true;
+        PoliceLevel.activateLevel = false;
+        Escaped = true;
     }
 }

@@ -11,9 +11,10 @@ public class PoliceEvaded : MonoBehaviour
 
     public void EvadedPolice()
     {
-        OTR.objective.text = "Go to your safehouse.";
-        OTR.Escaped = true;
-        GECollect.Escaped = true;
-        lostPolice = true;
+        if (PoliceLevel.policeLevels >= 1)
+        {
+            PoliceLevel.activateLevel = true;
+            police.UpdateLevel();
+        }
     }
 }

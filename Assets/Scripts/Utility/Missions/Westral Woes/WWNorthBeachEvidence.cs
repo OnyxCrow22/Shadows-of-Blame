@@ -8,7 +8,7 @@ public class WWNorthBeachEvidence : MonoBehaviour
     public GameObject gEvidence;
     public GameObject gPanel;
     public bool isgReading = false;
-    public static bool evidence = false;
+    public bool evidence = false;
     public WestralWoes WW;
     public RaycastMaster rMaster;
     public PoliceLevel police;
@@ -31,17 +31,18 @@ public class WWNorthBeachEvidence : MonoBehaviour
         rMaster.interactKey.SetActive(false);
         evidence = true;
         WW.collectedNorthBeachEvidence = true;
+        PoliceLevel.policeLevels = 1;
+        PoliceLevel.activateLevel = true;
         WW.objective.text = "Lose the police.";
-        PoliceLevel.policeLevels += 1;
+    }
 
-        if (WW.police.cancelPursuit)
-        {
-            WW.objective.text = "Go to 22 Kensington Boulevard.";
-            WW.locationClues[0].text = "It's located in TANWORTH.";
-            WW.locationClues[1].text = "The building has neon lighting outside.";
-            WW.locationClues[2].text = "The building is on THE ORBITAL.";
-            evadedPolice = true;
-            WW.evadedPolice = true;
-        }
+    public void Next()
+    {
+        WW.objective.text = "Go to 22 Kensington Boulevard.";
+        WW.locationClues[0].text = "It's located in TANWORTH.";
+        WW.locationClues[1].text = "The building has neon lighting outside.";
+        WW.locationClues[2].text = "The building is on THE ORBITAL.";
+        evadedPolice = true;
+        WW.evadedPolice = true;
     }
 }

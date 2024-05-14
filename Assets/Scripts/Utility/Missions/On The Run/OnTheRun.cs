@@ -11,7 +11,7 @@ public class OnTheRun : MonoBehaviour
     public bool inWestralSquare = false;
     public bool canAccessWesteria = false;
     public bool inSafehouse = false;
-    public bool leftSafehouse, Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
+    public bool Evidence, EliminatedGang, Escaped, InCompound, GangEvidence, PlacedEvidence, Safehouse;
     public bool missionComplete = false;
     public bool gangLeaderdead = false;
     public bool allenemiesKilled = false;
@@ -27,6 +27,7 @@ public class OnTheRun : MonoBehaviour
     public SafehouseCheck sCheck;
     public EvidencePlace pEvidence;
     public PoliceLevel police;
+    public PoliceEvaded evaded;
     public WestralWoes WW;
 
     [Header("Gameobject References")]
@@ -60,15 +61,15 @@ public class OnTheRun : MonoBehaviour
         canAccessWesteria = false;
         mission.text = "On The Run";
 
-        if (leftSafehouse)
-        {
-            objective.text = "Go To Westral Square.";
-            GoToWestralSquare();
-        }
-        if (!leftSafehouse)
+        if (inSafehouse)
         {
             objective.text = "Leave the safehouse.";
             LeaveSafehouse();
+        }
+        else if (!inSafehouse)
+        {
+            objective.text = "Go To Westral Square.";
+            GoToWestralSquare();
         }
     }
 
@@ -144,7 +145,7 @@ public class OnTheRun : MonoBehaviour
 
     void LosePolice()
     {
-        if(GangEvidence && PoliceLevel.policeLevels == 0)
+        if(Escaped && GangEvidence)
         {
             GoToKingstonStreet();
         }
