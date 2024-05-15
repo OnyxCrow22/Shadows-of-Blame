@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103185207136013805}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.9858969, y: 0.16722167, z: 0.00000047683716, w: 0.0066586137}
-  m_LocalPosition: {x: 0.001, y: 0.0017, z: -0.031}
+  m_LocalRotation: {x: -0.6875072, y: 0.23482785, z: -0.116450936, w: -0.6772215}
+  m_LocalPosition: {x: 0.054, y: 9.734, z: -3.048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7163665626827928108}
-  m_LocalEulerAnglesHint: {x: -0.752, y: 179.872, z: -160.746}
+  m_LocalEulerAnglesHint: {x: 80.361, y: 250.6, z: -80.531}
 --- !u!108 &6366970906333326605
 Light:
   m_ObjectHideFlags: 0
@@ -88,7 +88,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_ColorTemperature: 3573
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 7586313163549031789}
   serializedVersion: 2
   m_LocalRotation: {x: 0.9858403, y: -0.16721211, z: 0.0000003054738, w: -0.012610763}
-  m_LocalPosition: {x: 0, y: 0, z: -0.017}
+  m_LocalPosition: {x: -0.134, y: 9.811, z: -3.106}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,7 +305,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 5.24, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 7219.24
+  m_ColorTemperature: 3624
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
   m_UseBoundingSphereOverride: 0
@@ -517,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 5958438921693756439, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_Lightmapping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958438921693756439, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_ColorTemperature
+      value: 4129
       objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_StaticEditorFlags
