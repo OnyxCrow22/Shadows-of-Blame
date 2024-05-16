@@ -7,6 +7,7 @@ public class TrafficLightCheck : MonoBehaviour
 {
     public TrafficLight lights;
     GameObject currentCar;
+    GameObject currentNPC;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Vehicle"))
@@ -21,6 +22,22 @@ public class TrafficLightCheck : MonoBehaviour
                 else if (lights.green)
                 {
                     stopCheck.vehicle.isStopped = false;
+                }
+            }
+        }
+
+        if (other.CompareTag("MaleNPC") || other.CompareTag("FemaleNPC"))
+        {
+            NPCMovementSM NPC = currentNPC.GetComponent<NPCMovementSM>();
+            if (NPC != null)
+            {
+                if (lights.red == true)
+                {
+                    NPC.NPC.isStopped = false;
+                }
+                else if (lights.green == true || lights.amber == true)
+                {
+                    NPC.NPC.isStopped = true;
                 }
             }
         }
