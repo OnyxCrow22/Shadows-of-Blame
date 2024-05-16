@@ -34,7 +34,7 @@ public class NPCWalk : NPCBaseState
         }
 
         // Player is crazy, run away!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade))
+        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade || AI.playsm.isShooting))
         {
             // NPC is a female, they aren't aggressive.
             if (AI.isFemale)

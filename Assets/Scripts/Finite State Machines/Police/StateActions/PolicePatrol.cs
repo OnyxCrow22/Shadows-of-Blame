@@ -25,7 +25,7 @@ public class PolicePatrol : PoliceBaseState
         RaycastHit gunHit;
         float radius = 20;
 
-        if (Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) < WalkDist)
+        if (Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) >= 70)
         {
             policeMachine.ChangeState(wanted.idleState);
             wanted.PoliceAnim.SetBool("walking", false);
@@ -38,9 +38,10 @@ public class PolicePatrol : PoliceBaseState
         }
 
         // Player is crazy, shoot them!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.throwingGrenade || PoliceLevel.policeLevels >= 2))
+        if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.throwingGrenade || PoliceLevel.policeLevels >= 2 || wanted.playsm.isShooting && distanceFromPlayer <= 30) 
         {
             policeMachine.ChangeState(wanted.fireState);
+            wanted.policeGun.policeGun.SetActive(true);
             wanted.isPatrolling = false;
             wanted.isShooting = true;
             wanted.PoliceAnim.SetBool("shoot", true);

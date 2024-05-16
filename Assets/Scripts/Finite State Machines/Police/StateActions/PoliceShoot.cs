@@ -44,7 +44,9 @@ public class PoliceShoot : PoliceBaseState
             policeMachine.ChangeState(police.patrolState);
             police.PoliceAnim.SetBool("playerDead", true);
             police.isShooting = false;
+            police.isChasing = false;
             police.isPatrolling = true;
+            police.policeGun.gameObject.SetActive(false);
             AudioManager.manager.Stop("shootGun");
             AudioManager.manager.Play("walk");
         }

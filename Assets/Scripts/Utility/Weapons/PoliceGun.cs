@@ -57,6 +57,7 @@ public class PoliceGun : MonoBehaviour
         if (Physics.Raycast(shooteRay, out eHit, range, Player) || (Physics.Raycast(shooteRay, out eHit, range)))
         {
             Debug.Log(eHit.collider.name);
+            Debug.DrawRay(FOV.transform.position, direction, Color.yellow);
 
             if (eHit.collider.tag == "Player")
             {

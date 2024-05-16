@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     public float deadDuration;
     public GameObject[] respawnPoints;
     public OnTheRun OTR;
+    public WestralWoes WW;
 
     private void Start()
     {
@@ -110,7 +111,7 @@ public class PlayerHealth : MonoBehaviour
         maxHealth = 100;
         healthBar.enabled = true;
 
-        if (OTR.westeriaUnlocked == true)
+        if (OTR.westeriaUnlocked == true || WW.onWestInsbury == true)
         {
             int RandomSpawnSelect = Random.Range(0, respawnPoints.Length);
 
@@ -118,7 +119,7 @@ public class PlayerHealth : MonoBehaviour
             playsm.player.transform.position = respawnPoints[RandomSpawnSelect].transform.position;
             Physics.SyncTransforms();
         }
-        else if (!OTR.westeriaUnlocked)
+        else if (!OTR.westeriaUnlocked || !WW.onWestInsbury == false)
         {
             // Respawn the player at Saint Mary's Hospital.
             playsm.player.transform.position = respawnPoints[0].transform.position;

@@ -65,12 +65,12 @@ public class WestralWoes : MonoBehaviour
     {
         missionName.text = "Westral Woes";
 
-        if (inSafehouse)
+        if (!safehouseVerify.hasLeft)
         {
             LeaveSTMSafehouse();
             objective.text = "Leave the safehouse.";
         }
-        else if (!inSafehouse)
+        else if (safehouseVerify.hasLeft || !inSafehouse)
         {
             WesteriaIsland();
             objective.text = "Go to Westeria Island.";

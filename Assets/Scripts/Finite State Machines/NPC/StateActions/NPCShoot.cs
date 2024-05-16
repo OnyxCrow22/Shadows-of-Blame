@@ -33,6 +33,17 @@ public class NPCShoot : NPCBaseState
             AudioManager.manager.Stop("shootGun");
             AudioManager.manager.Play("sprinting");
         }
+
+        if (AI.playsm.health.health <= 0)
+        {
+            npcStateMachine.ChangeState(AI.walkingState);
+            AI.NPCAnim.SetBool("shoot", false);
+            AI.NPCAnim.SetBool("playerDead", true);
+            AI.hidden.gameObject.SetActive(false);
+            AI.NPC.isStopped = false;
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("walk");
+        }
     }
 
     public override void UpdatePhysics()
