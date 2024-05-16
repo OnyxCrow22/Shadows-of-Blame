@@ -62,6 +62,11 @@ public class PoliceGun : MonoBehaviour
             {
                 police.playsm.health.LoseHealth(police.playsm.health.healthLoss);
                 Debug.Log($"You was hit by {policeOfficer}");
+                police.playsm.health.takingDamage = true;
+            }
+            else
+            {
+                police.playsm.health.takingDamage = false;
             }
 
         }

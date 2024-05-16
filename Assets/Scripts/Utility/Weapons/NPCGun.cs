@@ -62,6 +62,11 @@ public class NPCGun : MonoBehaviour
             {
                 NPC.playsm.health.LoseHealth(NPC.playsm.health.healthLoss);
                 Debug.Log($"You was hit by {currentNPC}");
+                NPC.playsm.health.takingDamage = true;
+            }
+            else
+            {
+                NPC.playsm.health.takingDamage = false;
             }
 
         }

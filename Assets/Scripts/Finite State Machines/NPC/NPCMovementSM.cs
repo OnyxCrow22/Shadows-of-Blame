@@ -73,6 +73,23 @@ public class NPCMovementSM : NPCStateMachine
             NPCAnim.SetBool("flee", true);
             isWalking = false;
             isFleeing = true;
+
+            if (isFleeing)
+            {
+                StartCoroutine(ReturnDelay());
+                canReturn = false;
+            }
+        }
+    }
+
+    public IEnumerator ReturnDelay()
+    {
+        if (!canReturn)
+        {
+            canReturn = false;
+            yield return new WaitForSeconds(20);
+            canReturn = true;
+            yield break;
         }
     }
 

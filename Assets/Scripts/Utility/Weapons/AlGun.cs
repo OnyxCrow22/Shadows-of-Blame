@@ -57,6 +57,11 @@ public class AlGun : MonoBehaviour
             {
                 esm.health.LoseHealth(esm.health.healthLoss);
                 Debug.Log($"You was hit by {esm.enemy}");
+                esm.health.takingDamage = true;
+            }
+            else
+            {
+                esm.health.takingDamage = false;
             }
 
         }

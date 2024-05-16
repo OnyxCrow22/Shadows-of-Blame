@@ -12,16 +12,20 @@ public class PlayerHealth : MonoBehaviour
     public int healthGain;
     public float protectedDuration;
     public int healthPerSecond;
-    public float deadDuration;
     public Image healthBar;
     public Color defaultCol = new Color32(36, 72, 28, 255);
     public GameObject HUD;
-    public Transform respawnPoint;
     public TextMeshProUGUI HealthText;
     public bool Protected, isDead;
-    public float healDelay = 1.5f;
+    public float healDelay = 5f;
+
+    public bool takingDamage = false;
+    public bool canRegen = false;
 
     public PlayerMovementSM playsm;
+    public float deadDuration;
+    public GameObject[] respawnPoints;
+    public OnTheRun OTR;
 
     private void Start()
     {
@@ -36,29 +40,41 @@ public class PlayerHealth : MonoBehaviour
 
         HealthText.text = "HP: " + health;
 
-        if (health < 100)
+        if (health < 100 && !takingDamage)
         {
             StartCoroutine(PlayerRegen());
+            canRegen = true;
+        }
+        else if (takingDamage)
+        {
+            canRegen = false;
         }
     }
 
     IEnumerator PlayerRegen()
     {
-        yield return new WaitForSeconds(healDelay);
-
-        health += healthPerSecond;
-
-        if (health > 20)
+        if (canRegen && !takingDamage)
         {
-            healthBar.color = defaultCol;
-        }
+            yield return new WaitForSeconds(healDelay);
 
-        if (health >= 100)
+            health += healthPerSecond;
+
+            if (health > 20)
+            {
+                healthBar.color = defaultCol;
+            }
+
+            if (health >= 100)
+            {
+                health = 100;
+                maxHealth = 100;
+            }
+        }
+        else if (takingDamage)
         {
-            health = 100;
-            maxHealth = 100;
+            canRegen = false;
+            StopCoroutine(PlayerRegen());
         }
-
     }
 
     public void LoseHealth(int healthLoss)
@@ -77,7 +93,36 @@ public class PlayerHealth : MonoBehaviour
             health = 0;
             maxHealth = 0;
             healthBar.enabled = false;
-            StartCoroutine(Dead());
+            StartCoroutine(Respawning());
+            isDead = true;
+        }
+    }
+    public IEnumerator Respawning()
+    {
+        CapsuleCollider playCol = GetComponent<CapsuleCollider>();
+        playCol.direction = 2;
+        playsm.anim.SetBool("dead", true);
+        yield return new WaitForSeconds(deadDuration);
+        isDead = false;
+        playsm.anim.SetBool("dead", false);
+        healthBar.color = new Color32(36, 72, 28, 255);
+        health = 100;
+        maxHealth = 100;
+        healthBar.enabled = true;
+
+        if (OTR.westeriaUnlocked == true)
+        {
+            int RandomSpawnSelect = Random.Range(0, respawnPoints.Length);
+
+            // Spawn at either Halifax Park General Hospital or Saint Mary's Hospital.
+            playsm.player.transform.position = respawnPoints[RandomSpawnSelect].transform.position;
+            Physics.SyncTransforms();
+        }
+        else if (!OTR.westeriaUnlocked)
+        {
+            // Respawn the player at Saint Mary's Hospital.
+            playsm.player.transform.position = respawnPoints[0].transform.position;
+            Physics.SyncTransforms();
         }
     }
 
@@ -86,22 +131,5 @@ public class PlayerHealth : MonoBehaviour
         Protected = true;
         yield return new WaitForSeconds(protectedDuration);
         Protected = false;
-    }
-
-    IEnumerator Dead()
-    {
-        CapsuleCollider playCol = GetComponent<CapsuleCollider>();
-        playCol.direction = 2;
-        playsm.anim.SetBool("dead", true);
-        isDead = true;
-        yield return new WaitForSeconds(deadDuration);
-        isDead = false;
-        playsm.anim.SetBool("dead", false);
-        playsm.player.transform.position = respawnPoint.transform.position;
-        Physics.SyncTransforms();
-        healthBar.color = new Color32(36, 72, 28, 255);
-        health = 100;
-        maxHealth = 100;
-        healthBar.enabled = true;
     }
 }
