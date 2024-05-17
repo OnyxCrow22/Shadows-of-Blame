@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3744256732687252105}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49997824, y: 0.50002176, z: -0.50002176, w: 0.49997824}
-  m_LocalPosition: {x: -0.03, y: 9.6, z: 2.8}
+  m_LocalPosition: {x: 10.12, y: 3.68, z: 4.03}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.7844852, b: 0.1273585, a: 1}
-  m_Intensity: 105.2264
+  m_Intensity: 14.147105
   m_Range: 10
   m_SpotAngle: 45
   m_InnerSpotAngle: 21.80208
@@ -84,13 +84,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 11, y: 11}
+  m_AreaSize: {x: 30, y: 30}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_ColorTemperature: 3340
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 21.213203}
   m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 11
-  m_ShapeHeight: 11
+  m_ShapeWidth: 30
+  m_ShapeHeight: 30
   m_AspectRatio: 1
   m_ShapeRadius: 0.025
   m_SoftnessScale: 1
@@ -244,7 +244,7 @@ Transform:
   m_GameObject: {fileID: 6298427532129907484}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49997824, y: 0.50002176, z: -0.50002176, w: 0.49997824}
-  m_LocalPosition: {x: -0.03, y: 9.795, z: -3.15}
+  m_LocalPosition: {x: -0.03, y: 9.23, z: -3.15}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -262,7 +262,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.6687182, b: 0, a: 1}
-  m_Intensity: 105.2264
+  m_Intensity: 14.147105
   m_Range: 10
   m_SpotAngle: 45
   m_InnerSpotAngle: 21.80208
@@ -301,13 +301,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 11, y: 11}
+  m_AreaSize: {x: 30, y: 30}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
+  m_ColorTemperature: 3340
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 21.213203}
   m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -337,8 +337,8 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 11
-  m_ShapeHeight: 11
+  m_ShapeWidth: 30
+  m_ShapeHeight: 30
   m_AspectRatio: 1
   m_ShapeRadius: 0.025
   m_SoftnessScale: 1
@@ -531,6 +531,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5958438921693756439, guid: fc4f4266f738aec43b3550aeedf6cb2c, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958438921693756439, guid: fc4f4266f738aec43b3550aeedf6cb2c, type: 3}
       propertyPath: m_ColorTemperature
       value: 3624
       objectReference: {fileID: 0}
@@ -575,8 +579,12 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8912049515002365231, guid: fc4f4266f738aec43b3550aeedf6cb2c, type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8912049515002365231, guid: fc4f4266f738aec43b3550aeedf6cb2c, type: 3}
       propertyPath: m_ColorTemperature
-      value: 4637
+      value: 4034
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

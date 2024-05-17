@@ -124,6 +124,8 @@ MonoBehaviour:
   rayLength: 30
   policeSystem: {fileID: 0}
   playerSpotted: 0
+  Player: {fileID: 0}
+  FOV: {fileID: 1373081742375500551}
 --- !u!1 &6605942884534285841
 GameObject:
   m_ObjectHideFlags: 0

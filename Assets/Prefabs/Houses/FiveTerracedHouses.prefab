@@ -77,6 +77,10 @@ PrefabInstance:
       value: FiveTerracedHouses
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2966651c318d72f41946e7d1d3772384, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2966651c318d72f41946e7d1d3772384, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 20
       objectReference: {fileID: 0}

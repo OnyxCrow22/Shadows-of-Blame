@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 103185207136013805}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6875072, y: 0.23482785, z: -0.116450936, w: -0.6772215}
-  m_LocalPosition: {x: 0.054, y: 9.734, z: -3.048}
+  m_LocalPosition: {x: 0.06, y: 9.76, z: -3.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,7 +45,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 60.306778
+  m_Intensity: 8.469082
   m_Range: 12.35
   m_SpotAngle: 50.3
   m_InnerSpotAngle: 21.80208
@@ -86,11 +86,11 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 11.49, y: 11}
+  m_AreaSize: {x: 30, y: 30}
   m_BounceIntensity: 1
   m_ColorTemperature: 3573
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 12.35}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 21.213203}
   m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 11.49
-  m_ShapeHeight: 11
+  m_ShapeWidth: 30
+  m_ShapeHeight: 30
   m_AspectRatio: 1
   m_ShapeRadius: 0.025
   m_SoftnessScale: 1
@@ -486,6 +486,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: -2480738110872117770, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_Name
       value: StreetLamp
@@ -493,6 +497,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119861771869018409, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1913443033317471670, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4742473837712756890, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_FadeMode
@@ -522,6 +534,10 @@ PrefabInstance:
       propertyPath: m_ColorTemperature
       value: 4129
       objectReference: {fileID: 0}
+    - target: {fileID: 8158733319113275767, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8513859187771203891, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -539,10 +555,40 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1661645898959321136}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1119861771869018409, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3444903893434152425}
   m_SourcePrefab: {fileID: 100100000, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
 --- !u!4 &7163665626827928108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
   m_PrefabInstance: {fileID: 7269032534212367815}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7740076745330953454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1119861771869018409, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
+  m_PrefabInstance: {fileID: 7269032534212367815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &3444903893434152425
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740076745330953454}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -9129759513777516942, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}

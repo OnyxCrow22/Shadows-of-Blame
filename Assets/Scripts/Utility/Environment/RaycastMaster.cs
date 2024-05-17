@@ -9,6 +9,7 @@ public class RaycastMaster : MonoBehaviour
     public GameObject interactKey;
     public PlayerMovementSM playsm;
     public OnTheRun OTR;
+    public VehicleEnterExit vehicular;
 
     public bool door = false;
     public bool evidence = false;
@@ -97,6 +98,7 @@ public class RaycastMaster : MonoBehaviour
         else
         {
             interactKey.SetActive(false);
+            vehicular.canEnter = false;
         }
     }
 

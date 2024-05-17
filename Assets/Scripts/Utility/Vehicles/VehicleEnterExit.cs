@@ -53,6 +53,7 @@ public class VehicleEnterExit : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         canEnter = false;
+        canExit = false;
     }
 
     public void EnterVehicle()
@@ -63,6 +64,10 @@ public class VehicleEnterExit : MonoBehaviour
             {
                 StartCoroutine(EnteringVehicle());
             }
+        }
+        else
+        {
+            canEnter = false;
         }
     }
 
