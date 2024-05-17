@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5076484507258936684, guid: f819ed48b13c4fd42b8df19f07c37b61, type: 3}
       propertyPath: m_Lightmapping
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4607389059520047841, guid: f819ed48b13c4fd42b8df19f07c37b61, type: 3}
       propertyPath: m_StaticEditorFlags

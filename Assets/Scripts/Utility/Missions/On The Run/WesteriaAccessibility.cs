@@ -9,7 +9,7 @@ public class WesteriaAccessibility : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!OTR.canAccessWesteria && other.CompareTag("Player"))
+        if (!OTR.canAccessWesteria && other.CompareTag("Player") || !OTR.canAccessWesteria && other.CompareTag("Vehicle"))
         {
             warning = true;
             OTR.warningHolder.SetActive(true);

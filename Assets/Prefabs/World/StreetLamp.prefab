@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 103185207136013805}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6875072, y: 0.23482785, z: -0.116450936, w: -0.6772215}
-  m_LocalPosition: {x: 0.06, y: 9.76, z: -3.05}
+  m_LocalPosition: {x: -0.08, y: 9.79, z: -3.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,7 +84,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 30, y: 30}
   m_BounceIntensity: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_PointlightHDType: 1
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!1 &7586313163549031789
+--- !u!1 &7406156095664530404
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,47 +225,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8386860411340813283}
-  - component: {fileID: 1778129536052504521}
-  - component: {fileID: 3842241418060448020}
+  - component: {fileID: 8869457502265847587}
+  - component: {fileID: 5006266817466301677}
+  - component: {fileID: 2817915494861971265}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Point Light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
---- !u!4 &8386860411340813283
+--- !u!4 &8869457502265847587
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7586313163549031789}
+  m_GameObject: {fileID: 7406156095664530404}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9858403, y: -0.16721211, z: 0.0000003054738, w: -0.012610763}
-  m_LocalPosition: {x: -0.134, y: 9.811, z: -3.106}
+  m_LocalRotation: {x: -0.6875072, y: 0.23482785, z: -0.116450936, w: -0.6772215}
+  m_LocalPosition: {x: -0.08, y: 9.79, z: -3.13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7163665626827928108}
-  m_LocalEulerAnglesHint: {x: -361.425, y: -180.242, z: -160.744}
---- !u!108 &1778129536052504521
+  m_LocalEulerAnglesHint: {x: 80.361, y: 250.6, z: -80.531}
+--- !u!108 &5006266817466301677
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7586313163549031789}
+  m_GameObject: {fileID: 7406156095664530404}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2605.6453
-  m_Range: 0.67
-  m_SpotAngle: 25.4
-  m_InnerSpotAngle: 1
+  m_Intensity: 3183.0989
+  m_Range: 12.35
+  m_SpotAngle: 50.3
+  m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -276,22 +276,22 @@ Light:
     m_NormalBias: 0.4
     m_NearPlane: 0.2
     m_CullingMatrixOverride:
-      e00: 1.1283088
+      e00: 1
       e01: 0
       e02: 0
       e03: 0
       e10: 0
-      e11: 1.1283088
+      e11: 1
       e12: 0
       e13: 0
       e20: 0
       e21: 0
-      e22: 1.02
-      e23: -0.202
+      e22: 1
+      e23: 0
       e30: 0
       e31: 0
-      e32: 1
-      e33: 0
+      e32: 0
+      e33: 1
     m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
@@ -301,49 +301,49 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 5.24, y: 0.5}
+  m_AreaSize: {x: 30, y: 30}
   m_BounceIntensity: 1
-  m_ColorTemperature: 3624
+  m_ColorTemperature: 6875
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 10}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 21.213203}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &3842241418060448020
+--- !u!114 &2817915494861971265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7586313163549031789}
+  m_GameObject: {fileID: 7406156095664530404}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 2605.6453
+  m_Intensity: 40000
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
-  m_InnerSpotPercent: 100
+  m_InnerSpotPercent: 0
   m_SpotIESCutoffPercent: 100
   m_LightDimmer: 1
   m_VolumetricDimmer: 1
-  m_LightUnit: 2
+  m_LightUnit: 0
   m_FadeDistance: 10000
   m_VolumetricFadeDistance: 10000
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 5.24
-  m_ShapeHeight: 0.5
+  m_ShapeWidth: 30
+  m_ShapeHeight: 30
   m_AspectRatio: 1
-  m_ShapeRadius: 0
+  m_ShapeRadius: 0.025
   m_SoftnessScale: 1
   m_UseCustomSpotLightShadowCone: 0
-  m_CustomSpotLightShadowCone: 1
+  m_CustomSpotLightShadowCone: 30
   m_MaxSmoothness: 0.99
   m_ApplyRangeAttenuation: 1
   m_DisplayAreaLightEmissiveMesh: 0
@@ -547,14 +547,15 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5050422055867433376, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8386860411340813283}
+      addedObject: {fileID: 1661645898959321136}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1661645898959321136}
+      addedObject: {fileID: 8869457502265847587}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1119861771869018409, guid: ee2429ec9f4d89743b3313762b4495ef, type: 3}
       insertIndex: -1

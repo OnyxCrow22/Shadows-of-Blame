@@ -16,6 +16,7 @@ public class PoliceLevel : MonoBehaviour
     public GangEvidenceCollect alejandro;
     public WWNorthBeachEvidence NorthBeach;
     public PoliceEvaded evaded;
+    public OnTheRun OTR;
 
     public bool spottedPlayer = false;
     public bool cancelPursuit = false;
@@ -113,6 +114,12 @@ public class PoliceLevel : MonoBehaviour
             activateLevel = true;
         }
         if (killedNPCS == 15)
+        {
+            policeLevels = 5;
+            activateLevel = true;
+        }
+
+        if (OTR.wLocked.attemptingWesteria)
         {
             policeLevels = 5;
             activateLevel = true;

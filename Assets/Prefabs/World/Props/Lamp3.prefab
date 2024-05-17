@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6176665662788987719, guid: eeeec04977f706a4baf9d906aba3d5c2, type: 3}
+      propertyPath: m_AreaSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6176665662788987719, guid: eeeec04977f706a4baf9d906aba3d5c2, type: 3}
+      propertyPath: m_AreaSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6176665662788987719, guid: eeeec04977f706a4baf9d906aba3d5c2, type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eeeec04977f706a4baf9d906aba3d5c2, type: 3}
       propertyPath: m_Name
       value: Lamp3

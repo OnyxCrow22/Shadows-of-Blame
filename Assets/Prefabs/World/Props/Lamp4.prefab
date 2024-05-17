@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6176665662788987719, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_Intensity
-      value: 2006.1187
+      value: 1221.6539
       objectReference: {fileID: 0}
     - target: {fileID: -6176665662788987719, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_AreaSize.x
@@ -67,6 +67,10 @@ PrefabInstance:
     - target: {fileID: -6176665662788987719, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_AreaSize.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6176665662788987719, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4964305192257121515, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -99,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 6658984498873801381, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_AreaSize.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658984498873801381, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7850612060353594659, guid: 078e60f1d97c9a148985853a8db91d48, type: 3}
       propertyPath: m_StaticEditorFlags
