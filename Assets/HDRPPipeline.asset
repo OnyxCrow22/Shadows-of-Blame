@@ -82,7 +82,7 @@ MonoBehaviour:
     supportProbeVolumeScenarioBlending: 1
     probeVolumeBlendingMemoryBudget: 128
     supportRayTracing: 0
-    supportVFXRayTracing: 1
+    supportVFXRayTracing: 0
     supportedRayTracingMode: 3
     lightLoopSettings:
       cookieAtlasSize: 2048
@@ -159,7 +159,7 @@ MonoBehaviour:
     dynamicResolutionSettings:
       enabled: 1
       useMipBias: 0
-      enableDLSS: 1
+      enableDLSS: 0
       DLSSPerfQualitySetting: 3
       DLSSInjectionPoint: 0
       DLSSUseOptimalSettings: 1
