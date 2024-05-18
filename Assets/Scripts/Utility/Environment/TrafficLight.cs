@@ -48,7 +48,7 @@ public class TrafficLight : MonoBehaviour
             yield return new WaitForSeconds(2);
             Lights(redLights, true);
             red = true;
-            Lights(amberLights, true);
+            Lights(amberLights, false);
             amber = false;
         }
     }
