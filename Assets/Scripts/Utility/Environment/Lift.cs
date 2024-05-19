@@ -11,19 +11,27 @@ public class Lift : MonoBehaviour
     public RaycastMaster rMaster;
     public bool atTop = false;
     public bool atBottom = false;
+    public float liftSpeed = 3f;
+    Vector3 targetPos;
 
     private void Start()
     {
         atBottom = true;
         atTop = false;
+        targetPos = lift.transform.position;
     }
 
     public void Update()
     {
+        if (lift.transform.position != targetPos)
+        {
+            lift.transform.position = Vector3.MoveTowards(lift.transform.position, targetPos, liftSpeed * Time.deltaTime);
+        }
+
         if (atBottom && rMaster.buttonPressed)
         {
             OperateLift();
-            player.transform.position = lift.transform.position;
+            player.transform.SetParent(lift.transform);
         }
         else if (atTop && rMaster.buttonPressed)
         {
@@ -35,11 +43,11 @@ public class Lift : MonoBehaviour
     {
         if (!atTop && atBottom)
         {
-            lift.transform.Translate(0, 0, 24);
+            targetPos = lift.transform.position + new Vector3(0, 48.5f, 0);
             atBottom = false;
             atTop = true;
             rMaster.buttonPressed = false;
-            player.transform.parent = null;
+            player.transform.SetParent(lift.transform, false);
         }
     }
 
@@ -47,6 +55,7 @@ public class Lift : MonoBehaviour
     {
         if (atTop && !atBottom)
         {
+            targetPos = lift.transform.position - new Vector3(0, 48.5f, 0);
             atBottom = true;
             atTop = false;
         }
