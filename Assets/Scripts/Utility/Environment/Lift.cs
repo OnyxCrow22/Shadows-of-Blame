@@ -1,24 +1,26 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Lift : MonoBehaviour
 {
     public GameObject lift;
     public GameObject player;
     public RaycastMaster rMaster;
+    public Animator[] liftDoors;
     public bool atTop = false;
     public bool atBottom = false;
     public float liftSpeed = 3f;
+    Vector3 topPos;
     Vector3 targetPos;
+    Vector3 bottomPos;
 
     private void Start()
     {
         atBottom = true;
         atTop = false;
-        targetPos = lift.transform.position;
+        bottomPos = lift.transform.position;
+        topPos = bottomPos + new Vector3(0, 48.5f, 0);
+        targetPos = bottomPos;
     }
 
     public void Update()
@@ -27,37 +29,53 @@ public class Lift : MonoBehaviour
         {
             lift.transform.position = Vector3.MoveTowards(lift.transform.position, targetPos, liftSpeed * Time.deltaTime);
         }
-
-        if (atBottom && rMaster.buttonPressed)
-        {
-            OperateLift();
-            player.transform.SetParent(lift.transform);
-        }
-        else if (atTop && rMaster.buttonPressed)
-        {
-            GoingDown();
-        }
     }
 
-    public void OperateLift()
+    public IEnumerator OperateLift()
     {
-        if (!atTop && atBottom)
+        liftDoors[0].SetBool("closingDoors", true);
+        liftDoors[1].SetBool("closingDoors", true);
+        liftDoors[0].SetBool("openingDoors", false);
+        liftDoors[1].SetBool("openingDoors", false);
+        yield return new WaitForSeconds(2);
+        if (rMaster.inLift)
         {
-            targetPos = lift.transform.position + new Vector3(0, 48.5f, 0);
-            atBottom = false;
-            atTop = true;
-            rMaster.buttonPressed = false;
-            player.transform.SetParent(lift.transform, false);
-        }
+            player.transform.parent = lift.transform;
+        }    
+        targetPos = topPos;
+        yield return new WaitForSeconds(16.1f);
+        atBottom = false;
+        atTop = true;
+        yield return new WaitForSeconds(2);
+        liftDoors[0].SetBool("openingDoors", true);
+        liftDoors[2].SetBool("openingDoors", true);
+        liftDoors[0].SetBool("closingDoors", false);
+        liftDoors[2].SetBool("closingDoors", false);
+        rMaster.buttonPressed = false;
+        player.transform.parent = null;
     }
 
-    public void GoingDown()
+    public IEnumerator GoingDown()
     {
-        if (atTop && !atBottom)
+        liftDoors[0].SetBool("openingDoors", false);
+        liftDoors[2].SetBool("openingDoors", false);
+        liftDoors[0].SetBool("closingDoors", true);
+        liftDoors[2].SetBool("closingDoors", true);
+        yield return new WaitForSeconds(2);
+        if (rMaster.inLift)
         {
-            targetPos = lift.transform.position - new Vector3(0, 48.5f, 0);
-            atBottom = true;
-            atTop = false;
+            player.transform.parent = lift.transform;
         }
+        targetPos = bottomPos;
+        yield return new WaitForSeconds(16.1f);
+        atBottom = true;
+        atTop = false;
+        yield return new WaitForSeconds(1);
+        liftDoors[0].SetBool("closingDoors", false);
+        liftDoors[1].SetBool("closingDoors", false);
+        liftDoors[0].SetBool("openingDoors", true);
+        liftDoors[1].SetBool("openingDoors", true);
+        rMaster.buttonPressed = false;
+        player.transform.parent = null;
     }
 }

@@ -29,6 +29,7 @@ public class WestralWoes : MonoBehaviour
     public bool collectedNorthBeachEvidence = false;
     public bool evadedPolice = false;
     public bool backHome = false;
+    public bool placedEvidence = false;
     public bool missionComplete = false;
 
     [Header("Int references")]
@@ -59,6 +60,7 @@ public class WestralWoes : MonoBehaviour
     public WWPrescott prescottCheck;
     public WWNorthBeachCheck northBeach;
     public WWWesteriaPlayerHome home;
+    public WWPlaceEvidence place;
     public PoliceLevel police;
 
     public void Start()
@@ -205,10 +207,15 @@ public class WestralWoes : MonoBehaviour
     {
         if (backHome)
         {
+            PlaceEvidenceOnWall();
+        }
+    }
+
+    void PlaceEvidenceOnWall()
+    {
+        if (place.EvidencePlaced)
+        {
             missionComplete = true;
-            backHome = true;
-            WWHolder.SetActive(false);
-            this.GetComponent<WestralWoes>().enabled = false;
         }
     }
 }
