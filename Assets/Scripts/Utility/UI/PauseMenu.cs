@@ -11,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject audioSettings;
     public GameObject instructionsPanel;
+    public GameObject graphicsPanel;
     public bool paused = false;
 
     private void Update()
@@ -62,6 +63,12 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         instructionsPanel.SetActive(true);
+    }
+
+    public void Graphics()
+    {
+        settingsMenu.SetActive(false);
+        graphicsPanel.SetActive(true);
     }
 
     public void MainMenu()

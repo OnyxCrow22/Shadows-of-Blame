@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class BrightnessControl : MonoBehaviour
 {
     public Slider sunBrightnessSlider, moonBrightnessSlider;
-    public TextMeshProUGUI brightnessValue;
+    public TextMeshProUGUI sunBrightnessValue;
+    public TextMeshProUGUI moonBrightnessValue;
     public Light sunlightIntenstity;
     public Light moonLightIntenstity;
 
@@ -32,10 +33,12 @@ public class BrightnessControl : MonoBehaviour
     public void SetSunIntensity(float value)
     {
         sunlightIntenstity.intensity = value;
+        sunBrightnessValue.text = value.ToString("0.00");
     }
 
     public void SetMoonIntensity(float value)
     {
         moonLightIntenstity.intensity = value;
+        moonBrightnessValue.text = value.ToString("0.00");
     }
 }

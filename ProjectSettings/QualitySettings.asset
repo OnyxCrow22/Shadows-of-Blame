@@ -278,7 +278,7 @@ QualitySettings:
     lodBias: 1
     maximumLODLevel: 0
     enableLODCrossFade: 1
-    streamingMipmapsActive: 1
+    streamingMipmapsActive: 0
     streamingMipmapsAddAllCameras: 1
     streamingMipmapsMemoryBudget: 512
     streamingMipmapsRenderersPerFrame: 512
@@ -290,7 +290,7 @@ QualitySettings:
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: d33f52493f311a442a8041e4edb2e8bc, type: 2}
-    terrainQualityOverrides: 1
+    terrainQualityOverrides: 0
     terrainPixelError: 1
     terrainDetailDensityScale: 1
     terrainBasemapDistance: 1000
