@@ -29,6 +29,7 @@ public class WestralWoes : MonoBehaviour
     public bool collectedNorthBeachEvidence = false;
     public bool evadedPolice = false;
     public bool backHome = false;
+    public bool on21stFloor = false;
     public bool placedEvidence = false;
     public bool missionComplete = false;
 
@@ -206,6 +207,14 @@ public class WestralWoes : MonoBehaviour
     void GoToSafehouseKensingtonBoulevard()
     {
         if (backHome)
+        {
+            GoToSuite();
+        }
+    }
+
+    void GoToSuite()
+    {
+        if (on21stFloor)
         {
             PlaceEvidenceOnWall();
         }
