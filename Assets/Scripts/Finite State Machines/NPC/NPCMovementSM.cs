@@ -26,6 +26,7 @@ public class NPCMovementSM : NPCStateMachine
     public bool canReturn = false;
     public bool hostileNPC = false;
     public bool neturalNPC = false;
+    public bool arrived = false;
 
     public bool isMale = false;
     public bool isFemale = false;

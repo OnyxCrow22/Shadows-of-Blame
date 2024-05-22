@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager manager;
     public AudioMixer master;
     public Sound[] sounds;
+    public AudioSource[] audio;
 
     public const string MUSIC_KEY = "MusicVol";
     public const string SFX_KEY = "SFXVol";

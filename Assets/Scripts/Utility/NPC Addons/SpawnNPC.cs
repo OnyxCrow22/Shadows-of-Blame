@@ -20,9 +20,13 @@ public class SpawnNPC : MonoBehaviour
 
     public GameObject gameManager;
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(Spawn());
+        if (AICount == 0)
+        {
+            spawnPoint = GameObject.FindGameObjectsWithTag("Spawn");
+            StartCoroutine(Spawn());
+        }
     }
 
     public IEnumerator Spawn()
@@ -65,6 +69,7 @@ public class SpawnNPC : MonoBehaviour
                 }
 
             }
+
             AI.speed = RandomSpeed;
 
             yield return new WaitForSeconds(RandomSpawnDelay);
@@ -73,6 +78,7 @@ public class SpawnNPC : MonoBehaviour
         if (AICount > 75)
         {
             StopCoroutine(Spawn());
+            AICount = 0;
         }
     }
 }

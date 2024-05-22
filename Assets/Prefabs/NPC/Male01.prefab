@@ -827,7 +827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6240431318503031700, guid: 8db124110abeb4c40a70e0aa352f7c19, type: 3}
       propertyPath: m_Layer
@@ -963,6 +963,7 @@ MonoBehaviour:
   clips:
   - {fileID: 8300000, guid: b0f15ff36d009b54fb9dd2a93ff6db0b, type: 3}
   - {fileID: 8300000, guid: 6c7ad94754dba154e88347d06450e52f, type: 3}
+  - {fileID: 8300000, guid: f1221b2d5c51e834e8a6136e1dc87520, type: 3}
   spawnedIn: 1
   isWalking: 0
   isFleeing: 0
@@ -971,6 +972,7 @@ MonoBehaviour:
   canReturn: 0
   hostileNPC: 0
   neturalNPC: 0
+  arrived: 0
   isMale: 0
   isFemale: 0
   aggression: 0
@@ -1053,7 +1055,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4564891329248976073, guid: 0021a3445835b86429cb9892e5276c81, type: 2}
-  m_audioClip: {fileID: 8300000, guid: b0f15ff36d009b54fb9dd2a93ff6db0b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1166,6 +1168,7 @@ MonoBehaviour:
   destination: []
   pedestrianDest: []
   waypointManager: {fileID: 0}
+  currentPedestrianNode: {fileID: 0}
   agent: {fileID: 1239574336742487353}
 --- !u!95 &8409318512745392136 stripped
 Animator:

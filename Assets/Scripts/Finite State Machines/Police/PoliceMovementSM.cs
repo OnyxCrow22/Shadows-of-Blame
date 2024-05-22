@@ -22,6 +22,7 @@ public class PoliceMovementSM : PoliceStateMachine
     public bool isChasing = false;
     public bool isAttacking = false;
     public bool isShooting = false;
+    public bool arrived = false;
 
     [HideInInspector]
     public PoliceIdle idleState;

@@ -19,16 +19,15 @@ public class PoliceIdle : PoliceBaseState
 
     public override void UpdateLogic()
     {
-        if (Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) >= 0.5f)
+        if (Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) >= 0.5f && Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) < 120)
         {
             policeMachine.ChangeState(wanted.patrolState);
             wanted.PoliceAnim.SetBool("walking", true);
             wanted.isPatrolling = true;
         }
-
-        if (Vector3.Distance(wanted.playsm.player.position, wanted.PoliceAI.transform.position) > 70)
+        else if (Vector3.Distance(wanted.playsm.player.position, wanted.PoliceAI.transform.position) > 120)
         {
-            wanted.PoliceAI.AddComponent<RemoveNPC>().OnBecameInvisible();
+            wanted.PoliceAI.AddComponent<RemoveNPC>().GetRid();
         }
     }
 

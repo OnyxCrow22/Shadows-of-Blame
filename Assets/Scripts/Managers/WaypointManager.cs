@@ -38,6 +38,14 @@ public class WaypointManager : MonoBehaviour
             }
         }
 
+        if (pavementNodes.Length > 0)
+        {
+            foreach (GameObject pavementN in pavementNodes)
+            {
+                graph.AddNode(pavementN);
+            }
+        }
+
         pavementNodes = GameObject.FindGameObjectsWithTag("PedestrianNodes");
     }
 }

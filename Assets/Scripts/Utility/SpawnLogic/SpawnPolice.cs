@@ -16,6 +16,7 @@ public class SpawnPolice : MonoBehaviour
 
     private void Start()
     {
+        pedestrianSpawns = GameObject.FindGameObjectsWithTag("Spawn");
         StartCoroutine(PolicePedestrians());
         police = newPolicePedestrian.GetComponent<PoliceMovementSM>();
     }

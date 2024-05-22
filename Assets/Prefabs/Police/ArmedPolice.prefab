@@ -552,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5897364122268946584, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -745,6 +745,7 @@ MonoBehaviour:
   destination: []
   pedestrianDest: []
   waypointManager: {fileID: 0}
+  currentPedestrianNode: {fileID: 0}
   agent: {fileID: 6094094448019760474}
 --- !u!4 &6662681533050639137 stripped
 Transform:

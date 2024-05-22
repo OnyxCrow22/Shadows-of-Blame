@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NPCWalk : NPCBaseState
 {
     private NPCMovementSM AI;
-    float WalkDist = 0.5f;
+    float WalkDist = 120f;
 
 
     public NPCWalk(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
@@ -27,7 +27,7 @@ public class NPCWalk : NPCBaseState
         RaycastHit gunHit;
         float radius = 20;
 
-        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) < WalkDist)
+        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) > WalkDist)
         {
             npcStateMachine.ChangeState(AI.idleState);
             AI.NPCAnim.SetBool("walking", false);
@@ -78,11 +78,5 @@ public class NPCWalk : NPCBaseState
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        if (!AI.NPC.pathPending && AI.NPC.remainingDistance > 0.5f)
-        {
-            AI.NPC.SetDestination(AI.walking.currentPedestrianNode.transform.position);
-            Debug.Log("Walking to destination!");
-        }
     }
 }
