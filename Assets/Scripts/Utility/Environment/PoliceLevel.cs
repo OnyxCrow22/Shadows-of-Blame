@@ -33,13 +33,17 @@ public class PoliceLevel : MonoBehaviour
 
     public void AddingLevel()
     {
-        if (!addingLevel && activateLevel)
+        if (cancelPursuit)
         {
             cancelPursuit = false;
-            activateLevel = false;
-            addingLevel = true;
-            policeBorder.SetActive(true);
-            StartCoroutine(AddLevel());
+            if (!addingLevel && activateLevel)
+            {
+                cancelPursuit = false;
+                activateLevel = false;
+                addingLevel = true;
+                policeBorder.SetActive(true);
+                StartCoroutine(AddLevel());
+            }
         }
     }
 

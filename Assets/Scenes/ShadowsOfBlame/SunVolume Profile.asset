@@ -177,7 +177,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   meteringMode:
     m_OverrideState: 1
     m_Value: 2
@@ -186,16 +186,16 @@ MonoBehaviour:
     m_Value: 1
   fixedExposure:
     m_OverrideState: 1
-    m_Value: 12.592955
+    m_Value: 11.160017
   compensation:
     m_OverrideState: 1
     m_Value: 0
   limitMin:
     m_OverrideState: 1
-    m_Value: 7.263158
+    m_Value: 7.684026
   limitMax:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 12.869354
   curveMap:
     m_OverrideState: 1
     m_Value:

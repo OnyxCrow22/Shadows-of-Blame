@@ -40,6 +40,7 @@ public class CarController : MonoBehaviour
     public bool indicating = false;
     public bool reversing = false;
     public bool negative = false;
+    public bool vehicleonSide = false;
 
     [Header("Float references")]
     public float minSpeedArrowAngle;
@@ -68,6 +69,15 @@ public class CarController : MonoBehaviour
     {
         GetInput();
         UpdateSpeed();
+
+        if (transform.rotation.x > 10)
+        {
+            vehicleonSide = true;
+        }
+        else
+        {
+            vehicleonSide = false;
+        }    
     }
 
     public void GetInput()
@@ -121,6 +131,11 @@ public class CarController : MonoBehaviour
             turningRight = false;
             indicating = false;
             pressCount -= 1;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && vehicleonSide)
+        {
+            FlipCar();
         }
     }
 
@@ -192,6 +207,10 @@ public class CarController : MonoBehaviour
             reversing = false;
             negative = false;
         }
+    }
+
+    private void FlipCar()
+    {
     }
 
     private void TurnIndicators()

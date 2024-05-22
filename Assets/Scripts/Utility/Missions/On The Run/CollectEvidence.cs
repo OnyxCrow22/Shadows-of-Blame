@@ -34,6 +34,7 @@ public class CollectEvidence : MonoBehaviour
         OTR.clue.SetActive(true);
         rMaster.interactKey.SetActive(false);
         evidence.SetActive(false);
+        OTR.magGlass.SetActive(true);
         
         OTR.objective.text = "Search Westral Square for evidence: " + OTR.collectedEvidence + " / " + OTR.totalEvidence;
 
@@ -41,6 +42,7 @@ public class CollectEvidence : MonoBehaviour
         {
             OTR.Evidence = true;
             OTR.clue.SetActive(false);
+            OTR.magGlass.SetActive(false);
             OTR.objective.text = "Go to the gang compound.";
         }
     }

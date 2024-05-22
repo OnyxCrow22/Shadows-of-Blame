@@ -26,10 +26,6 @@ public class NPCIdle : NPCBaseState
             AI.NPCSound.PlayOneShot(AI.clips[2]);
             AI.isWalking = true;
         }
-        else if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) >= 120)
-        {
-            AI.AddComponent<RemoveNPC>().GetRid();
-        }
     }
 
     public override void UpdatePhysics()

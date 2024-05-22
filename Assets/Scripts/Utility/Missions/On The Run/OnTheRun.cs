@@ -39,6 +39,7 @@ public class OnTheRun : MonoBehaviour
     public GameObject westeriaUnlocked;
     public GameObject warningHolder, dangerPanel;
     public GameObject player;
+    public GameObject magGlass;
     public GameObject OTRHolder;
     public GameObject WWHolder;
 

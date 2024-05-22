@@ -20,13 +20,10 @@ public class SpawnNPC : MonoBehaviour
 
     public GameObject gameManager;
 
-    private void Update()
+    private void Start()
     {
-        if (AICount == 0)
-        {
-            spawnPoint = GameObject.FindGameObjectsWithTag("Spawn");
-            StartCoroutine(Spawn());
-        }
+        spawnPoint = GameObject.FindGameObjectsWithTag("Spawn");
+        StartCoroutine(Spawn());
     }
 
     public IEnumerator Spawn()

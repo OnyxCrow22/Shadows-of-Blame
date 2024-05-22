@@ -25,10 +25,6 @@ public class PoliceIdle : PoliceBaseState
             wanted.PoliceAnim.SetBool("walking", true);
             wanted.isPatrolling = true;
         }
-        else if (Vector3.Distance(wanted.playsm.player.position, wanted.PoliceAI.transform.position) > 120)
-        {
-            wanted.PoliceAI.AddComponent<RemoveNPC>().GetRid();
-        }
     }
 
     public override void UpdatePhysics()
