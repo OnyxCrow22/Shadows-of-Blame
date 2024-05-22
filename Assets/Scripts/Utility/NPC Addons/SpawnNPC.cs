@@ -17,15 +17,12 @@ public class SpawnNPC : MonoBehaviour
     public NavMeshAgent AI;
     [HideInInspector]
     public NPCMovementSM NPCSM;
-    public GameObject[] pedestrianDests;
-    [HideInInspector]
-    public GameObject currentPedDest;
 
     public GameObject gameManager;
 
     private void Start()
     {
-        StartCoroutine("Spawn");
+        StartCoroutine(Spawn());
     }
 
     public IEnumerator Spawn()
@@ -34,10 +31,8 @@ public class SpawnNPC : MonoBehaviour
         {
             int RandomIndex = Random.Range(0, WalkAI.Length);
             int RandomSpawnIndex = Random.Range(0, spawnPoint.Length);
-            int RandomDest = Random.Range(0, pedestrianDests.Length);
             int RandomSpawnDelay = Random.Range(0, 4);
             int RandomSpeed = Random.Range(0, 3);
-            currentPedDest = pedestrianDests[RandomDest];
             newNPC = Instantiate(WalkAI[RandomIndex], spawnPoint[RandomSpawnIndex].transform.position, Quaternion.identity);
 
             NPCSM = newNPC.GetComponent<NPCMovementSM>();
@@ -70,8 +65,8 @@ public class SpawnNPC : MonoBehaviour
                 }
 
             }
-
             AI.speed = RandomSpeed;
+
             yield return new WaitForSeconds(RandomSpawnDelay);
             AICount++;
         }

@@ -35,6 +35,7 @@ public class NPCMovementSM : NPCStateMachine
     public NPCHealth nHealth;
     public PoliceLevel police;
     public NPCGun hidden;
+    public FollowWaypoints walking;
 
     [HideInInspector]
     public NPCIdle idleState;

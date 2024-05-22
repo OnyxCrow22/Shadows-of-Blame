@@ -78,5 +78,11 @@ public class NPCWalk : NPCBaseState
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        if (!AI.NPC.pathPending && AI.NPC.remainingDistance > 0.5f)
+        {
+            AI.NPC.SetDestination(AI.walking.currentPedestrianNode.transform.position);
+            Debug.Log("Walking to destination!");
+        }
     }
 }

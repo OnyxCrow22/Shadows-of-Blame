@@ -15,6 +15,7 @@ public class PoliceMovementSM : PoliceStateMachine
     public GameObject pGun;
 
     public PoliceGun policeGun;
+    public FollowWaypoints follow;
 
     public bool spawnedIn = false;
     public bool isPatrolling = false;

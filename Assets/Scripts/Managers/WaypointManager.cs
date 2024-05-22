@@ -15,6 +15,7 @@ public class WaypointManager : MonoBehaviour
 {
     [Header("Waypoint References")]
     public GameObject[] waypoints;
+    public GameObject[] pavementNodes;
     public Link[] links;
     public Graph graph = new Graph();
 
@@ -36,5 +37,7 @@ public class WaypointManager : MonoBehaviour
                 }
             }
         }
+
+        pavementNodes = GameObject.FindGameObjectsWithTag("PedestrianNodes");
     }
 }

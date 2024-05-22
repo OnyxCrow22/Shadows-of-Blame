@@ -10,8 +10,6 @@ public class SpawnPolice : MonoBehaviour
     public PlayerMovementSM playsm;
     PoliceMovementSM police;
     public GameObject[] pedestrianSpawns;
-    public GameObject[] policeDests;
-    GameObject currentPoliceDest;
     GameObject newPolicePedestrian;
     NavMeshAgent PoliceAI;
     Vector3 lastKnownPos;
@@ -27,10 +25,8 @@ public class SpawnPolice : MonoBehaviour
         while (policePedestriansCount < 15)
         {
             int SpawnIndex = Random.Range(0, pedestrianSpawns.Length);
-            int RandomPoliceDest = Random.Range(0, policeDests.Length);
             int RandomSpawnDelay = Random.Range(0, 4);
             int RandomSpeed = Random.Range(0, 3);
-            currentPoliceDest = policeDests[RandomPoliceDest];
             newPolicePedestrian = Instantiate(policeOfficer, pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
 
             PoliceMovementSM policesm = newPolicePedestrian.GetComponent<PoliceMovementSM>();
@@ -53,11 +49,6 @@ public class SpawnPolice : MonoBehaviour
             {
                 PoliceAI.SetDestination(player.transform.position);
             }
-
-            else if (PoliceLevel.policeLevels == 0)
-            {
-                PoliceAI.SetDestination(currentPoliceDest.transform.position);
-            }
             PoliceAI.speed = RandomSpeed;
             yield return new WaitForSeconds(RandomSpawnDelay);
             policePedestriansCount++;
@@ -66,11 +57,6 @@ public class SpawnPolice : MonoBehaviour
         if (policePedestriansCount > 15)
         {
             StopCoroutine(PolicePedestrians());
-        }
-
-        if (playsm.inVehicle)
-        {
-            
         }
     }
 }

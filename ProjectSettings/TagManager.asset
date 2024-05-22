@@ -37,6 +37,8 @@ TagManager:
   - GameManager
   - LiftObj
   - Button
+  - PedestrianNodes
+  - W
   layers:
   - Default
   - TransparentFX
