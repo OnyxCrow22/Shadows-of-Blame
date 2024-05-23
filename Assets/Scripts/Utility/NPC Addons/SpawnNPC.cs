@@ -33,7 +33,7 @@ public class SpawnNPC : MonoBehaviour
             int RandomIndex = Random.Range(0, WalkAI.Length);
             int RandomSpawnIndex = Random.Range(0, spawnPoint.Length);
             int RandomSpawnDelay = Random.Range(0, 4);
-            int RandomSpeed = Random.Range(0, 3);
+            int RandomSpeed = Random.Range(1, 3);
             newNPC = Instantiate(WalkAI[RandomIndex], spawnPoint[RandomSpawnIndex].transform.position, Quaternion.identity);
 
             NPCSM = newNPC.GetComponent<NPCMovementSM>();

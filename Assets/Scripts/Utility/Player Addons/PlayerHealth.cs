@@ -26,9 +26,9 @@ public class PlayerHealth : MonoBehaviour
 
     public PlayerMovementSM playsm;
     public float deadDuration;
-    public GameObject[] respawnPoints;
     public OnTheRun OTR;
     public WestralWoes WW;
+    public RespawnPlayer respawn;
 
     private void Start()
     {
@@ -39,11 +39,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-       healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
+        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
 
         HealthText.text = "HP: " + health;
 
-        if (health < 100 && !takingDamage && !canRegen)
+        if (health < 100 && !takingDamage)
         {
             StartCoroutine(PlayerRegen());
             canRegen = true;
@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator PlayerRegen()
     {
-        while (canRegen && !takingDamage)
+        if (canRegen && !takingDamage)
         {
             yield return new WaitForSeconds(healDelay);
 
@@ -89,46 +89,11 @@ public class PlayerHealth : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            maxHealth = 0;
-            StartCoroutine("Respawning");
+            respawn.CheckDeath();
             healthBar.enabled = false;
+            CapsuleCollider playCol = GetComponent<CapsuleCollider>();
+            playCol.enabled = false;
             isDead = true;
-        }
-    }
-    public IEnumerator Respawning()
-    {
-        CapsuleCollider playCol = GetComponent<CapsuleCollider>();
-        playCol.direction = 2;
-        playsm.anim.SetBool("dead", true);
-        missionFailed.SetActive(true);
-        HUD.SetActive(false);
-        FailedText.text = "Harrison died!";
-        Debug.Log("DEAD!");
-        yield return new WaitForSeconds(deadDuration);
-        isDead = false;
-        missionFailed.SetActive(false);
-        HUD.SetActive(true);
-        playsm.anim.SetBool("dead", false);
-        healthBar.color = new Color32(36, 72, 28, 255);
-        health = 100;
-        maxHealth = 100;
-        healthBar.enabled = true;
-
-        if (OTR.westeriaUnlocked || WW.onWestInsbury)
-        {
-            int RandomSpawnSelect = Random.Range(0, respawnPoints.Length);
-
-            // Spawn at either Halifax Park General Hospital or Saint Mary's Hospital.
-            playsm.player.transform.position = respawnPoints[RandomSpawnSelect].transform.position;
-            Physics.SyncTransforms();
-        }
-        else if (!OTR.westeriaUnlocked || !WW.onWestInsbury)
-        {
-            // Respawn the player at Saint Mary's Hospital.
-            playsm.player.transform.position = respawnPoints[0].transform.position;
-            Physics.SyncTransforms();
-            HUD.SetActive(true);
-            missionFailed.SetActive(false);
         }
     }
 

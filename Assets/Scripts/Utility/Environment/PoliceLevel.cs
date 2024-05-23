@@ -32,14 +32,6 @@ public class PoliceLevel : MonoBehaviour
         }
     }
 
-    public void CheckPursuit()
-    {
-        if (cancelPursuit == true && activateLevel)
-        {
-            cancelPursuit = false;
-        }
-    }
-
     public void AddingLevel()
     {
         if (!addingLevel && activateLevel)

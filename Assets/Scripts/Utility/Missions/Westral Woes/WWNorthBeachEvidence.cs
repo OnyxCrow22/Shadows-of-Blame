@@ -31,6 +31,7 @@ public class WWNorthBeachEvidence : MonoBehaviour
         rMaster.interactKey.SetActive(false);
         evidence = true;
         WW.collectedNorthBeachEvidence = true;
+        WW.police.cancelPursuit = false;
         PoliceLevel.policeLevels = 1;
         PoliceLevel.activateLevel = true;
         WW.objective.text = "Lose the police.";

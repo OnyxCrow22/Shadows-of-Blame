@@ -74,16 +74,6 @@ public class OnTheRun : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (player.GetComponent<PlayerMovementSM>().health.health == 0)
-        {
-            Time.timeScale = 0;
-            missionFailed.SetActive(false);
-            failText.text = "Harrison died";
-        }
-    }
-
     void LeaveSafehouse()
     {
         if (sSafehouse.left)
