@@ -9,7 +9,7 @@ public class WWHalifaxPark : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
+        if (other.CompareTag("Player") || other.CompareTag("Vehicle") && !WW.CollectedEvidenceHPark)
         {
             HPark = true;
             WW.HaliPark = true;

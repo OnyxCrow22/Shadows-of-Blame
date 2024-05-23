@@ -18,11 +18,10 @@ public class PoliceChase : PoliceBaseState
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        Ray punchRay = new Ray(police.PoliceFOV.transform.position, Vector3.forward);
-        RaycastHit punchHit;
-        float punchLength = 2.5f;
+      //  Ray punchRay = new Ray(police.PoliceFOV.transform.position, Vector3.forward);
+      //  RaycastHit punchHit;
+      //  float punchLength = 2.5f;
 
-        // Is the player more than or equal to 20 metres away from the enemy?
         if (PoliceLevel.policeLevels == 0 || police.playsm.health.health == 0)
         {
             // Go back on patrol.
@@ -30,7 +29,13 @@ public class PoliceChase : PoliceBaseState
             police.PoliceAnim.SetBool("chase", false);
         }
 
-     /*   // Is the enemy's health below or equal to 50 HP?
+        if (police.pHealth.health == 0)
+        {
+            police.pHealth.StartCoroutine(police.pHealth.PoliceDeath());
+        }
+
+        /*
+        // Is the enemy's health below or equal to 50 HP?
         if (police.pHealth.health <= 65)
         {
             // Enemy is injured
@@ -48,7 +53,8 @@ public class PoliceChase : PoliceBaseState
             AudioManager.manager.Stop("sprinting");
             Debug.Log("PUNCHING PLAYER");
         }
-     
+       */
+
 
         if (police.playsm.weapon.gunEquipped)
         {
@@ -58,8 +64,6 @@ public class PoliceChase : PoliceBaseState
             AudioManager.manager.Stop("sprinting");
             AudioManager.manager.Play("shootGun");
         }
-
-    */
 
         if (police.playsm.health.health == 0)
         {

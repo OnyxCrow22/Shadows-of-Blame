@@ -9,7 +9,7 @@ public class WWWesteriaPlayerHome : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Vehicle") && WW.collectedNorthBeachEvidence)
+        if (other.CompareTag("Player") || other.CompareTag("Vehicle") && WW.collectedNorthBeachEvidence && !WW.on21stFloor)
         {
             nowHome = true;
             WW.backHome = true;

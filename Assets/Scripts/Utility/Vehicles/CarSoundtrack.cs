@@ -13,7 +13,7 @@ public class CarSoundtrack : MonoBehaviour
     public float currentTrack;
     int songSelect;
     public TextMeshProUGUI songName;
-    bool canPlayRadio = false;
+    public bool canPlayRadio = false;
 
     private void Update()
     {
@@ -31,11 +31,13 @@ public class CarSoundtrack : MonoBehaviour
         if (playsm.inVehicle && Input.GetKeyDown(KeyCode.P))
         {
             StartCoroutine(StopSong());
+            canPlayRadio = false;
         }
 
         else if (!playsm.inVehicle)
         {
             StartCoroutine(StopSong());
+            canPlayRadio = false;
         }
     }
 
@@ -45,10 +47,8 @@ public class CarSoundtrack : MonoBehaviour
         int songCount = 0;
         while (songCount < 7)
         {
-            do
-            {
-                songSelect = Random.Range(0, songs.Length);
-            } while (playedSongs.Contains(songSelect));
+            songSelect = Random.Range(0, songs.Length);
+            playedSongs.Contains(songSelect);
             playedSongs.Add(songSelect);
             currentSong = songs[songSelect];
             carRadio.PlayOneShot(currentSong);
@@ -78,6 +78,7 @@ public class CarSoundtrack : MonoBehaviour
     {
         carRadio.Stop();
         songName.text = "";
+        canPlayRadio = false;
         yield break;
     }
 }

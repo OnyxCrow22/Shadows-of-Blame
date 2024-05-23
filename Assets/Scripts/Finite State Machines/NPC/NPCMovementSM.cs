@@ -67,12 +67,15 @@ public class NPCMovementSM : NPCStateMachine
     {
         if (neturalNPC)
         {
-            NPC.SetDestination(transform.position);
+            NPC.isStopped = true;
             NPCAnim.SetBool("scream", true);
             yield return new WaitForSeconds(3);
             NPCAnim.SetBool("scream", false);
+            NPC.SetDestination(walking.newPosition);
             ChangeState(fleeState);
+            NPC.isStopped = false;
             NPCAnim.SetBool("flee", true);
+            walking.FleeFromPlayer();
             isWalking = false;
             isFleeing = true;
 
@@ -91,6 +94,7 @@ public class NPCMovementSM : NPCStateMachine
             canReturn = false;
             yield return new WaitForSeconds(20);
             canReturn = true;
+            NPC.SetDestination(walking.currentPedestrianNode.transform.position);
             yield break;
         }
     }

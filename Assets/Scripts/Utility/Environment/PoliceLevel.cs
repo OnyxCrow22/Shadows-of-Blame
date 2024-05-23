@@ -11,6 +11,7 @@ public class PoliceLevel : MonoBehaviour
     public static int policeLevels;
     public static bool activateLevel;
     public int killedNPCS;
+    public int killedOfficers;
     public float flashDelay = 0.5f;
 
     public GangEvidenceCollect alejandro;
@@ -33,17 +34,13 @@ public class PoliceLevel : MonoBehaviour
 
     public void AddingLevel()
     {
-        if (cancelPursuit)
+        if (!addingLevel && activateLevel)
         {
             cancelPursuit = false;
-            if (!addingLevel && activateLevel)
-            {
-                cancelPursuit = false;
-                activateLevel = false;
-                addingLevel = true;
-                policeBorder.SetActive(true);
-                StartCoroutine(AddLevel());
-            }
+            activateLevel = false;
+            addingLevel = true;
+            policeBorder.SetActive(true);
+            StartCoroutine(AddLevel());
         }
     }
 
@@ -102,22 +99,22 @@ public class PoliceLevel : MonoBehaviour
             policeLevels = 1;
             activateLevel = true;
         }
-        if (killedNPCS == 3)
+        if (killedNPCS == 3 || killedOfficers == 1)
         {
             policeLevels = 2;
             activateLevel = true;
         }
-        if (killedNPCS == 9)
+        if (killedNPCS == 9 || killedOfficers == 3)
         {
             policeLevels = 3;
             activateLevel = true;
         }
-        if (killedNPCS == 12)
+        if (killedNPCS == 12 || killedOfficers == 5)
         {
             policeLevels = 4;
             activateLevel = true;
         }
-        if (killedNPCS == 15)
+        if (killedNPCS == 15 || killedOfficers == 7)
         {
             policeLevels = 5;
             activateLevel = true;

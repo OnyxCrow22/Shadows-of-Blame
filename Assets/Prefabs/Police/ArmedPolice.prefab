@@ -452,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_Name
-      value: Swat
+      value: ArmedPolice
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       propertyPath: m_TagString
@@ -630,6 +630,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9078293018038616232}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 049932f08e07a354180d143fdfec198d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3940856586646637916}
   m_SourcePrefab: {fileID: 100100000, guid: 049932f08e07a354180d143fdfec198d, type: 3}
 --- !u!95 &762996581958158683 stripped
 Animator:
@@ -713,11 +716,14 @@ MonoBehaviour:
   pGun: {fileID: 7584907765371864960}
   policeGun: {fileID: 7683433645317778868}
   follow: {fileID: 9078293018038616232}
+  policing: {fileID: 0}
+  pHealth: {fileID: 3940856586646637916}
   spawnedIn: 0
   isPatrolling: 0
   isChasing: 0
   isAttacking: 0
   isShooting: 0
+  arrived: 0
 --- !u!114 &8014230036406733024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,7 +752,29 @@ MonoBehaviour:
   pedestrianDest: []
   waypointManager: {fileID: 0}
   currentPedestrianNode: {fileID: 0}
+  AI: {fileID: 0}
   agent: {fileID: 6094094448019760474}
+  runDist: {x: 0, y: 0, z: 0}
+  newPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &3940856586646637916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286261062433606043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68aff28b4b3076489dc7d8883462e1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  healthLoss: 1
+  deadDuration: 8
+  isDead: 0
+  police: {fileID: -2486435456871804160}
+  hitbox: {fileID: 769092600867913337}
 --- !u!4 &6662681533050639137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 049932f08e07a354180d143fdfec198d, type: 3}
@@ -762,43 +790,43 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.118
+      value: 0.0708
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.223
+      value: 0.1668
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.384
+      value: -0.0281
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.01568242
+      value: -0.7372862
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.72937375
+      value: -0.055712804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.056073114
+      value: 0.008790192
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.6816332
+      value: 0.673222
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -185.7
+      value: -184.032
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 85.951
+      value: 174.94
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -3.481
+      value: 95.023
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7129305751009b346b45662458c39d55, type: 3}
       propertyPath: m_Name

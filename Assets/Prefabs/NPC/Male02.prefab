@@ -1172,7 +1172,10 @@ MonoBehaviour:
   pedestrianDest: []
   waypointManager: {fileID: 0}
   currentPedestrianNode: {fileID: 0}
+  AI: {fileID: 1482817149575228153}
   agent: {fileID: 1361333435694811851}
+  runDist: {x: 0, y: 0, z: 0}
+  newPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &5723493845923101724 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a4ffa903d2b061744b22df0e6d00acd6, type: 3}

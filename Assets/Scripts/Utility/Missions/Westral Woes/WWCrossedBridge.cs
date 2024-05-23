@@ -9,7 +9,7 @@ public class WWCrossedBridge : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") || other.CompareTag("Vehicle"))
+        if (other.CompareTag("Player") || other.CompareTag("Vehicle") && !WW.CollectedEvidenceHPark)
         {
             WestInsbury = true;
             WW.onWestInsbury = true;

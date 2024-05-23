@@ -29,20 +29,13 @@ public class NPCFlee : NPCBaseState
             AI.isWalking = true;
             AI.NPCAnim.SetBool("walking", true);
             AI.NPCAnim.SetBool("flee", false);
+            int RandomSpeedIndex = Random.Range(1, 3);
+            AI.NPC.speed = RandomSpeedIndex;
         }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        if (AI.playsm.weapon.gunEquipped && !AI.canReturn || AI.playsm.hasThrownGrenade && !AI.canReturn)
-        {
-            Vector3 runDist = AI.NPC.transform.position - AI.player.transform.position;
-
-            Vector3 newPosition = AI.NPC.transform.position + runDist;
-
-            AI.NPC.SetDestination(newPosition);
-        }
     }
 }

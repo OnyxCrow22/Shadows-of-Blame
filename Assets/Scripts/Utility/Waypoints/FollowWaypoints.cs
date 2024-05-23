@@ -13,10 +13,12 @@ public class FollowWaypoints : MonoBehaviour
     GameObject currentDestinationNode;
     [HideInInspector]
     public GameObject currentPedestrianNode;
+    public NPCMovementSM AI;
     public NavMeshAgent agent;
     Graph g;
     int randomDestIndex;
     int randomPedestrianIndex;
+    public Vector3 runDist, newPosition;
 
     private void Start()
     {
@@ -69,5 +71,17 @@ public class FollowWaypoints : MonoBehaviour
         {
             agent.SetDestination(currentPedestrianNode.transform.position);
         }
-    }    
+    }
+    
+    public void FleeFromPlayer()
+    {
+        if (AI.playsm.weapon.gunEquipped && !AI.canReturn || AI.playsm.hasThrownGrenade && !AI.canReturn)
+        {
+            runDist = AI.NPC.transform.position - AI.player.transform.position;
+
+            newPosition = AI.NPC.transform.position + runDist;
+
+            AI.NPC.SetDestination(newPosition);
+        }
+    }
 }

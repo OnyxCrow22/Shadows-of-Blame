@@ -26,19 +26,17 @@ public class PoliceVision : MonoBehaviour
 
     void VisionCheck()
     {
-        float DistToPlayer = Vector3.Distance(FOV.transform.position, Player.transform.position);
-
-        if (Physics.Raycast(FOV.transform.position, FOV.transform.forward, out RaycastHit playerHit, rayLength) && PoliceLevel.policeLevels >= 1 && DistToPlayer <= 10)
+        if (Physics.Raycast(FOV.transform.position, FOV.transform.forward, out RaycastHit playerHit, rayLength) && PoliceLevel.policeLevels >= 1)
         {
             Debug.DrawRay(FOV.transform.position, FOV.transform.forward, Color.red);
-            if (playerHit.collider.CompareTag("Player"))
+            if (playerHit.collider.CompareTag("Player") && Vector3.Distance(FOV.transform.position, Player.transform.position) <= 10 && PoliceLevel.policeLevels >= 1)
             {
                 playerSpotted = true;
                 policing.spottedPlayer = true;
                 policing.PlayerSpotted();
             }
         }
-        if (PoliceLevel.policeLevels >= 1 && !playerSpotted && !policing.cancelPursuit && DistToPlayer >= 30)
+        if (PoliceLevel.policeLevels >= 1 && !playerSpotted && !policing.cancelPursuit && Vector3.Distance(FOV.transform.position, Player.transform.position) >= 30)
         {
             StartCoroutine(SearchForPlayer());
         }

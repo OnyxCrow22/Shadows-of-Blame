@@ -46,8 +46,17 @@ public class NPCWalk : NPCBaseState
             {
                 AI.StartCoroutine(AI.ScreamFlee());
                 AI.neturalNPC = true;
+                AI.isWalking = false;
+                AI.isFleeing = true;
 
                 AI.SearchNPCS();
+
+                if (AI.isFleeing)
+                {
+                    AI.StartCoroutine(AI.ReturnDelay());
+                    int RandomSpeedIndex = Random.Range(4, 7);
+                    AI.NPC.speed = RandomSpeedIndex;
+                }
             }
             // NPC is aggressive, they will not run away easily.
             else if (AI.aggression == 1 && AI.isMale)

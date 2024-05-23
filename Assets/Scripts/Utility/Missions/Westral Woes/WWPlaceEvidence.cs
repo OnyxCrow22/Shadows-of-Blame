@@ -26,6 +26,6 @@ public class WWPlaceEvidence : MonoBehaviour
         WW.objective.text = "";
         WW.WWHolder.SetActive(false);
         WW.enabled = false;
-        StartCoroutine(ending.Credits());
+        ending.CheckEvidence();
     }
 }

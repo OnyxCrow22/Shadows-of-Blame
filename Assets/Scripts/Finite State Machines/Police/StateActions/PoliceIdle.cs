@@ -25,6 +25,10 @@ public class PoliceIdle : PoliceBaseState
             wanted.PoliceAnim.SetBool("walking", true);
             wanted.isPatrolling = true;
         }
+        if (wanted.pHealth.health == 0)
+        {
+            wanted.pHealth.StartCoroutine(wanted.pHealth.PoliceDeath());
+        }
     }
 
     public override void UpdatePhysics()

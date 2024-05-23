@@ -9,6 +9,7 @@ public class RaycastMaster : MonoBehaviour
     public GameObject interactKey;
     public PlayerMovementSM playsm;
     public OnTheRun OTR;
+    public WestralWoes WW;
     public VehicleEnterExit vehicular;
 
     public bool door = false;
@@ -259,7 +260,7 @@ public class RaycastMaster : MonoBehaviour
         float placeLength = 8;
         if (Physics.Raycast(placeRay, out RaycastHit placeHit, placeLength))
         {
-            if (placeHit.collider.gameObject.tag == "EvidenceBoard" && OTR.GangEvidence)
+            if (placeHit.collider.gameObject.tag == "EvidenceBoard" && OTR.GangEvidence && OTR.enabled)
             {
                 EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
                 Debug.Log("Board hit!");
@@ -268,6 +269,18 @@ public class RaycastMaster : MonoBehaviour
                 {
                     placeEvidence.StartCoroutine(placeEvidence.EvidenceSwap());
                     placeEvidence.EvidencePlaced = true;
+                    interactKey.SetActive(false);
+                }
+            }
+            if (placeHit.collider.CompareTag("WesteriaEvidenceBoard") && WW.enabled)
+            {
+                WWPlaceEvidence finalEvidence = placeHit.collider.gameObject.GetComponent<WWPlaceEvidence>();
+                Debug.Log("Final board hit!");
+                interactKey.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E) && !finalEvidence.EvidencePlaced)
+                {
+                    finalEvidence.StartCoroutine(finalEvidence.EvidenceSwap());
+                    finalEvidence.EvidencePlaced = true;
                     interactKey.SetActive(false);
                 }
             }

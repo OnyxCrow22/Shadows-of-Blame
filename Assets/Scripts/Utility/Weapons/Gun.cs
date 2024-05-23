@@ -135,6 +135,9 @@ public class Gun : MonoBehaviour
 
             if (hit.collider.CompareTag("FemaleNPC") || (hit.collider.CompareTag("MaleNPC")))
                 hit.collider.GetComponent<NPCHealth>().LoseHealth(damage);
+
+            if (hit.collider.CompareTag("Police"))
+                hit.collider.GetComponent<PoliceHealth>().LoseHealth(damage);
         }
         GameObject newBullet = Instantiate(weapBullet, attackPoint.position,  Quaternion.identity);
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();

@@ -9,7 +9,7 @@ public class GangCompoundCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !OTR.EliminatedGang)
         {
             arrivedAtCompound = true;
 

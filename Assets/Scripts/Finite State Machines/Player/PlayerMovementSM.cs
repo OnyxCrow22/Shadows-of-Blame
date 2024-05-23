@@ -29,7 +29,6 @@ public class PlayerMovementSM : PlayerStateMachine
     public Gun weapon;
     public PlayerHealth health;
     public PunchSystem punching;
-    public Tips tricks;
 
     // States
     [HideInInspector]

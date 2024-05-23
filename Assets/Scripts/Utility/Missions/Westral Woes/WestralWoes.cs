@@ -63,6 +63,7 @@ public class WestralWoes : MonoBehaviour
     public WWWesteriaPlayerHome home;
     public WWPlaceEvidence place;
     public PoliceLevel police;
+    public EndCredits ending;
 
     public void Start()
     {

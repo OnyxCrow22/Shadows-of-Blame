@@ -21,11 +21,10 @@ public class PoliceShoot : PoliceBaseState
         base.UpdateLogic();
         float DistToPlayer = Vector3.Distance(police.player.transform.position, police.PoliceAI.transform.position);
 
-        /* if (police.health == 0)
+         if (police.pHealth.health == 0)
          {
-             esm.eHealth.StartCoroutine(esm.eHealth.Death());
+             police.pHealth.StartCoroutine(police.pHealth.PoliceDeath());
          }
-        */
 
         if (!police.playsm.weapon.gunEquipped && DistToPlayer >= police.policeGun.range || police.playsm.weapon.gunEquipped && DistToPlayer >= police.policeGun.range)
         {

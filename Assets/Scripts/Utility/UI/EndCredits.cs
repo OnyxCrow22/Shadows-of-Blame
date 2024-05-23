@@ -8,14 +8,22 @@ public class EndCredits : MonoBehaviour
     public GameObject endCredits;
     public GameObject gameComplete;
     public AudioSource endMusic;
+    public WestralWoes WW;
+
+    public void CheckEvidence()
+    {
+        if (WW.place.EvidencePlaced)
+        {
+            StartCoroutine("Credits");
+        }
+    }
     public IEnumerator Credits()
     {
         endMusic.ignoreListenerPause = true;
         AudioListener.pause = true;
-        MainUI.SetActive(false);
         endCredits.SetActive(true);
+        MainUI.SetActive(false);
         yield return new WaitForSeconds(100);
-        MainUI.SetActive(true);
         endCredits.SetActive(false);
         gameComplete.SetActive(true);
         endMusic.Stop();

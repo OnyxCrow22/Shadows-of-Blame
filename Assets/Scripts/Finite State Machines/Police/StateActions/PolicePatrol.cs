@@ -47,10 +47,17 @@ public class PolicePatrol : PoliceBaseState
             wanted.PoliceAnim.SetBool("shoot", true);
             AudioManager.manager.Play("shootGun");
         }
+
+        if (wanted.pHealth.health == 0)
+        {
+            wanted.pHealth.StartCoroutine(wanted.pHealth.PoliceDeath());
+        }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
+
+        wanted.PoliceAI.SetDestination(wanted.follow.currentPedestrianNode.transform.position);
     }
 }

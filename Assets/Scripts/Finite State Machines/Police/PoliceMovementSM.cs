@@ -16,6 +16,8 @@ public class PoliceMovementSM : PoliceStateMachine
 
     public PoliceGun policeGun;
     public FollowWaypoints follow;
+    public PoliceLevel policing;
+    public PoliceHealth pHealth;
 
     public bool spawnedIn = false;
     public bool isPatrolling = false;
@@ -40,7 +42,9 @@ public class PoliceMovementSM : PoliceStateMachine
         patrolState = new PolicePatrol(this);
         chaseState = new PoliceChase(this);
         fireState = new PoliceShoot(this);
-       // meleeState = new PoliceAttack(this);
+        // meleeState = new PoliceAttack(this);
+
+        policing = FindFirstObjectByType<PoliceLevel>();
     }
 
     protected override PoliceBaseState GetInitialState()
