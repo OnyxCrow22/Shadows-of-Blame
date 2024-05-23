@@ -272,7 +272,7 @@ public class RaycastMaster : MonoBehaviour
                     interactKey.SetActive(false);
                 }
             }
-            if (placeHit.collider.CompareTag("WesteriaEvidenceBoard") && WW.enabled)
+            if (placeHit.collider.CompareTag("WesteriaEvidenceBoard") && WW.collectedNorthBeachEvidence && WW.enabled)
             {
                 WWPlaceEvidence finalEvidence = placeHit.collider.gameObject.GetComponent<WWPlaceEvidence>();
                 Debug.Log("Final board hit!");

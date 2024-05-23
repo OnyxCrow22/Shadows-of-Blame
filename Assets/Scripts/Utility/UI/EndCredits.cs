@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EndCredits : MonoBehaviour
 {
-    public GameObject MainUI;
     public GameObject endCredits;
     public GameObject gameComplete;
     public AudioSource endMusic;
@@ -21,9 +20,7 @@ public class EndCredits : MonoBehaviour
     {
         endMusic.ignoreListenerPause = true;
         AudioListener.pause = true;
-        endCredits.SetActive(true);
-        MainUI.SetActive(false);
-        yield return new WaitForSeconds(100);
+        yield return new WaitForSecondsRealtime(100);
         endCredits.SetActive(false);
         gameComplete.SetActive(true);
         endMusic.Stop();

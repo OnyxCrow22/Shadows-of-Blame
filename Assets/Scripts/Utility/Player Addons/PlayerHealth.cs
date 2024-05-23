@@ -15,7 +15,9 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
     public Color defaultCol = new Color32(36, 72, 28, 255);
     public GameObject HUD;
+    public GameObject missionFailed;
     public TextMeshProUGUI HealthText;
+    public TextMeshProUGUI FailedText;
     public bool Protected, isDead;
     public float healDelay = 5f;
 
@@ -37,11 +39,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
+       healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 100);
 
         HealthText.text = "HP: " + health;
 
-        if (health < 100 && !takingDamage)
+        if (health < 100 && !takingDamage && !canRegen)
         {
             StartCoroutine(PlayerRegen());
             canRegen = true;
@@ -54,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator PlayerRegen()
     {
-        if (canRegen && !takingDamage)
+        while (canRegen && !takingDamage)
         {
             yield return new WaitForSeconds(healDelay);
 
@@ -65,16 +67,11 @@ public class PlayerHealth : MonoBehaviour
                 healthBar.color = defaultCol;
             }
 
-            if (health >= 100)
+            if (health >= maxHealth)
             {
-                health = 100;
-                maxHealth = 100;
+                health = maxHealth;
+                canRegen = false;
             }
-        }
-        else if (takingDamage)
-        {
-            canRegen = false;
-            StopCoroutine(PlayerRegen());
         }
     }
 
@@ -93,8 +90,8 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 0;
             maxHealth = 0;
+            StartCoroutine("Respawning");
             healthBar.enabled = false;
-            StartCoroutine(Respawning());
             isDead = true;
         }
     }
@@ -103,15 +100,21 @@ public class PlayerHealth : MonoBehaviour
         CapsuleCollider playCol = GetComponent<CapsuleCollider>();
         playCol.direction = 2;
         playsm.anim.SetBool("dead", true);
+        missionFailed.SetActive(true);
+        HUD.SetActive(false);
+        FailedText.text = "Harrison died!";
+        Debug.Log("DEAD!");
         yield return new WaitForSeconds(deadDuration);
         isDead = false;
+        missionFailed.SetActive(false);
+        HUD.SetActive(true);
         playsm.anim.SetBool("dead", false);
         healthBar.color = new Color32(36, 72, 28, 255);
         health = 100;
         maxHealth = 100;
         healthBar.enabled = true;
 
-        if (OTR.westeriaUnlocked == true || WW.onWestInsbury == true)
+        if (OTR.westeriaUnlocked || WW.onWestInsbury)
         {
             int RandomSpawnSelect = Random.Range(0, respawnPoints.Length);
 
@@ -119,11 +122,13 @@ public class PlayerHealth : MonoBehaviour
             playsm.player.transform.position = respawnPoints[RandomSpawnSelect].transform.position;
             Physics.SyncTransforms();
         }
-        else if (!OTR.westeriaUnlocked || !WW.onWestInsbury == false)
+        else if (!OTR.westeriaUnlocked || !WW.onWestInsbury)
         {
             // Respawn the player at Saint Mary's Hospital.
             playsm.player.transform.position = respawnPoints[0].transform.position;
             Physics.SyncTransforms();
+            HUD.SetActive(true);
+            missionFailed.SetActive(false);
         }
     }
 

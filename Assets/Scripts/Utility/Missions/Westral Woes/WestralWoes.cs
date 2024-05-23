@@ -226,6 +226,11 @@ public class WestralWoes : MonoBehaviour
         if (place.EvidencePlaced)
         {
             missionComplete = true;
+            missionName.text = "";
+            objective.text = "";
+            locationClues[0].text = "";
+            locationClues[1].text = "";
+            locationClues[2].text = "";
         }
     }
 }

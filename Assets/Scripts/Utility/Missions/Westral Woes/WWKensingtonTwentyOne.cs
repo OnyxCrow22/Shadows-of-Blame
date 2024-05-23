@@ -9,11 +9,14 @@ public class WWKensingtonTwentyOne : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !WW.placedEvidence)
+        if (other.CompareTag("Player") && on21stFloor)
         {
             on21stFloor = true;
             WW.on21stFloor = true;
             WW.objective.text = "Place the final pieces of evidence on the wall in your suite.";
+            WW.locationClues[0].text = "";
+            WW.locationClues[1].text = "";
+            WW.locationClues[2].text = "";
         }
     }
 }

@@ -7,10 +7,13 @@ public class WWPlaceEvidence : MonoBehaviour
 {
     public WestralWoes WW;
     public EndCredits ending;
+    public GameObject endCredits;
+    public GameObject MainUI;
     public bool EvidencePlaced;
     public GameObject blankEvidence;
     public GameObject filledEvidence;
     public Animator fadeScreen;
+    public PlayerMovementSM playsm;
 
     public IEnumerator EvidenceSwap()
     {
@@ -26,6 +29,9 @@ public class WWPlaceEvidence : MonoBehaviour
         WW.objective.text = "";
         WW.WWHolder.SetActive(false);
         WW.enabled = false;
+        playsm.GetComponent<PlayerMovementSM>().enabled = false;
+        endCredits.SetActive(true);
+        MainUI.SetActive(false);
         ending.CheckEvidence();
     }
 }
