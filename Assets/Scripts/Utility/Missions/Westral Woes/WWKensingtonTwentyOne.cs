@@ -9,7 +9,7 @@ public class WWKensingtonTwentyOne : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && on21stFloor)
+        if (other.CompareTag("Player") && !on21stFloor && !WW.placedEvidence)
         {
             on21stFloor = true;
             WW.on21stFloor = true;

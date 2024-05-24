@@ -9,7 +9,7 @@ public class WWNorthBeachCheck : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && WW.collectedNorthbyEvidence || other.CompareTag("Vehicle") && WW.collectedNorthbyEvidence)
+        if (other.CompareTag("Player") && WW.collectedNorthbyEvidence && !WW.collectedNorthBeachEvidence || other.CompareTag("Vehicle") && WW.collectedNorthbyEvidence && !WW.collectedNorthBeachEvidence)
         {
             enteredNorthBeach = true;
             WW.enteredNorthBeach = true;
