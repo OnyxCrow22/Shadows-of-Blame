@@ -32,7 +32,7 @@ public class WWNorthBeachEvidence : MonoBehaviour
         evidence = true;
         WW.collectedNorthBeachEvidence = true;
         WW.police.cancelPursuit = false;
-        police.UpdateLevel();
+        PoliceLevel.policeLevels = 1;
         PoliceLevel.activateLevel = true;
         WW.objective.text = "Lose the police.";
     }

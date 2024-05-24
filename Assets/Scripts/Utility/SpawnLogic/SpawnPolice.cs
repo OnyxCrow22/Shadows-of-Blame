@@ -27,7 +27,7 @@ public class SpawnPolice : MonoBehaviour
         {
             int SpawnIndex = Random.Range(0, pedestrianSpawns.Length);
             int RandomSpawnDelay = Random.Range(0, 4);
-            int RandomSpeed = Random.Range(1, 3);
+            int RandomSpeed = Random.Range(0, 3);
             newPolicePedestrian = Instantiate(policeOfficer, pedestrianSpawns[SpawnIndex].transform.position, Quaternion.identity);
 
             PoliceMovementSM policesm = newPolicePedestrian.GetComponent<PoliceMovementSM>();

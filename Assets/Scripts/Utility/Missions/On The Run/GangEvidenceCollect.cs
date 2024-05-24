@@ -36,7 +36,7 @@ public class GangEvidenceCollect : MonoBehaviour
         OTR.GangEvidence = true;
         gEvidence.SetActive(false);
         OTR.police.cancelPursuit = false;
-        police.UpdateLevel();
+        PoliceLevel.policeLevels = 1;
         PoliceLevel.activateLevel = true;
         OTR.objective.text = "Lose the police.";
 
