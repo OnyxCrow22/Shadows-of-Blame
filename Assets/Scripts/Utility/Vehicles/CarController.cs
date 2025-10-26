@@ -210,6 +210,11 @@ public class CarController : MonoBehaviour
 
     private void FlipCar()
     {
+        Vector3 currentPos = transform.position;
+        float currentRotationY = transform.rotation.eulerAngles.y;
+
+        transform.position = new Vector3(currentPos.x, currentPos.y + 0.5f, currentPos.z);
+        transform.Rotate(0, 0, 0);
     }
 
     private void TurnIndicators()
