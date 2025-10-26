@@ -40,7 +40,7 @@ public class PoliceHealth : MonoBehaviour
         police.PoliceAnim.SetBool("dead", true);
         hitbox.enabled = false;
         yield return new WaitForSeconds(deadDuration);
-        this.AddComponent<RemoveNPC>();
+        police.gameObject.AddComponent<RemoveNPC>();
     }
 
     

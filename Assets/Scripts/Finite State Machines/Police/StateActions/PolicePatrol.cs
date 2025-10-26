@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class PolicePatrol : PoliceBaseState
 {
     private PoliceMovementSM wanted;
-    float WalkDist = 0.5f;
 
     public PolicePatrol(PoliceMovementSM policeMachine) : base("PolicePatrol", policeMachine)
     {

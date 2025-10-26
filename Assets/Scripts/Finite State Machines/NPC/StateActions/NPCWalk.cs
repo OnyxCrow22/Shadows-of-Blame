@@ -80,7 +80,7 @@ public class NPCWalk : NPCBaseState
 
     public void OnBecameInvisible()
     {
-        AI.AddComponent<RemoveNPC>();
+        AI.NPC.gameObject.AddComponent<RemoveNPC>();
     }
 
     public override void UpdatePhysics()

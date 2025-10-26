@@ -40,7 +40,7 @@ public class NPCHealth : MonoBehaviour
         nsm.NPCAnim.SetBool("dead", true);
         hitbox.enabled = false;
         yield return new WaitForSeconds(deadDuration);
-        this.AddComponent<RemoveNPC>();
+        nsm.gameObject.AddComponent<RemoveNPC>();
     }
 
     
