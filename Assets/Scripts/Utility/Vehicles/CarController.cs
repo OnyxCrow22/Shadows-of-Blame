@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -144,7 +143,7 @@ public class CarController : MonoBehaviour
     private void UpdateSpeed()
     {
         const float MPH_CONVERSION = 2.23694f;
-        currentSpeed = target.velocity.magnitude * MPH_CONVERSION;
+        currentSpeed = target.linearVelocity.magnitude * MPH_CONVERSION;
 
         speedText.text = currentSpeed.ToString("00" + " MPH");
         needle.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, currentSpeed / maxSpeed));

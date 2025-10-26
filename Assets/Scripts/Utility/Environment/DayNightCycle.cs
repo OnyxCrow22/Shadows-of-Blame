@@ -78,18 +78,15 @@ public class DayNightCycle : MonoBehaviour
         float normalizedTime = currentTime / 24f;
         float sunintensityCurve = sunIntensityMultipler.Evaluate(normalizedTime);
         float moonintensityCurve = moonIntensityMultipler.Evaluate(normalizedTime);
-        
-        HDAdditionalLightData sunLightData = sunLight.GetComponent<HDAdditionalLightData>();
-        HDAdditionalLightData moonLightData = moonLight.GetComponent<HDAdditionalLightData>();
 
-        if (sunLightData != null)
+        if (sunLight != null)
         {
-            sunLightData.intensity = sunintensityCurve * sunIntensity;
+            sunLight.intensity = sunintensityCurve * sunIntensity;
         }
 
-        if (moonLightData != null)
+        if (moonLight != null)
         {
-            moonLightData.intensity = moonintensityCurve * moonIntensity;
+            moonLight.intensity = moonintensityCurve * moonIntensity;
         }
 
         float suntemperatureMultipler = sunlightTemperatureCurve.Evaluate(normalizedTime);

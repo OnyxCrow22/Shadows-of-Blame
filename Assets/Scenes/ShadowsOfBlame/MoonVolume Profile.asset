@@ -299,6 +299,11 @@ MonoBehaviour:
   rayMiss:
     m_OverrideState: 0
     m_Value: 3
+  adaptiveProbeVolumesLayerMask:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 0
+      m_Bits: 1
   depthBufferThickness:
     m_OverrideState: 1
     m_Value: 0.1
@@ -392,6 +397,18 @@ MonoBehaviour:
   skyAmbientMode:
     m_OverrideState: 1
     m_Value: 1
+  planetRadius:
+    m_OverrideState: 0
+    m_Value: 6378.1
+  renderingSpace:
+    m_OverrideState: 1
+    m_Value: 0
+  centerMode:
+    m_OverrideState: 0
+    m_Value: 0
+  planetCenter:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: -6378.1, z: 0}
   windOrientation:
     m_OverrideState: 1
     m_Value: 0
@@ -401,6 +418,7 @@ MonoBehaviour:
   fogType:
     m_OverrideState: 1
     m_Value: 0
+  m_Version: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,6 +615,9 @@ MonoBehaviour:
   sliceDistributionUniformity:
     m_OverrideState: 0
     m_Value: 0.75
+  multipleScatteringIntensity:
+    m_OverrideState: 0
+    m_Value: 0
   m_FogControlMode:
     m_OverrideState: 1
     m_Value: 0
@@ -631,12 +652,6 @@ MonoBehaviour:
   enable:
     m_OverrideState: 1
     m_Value: 1
-  localClouds:
-    m_OverrideState: 1
-    m_Value: 0
-  earthCurvature:
-    m_OverrideState: 1
-    m_Value: 0
   cloudTiling:
     m_OverrideState: 1
     m_Value: {x: 1, y: 1}
@@ -909,9 +924,6 @@ MonoBehaviour:
   shadowResolution:
     m_OverrideState: 1
     m_Value: 256
-  shadowPlaneHeightOffset:
-    m_OverrideState: 1
-    m_Value: 0
   shadowDistance:
     m_OverrideState: 0
     m_Value: 8000
@@ -921,7 +933,10 @@ MonoBehaviour:
   shadowOpacityFallback:
     m_OverrideState: 0
     m_Value: 0
-  m_Version: 2
+  m_Version: 3
+  localClouds:
+    m_OverrideState: 1
+    m_Value: 0
   m_ObsoleteWindSpeed:
     m_OverrideState: 1
     m_Value: 1
@@ -1036,9 +1051,9 @@ MonoBehaviour:
   m_DenoiserRadius:
     m_OverrideState: 1
     m_Value: 8
-  m_AffectSmoothSurfaces:
-    m_OverrideState: 1
-    m_Value: 0
+  m_DenoiserAntiFlickeringStrength:
+    m_OverrideState: 0
+    m_Value: 1
   mode:
     m_OverrideState: 1
     m_Value: 2
@@ -1054,3 +1069,8 @@ MonoBehaviour:
   m_RayMaxIterationsRT:
     m_OverrideState: 1
     m_Value: 48
+  adaptiveProbeVolumesLayerMask:
+    m_OverrideState: 0
+    m_Value:
+      serializedVersion: 0
+      m_Bits: 1

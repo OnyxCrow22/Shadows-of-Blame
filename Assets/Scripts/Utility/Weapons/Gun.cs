@@ -143,7 +143,7 @@ public class Gun : MonoBehaviour
         Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
 
         Vector3 bulletVel = direction.normalized * bulletSpeed;
-        bulletRB.velocity = bulletVel;
+        bulletRB.linearVelocity = bulletVel;
 
         Destroy(newBullet, 5);
 
