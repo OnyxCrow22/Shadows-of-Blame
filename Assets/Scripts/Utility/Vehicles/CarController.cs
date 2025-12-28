@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CarController : MonoBehaviour
 {
     [Header("Car Settings")]
     float horizontalInput;
     float verticalInput;
-    float reverse;
     float steeringAngle;
     public float maxSteeringAngle;
     public float motorForce;
@@ -18,6 +18,9 @@ public class CarController : MonoBehaviour
     public float indicator;
     public int pressCount;
 
+    // Caches the last recorded speed.
+    private float lastDisplayedSpeed = -1f;
+
     public Rigidbody target;
     public TextMeshProUGUI speedText;
     public Light leftIndicator, rightIndicator;
@@ -25,12 +28,7 @@ public class CarController : MonoBehaviour
     public Light[] reverseLight;
 
     [Header("Wheel colliders")]
-    public WheelCollider frontDriverW, frontPassengerW;
-    public WheelCollider rearDriverW, rearPassengerW;
-
-    [Header("Transforms")]
-    public Transform frontDriverT, frontPassengerT;
-    public Transform rearDriverT, rearPassengerT;
+    public Wheel[] wheels;
 
     [Header("Booleans")]
     public bool braking = false;
@@ -38,7 +36,6 @@ public class CarController : MonoBehaviour
     public bool turningRight = false;
     public bool indicating = false;
     public bool reversing = false;
-    public bool negative = false;
     public bool vehicleonSide = false;
 
     [Header("Float references")]
@@ -49,186 +46,260 @@ public class CarController : MonoBehaviour
     public RectTransform needle;
     public GameObject speedometer;
 
+    [Header("Player Controller")]
+    public PlayerInput pController;
+
+    private Coroutine leftIndicatorRoutine;
+    private Coroutine rightIndicatorRoutine;
+
+    [System.Serializable] 
+   public struct Wheel
+    {
+        public WheelCollider wCollider;
+        public Transform vehicle;
+    }
+
+    // Start is called before the first frame update
     private void Start()
     {
         currentSpeed = 0;
     }
 
+    // Update is called once per frame
     public void FixedUpdate()
     {
         Steer();
         Accelerate();
-        Reverse();
-        Brake();
-        TurnIndicators();
-        UpdateWheelPoses();
-    }
-
-    private void Update()
-    {
-        GetInput();
         UpdateSpeed();
 
-        if (transform.rotation.x > 10)
+        if (currentSpeed > 0.01f)
         {
-            vehicleonSide = true;
+            UpdateWheelPoses();
+        }
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        vehicleonSide = Mathf.Abs(transform.up.y) < 0.2f;
+    }
+
+    public void OnFlip(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (vehicleonSide)
+            FlipCar();
+    }
+
+    public void OnBrake(InputAction.CallbackContext ctx)
+    {
+        float brakeVal = ctx.ReadValue<float>();
+
+        if (brakeVal > 0.01f)
+        {
+            braking = true;
+            ApplyBrake(brakeVal);
         }
         else
         {
-            vehicleonSide = false;
-        }    
+            braking = false;
+            ReleaseBrake();
+        }
     }
 
-    public void GetInput()
+    public void OnReverse(InputAction.CallbackContext ctx)
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
-
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.S) && verticalInput <= 0 && !braking && currentSpeed > 0)
+        if (ctx.performed)
         {
-            Brake();
-            braking = true;
+            BeginReversing();
         }
-
-        else if (verticalInput >= 0.01f)
+        else if (ctx.canceled)
         {
-            braking = false;
-        }
-
-        if (verticalInput == -1f && braking && currentSpeed <= 0.02)
-        {
-            Reverse();
-            reversing = true;
-            braking = false;
-            negative = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftBracket) && !turningLeft && pressCount == 1)
-        {
-            TurnIndicators();
-            turningLeft = true;
-            indicating = true;
-            pressCount += 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftBracket) && turningLeft && pressCount == 2)
-        {
-            turningLeft = false;
-            indicating = false;
-            pressCount -= 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightBracket) && !turningRight && pressCount == 1)
-        {
-            TurnIndicators();
-            turningRight = true;
-            indicating = true;
-            pressCount += 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightBracket) && turningRight && pressCount == 2)
-        {
-            turningRight = false;
-            indicating = false;
-            pressCount -= 1;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && vehicleonSide)
-        {
-            FlipCar();
+            StopReversing();
         }
     }
 
+    public void OnAccelerate(InputAction.CallbackContext ctx)
+    {
+        verticalInput = ctx.ReadValue<float>();
+    }
 
+    public void OnIndicateLeft(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (turningRight)
+            // Turn off the right indicator
+            ToggleIndicator(ref turningRight, TurningRight(), ref rightIndicatorRoutine, rightIndicator);
+
+        // Turn on the left indicator
+        ToggleIndicator(ref turningLeft, TurningLeft(), ref leftIndicatorRoutine, leftIndicator);
+    }
+
+    public void OnIndicateRight(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (turningLeft)
+            // Turn off the left indicator
+            ToggleIndicator(ref turningLeft, TurningLeft(), ref leftIndicatorRoutine, leftIndicator);
+
+        // Turn on the right indicator
+        ToggleIndicator(ref turningRight, TurningRight(), ref rightIndicatorRoutine, rightIndicator);
+    }
+
+    public void OnSteer(InputAction.CallbackContext ctx)
+    {
+        float value = ctx.ReadValue<float>();
+
+        // Adds a deadzone for controllers.
+        horizontalInput = Mathf.Abs(value) < 0.1f ? 0 : value;
+    }
 
     private void UpdateSpeed()
     {
         const float MPH_CONVERSION = 2.23694f;
-        currentSpeed = target.linearVelocity.magnitude * MPH_CONVERSION;
 
-        speedText.text = currentSpeed.ToString("00" + " MPH");
-        needle.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, currentSpeed / maxSpeed));
+        // Cache the target.linearVelocity
+        Vector3 vel = target.linearVelocity;
+        currentSpeed = vel.magnitude * MPH_CONVERSION;
+
+        if (Mathf.Abs(currentSpeed - lastDisplayedSpeed) >= 1f)
+        {
+            lastDisplayedSpeed = currentSpeed;
+
+            speedText.text = $"{currentSpeed:00} MPH";
+
+            float t = Mathf.Clamp01(currentSpeed / maxSpeed);
+            float angle = Mathf.Lerp(minSpeedArrowAngle, maxSpeedArrowAngle, t);
+
+            needle.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(needle.localEulerAngles.z, angle, Time.deltaTime * 10f));
+        }
     }
 
     private void Steer()
     {
         steeringAngle = maxSteeringAngle * horizontalInput;
-        frontDriverW.steerAngle = steeringAngle;
-        frontPassengerW.steerAngle = steeringAngle;
+        wheels[0].wCollider.steerAngle = steeringAngle;
+        wheels[1].wCollider.steerAngle = steeringAngle;
     }
 
     private void Accelerate()
     {
-        frontDriverW.motorTorque = verticalInput * motorForce;
-        frontPassengerW.motorTorque = verticalInput * motorForce;
-        rearDriverW.motorTorque = verticalInput * motorForce;
-        rearPassengerW.motorTorque = verticalInput * motorForce;
-    }
+        if (currentSpeed < maxSpeed)
+        {
+            float torque = verticalInput * motorForce;
 
-    private void Brake()
-    {
-        if (braking && currentSpeed >= 0.25f && !reversing)
-        {
-            frontDriverW.brakeTorque = brakeForce;
-            frontPassengerW.brakeTorque = brakeForce;
-            rearDriverW.brakeTorque = brakeForce;
-            rearPassengerW.brakeTorque = brakeForce;
-            rearLight1.gameObject.SetActive(true);
-            rearLight2.gameObject.SetActive(true);
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                wheels[i].wCollider.motorTorque = torque;
+            }
         }
-        else if (horizontalInput > 0.01f | verticalInput > 0.01f) 
+        else
         {
-            frontDriverW.brakeTorque = 0f;
-            frontPassengerW.brakeTorque = 0f;
-            rearDriverW.brakeTorque = 0f;
-            rearPassengerW.brakeTorque = 0f;
-            rearLight1.gameObject.SetActive(false);
-            rearLight2.gameObject.SetActive(false);
+            for (int i = 0; i < wheels.Length; i++)
+            {
+                wheels[i].wCollider.motorTorque = 0;
+            }
         }
     }
 
-    private void Reverse()
+    // Applies the brakes.
+    private void ApplyBrake(float amount)
     {
-        if (verticalInput == -1f && reversing && !braking && currentSpeed >= 0.01 && negative)
-        {
-            frontDriverW.motorTorque = verticalInput * motorForce;
-            frontPassengerW.motorTorque = verticalInput * motorForce;
-            rearDriverW.motorTorque = verticalInput * motorForce;
-            rearPassengerW.motorTorque = verticalInput * motorForce;
+        float torque = brakeForce * amount;
 
-            reverseLight[0].gameObject.SetActive(true);
-            reverseLight[1].gameObject.SetActive(true);
-        }
-        // No longer reversing, turn off lights.
-        else if (verticalInput >= 0f) 
+        for (int i = 0; i < wheels.Length; i++)
         {
-            reverseLight[0].gameObject.SetActive(false);
-            reverseLight[1].gameObject.SetActive(false);
-            reversing = false;
-            negative = false;
+            wheels[i].wCollider.brakeTorque = torque;
+        }
+        rearLight1.gameObject.SetActive(true);
+        rearLight2.gameObject.SetActive(true);
+    }
+
+    // Releases the brakes.
+    private void ReleaseBrake()
+    {
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            wheels[i].wCollider.brakeTorque = 0;
+        }
+        rearLight1.gameObject.SetActive(false);
+        rearLight2.gameObject.SetActive(false);
+    }
+
+    private void ToggleIndicator(ref bool indicatorState, IEnumerator routineMethod, ref Coroutine indicatorRoutine, Light indicatorLight)
+    {
+        indicatorState = !indicatorState;
+
+        if (indicatorState)
+        {
+            if (indicatorRoutine == null)
+            {
+                indicatorRoutine = StartCoroutine(routineMethod);
+            }
+            indicatorLight.gameObject.SetActive(true);
+            indicating = true;
+            pressCount++;
+        }
+        else
+        {
+            if (indicatorRoutine != null)
+            {
+                StopCoroutine(indicatorRoutine);
+                indicatorRoutine = null;
+            }
+            indicatorLight.gameObject.SetActive(false);
+            indicating = false;
+            pressCount--;
+        }
+    }
+
+    private void BeginReversing()
+    {
+        reversing = true;
+
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            if (!braking)
+            {
+                wheels[i].wCollider.motorTorque = -motorForce;
+            }
+        }
+
+        foreach (Light reverser in reverseLight)
+        {
+            reverser.gameObject.SetActive(true);
+        }
+    }
+
+    private void StopReversing()
+    {
+        reversing = false;
+
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            wheels[i].wCollider.motorTorque = 0;
+        }
+
+        foreach (Light reverser in reverseLight)
+        {
+            reverser.gameObject.SetActive(false);
         }
     }
 
     private void FlipCar()
     {
         Vector3 currentPos = transform.position;
-        float currentRotationY = transform.rotation.eulerAngles.y;
+        float yaw = transform.eulerAngles.y;
 
-        transform.position = new Vector3(currentPos.x, currentPos.y + 0.5f, currentPos.z);
-        transform.Rotate(0, 0, 0);
-    }
+        transform.position = new Vector3(currentPos.x, currentPos.y + 1f, currentPos.z);
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
 
-    private void TurnIndicators()
-    {
-        if (turningLeft)
-        {
-            StartCoroutine(TurningLeft());
-            indicating = true;
-        }
-        if (turningRight)
-        {
-            indicating = true;
-            StartCoroutine(TurningRight());
-        }
+        // Stops the car from launching into the air.
+        target.linearVelocity = Vector3.zero;
+        target.angularVelocity = Vector3.zero;
     }
 
     IEnumerator TurningLeft()
@@ -238,8 +309,6 @@ public class CarController : MonoBehaviour
             leftIndicator.gameObject.SetActive(true);
             yield return new WaitForSeconds(indicator);
             leftIndicator.gameObject.SetActive(false);
-            yield return new WaitForSeconds(indicator);
-            leftIndicator.gameObject.SetActive(true);
             yield return new WaitForSeconds(indicator);
         }
     }
@@ -252,27 +321,22 @@ public class CarController : MonoBehaviour
             yield return new WaitForSeconds(indicator);
             rightIndicator.gameObject.SetActive(false);
             yield return new WaitForSeconds(indicator);
-            rightIndicator.gameObject.SetActive(true);
-            yield return new WaitForSeconds(indicator);
         }
     }
 
     private void UpdateWheelPoses()
     {
-        UpdateWheelPose(frontDriverW, frontDriverT);
-        UpdateWheelPose(frontPassengerW, frontPassengerT);
-        UpdateWheelPose(rearDriverW, rearDriverT);
-        UpdateWheelPose(rearPassengerW, rearPassengerT);
+        for (int i = 0; i < wheels.Length; i++)
+        {
+            UpdateWheelPose(wheels[i]);
+        }
     }
 
-    private void UpdateWheelPose(WheelCollider wCol, Transform vtransform)
+    private void UpdateWheelPose(Wheel wheel)
     {
-        Vector3 carPos;
-        Quaternion carQuat;
+        wheel.wCollider.GetWorldPose(out Vector3 carPos, out Quaternion carQuat);
 
-        wCol.GetWorldPose(out carPos, out carQuat);
-
-        vtransform.transform.position = carPos;
-        vtransform.transform.rotation = carQuat;
+        wheel.vehicle.position = carPos;
+        wheel.vehicle.rotation = carQuat;
     }
 }
