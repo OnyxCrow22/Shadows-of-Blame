@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CollectEvidence : MonoBehaviour
+public class CollectEvidence : MonoBehaviour, IInteractable
 {
     [Header("GameObject References")]
     public GameObject evidence;
@@ -45,5 +41,36 @@ public class CollectEvidence : MonoBehaviour
             OTR.magGlass.SetActive(false);
             OTR.objective.text = "Go to the gang compound.";
         }
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+        if (!reading)
+        {
+            rMaster.interactKey.SetActive(true);
+        }
+    }
+
+    public void Toggle()
+    {
+        if (!reading)
+        {
+            reading = true;
+            PickUp();
+        }
+        else
+        {
+            CloseWindow();
+        }
+    }
+
+    public void OnLookAway()
+    {
+        rMaster.interactKey.SetActive(false);
     }
 }

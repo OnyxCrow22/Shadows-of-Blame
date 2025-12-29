@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GangEvidenceCollect : MonoBehaviour
+public class GangEvidenceCollect : MonoBehaviour, IInteractable
 {
     public GameObject gEvidence;
     public GameObject gPanel;
@@ -50,5 +50,25 @@ public class GangEvidenceCollect : MonoBehaviour
         OTR.Escaped = true;
         PoliceLevel.activateLevel = false;
         Escaped = true;
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

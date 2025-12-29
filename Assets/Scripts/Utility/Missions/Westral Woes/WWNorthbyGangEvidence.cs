@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WWNorthbyGangEvidence : MonoBehaviour
+public class WWNorthbyGangEvidence : MonoBehaviour, IInteractable
 {
     public GameObject gEvidence;
     public GameObject gPanel;
@@ -33,5 +33,25 @@ public class WWNorthbyGangEvidence : MonoBehaviour
         WW.locationClues[0].text = "It's located WEST of Northby.";
         WW.locationClues[1].text = "The Oasis Hotel is the highest building in the district.";
         WW.locationClues[2].text = "It's northwest of the Financial District.";
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

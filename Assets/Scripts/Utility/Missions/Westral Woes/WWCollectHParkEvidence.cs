@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WWCollectHParkEvidence : MonoBehaviour
+public class WWCollectHParkEvidence : MonoBehaviour, IInteractable
 {
     public GameObject evidence;
     public GameObject panel;
@@ -45,5 +45,25 @@ public class WWCollectHParkEvidence : MonoBehaviour
             WW.locationClues[1].text = "The Roulette Hotel & Casino is the tallest building in the city.";
             WW.locationClues[2].text = "The district is next to the PORT OF WEST INSBURY.";
         }
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WWCollectPrescottEvidence : MonoBehaviour
+public class WWCollectPrescottEvidence : MonoBehaviour, IInteractable
 {
     public GameObject evidence;
     public GameObject panel;
@@ -45,5 +45,25 @@ public class WWCollectPrescottEvidence : MonoBehaviour
             WW.locationClues[1].text = "The auto shop is just off the M 150.";
             WW.locationClues[2].text = "It's immediately EAST of Northby Roundabout";
         }
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

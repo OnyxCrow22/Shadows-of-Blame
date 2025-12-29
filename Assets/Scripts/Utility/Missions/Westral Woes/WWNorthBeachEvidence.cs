@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class WWNorthBeachEvidence : MonoBehaviour
+public class WWNorthBeachEvidence : MonoBehaviour, IInteractable
 {
     public GameObject gEvidence;
     public GameObject gPanel;
@@ -45,5 +45,25 @@ public class WWNorthBeachEvidence : MonoBehaviour
         WW.locationClues[2].text = "The building is on THE ORBITAL.";
         evadedPolice = true;
         WW.evadedPolice = true;
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

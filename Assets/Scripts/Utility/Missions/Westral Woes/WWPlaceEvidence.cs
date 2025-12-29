@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class WWPlaceEvidence : MonoBehaviour
+public class WWPlaceEvidence : MonoBehaviour, IInteractable
 {
     public WestralWoes WW;
     public EndCredits ending;
@@ -33,5 +33,25 @@ public class WWPlaceEvidence : MonoBehaviour
         endCredits.SetActive(true);
         MainUI.SetActive(false);
         ending.CheckEvidence();
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

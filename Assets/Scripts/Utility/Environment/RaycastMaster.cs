@@ -30,17 +30,23 @@ public class RaycastMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EvidenceCollecting();
-        DoorHandling();
-        CarDoors();
-        GEvidenceCollect();
-        HParkEvidenceCollect();
-        PrescottEvidenceCollect();
-        NorthbyEvidenceCollect();
-        NorthBeachEvidenceCollect();
-        PlaceEvidenceOnBoard();
-        LiftOperate();
+        // The master control for interactions.
+        HandleInteraction();
 
+        PlaceEvidenceOnBoard();
+
+        if (!playsm.inVehicle)
+        {
+            HandleInteraction();
+        }
+        else
+        {
+            if (interactPressed)
+            {
+                VehicleEnterExit currentVehicle = GetComponentInParent<VehicleEnterExit>();
+                if (currentVehicle != null) currentVehicle?.Toggle();
+            }
+        }
         interactPressed = false;
     }
 
@@ -48,102 +54,6 @@ public class RaycastMaster : MonoBehaviour
     {
         if (ctx.performed)
             interactPressed = true;
-    }
-
-    public void DoorHandling()
-    {
-        Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward, Color.blue);
-        RaycastHit hit;
-        float rayLength = 4;
-        if (!Physics.Raycast(ray, out hit, rayLength))
-        {
-            lastIntercable?.OnLookAway();
-            lastIntercable = null;
-            return;
-        }
-        if (!hit.collider.gameObject.CompareTag("Door"))
-        {
-            lastIntercable?.OnLookAway();
-            lastIntercable = null;
-            return;
-        }
-
-        IIteractable interactable = hit.collider.gameObject.GetComponent<IIteractable>();
-        if (IIteractable == null)
-        {
-            lastIntercable?.OnLookAway();
-            lastIntercable = null;
-            return;
-        }
-
-        if (IIteractable != lastIntercable)
-        {
-            lastIntercable?.OnLookAway();
-            lastIntercable = IIteractable;
-        }
-        IIteractable.OnLookAt();
-
-        if (interactPressed)
-        {
-            IIteractable.Toggle();
-            interactKey.SetActive(false);
-        }
-    }
-
-    public void CarDoors()
-    {
-        Ray carDoorRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward, Color.blue);
-        RaycastHit carDoorHit;
-        float rayLength = 2;
-        if (Physics.Raycast(carDoorRay, out carDoorHit, rayLength))
-        {
-            if (carDoorHit.collider.gameObject.tag == "VehicleDoor")
-            {
-                VehicleEnterExit veh = carDoorHit.collider.gameObject.GetComponent<VehicleEnterExit>();
-                interactKey.SetActive(true);
-                veh.canEnter = true;
-                if (interactPressed && !veh.inVehicle)
-                {
-                    StartCoroutine(veh.EnteringVehicle());
-                    veh.canEnter = false;
-                    interactKey.SetActive(false);
-                }
-                else if (interactPressed && veh.inVehicle)
-                {
-                    StartCoroutine(veh.ExitingVehicle());
-                    veh.canExit = true;
-                    veh.canEnter = false;
-                    interactKey.SetActive(false);
-                }
-            }
-        }
-    }
-
-    public void EvidenceCollecting()
-    {
-        Ray evidenceRay = new Ray(transform.position, Vector3.down);
-        Debug.DrawRay(transform.position, Vector3.down, Color.blue);
-        float rayLength = 4;
-        if (Physics.Raycast(evidenceRay, out RaycastHit evidenceHit, rayLength))
-        {
-            if (evidenceHit.collider.gameObject.tag == "Evidence")
-            {
-                CollectEvidence collectEvidence = evidenceHit.collider.gameObject.GetComponent<CollectEvidence>();
-                Debug.Log("HIT THE EVIDENCE!");
-                interactKey.SetActive(true);
-                if (interactPressed && !collectEvidence.reading)
-                {
-                    collectEvidence.PickUp();
-                    collectEvidence.reading = true;
-                }
-                else if (interactPressed && collectEvidence.reading)
-                {
-                    collectEvidence.CloseWindow();
-                }
-            }
-        }
     }
 
     public void HParkEvidenceCollect()
@@ -270,6 +180,51 @@ public class RaycastMaster : MonoBehaviour
         }
     }
 
+    // Responsible for handling all interactions in the game world
+    public void HandleInteraction()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 4f))
+        {
+            IInteractable interactable = hitInfo.collider.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                // Show interaction prompt, as something is interactable
+                interactKey.SetActive(true);
+
+                if (interactable != lastIntercable)
+                {
+                    lastIntercable?.OnLookAway();
+                    lastIntercable = interactable;
+                    lastIntercable.OnLookAt();
+                }
+
+                if (interactPressed)
+                {
+                    // Perform interaction
+                    interactable.Toggle();
+                }
+            }
+            else
+            {
+                // Negative hit, not a object to interact with
+                ResetInteraction();
+            }
+        }
+        else
+        {
+            // Negative hit, not a object to interact with
+            ResetInteraction();
+        }
+    }
+
+    public void ResetInteraction()
+    {
+        interactKey.SetActive(false);
+        lastIntercable?.OnLookAway();
+        lastIntercable = null;
+    }
+
     public void PlaceEvidenceOnBoard()
     {
         Ray placeRay = new Ray(transform.position, transform.forward);
@@ -303,61 +258,5 @@ public class RaycastMaster : MonoBehaviour
             }
         }
 
-    }
-
-    public void LiftOperate()
-    {
-        Ray liftRay = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(transform.position, transform.forward, Color.black);
-        float liftLength = 8;
-        if (Physics.Raycast(liftRay, out RaycastHit liftHit, liftLength))
-        {
-            if (liftHit.collider.tag == "LiftObj")
-            {
-                Lift newLift = liftHit.collider.gameObject.GetComponent<Lift>();
-                Debug.Log("Going up or down?");
-                interactKey.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    if (newLift.atBottom)
-                    {
-                        StartCoroutine(newLift.OperateLift());
-                        interactKey.SetActive(false);
-                        buttonPressed = true;
-                        inLift = true;
-                        Debug.Log("Please stand clear of the doors. We are now going up to the 21st Floor.");
-                    }
-                    else if (newLift.atTop)
-                    {
-                        StartCoroutine(newLift.GoingDown());
-                        interactKey.SetActive(false);
-                        buttonPressed = true;
-                        inLift = true;
-                        Debug.Log("Please stand clear of the doors. We are now going up to the ground floor.");
-                    }
-                }
-            }
-
-            if (liftHit.collider.tag == "Button")
-            {
-                LiftCall callLift = liftHit.collider.gameObject.GetComponent<LiftCall>();
-                interactKey.SetActive(true);
-                if (interactPressed)
-                {
-                    if (callLift.liftToCall.atBottom)
-                    {
-                        callLift.Up();
-                        inLift = false;
-                        interactKey.SetActive(false);
-                    }
-                    else if (callLift.liftToCall.atTop)
-                    {
-                        callLift.Down();
-                        inLift = false;
-                        interactKey.SetActive(false);
-                    }
-                }
-            }
-        }
     }
 }

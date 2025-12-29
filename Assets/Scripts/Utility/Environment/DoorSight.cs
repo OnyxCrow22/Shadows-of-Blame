@@ -4,79 +4,48 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     public bool isOpen = false;
+    public bool isAnimating = false;
+    public AudioClip[] doorClips;
+    public AudioSource doorSound;
     public Animator doorAnim;
     public RaycastMaster rMaster;
-    public AudioSource doorSound;
 
-    public GameObject interactKey;
+    public void OnInteract() {  }
 
-    // Use this only for buttons, otherwise leave blank.
-    public GameObject doorReference;
+    public void OnLookAt() { }
 
-    // Use the same sound twice in the array if a garage door.
-    public AudioClip[] doorClips;
-
-    public void OnInteract()
-    {
-        Toggle();
-        if (interactKey != null)
-        {
-            interactKey.SetActive(false);
-        }
-    }
-
-    public void OnLookAt()
-    {
-        if (interactKey != null)
-        {
-            interactKey.SetActive(true);
-        }
-    }
-
-    public void OnLookAway()
-    {
-        if (interactKey != null)
-        {
-            interactKey.SetActive(false);
-        }
-    }
+    public void OnLookAway() { }
 
     public void Toggle()
     {
+        if (isAnimating) return;
+
         if (isOpen)
         {
-            StartCoroutine(ClosingDoor());
-            StopCoroutine(OpeningDoor());
-
+            StartCoroutine(DoorRoutine("closeDoor", doorClips[1], false));
         }
         else
         {
-            StartCoroutine(OpeningDoor());
-            StopCoroutine(ClosingDoor());
+            StartCoroutine(DoorRoutine("openDoor", doorClips[0], true));
         }
     }
 
-    public IEnumerator OpeningDoor()
+    public IEnumerator DoorRoutine(string animParam, AudioClip clip, bool openState)
     {
-        doorAnim.SetBool("openDoor", true);
-        doorSound.PlayOneShot(doorClips[0]);
-        doorAnim.SetBool("closeDoor", false);
-        Debug.Log("DOOR OPENING");
-        isOpen = true;
-        rMaster.interactKey.SetActive(false);
-        yield return new WaitForSeconds(2);
-        StopCoroutine(OpeningDoor());
-    }
+        isAnimating = true;
+        isOpen = openState;
 
-    public IEnumerator ClosingDoor()
-    {
-        doorAnim.SetBool("closeDoor", true);
-        doorSound.PlayOneShot(doorClips[1]);
+        doorAnim.SetBool("closeDoor", false);
         doorAnim.SetBool("openDoor", false);
-        Debug.Log("DOOR NOW CLOSING");
-        isOpen = false;
+
+        doorAnim.SetBool(animParam, true);
+
+        if (clip != null) doorSound.PlayOneShot(clip);
+
         rMaster.interactKey.SetActive(false);
-        yield return new WaitForSeconds(2);
-        StopCoroutine(ClosingDoor());
+
+        yield return new WaitForSeconds(2f);
+
+        isAnimating = false;
     }
 }

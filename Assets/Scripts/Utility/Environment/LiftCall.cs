@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LiftCall : MonoBehaviour
+public class LiftCall : MonoBehaviour, IInteractable
 {
     public Lift liftToCall;
+    public int floorButton;
 
-    public void Up()
+    public void OnInteract()
     {
-        StartCoroutine(liftToCall.OperateLift());
+
     }
 
-    public void Down()
+    public void OnLookAt()
     {
-        StartCoroutine(liftToCall.GoingDown());
+
+    }
+
+    public void Toggle()
+    {
+        liftToCall.rMaster.buttonPressed = true;
+        liftToCall.rMaster.inLift = true;
+
+        liftToCall.GoToFloor(floorButton);
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }

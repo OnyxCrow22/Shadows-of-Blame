@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class EvidencePlace : MonoBehaviour
+public class EvidencePlace : MonoBehaviour, IInteractable
 {
     public OnTheRun OTR;
     public bool EvidencePlaced;
@@ -31,5 +31,25 @@ public class EvidencePlace : MonoBehaviour
         OTR.enabled = false;
         OTR.WW.enabled = true;
         
+    }
+
+    public void OnInteract()
+    {
+
+    }
+
+    public void OnLookAt()
+    {
+
+    }
+
+    public void Toggle()
+    {
+
+    }
+
+    public void OnLookAway()
+    {
+
     }
 }
