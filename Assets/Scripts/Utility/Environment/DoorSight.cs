@@ -10,7 +10,7 @@ public class Door : MonoBehaviour, IInteractable
     public Animator doorAnim;
     public RaycastMaster rMaster;
 
-    public void OnInteract() {  }
+    public void OnInteract() { }
 
     public void OnLookAt() { }
 

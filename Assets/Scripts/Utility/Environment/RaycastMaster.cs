@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,26 +33,16 @@ public class RaycastMaster : MonoBehaviour
         HandleInteraction();
 
         PlaceEvidenceOnBoard();
-
-        if (!playsm.inVehicle)
-        {
-            HandleInteraction();
-        }
-        else
-        {
-            if (interactPressed)
-            {
-                VehicleEnterExit currentVehicle = GetComponentInParent<VehicleEnterExit>();
-                if (currentVehicle != null) currentVehicle?.Toggle();
-            }
-        }
         interactPressed = false;
     }
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
-            interactPressed = true;
+        {
+           interactPressed = true;
+           Debug.Log("Door opening..");
+        }
     }
 
     public void HParkEvidenceCollect()
@@ -192,6 +181,15 @@ public class RaycastMaster : MonoBehaviour
                 // Show interaction prompt, as something is interactable
                 interactKey.SetActive(true);
 
+                // Position the interact key above the object being looked at
+                Vector3 hitPoint = hitInfo.point;
+
+                Vector3 directionToPlayer = (playerCamera.transform.position - hitPoint).normalized;
+                interactKey.transform.position = hitPoint + (directionToPlayer * 0.1f);
+
+                // Make the interact key always face the player
+                interactKey.transform.LookAt(playerCamera.transform);
+
                 if (interactable != lastIntercable)
                 {
                     lastIntercable?.OnLookAway();
@@ -203,18 +201,21 @@ public class RaycastMaster : MonoBehaviour
                 {
                     // Perform interaction
                     interactable.Toggle();
+                    interactPressed = false;
                 }
             }
             else
             {
                 // Negative hit, not a object to interact with
                 ResetInteraction();
+                Debug.Log("Aww :(");
             }
         }
         else
         {
             // Negative hit, not a object to interact with
             ResetInteraction();
+            Debug.Log("Aww :(");
         }
     }
 
