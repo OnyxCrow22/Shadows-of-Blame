@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovementSM : PlayerStateMachine
 {
@@ -25,6 +26,18 @@ public class PlayerMovementSM : PlayerStateMachine
 
     public bool throwingGrenade = false;
     public bool hasThrownGrenade = false;
+
+    [Header("Input Checks")]
+    [HideInInspector] public Vector2 moveInput;
+    [HideInInspector] public Vector2 lookInput;
+    [HideInInspector] public bool jumpPressed;
+    [HideInInspector] public bool attackPressed;
+    [HideInInspector] public bool weaponEquipPressed;
+    [HideInInspector] public bool sprintPressed;
+    [HideInInspector] public float turnSmoothVelocity;
+    public float controllerSensitvity = 100f;
+    public float acceleration = 10f;
+    public float currentSpeed;
 
     public Gun weapon;
     public PlayerHealth health;
@@ -58,6 +71,29 @@ public class PlayerMovementSM : PlayerStateMachine
         crouchWalking = new CrouchWalking(this);
         jumpingState = new Jump(this);
         punchingState = new Punch(this);
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed) jumpPressed = true;
+        if (context.canceled) jumpPressed = false;
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        // Sprint input handled in Walk state
+        if (context.performed) sprintPressed = true;
+        if (context.canceled) sprintPressed = false;
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        lookInput = context.ReadValue<Vector2>();
     }
 
     protected override PlayerBaseState GetInitialState()
