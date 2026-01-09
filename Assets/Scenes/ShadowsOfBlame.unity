@@ -75071,6 +75071,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 728828120390322082, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 728828120390322082, guid: 8d0f0ea66b5c981449a6ac08a2de53e4, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
@@ -81178,7 +81182,7 @@ MonoBehaviour:
   throwForce: 40
   grenade: {fileID: 92930332898233918, guid: 5f66309123b11804fb2d6fe89fc56b9f, type: 3}
   playsm: {fileID: 632803174}
-  delay: 20
+  throwCooldown: 20
 --- !u!114 &632803189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81317,7 +81321,19 @@ MonoBehaviour:
     m_ActionId: e1397865-0b1e-47ca-9fc4-7f7df668bc1a
     m_ActionName: 'Weapon Combat/Unequip[/XInputControllerWindows/leftShoulder,/Keyboard/q]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1216640981}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b70d6a4e-41ba-4324-907b-1c7fcedebe53
     m_ActionName: 'Weapon Combat/Open Wheel[/XInputControllerWindows/leftShoulder,/Keyboard/q]'
   - m_PersistentCalls:
@@ -81348,6 +81364,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 724f47ca-9ebb-46e7-aacd-d59d1d71f0e3
     m_ActionName: 'Ground Vehicles/Steer[/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow,/XInputControllerWindows/leftStick/x]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 11278e5d-b8f1-464d-90d3-598f98419f61
+    m_ActionName: 'Weapon Combat/Grenade[/Keyboard/g,/XInputControllerWindows/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
@@ -133769,6 +133789,20 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8160f28abe09b30488bd02cc0003dfe1, type: 3}
+--- !u!114 &1164201527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: Weapon Combat/Wheel
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: 1205ce766c95a5f42a95c21000df8f1f, type: 3}
+  m_ActionId: b70d6a4e-41ba-4324-907b-1c7fcedebe53
 --- !u!1001 &1164535806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138792,6 +138826,7 @@ MonoBehaviour:
   weapons: {fileID: 89751738}
   MainUI: {fileID: 604134878}
   WeaponWheelPanel: {fileID: 1828382364}
+  playerControls: {fileID: 1164201527}
 --- !u!1001 &1216792472
 PrefabInstance:
   m_ObjectHideFlags: 0

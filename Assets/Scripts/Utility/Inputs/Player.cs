@@ -438,9 +438,18 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Open Wheel"",
+                    ""name"": ""Wheel"",
                     ""type"": ""Button"",
                     ""id"": ""b70d6a4e-41ba-4324-907b-1c7fcedebe53"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Grenade"",
+                    ""type"": ""Button"",
+                    ""id"": ""11278e5d-b8f1-464d-90d3-598f98419f61"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -565,7 +574,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Open Wheel"",
+                    ""action"": ""Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -576,7 +585,29 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Open Wheel"",
+                    ""action"": ""Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7769cafd-b8af-42e4-a84c-579548a9eb15"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grenade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bc8aca1-adae-43ac-bbe8-dc7b92b5aabf"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grenade"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -871,7 +902,8 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_WeaponCombat_Reload = m_WeaponCombat.FindAction("Reload", throwIfNotFound: true);
         m_WeaponCombat_Equip = m_WeaponCombat.FindAction("Equip", throwIfNotFound: true);
         m_WeaponCombat_Unequip = m_WeaponCombat.FindAction("Unequip", throwIfNotFound: true);
-        m_WeaponCombat_OpenWheel = m_WeaponCombat.FindAction("Open Wheel", throwIfNotFound: true);
+        m_WeaponCombat_Wheel = m_WeaponCombat.FindAction("Wheel", throwIfNotFound: true);
+        m_WeaponCombat_Grenade = m_WeaponCombat.FindAction("Grenade", throwIfNotFound: true);
         // Ground Vehicles
         m_GroundVehicles = asset.FindActionMap("Ground Vehicles", throwIfNotFound: true);
         m_GroundVehicles_Accelerate = m_GroundVehicles.FindAction("Accelerate", throwIfNotFound: true);
@@ -1141,7 +1173,8 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_WeaponCombat_Reload;
     private readonly InputAction m_WeaponCombat_Equip;
     private readonly InputAction m_WeaponCombat_Unequip;
-    private readonly InputAction m_WeaponCombat_OpenWheel;
+    private readonly InputAction m_WeaponCombat_Wheel;
+    private readonly InputAction m_WeaponCombat_Grenade;
     /// <summary>
     /// Provides access to input actions defined in input action map "Weapon Combat".
     /// </summary>
@@ -1174,9 +1207,13 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Unequip => m_Wrapper.m_WeaponCombat_Unequip;
         /// <summary>
-        /// Provides access to the underlying input action "WeaponCombat/OpenWheel".
+        /// Provides access to the underlying input action "WeaponCombat/Wheel".
         /// </summary>
-        public InputAction @OpenWheel => m_Wrapper.m_WeaponCombat_OpenWheel;
+        public InputAction @Wheel => m_Wrapper.m_WeaponCombat_Wheel;
+        /// <summary>
+        /// Provides access to the underlying input action "WeaponCombat/Grenade".
+        /// </summary>
+        public InputAction @Grenade => m_Wrapper.m_WeaponCombat_Grenade;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1218,9 +1255,12 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Unequip.started += instance.OnUnequip;
             @Unequip.performed += instance.OnUnequip;
             @Unequip.canceled += instance.OnUnequip;
-            @OpenWheel.started += instance.OnOpenWheel;
-            @OpenWheel.performed += instance.OnOpenWheel;
-            @OpenWheel.canceled += instance.OnOpenWheel;
+            @Wheel.started += instance.OnWheel;
+            @Wheel.performed += instance.OnWheel;
+            @Wheel.canceled += instance.OnWheel;
+            @Grenade.started += instance.OnGrenade;
+            @Grenade.performed += instance.OnGrenade;
+            @Grenade.canceled += instance.OnGrenade;
         }
 
         /// <summary>
@@ -1247,9 +1287,12 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Unequip.started -= instance.OnUnequip;
             @Unequip.performed -= instance.OnUnequip;
             @Unequip.canceled -= instance.OnUnequip;
-            @OpenWheel.started -= instance.OnOpenWheel;
-            @OpenWheel.performed -= instance.OnOpenWheel;
-            @OpenWheel.canceled -= instance.OnOpenWheel;
+            @Wheel.started -= instance.OnWheel;
+            @Wheel.performed -= instance.OnWheel;
+            @Wheel.canceled -= instance.OnWheel;
+            @Grenade.started -= instance.OnGrenade;
+            @Grenade.performed -= instance.OnGrenade;
+            @Grenade.canceled -= instance.OnGrenade;
         }
 
         /// <summary>
@@ -1552,12 +1595,19 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnUnequip(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Open Wheel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "Wheel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnOpenWheel(InputAction.CallbackContext context);
+        void OnWheel(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Grenade" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnGrenade(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Ground Vehicles" which allows adding and removing callbacks.

@@ -352,9 +352,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Open Wheel",
+                    "name": "Wheel",
                     "type": "Button",
                     "id": "b70d6a4e-41ba-4324-907b-1c7fcedebe53",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Grenade",
+                    "type": "Button",
+                    "id": "11278e5d-b8f1-464d-90d3-598f98419f61",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -479,7 +488,7 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Open Wheel",
+                    "action": "Wheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -490,7 +499,29 @@
                     "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Open Wheel",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7769cafd-b8af-42e4-a84c-579548a9eb15",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grenade",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0bc8aca1-adae-43ac-bbe8-dc7b92b5aabf",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grenade",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
