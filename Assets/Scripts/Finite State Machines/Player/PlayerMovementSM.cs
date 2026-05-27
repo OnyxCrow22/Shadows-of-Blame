@@ -34,6 +34,7 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector] public bool attackPressed;
     [HideInInspector] public bool weaponEquipPressed;
     [HideInInspector] public bool sprintPressed;
+    [HideInInspector] public bool crouchPressed;
     [HideInInspector] public float turnSmoothVelocity;
     public float controllerSensitvity = 100f;
     public float acceleration = 10f;
@@ -63,6 +64,7 @@ public class PlayerMovementSM : PlayerStateMachine
 
     // Hashed animations
     [Header("Animation Hashes")]
+    [HideInInspector] public int forwardSpeedHash;
     [HideInInspector] public int crouchingHash;
     [HideInInspector] public int crouchingWalkingHash;
     [HideInInspector] public int idleHash;
@@ -74,6 +76,8 @@ public class PlayerMovementSM : PlayerStateMachine
 
     private void Awake()
     {
+        // Animation hashes
+        forwardSpeedHash = Animator.StringToHash("ForwardSpeed");
         crouchingHash = Animator.StringToHash("Crouching");
         crouchingWalkingHash = Animator.StringToHash("CrouchWalk");
         idleHash = Animator.StringToHash("Idle");
@@ -104,6 +108,60 @@ public class PlayerMovementSM : PlayerStateMachine
         if (context.canceled) jumpPressed = false;
     }
 
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (weapon.gunEquipped && !isShooting)
+        {
+            isShooting = true;
+            ChangeState(firingState);
+            AudioManager.manager.Play("shootGun");
+            anim.SetBool(firingHash, true);
+        }
+        else if (!weapon.gunEquipped && !isPunching)
+        {
+            isPunching = true;
+            ChangeState(punchingState);
+            AudioManager.manager.Play("Punch");
+            anim.SetBool(punchingHash, true);
+        }
+    }
+
+    public void OnWeaponEquip(InputAction.CallbackContext context)
+    {
+        if (context.performed && weapon.pressCount == 0)
+        {
+            weapon.ammoText.gameObject.SetActive(true);
+            weapon.gun.SetActive(true);
+            weapon.reticle.SetActive(true);
+            weapon.pressCount = 1;
+            weapon.gunEquipped = true;
+            AudioManager.manager.Play("equipGun");
+        }
+    }
+
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        if (context.performed && weapon.gunEquipped)
+        {
+            weapon.aiming = true;
+        }
+
+        if (context.canceled)
+        {
+            weapon.aiming = false;
+        }
+    }
+
+    public void OnThrow(InputAction.CallbackContext context)
+    {
+        if (context.performed && !throwingGrenade && !hasThrownGrenade)
+        {
+            throwingGrenade = true;
+        }
+    }
+
     public void OnSprint(InputAction.CallbackContext context)
     {
         // Sprint input handled in Walk state
@@ -114,6 +172,27 @@ public class PlayerMovementSM : PlayerStateMachine
     public void OnLook(InputAction.CallbackContext context)
     {
         lookInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        // Crouching handled in CrouchWalk state
+        if (context.performed) crouchPressed = true;
+        if (context.canceled) crouchPressed = false;
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (!inVehicle)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     protected override PlayerBaseState GetInitialState()

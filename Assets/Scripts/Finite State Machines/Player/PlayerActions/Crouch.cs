@@ -22,7 +22,7 @@ public class Crouch : PlayerBaseState
 
         direction = new Vector3(playsm.moveInput.x, 0f, playsm.moveInput.y).normalized;
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == true)
+        if (!playsm.crouchPressed && playsm.Crouched == true)
         {
             playsm.Crouched = false;
             playerStateMachine.ChangeState(playsm.idleState);

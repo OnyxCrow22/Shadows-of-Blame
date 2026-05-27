@@ -42,6 +42,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private InputActionReference reloadAction;
     [SerializeField] private InputActionReference aimAction;
 
+    /*
     private void OnEnable()
     {
         // Allows the user to shoot, reload, and aim the gun when the respective actions are performed.
@@ -49,7 +50,9 @@ public class Gun : MonoBehaviour
         reloadAction.action.performed += OnReload;
         aimAction.action.performed += OnAim;
     }
+    */
 
+    /*
     private void OnDisable()
     {
         // Prevents the user from shooting, reloading, and aiming the gun.
@@ -57,6 +60,7 @@ public class Gun : MonoBehaviour
         reloadAction.action.performed -= OnReload;
         aimAction.action.performed -= OnAim;
     }
+    */
 
     public void OnFireTriggered(InputAction.CallbackContext context)
     {
