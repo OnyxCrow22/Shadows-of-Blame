@@ -61,8 +61,28 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector]
     public Punch punchingState;
 
+    // Hashed animations
+    [Header("Animation Hashes")]
+    [HideInInspector] public int crouchingHash;
+    [HideInInspector] public int crouchingWalkingHash;
+    [HideInInspector] public int idleHash;
+    [HideInInspector] public int walkingHash;
+    [HideInInspector] public int runningHash;
+    [HideInInspector] public int jumpingHash;
+    [HideInInspector] public int firingHash;
+    [HideInInspector] public int punchingHash;
+
     private void Awake()
     {
+        crouchingHash = Animator.StringToHash("Crouching");
+        crouchingWalkingHash = Animator.StringToHash("CrouchWalk");
+        idleHash = Animator.StringToHash("Idle");
+        walkingHash = Animator.StringToHash("Walk");
+        runningHash = Animator.StringToHash("Sprint");
+        jumpingHash = Animator.StringToHash("Jump");
+        firingHash = Animator.StringToHash("Shoot");
+        punchingHash = Animator.StringToHash("Punch");
+
         idleState = new Idle(this);
         walkingState = new Walk(this);
         runningState = new Sprint(this);
