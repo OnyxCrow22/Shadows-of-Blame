@@ -36,5 +36,14 @@ public class Idle : PlayerBaseState
             playsm.anim.SetBool(playsm.crouchingHash, true);
             return;
         }
+
+        if (playsm.jumpPressed && playsm.isGrounded)
+        {
+            playsm.isGrounded = false;
+            playsm.Jumping = true;
+            playerStateMachine.ChangeState(playsm.jumpingState);
+            playsm.anim.SetBool(playsm.jumpingHash, true);
+            return;
+        }
     }
 }
