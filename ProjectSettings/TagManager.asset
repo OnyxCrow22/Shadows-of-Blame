@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Ground
+  - Waypoint
+  - Door
+  - Hide
+  - Evidence
+  - Destination
+  - Pavement
+  - Spawn
+  - PedDests
+  - PedestrianDestinations
+  - GEvidence
+  - FemaleNPC
+  - MaleNPC
+  - Police
+  - EvidenceBoard
+  - VehicleDoor
+  - HParkEvidence
+  - PrescottEvidence
+  - NorthbyGangMember
+  - NorthbyGangLeader
+  - SaintMarysGangMember
+  - SaintMarysGangLeader
+  - NorthbyEvidence
+  - Vehicle
+  - NorthBeachGangMember
+  - NorthBeachEvidence
+  - Enemy
+  - TrafficLIghtChecker
+  - TrafficLightChecker
+  - MissionChecker
+  - GameManager
+  - LiftObj
+  - Button
+  - PedestrianNodes
+  - W
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ground
+  - Water
+  - UI
+  - Enemy
+  - NPC
+  - Player
+  - Hide
+  - Minimap
+  - LineOfSight
+  - Road
+  - Buildings
+  - WorldMap
+  - Pavement
+  - BannedRoads
+  - Crossing
+  - Destination
+  - Nodes
+  - Compound
+  - PostProcessing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

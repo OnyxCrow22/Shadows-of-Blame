@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &162756574090257106
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -16.935427
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -1.4881579
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.383054
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.71024513
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.81381917
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.13943861
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.13943864
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6932221
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6932221
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 147.511
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_Name
+      value: MarbleCoffeeTable
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 673232346a1292d4990e16d0c074fe03, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 673232346a1292d4990e16d0c074fe03, type: 3}

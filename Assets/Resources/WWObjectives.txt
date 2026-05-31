@@ -1,0 +1,13 @@
+Leave the safehouse.
+Go to Westeria Island.
+Go to Halifax Park.
+Search for evidence in Halifax Park: EvidenceCollected / EvidenceTotal
+Go to Prescott.
+Search for more evidence in Prescott: EvidenceCollected / EvidenceTotal
+Go to compound name in Nortby.
+Kill the gang leader.
+Kill all remaining enemies.
+Take the evidence from the gang leader.
+Go to the compound in North Beach.
+Lose the police.
+Go to the safehouse on Kensington Boulevard in Amerham.
