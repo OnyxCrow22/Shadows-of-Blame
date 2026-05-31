@@ -67,14 +67,22 @@ public class Jump : PlayerBaseState
             playsm.Jumping = false;
             playsm.isGrounded = true;
 
-            if (playsm.moveInput.magnitude >= 0.2f)
+            if (playsm.moveInput.magnitude >= 0.2)
             {
-                playsm.currentSpeed = playsm.sprintPressed ? 8f : 3f;
-                playerStateMachine.ChangeState(playsm.walkingState);
+                if (playsm.sprintPressed && playsm.currentStaminaLevel >= 10)
+                {
+                    playsm.currentSpeed = 8f;
+                    playerStateMachine.ChangeState(playsm.runningState);
+                }
+                else
+                {
+                    playsm.currentSpeed = 3f;
+                    playerStateMachine.ChangeState(playsm.walkingState);
+                }
             }
             else
             {
-                playsm.currentSpeed = 0;
+                playsm.currentSpeed = 0f;
                 playerStateMachine.ChangeState(playsm.idleState);
             }
         }

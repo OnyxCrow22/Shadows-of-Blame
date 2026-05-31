@@ -7,13 +7,13 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState currentState;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         currentState = GetInitialState();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (currentState != null)
         {
@@ -21,7 +21,7 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    void LateUpdate()
+    protected virtual void LateUpdate()
     {
         if (currentState != null)
         {

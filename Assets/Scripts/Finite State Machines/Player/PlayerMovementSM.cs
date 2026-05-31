@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -73,6 +74,29 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector] public int firingHash;
     [HideInInspector] public int punchingHash;
 
+    // Stamina System
+    [Header("Stamina System")]
+    [SerializeField] private float maxStamina = 100; // Max amount of stamina initially
+    [SerializeField] private float staminaRegenerationRate = 15; // How fast stamina regenerates after using it
+    [SerializeField] private float staminaRegerationDelay = 1; // Delay regeneration by one second
+
+    public float currentStaminaLevel { get; private set; } // Get and set the current stamina level of the player
+    private float regenerationCooldownTimer; // How long until the player can regenerate again?
+
+    protected override void Start()
+    {
+        base.Start();
+        currentStaminaLevel = maxStamina; // The current stamina is set to 100 at the start of the level load.
+
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        DelayStaminaRegeneration();
+    }
+
     private void Awake()
     {
         // Animation hashes
@@ -96,6 +120,11 @@ public class PlayerMovementSM : PlayerStateMachine
         punchingState = new Punch(this);
     }
 
+    /// <summary>
+    /// Actions that defines how the player moves around the level, interacts with it, and how they attack enemies in the level.
+    /// </summary>
+    /// <param name="context"></param>
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -105,9 +134,19 @@ public class PlayerMovementSM : PlayerStateMachine
     {
         if (!context.performed) return;
 
+        float jumpCost = 15; // Jumping is not free
+
         if (isGrounded && !Jumping)
         {
-            ChangeState(jumpingState);
+            if (ConsumeStamina(jumpCost)) // Does the player have enough stamina to pay the jump tax?
+            {
+                ChangeState(jumpingState); // JUMP!
+            }
+        }
+        else
+        {
+            // Player cannot pay jump tax.
+            Debug.Log("Cannot jump! Out of energy");
         }
     }
 
@@ -196,6 +235,43 @@ public class PlayerMovementSM : PlayerStateMachine
         else
         {
 
+        }
+    }
+
+    /// <summary>
+    /// The stamina system, which decreases as the player runs
+    /// </summary>
+    /// <returns></returns>
+    /// 
+    public bool ConsumeStamina(float staminaAmount)
+    {
+        if (currentStaminaLevel >= staminaAmount) // Is the current staminaLevel more than the maximum stamina amount?
+        {
+            currentStaminaLevel -= staminaAmount; // We need to decrease the stamina, as the player is getting tired.
+            regenerationCooldownTimer = staminaRegerationDelay; // Timer resets the delay clock
+            return true;
+        }
+        return false; // Not applicable in this instance.
+    }
+
+    // Decrease stamina over-time, when walking, or running
+    public void DepleteStamina(float amountPerMinute)
+    {
+        currentStaminaLevel = Mathf.Max(0f, currentStaminaLevel - (amountPerMinute * Time.deltaTime));
+        regenerationCooldownTimer = staminaRegerationDelay; // Timer resets the delay clock
+    }
+
+    public void DelayStaminaRegeneration()
+    {
+        if (regenerationCooldownTimer > 0f) // Has the timer already been used?
+        {
+            regenerationCooldownTimer -= Time.deltaTime; // Start counting down
+            return;
+        }
+
+        if (currentStaminaLevel < maxStamina) // Is the stamina level below 100?
+        {
+            currentStaminaLevel = Mathf.Min(maxStamina, currentStaminaLevel + (staminaRegenerationRate * Time.deltaTime));
         }
     }
 

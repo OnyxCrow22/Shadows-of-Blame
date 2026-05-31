@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sprint : PlayerBaseState
 {
     private PlayerMovementSM playsm;
+    private float sprintDrainCost = 20; // Pay the sprinting tax
     private Vector3 movementVelocity;
 
     public Sprint(PlayerMovementSM playerStateMachine) : base("Sprint", playerStateMachine)
@@ -36,11 +37,13 @@ public class Sprint : PlayerBaseState
             playerStateMachine.ChangeState(playsm.idleState);
             return;
         }
-        if (!playsm.sprintPressed)
+        if (!playsm.sprintPressed || playsm.currentStaminaLevel <= 0) // No longer sprinting OR can't pay the Sprint Tax.
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             return;
         }
+
+        playsm.DepleteStamina(sprintDrainCost);
 
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playsm.cam.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref playsm.turnSmoothVelocity, playsm.turnSmoothTime);

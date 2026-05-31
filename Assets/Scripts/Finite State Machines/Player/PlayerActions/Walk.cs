@@ -37,7 +37,7 @@ public class Walk : PlayerBaseState
             playerStateMachine.ChangeState(playsm.idleState);
             return;
         }
-        if (playsm.sprintPressed)
+        if (playsm.sprintPressed && playsm.currentStaminaLevel >= 10) // Can we sprint?
         {
             playerStateMachine.ChangeState(playsm.runningState);
             return;
