@@ -5,6 +5,8 @@ using UnityEngine;
 public class Punch : PlayerBaseState
 {
     private PlayerMovementSM playsm;
+    private bool durationCheck;
+    private float stateTimer;
 
     public Punch(PlayerMovementSM playerStateMachine) : base("Punch", playerStateMachine)
     {
@@ -14,18 +16,57 @@ public class Punch : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
+
+        playsm.currentSpeed = 0;
+        durationCheck = false;
+        stateTimer = 0;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        if (!Input.GetMouseButton(0) && !playsm.weapon.gunEquipped)
+        // Query with the Animator
+        if (!durationCheck)
         {
-            AudioManager.manager.Stop("Punch");
-            playerStateMachine.ChangeState(playsm.idleState);
-            playsm.anim.SetBool("punching", false);
-            playsm.isPunching = false;
+            AnimatorStateInfo stateInformation = playsm.anim.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInformation.shortNameHash == playsm.punchingHash)
+            {
+                stateTimer = stateInformation.length;
+                durationCheck = true;
+            }
         }
+        else
+        {
+            // Begin ticking down the timer.
+            stateTimer -= Time.deltaTime;
+
+            // Timer ran out
+            if (stateTimer <= 0)
+            {
+                playsm.isPunching = false;
+                AudioManager.manager.Stop("Punch");
+
+                if (playsm.moveInput.magnitude > 0.2f)
+                {
+                    playerStateMachine.ChangeState(playsm.walkingState);
+                }
+                else
+                {
+                    playerStateMachine.ChangeState(playsm.idleState);
+                }
+                playsm.anim.SetBool(playsm.punchingHash, false);
+                return;
+            }
+        }
+    }
+
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
+
+        Vector3 gravityMove = new Vector3(0f, playsm.gravity * Time.deltaTime, 0f);
+        playsm.har.Move(gravityMove * Time.deltaTime);
     }
 }

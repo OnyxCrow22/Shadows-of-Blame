@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -34,6 +35,51 @@ public class Gun : MonoBehaviour
     public PlayerMovementSM playsm;
     public TextMeshProUGUI ammoText;
 
+    private bool canFire => !WeaponWheelSystem.isWheelOpen && gunEquipped && readyToShoot && !reloading && bulletsLeft > 0;
+
+    [Header("Input References")]
+    [SerializeField] private InputActionReference fireAction;
+    [SerializeField] private InputActionReference reloadAction;
+    [SerializeField] private InputActionReference aimAction;
+
+    /*
+    private void OnEnable()
+    {
+        // Allows the user to shoot, reload, and aim the gun when the respective actions are performed.
+        fireAction.action.performed += OnFire;
+        reloadAction.action.performed += OnReload;
+        aimAction.action.performed += OnAim;
+    }
+    */
+
+    /*
+    private void OnDisable()
+    {
+        // Prevents the user from shooting, reloading, and aiming the gun.
+        fireAction.action.performed -= OnFire;
+        reloadAction.action.performed -= OnReload;
+        aimAction.action.performed -= OnAim;
+    }
+    */
+
+    public void OnFireTriggered(InputAction.CallbackContext context)
+    {
+        if (!canFire) return;
+
+        shooting = true;
+
+        if (readyToShoot)
+        {
+            ShootGun();
+        }
+    }
+
+    public void OnFireCanceled(InputAction.CallbackContext context)
+    {
+        shooting = false;
+        playsm.anim.SetBool("shoot", false);
+    }
+
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -66,6 +112,10 @@ public class Gun : MonoBehaviour
 
         if (readyToShoot && gunEquipped && shooting && !reloading && bulletsLeft > 0)
         {
+            if (WeaponWheelSystem.isWheelOpen)
+            {
+                return;
+            }
             bulletsShot = bulletsPerTap;
             AudioManager.manager.Play("shootGun");
             ShootGun();
@@ -81,6 +131,7 @@ public class Gun : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && shooting && aiming && gunEquipped)
         {
             playsm.anim.SetBool("shoot", true);
+
         } 
 
         if (!Input.GetMouseButton(1) && aiming && gunEquipped)

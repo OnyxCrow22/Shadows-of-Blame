@@ -20,7 +20,7 @@ public class PunchSystem : MonoBehaviour
 
     public void InputCheck()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !playsm.weapon.gunEquipped)
+        if (playsm.attackPressed && !playsm.weapon.gunEquipped)
         {
             PunchSomething();
         }

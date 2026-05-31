@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Jump : PlayerBaseState
 {
-    Vector3 velocity;
+    Vector3 airMovementVelocity;
     private PlayerMovementSM playsm;
+
+    private float jumpDelay;
+    private float verticalVelocity;
+    private Vector3 velocityTracked;
 
     public Jump(PlayerMovementSM playerStateMachine) : base("Jump", playerStateMachine)
     {
@@ -15,29 +17,85 @@ public class Jump : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
+
+        playsm.isGrounded = false;
+        playsm.Jumping = true;
+
+        playsm.anim.SetBool(playsm.jumpingHash, true);
+
+        Vector3 groundDirection = new Vector3(playsm.moveInput.x, 0f, playsm.moveInput.y).normalized;
+        Vector3 targetAngleDirection = Quaternion.Euler(0f, playsm.cam.eulerAngles.y, 0f) * groundDirection;
+
+        // Stop the player from flying forward
+        float momentumReduce = 0.55f;
+        velocityTracked = targetAngleDirection * (playsm.currentSpeed * momentumReduce);
+
+        // Add JumpForce
+        float jumpForce = Mathf.Sqrt(playsm.jumpHeight * -2f * playsm.gravity);
+        verticalVelocity = jumpForce;
+
+        // Add a delay of 0.15 seconds before jumping again
+        jumpDelay = 0.15f;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        if (playsm.har.isGrounded)
+        if (jumpDelay > 0)
         {
-            velocity.y = 2f;
-            velocity.y = Mathf.Sqrt(playsm.jumpHeight * -2f * playsm.gravity);
+            jumpDelay -= Time.deltaTime;
         }
 
-        velocity.y += playsm.gravity * Time.deltaTime;
+        Vector3 jumpDirection = new Vector3(playsm.moveInput.x, 0f, playsm.moveInput.y).normalized;
+        Vector3 targetAngleDirection = Quaternion.Euler(0f, playsm.cam.eulerAngles.y, 0f) * jumpDirection;
 
-        playsm.har.Move(velocity * Time.deltaTime);
-
-        if (playsm.har.isGrounded)
+        if (velocityTracked.magnitude > 0.1f)
         {
-            velocity.y = 0;
-            playerStateMachine.ChangeState(playsm.idleState);
-            playsm.anim.SetBool("Jump", false);
+            float airSteerSpeed = 1.5f;
+            Vector3 activeAir = targetAngleDirection * airSteerSpeed;
+            airMovementVelocity = velocityTracked + activeAir;
+        }
+        else
+        {
+            float airSteerSpeed = 4f;
+            airMovementVelocity = targetAngleDirection * airSteerSpeed;
+        }
+
+        if (verticalVelocity <= -1f && playsm.har.isGrounded && jumpDelay <= 0)
+        {
             playsm.Jumping = false;
             playsm.isGrounded = true;
+
+            if (playsm.moveInput.magnitude >= 0.2f)
+            {
+                playsm.currentSpeed = playsm.sprintPressed ? 8f : 3f;
+                playerStateMachine.ChangeState(playsm.walkingState);
+            }
+            else
+            {
+                playsm.currentSpeed = 0;
+                playerStateMachine.ChangeState(playsm.idleState);
+            }
         }
+    }
+
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
+
+
+        // Apply gravity to the player
+        verticalVelocity += playsm.gravity * Time.deltaTime;
+
+        Vector3 finalAirFrameVectors = new Vector3(airMovementVelocity.x, verticalVelocity, airMovementVelocity.z);
+
+        playsm.har.Move(finalAirFrameVectors * Time.deltaTime);
+    }
+    public override void Exit()
+    {
+        base.Exit();
+
+        playsm.anim.SetBool(playsm.jumpingHash, false);
     }
 }

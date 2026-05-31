@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class WeaponWheelSystem : MonoBehaviour
 {
@@ -8,42 +7,44 @@ public class WeaponWheelSystem : MonoBehaviour
     public GameObject MainUI;
     public GameObject WeaponWheelPanel;
 
-    // This checks for the input every frame to open/close the weapon wheel
-    private void Update()
-    {
-        CheckWeaponWheelInput();
-    }
+    public static bool isWheelOpen = false;
+
+    [SerializeField]
+    private InputActionReference playerControls;
 
     void OnDisable()
     {
         weapons.CloseWheel();
-        MainUI.SetActive(true);
-        WeaponWheelPanel.SetActive(false);
+        playerControls.action.performed -= OnWheelPerformed;
+        playerControls.action.canceled -= OnWheelCanceled;
     }
 
     void OnEnable()
     {
+        playerControls.action.performed += OnWheelPerformed;
+        playerControls.action.canceled += OnWheelCanceled;
         MainUI.SetActive(true);
         WeaponWheelPanel.SetActive(false);
     }
 
-    // Now I need to check the key input in a new method
-    void CheckWeaponWheelInput()
+    public void OnWheelPerformed(InputAction.CallbackContext context) => OpenWheel();
+    public void OnWheelCanceled(InputAction.CallbackContext context) => CloseWheel();
+
+    void OpenWheel()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (!weapons.weaponWheelSelected)
-            {
-                weapons.WeaponWheel();
-                MainUI.SetActive(false);
-                WeaponWheelPanel.SetActive(true);
-            }
-            else
-            {
-                weapons.CloseWheel();
-                MainUI.SetActive(true);
-                WeaponWheelPanel.SetActive(false);
-            }
-        }
+        isWheelOpen = true;
+        weapons.WeaponWheel();
+        MainUI.SetActive(false);
+        WeaponWheelPanel.SetActive(true);
+        Time.timeScale = 0.2f; // Slow down time when the wheel is open
+    }
+    
+    void CloseWheel()
+    {
+        isWheelOpen = false;
+        weapons.CloseWheel();
+        MainUI.SetActive(true);
+        WeaponWheelPanel.SetActive(false);
+        Time.timeScale = 1f; // Resume normal time when the wheel is closed
     }
 }

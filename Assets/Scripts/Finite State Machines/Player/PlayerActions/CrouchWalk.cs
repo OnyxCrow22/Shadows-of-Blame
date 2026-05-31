@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CrouchWalking : PlayerBaseState
 {
-    float horizontalInput;
-    float verticalInput;
     float turnSmoothVelocity;
-    Vector3 direction;
-    Vector3 velocity;
+    Vector3 movementVelocity;
     private PlayerMovementSM playsm;
 
     public CrouchWalking(PlayerMovementSM playerStateMachine) : base("Crouch", playerStateMachine)
@@ -19,36 +14,50 @@ public class CrouchWalking : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        horizontalInput = 0;
-        verticalInput = 0;
-        playsm.speed = 0;
+        playsm.speed = 6f;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        Vector3 direction = new Vector3(playsm.moveInput.x, 0, playsm.moveInput.y).normalized;
 
-        playsm.speed = 6;
+        if (direction.magnitude <= 0.01f && playsm.Crouched)
+        {
+            playerStateMachine.ChangeState(playsm.crouchingState);
+            playsm.anim.SetBool(playsm.crouchingWalkingHash, false); // Optimised for Garbage Collection
+            return;
+        }
+
+        if (!playsm.crouchPressed && playsm.Crouched)
+        {
+            playsm.Crouched = false;
+
+            playerStateMachine.ChangeState(playsm.walkingState);
+
+            playsm.anim.SetBool(playsm.crouchingWalkingHash, false);
+            playsm.anim.SetBool(playsm.crouchingHash, false);
+            return;
+        }
 
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + playsm.cam.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(playsm.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, playsm.turnSmoothTime);
         playsm.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
         Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        playsm.har.Move(moveDir.normalized * playsm.speed * Time.deltaTime);
 
-        velocity.y += playsm.gravity * Time.deltaTime;
+        movementVelocity = moveDir.normalized * playsm.speed;
+    }
 
-        playsm.har.Move(velocity * Time.deltaTime);
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
 
-        if (direction.magnitude <= 0.01f && playsm.Crouched == true)
-        {
-            playerStateMachine.ChangeState(playsm.crouchingState);
-            playsm.anim.SetBool("CrouchWalk", false);
-        }
+        float verticalVelocity = playsm.gravity * Time.deltaTime;
+
+        Vector3 finalMovingFrame = new Vector3(movementVelocity.x, verticalVelocity, movementVelocity.z);
+
+        playsm.har.Move(finalMovingFrame * Time.deltaTime);
     }
 }

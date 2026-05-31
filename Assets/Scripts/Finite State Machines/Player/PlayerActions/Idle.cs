@@ -2,79 +2,48 @@ using UnityEngine;
 
 public class Idle : PlayerBaseState
 {
-    float horizontalInput;
-    float verticalInput;
     private PlayerMovementSM playsm;
+    private Vector3 physicsVelocity;
 
     public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
     {
         playsm = playerStateMachine;
     }
 
-    private Gun gun;
-
     public override void Enter()
     {
         base.Enter();
-        horizontalInput = 0;
-        verticalInput = 0;
-        playsm.speed = 0;
+
+        physicsVelocity = Vector3.zero;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        if (direction.magnitude >= 0.1f && playsm.weapon.aiming == false)
+        playsm.currentSpeed = Mathf.MoveTowards(playsm.currentSpeed, 0f, playsm.acceleration * Time.deltaTime);
+        playsm.anim.SetFloat(playsm.forwardSpeedHash, playsm.currentSpeed, 0.1f, Time.deltaTime);
+
+        if (playsm.moveInput.magnitude >= 0.2f && !playsm.weapon.aiming)
         {
             playerStateMachine.ChangeState(playsm.walkingState);
-            playsm.anim.SetBool("Walking", true);
-            AudioManager.manager.Play("walk");
-            playsm.speed = 3;
+            return;
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == false)
+        if (playsm.crouchPressed && !playsm.Crouched)
         {
             playsm.Crouched = true;
             playerStateMachine.ChangeState(playsm.crouchingState);
-            playsm.anim.SetBool("Crouching", true);
+            playsm.anim.SetBool(playsm.crouchingHash, true);
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && playsm.isGrounded)
+        if (playsm.jumpPressed && playsm.isGrounded)
         {
-            playerStateMachine.ChangeState(playsm.jumpingState);
-            playsm.anim.SetBool("Jump", true);
             playsm.isGrounded = false;
             playsm.Jumping = true;
+            playerStateMachine.ChangeState(playsm.jumpingState);
+            playsm.anim.SetBool(playsm.jumpingHash, true);
+            return;
         }
-
-        if (Input.GetMouseButton(0) && playsm.weapon.gunEquipped == true)
-        {
-            playerStateMachine.ChangeState(playsm.firingState);
-            AudioManager.manager.Play("shootGun");
-            playsm.anim.SetBool("shoot", true);
-            playsm.isShooting = true;
-        }
-
-        if (Input.GetMouseButton(0) && playsm.weapon.gunEquipped == false)
-        {
-            playerStateMachine.ChangeState(playsm.punchingState);
-            playsm.isPunching = true;
-            AudioManager.manager.Play("Punch");
-            playsm.anim.SetBool("punching", true);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1) && playsm.weapon.pressCount == 0)
-        {
-            playsm.weapon.ammoText.gameObject.SetActive(true);
-            playsm.weapon.gun.SetActive(true);
-            playsm.weapon.reticle.SetActive(true);
-            playsm.weapon.pressCount = 1;
-            playsm.weapon.gunEquipped = true;
-            AudioManager.manager.Play("equipGun");
-        }
-
     }
 }

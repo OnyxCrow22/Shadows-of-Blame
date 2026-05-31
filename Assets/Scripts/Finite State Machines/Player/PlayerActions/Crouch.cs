@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Crouch : PlayerBaseState
 {
-    float horizontalInput;
-    float verticalInput;
     private PlayerMovementSM playsm;
+    private Vector3 direction;
 
     public Crouch(PlayerMovementSM playerStateMachine) : base("Crouch", playerStateMachine)
     {
@@ -16,29 +13,27 @@ public class Crouch : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        horizontalInput = 0;
-        verticalInput = 0;
         playsm.speed = 0;
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
-        if (Input.GetKeyUp(KeyCode.LeftControl) && playsm.Crouched == true)
+        direction = new Vector3(playsm.moveInput.x, 0f, playsm.moveInput.y).normalized;
+
+        if (!playsm.crouchPressed && playsm.Crouched == true)
         {
             playsm.Crouched = false;
             playerStateMachine.ChangeState(playsm.idleState);
-            playsm.anim.SetBool("Crouching", false);
+
+            playsm.anim.SetBool(playsm.crouchingHash, false);
         }
 
         if (direction.magnitude > 0.01f && playsm.Crouched == true)
         {
             playerStateMachine.ChangeState(playsm.crouchWalking);
-            playsm.anim.SetBool("CrouchWalk", true);
+            playsm.anim.SetBool(playsm.crouchingWalkingHash, true);
             playsm.speed = 6;
         }
     }

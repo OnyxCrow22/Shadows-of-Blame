@@ -9,9 +9,8 @@ public class Grenade : MonoBehaviour
     public GameObject explosionVFX;
     public GameObject grenade;
     public bool hasExploded = false;
-    public AudioSource explosion;
 
-    [SerializeField] float countdown;
+    private float countdown;
 
     void Start()
     {
@@ -30,27 +29,37 @@ public class Grenade : MonoBehaviour
 
     public void Explode()
     {
-        Instantiate(explosionVFX, grenade.transform.position, grenade.transform.rotation);
+        // Spawn the grenade explosion VFX, along with the grenade itself
+        Instantiate(explosionVFX, transform.position, transform.rotation);
 
         Collider[] cols = Physics.OverlapSphere(transform.position, radius);
 
-        explosion.Play();
+        if (AudioManager.manager != null) AudioManager.manager.Play("GrenadeExplosion");
 
         foreach (Collider nearbyObject in cols)
         {
             Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
+                // Add explosion force to nearby rigidbodies
                 rb.AddExplosionForce(force, transform.position, radius);
             }
-
             EnemyHealth damage = nearbyObject.GetComponent<EnemyHealth>();
-            damage.LoseHealth(damage.healthLoss + grenadeDamage);
+            if (damage != null)
+            {
+                damage.LoseHealth(damage.healthLoss + grenadeDamage);
+            }
 
             NPCHealth NPCS = nearbyObject.GetComponent<NPCHealth>();
-            NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
+            if (NPCS != null)
+            {
+                NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
+            }
         }
-        Destroy(grenade, 2);
+
+        if (GetComponent<MeshRenderer>()) GetComponent<MeshRenderer>().enabled = false;
+
+        Destroy(gameObject);
     }
 }
 

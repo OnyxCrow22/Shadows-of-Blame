@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.Rendering.Universal;
 
 public class DayNightCycle : MonoBehaviour
 {
@@ -107,20 +108,22 @@ public class DayNightCycle : MonoBehaviour
 
     void CheckShadowStatus()
     {
-        HDAdditionalLightData sunLightData = sunLight.GetComponent<HDAdditionalLightData>();
-        HDAdditionalLightData moonLightData = moonLight.GetComponent<HDAdditionalLightData>();
+        UniversalAdditionalLightData sunLightData = sunLight.GetComponent<UniversalAdditionalLightData>();
+        UniversalAdditionalLightData moonLightData = moonLight.GetComponent<UniversalAdditionalLightData>();
         float currentSunRotation = currentTime;
 
         if (currentSunRotation >= 6f && currentSunRotation <= 18f)
         {
-            sunLightData.EnableShadows(true);
-            moonLightData.EnableShadows(false);
+            // No shadows at night, but definitely during the day.
+            sunLight.shadows = LightShadows.Soft;
+            moonLight.shadows = LightShadows.None;
             isDay = true;
         }
         else
         {
-            sunLightData.EnableShadows(false);
-            moonLightData.EnableShadows(true);
+            // Soft shadows at night, none for the sun.
+            sunLight.shadows = LightShadows.None;
+            moonLight.shadows = LightShadows.Soft;
             isDay = false;
         }
         if (currentSunRotation >= 6f && currentSunRotation <= 18f)
