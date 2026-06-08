@@ -24,33 +24,40 @@ public class TerrainChunk : MonoBehaviour
         {
             for (int y = 0; y < resolution; y++)
             {
-                float worldX = (chunkX * WorldSettings.chunkSize) + x;
-                float worldZ = (chunkY * WorldSettings.chunkSize) + y;
+                float percentX = (float)x / (resolution - 1);
+                float percentY = (float)y / (resolution - 1);
+
+                float worldX = (chunkX * WorldSettings.chunkSize) + (percentX * WorldSettings.chunkSize);
+                float worldZ = (chunkY * WorldSettings.chunkSize) + (percentY * WorldSettings.chunkSize);
                 
 
                 Color bColour = worldControl.sampleWorld(worldX, worldZ);
                 BiomeRules rule = bDatabase.GetBiomeByColour(bColour);
                 
-                float noise = 0;
+                float totalNoise = 0f;
+                float noise = 1f;
                 float amptitude = rule.noiseAmptitude;
                 float frequency = rule.noiseFrequency;
+                float maxAmptitude = 0;
 
                 for (int o = 0; o < 5; o++)
                 {
                     float nx = worldX / 1000f;
                     float nz = worldZ / 1000f;
 
-                    noise += Mathf.PerlinNoise(nx * frequency, nz * frequency) * amptitude;
+                    totalNoise += Mathf.PerlinNoise (nx, nz) * amptitude;
 
+                    maxAmptitude += amptitude;
                     amptitude *= 0.5f;
                     frequency *= 2;
                 }
 
-                float curved = rule.height.Evaluate(noise);
+                float normalisedNoise = totalNoise / maxAmptitude;
+                float curved = rule.height.Evaluate(normalisedNoise);
 
-                float height = rule.baseHeight + curved * rule.noiseAmptitude;
+                float height = rule.baseHeight + (curved * rule.noiseAmptitude);
 
-                heights[x, y] = height / WorldSettings.maxTerrainHeight;
+                heights[y, x] = Mathf.Clamp01(height / WorldSettings.maxTerrainHeight);
 
                 if (x == 0 && y == 0)
 

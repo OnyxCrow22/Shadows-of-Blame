@@ -52,14 +52,6 @@ public class WorldGenerator : MonoBehaviour
                 tc.worldControl = worldControl;
                 tc.bDatabase = bDatabase;
 
-                Color c = worldControl.sampleWorld(
-                    x * WorldSettings.chunkSize, 
-                    y * WorldSettings.chunkSize
-                );
-
-                Color bColour = worldControl.sampleWorld(x, y);
-                BiomeRules rule = bDatabase.GetBiomeByColour(bColour);
-
                 tc.Generate();
             }
         }
