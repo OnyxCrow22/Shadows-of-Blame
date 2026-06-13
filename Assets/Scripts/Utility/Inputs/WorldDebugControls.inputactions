@@ -1,0 +1,135 @@
+{
+    "version": 1,
+    "name": "WorldDebugControls",
+    "maps": [
+        {
+            "name": "DebuggingActions",
+            "id": "b6719192-cf5b-4165-a95d-a4da1639b39c",
+            "actions": [
+                {
+                    "name": "HeightViewing",
+                    "type": "Button",
+                    "id": "311489b8-8b0a-43c2-beba-40670111f664",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SlopeViewing",
+                    "type": "Button",
+                    "id": "96f1f6b4-12d7-4135-bc4f-de910bfe0fd2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MoistureView",
+                    "type": "Button",
+                    "id": "45242d5a-0d0b-4778-8abf-a7f57a54518f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FlowView",
+                    "type": "Button",
+                    "id": "c3b4709f-df7d-4936-a64e-22f9600e171c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BiomeView",
+                    "type": "Button",
+                    "id": "449f442f-a5e7-41d9-a5cd-eb057ad6e85b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Regenerate",
+                    "type": "Button",
+                    "id": "427e1611-3c38-41e3-a43e-d4f11ef452aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2d77a6fc-96e5-4c18-8c61-430c0cb422cb",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeightViewing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3797386b-e50a-4196-8eff-4044f93efb02",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SlopeViewing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb40333a-6070-4cfd-9178-bc535b9b09b8",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoistureView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a66cb7e3-bc67-402d-b58b-fd3f2483cfb8",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlowView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be511873-1525-4a77-b227-8e46fe9936a3",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BiomeView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07d85161-5d6c-4411-8ef0-2a0adca8aec7",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Regenerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
