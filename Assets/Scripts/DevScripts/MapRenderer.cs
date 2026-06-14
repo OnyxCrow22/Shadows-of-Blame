@@ -7,7 +7,8 @@ public enum RenderMode
     Slope,
     Moisture,
     Flow,
-    Biome
+    Biome,
+    River
 }
 
 public static class MapRenderer
@@ -65,7 +66,17 @@ public static class MapRenderer
 
                     case RenderMode.Flow:
                         colour = Color.Lerp(Color.black, Color.cyan,
-                            world.flow[x, y]);
+                            Mathf.Log(world.flow[x, y] + 1) / 8f);
+                        break;
+
+                    case RenderMode.River:
+                        colour = Color.Lerp(Color.black, Color.white, world.height[x, y]);
+
+                        if (world.rivers[x, y])
+                        {
+                            world.height[x, y] -= 0.002f;
+                            colour = Color.cyan;
+                        }
                         break;
                 }
 

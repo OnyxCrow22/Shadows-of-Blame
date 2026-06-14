@@ -51,9 +51,19 @@ public class WorldGenerator : MonoBehaviour
         world = new WorldData(resolution);
 
         HeightGenerator.Generate(world);
+
+        for (int i = 0; i < 10; i++)
+        {
+            FlowMapGenerator.Generate(world);
+            TerrainAnalysis.CalculateSlope(world);
+            HydrualicErosion.Erode(world);
+            ThermalErosion.Erode(world);
+        }
+
         TerrainAnalysis.CalculateSlope(world);
         MoistureGenerator.Generate(world);
-        FlowMapGenerator.Generate(world);
+        RiverGenerator.Generate(world);
+        RiverCarver.Carve(world);
         BiomeGenerator.Generate(world);
 
         RenderMap();

@@ -19,7 +19,9 @@ public class WorldData
     public float[,] slope;
     public float[,] moisture;
     public float[,] flow;
-    public Vector2[,] flowDir;
+    public bool[,] rivers;
+    public float[,] riverStrength;
+    public Vector2Int[,] flowDir;
 
     public BiomeType[,] biomes;
 
@@ -31,7 +33,10 @@ public class WorldData
         slope = new float[resolution, resolution];
         moisture = new float[resolution, resolution];
         flow = new float[resolution, resolution];
-        flowDir = new Vector2[resolution, resolution];
+        flowDir = new Vector2Int[resolution, resolution];
+
+        rivers = new bool[resolution, resolution];
+        riverStrength = new float[resolution, resolution];
 
         biomes = new BiomeType[resolution, resolution];
     }
