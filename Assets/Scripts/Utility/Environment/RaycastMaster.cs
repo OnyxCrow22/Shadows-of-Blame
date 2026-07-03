@@ -235,13 +235,13 @@ public class RaycastMaster : MonoBehaviour
         {
             if (placeHit.collider.gameObject.tag == "EvidenceBoard" && OTR.GangEvidence && OTR.enabled)
             {
-                EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
+                // EvidencePlace placeEvidence = placeHit.collider.gameObject.GetComponent<EvidencePlace>();
                 Debug.Log("Board hit!");
                 interactKey.SetActive(true);
-                if (interactPressed && !placeEvidence.EvidencePlaced)
+                if (interactPressed) // && !placeEvidence.EvidencePlaced)
                 {
-                    placeEvidence.StartCoroutine(placeEvidence.EvidenceSwap());
-                    placeEvidence.EvidencePlaced = true;
+                    // placeEvidence.StartCoroutine(placeEvidence.EvidenceSwap());
+                    // placeEvidence.EvidencePlaced = true;
                     interactKey.SetActive(false);
                 }
             }

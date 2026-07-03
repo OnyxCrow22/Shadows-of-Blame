@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ObjectiveTrigger : MonoBehaviour
+public class ObjectiveActivate : MonoBehaviour
 {
     [Header("Data")]
     public string requiredID; // What is required to progress
@@ -36,7 +36,7 @@ public class ObjectiveTrigger : MonoBehaviour
 
     public void OnInteract()
     {
-        if (hasActivated || !InventoryManager.Instance.HasItem(requiredID)) return;
+        if (hasActivated) // ||  !InventoryManager.Instance.HasItem(requiredID)) return;
 
         hasActivated = true;
         _ = ActivateSequenceAsync(cts.Token);
@@ -51,7 +51,7 @@ public class ObjectiveTrigger : MonoBehaviour
         {
             if (useCutscene)
             {
-                await CutsceneManager.Instance.PlayAsync("EvidencePlace_Fade", token); // Activate the cutscene
+                // await CutsceneManager.Instance.PlayAsync("EvidencePlace_Fade", token); // Activate the cutscene
             }
             else
             {

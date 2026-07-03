@@ -25,7 +25,7 @@ public class OnTheRun : MonoBehaviour
     public WesteriaAccessibility wAccess;
     public WesteriaLocked wLocked;
     public SafehouseCheck sCheck;
-    public EvidencePlace pEvidence;
+    // public EvidencePlace pEvidence;
     public PoliceLevel police;
     public PoliceEvaded evaded;
     public WestralWoes WW;
@@ -146,11 +146,11 @@ public class OnTheRun : MonoBehaviour
     {
         if (sCheck.inSafehouse)
         {
-            PlaceEvidence();
+            // PlaceEvidence();
         }
     }
     
-    void PlaceEvidence()
+  /*  void PlaceEvidence()
     {
         if (pEvidence.EvidencePlaced)
         {
@@ -158,4 +158,5 @@ public class OnTheRun : MonoBehaviour
             WW.GetComponent<WestralWoes>().enabled = true;
         }
     }
+  */
 }
