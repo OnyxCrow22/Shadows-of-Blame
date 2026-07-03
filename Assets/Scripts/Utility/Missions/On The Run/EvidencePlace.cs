@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class EvidencePlace : MonoBehaviour, IInteractable
+public class ObjectiveTrigger : MonoBehaviour, IInteractable
 {
     public OnTheRun OTR;
     public bool EvidencePlaced;
