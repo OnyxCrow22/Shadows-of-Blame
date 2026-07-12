@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PolicePatrol : PoliceBaseState
 {
@@ -12,51 +9,38 @@ public class PolicePatrol : PoliceBaseState
         wanted = policeMachine;
     }
 
-    public override void Enter()
-    {
-
-    }
-
     public override void UpdateLogic()
     {
-        float distanceFromPlayer = Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position);
-        Ray gunRay = new Ray(wanted.PoliceFOV.transform.position, Vector3.forward);
-        RaycastHit gunHit;
-        float radius = 20;
+        base.UpdateLogic();
 
-        if (Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position) >= 70)
-        {
-            policeMachine.ChangeState(wanted.idleState);
-            wanted.PoliceAnim.SetBool("walking", false);
-        }
+        // Scan for threats nearby
+        Ray gunRay = new Ray(wanted.PoliceFOV.transform.position, wanted.PoliceFOV.transform.forward);
+        float distToPlayer = Vector3.Distance(wanted.player.transform.position, wanted.PoliceAI.transform.position);
 
-        if (PoliceLevel.policeLevels >= 1)
+        // Shoot the player if the wanted level goes above 2, or if the player has a gun equipped, or is throwing grenades, or is shooting.
+        if (PoliceLevel.policeLevels >= 2 || (Physics.Raycast(gunRay, 20f) && (wanted.playsm.weapon.gunEquipped || wanted.playsm.throwingGrenade || wanted.playsm.isShooting)))
         {
-            policeMachine.ChangeState(wanted.chaseState);
-            wanted.PoliceAnim.SetBool("chase", true);
-        }
-
-        // Player is crazy, shoot them!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.weapon.gunEquipped || Physics.Raycast(gunRay, out gunHit, radius) && wanted.playsm.throwingGrenade || PoliceLevel.policeLevels >= 2 || wanted.playsm.isShooting && distanceFromPlayer <= 30) 
-        {
-            policeMachine.ChangeState(wanted.fireState);
-            wanted.policeGun.policeGun.SetActive(true);
             wanted.isPatrolling = false;
             wanted.isShooting = true;
+            wanted.policeGun.policeGun.SetActive(true);
             wanted.PoliceAnim.SetBool("shoot", true);
-            AudioManager.manager.Play("shootGun");
+            policeMachine.ChangeState(wanted.fireState);
+            return;
         }
 
-        if (wanted.pHealth.health == 0)
+        // Chase after the player with the goal of arresting them.
+        if (PoliceLevel.policeLevels >= 1)
         {
-            wanted.pHealth.StartCoroutine(wanted.pHealth.PoliceDeath());
+            wanted.PoliceAnim.SetBool("chase", true);
+            policeMachine.ChangeState(wanted.chaseState);
+            return;
         }
     }
 
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        wanted.PoliceAI.SetDestination(wanted.follow.currentPedestrianNode.transform.position);
+        if (wanted.PoliceAI.isOnNavMesh)
+            wanted.PoliceAI.SetDestination(wanted.follow.currentPedestrianNode.transform.position);
     }
 }

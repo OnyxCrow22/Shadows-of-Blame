@@ -2,22 +2,12 @@ using UnityEngine;
 
 public class LiftButton : MonoBehaviour, IInteractable
 {
-    // What lift this button is connected to
     public Lift currentLift;
     public int targetFloor;
+    public bool isTriggered { get; set; }
 
-    public void Toggle()
-    {
-        // Tell the lift to go to the target floor
-        currentLift.rMaster.buttonPressed = true;
-        currentLift.rMaster.inLift = true;
-
-        currentLift.GoToFloor(targetFloor);
-    }
-
-    public void OnInteract() { }
-
+    public void OnInteract(GameObject user) => currentLift.MoveToFloor(targetFloor);
+    public void Toggle() => currentLift.MoveToFloor(targetFloor);
     public void OnLookAt() { }
-
     public void OnLookAway() { }
 }

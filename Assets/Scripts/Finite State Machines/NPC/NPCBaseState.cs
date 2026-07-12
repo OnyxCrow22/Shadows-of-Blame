@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class NPCBaseState
 {
-    public string name;
+    public string Name { get; protected set; }
     protected NPCStateMachine npcStateMachine;
 
     public NPCBaseState(string name, NPCStateMachine npcStateMachine)
     {
         this.npcStateMachine = npcStateMachine;
-        this.name = name;
+        this.Name = name;
     }
 
     public virtual void Enter() { }

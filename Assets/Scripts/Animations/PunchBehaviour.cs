@@ -1,53 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class PunchBehaviour : StateMachineBehaviour
 {
-    [SerializeField]
-    private float timeUntilnextPunch;
-
-    [SerializeField]
-    private int numberOfpunchAnimations;
+    [SerializeField] private float timeUntilNextPunch = 0.5f;
+    [SerializeField] private int numberOfPunchAnimations = 3;
 
     private bool isPunching;
-    private float currentPunchduration;
-    private int punchAnimation;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    private float currentPunchDuration;
+    private int punchAnimationIndex;
+
+    // Cached hash value for performance optimization
+    private static readonly int PunchAnimParamHash = Animator.StringToHash("PunchAnimation");
+
+    // Called when the state machine starts evaluating this state
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ResetPunch();
     }
 
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // Called on each Update frame between OnStateEnter and OnStateExit
+    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (isPunching == false)
-        {
-            currentPunchduration += Time.deltaTime;
+        // If we are currently transitioning out of this state, stop processing loop logic
+        if (animator.IsInTransition(layerIndex)) return;
 
-            if (currentPunchduration > timeUntilnextPunch && stateInfo.normalizedTime % 1 < 0.02f)
+        if (!isPunching)
+        {
+            currentPunchDuration += Time.deltaTime;
+
+            // Checked if the required window has passed. 
+            // Instead of checking exact frame percentages, we check if the animation has cycled.
+            if (currentPunchDuration > timeUntilNextPunch)
             {
-                isPunching = true;
-                punchAnimation = Random.Range(1, numberOfpunchAnimations + 1);
+                isPunching = true; // Allow punching
+                punchAnimationIndex = Random.Range(1, numberOfPunchAnimations + 1);
+
+                // Set the parameter once when the state changes, rather than every frame
+                animator.SetFloat(PunchAnimParamHash, punchAnimationIndex, 0.2f, Time.deltaTime);
             }
         }
-        else if (stateInfo.normalizedTime % 1 > 0.98)
+        else
         {
-            ResetPunch();
+            // If the loop has naturally completed a cycle, automatically reset the punch window
+            if (stateInfo.normalizedTime >= 1.0f)
+            {
+                ResetPunch();
+                animator.SetFloat(PunchAnimParamHash, 0f);
+            }
         }
-
-        animator.SetFloat("PunchAnimation", punchAnimation, 0.2f, Time.deltaTime);
     }
 
     private void ResetPunch()
     {
-        if (isPunching)
-        {
-            punchAnimation--;
-        }
-
         isPunching = false;
-        currentPunchduration = 0;
-        punchAnimation = 0;
+        currentPunchDuration = 0f;
+        punchAnimationIndex = 0;
     }
 }

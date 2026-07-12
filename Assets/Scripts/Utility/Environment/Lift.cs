@@ -1,97 +1,67 @@
-using NUnit.Framework.Constraints;
 using System.Collections;
 using UnityEngine;
 
 public class Lift : MonoBehaviour, IInteractable
 {
-    [Header("Lift Settings")]
-    public GameObject lift;
-    public GameObject player;
+    public bool isTriggered { get; set; }
     public RaycastMaster rMaster;
     public Animator[] liftDoors;
-
-    [Header("Lift Booleans")]
-    public bool atTop = false;
-    public bool atBottom = false;
-    public float liftSpeed = 3f;
-    public float travelDistance;
-
-    [Header("Lift Vectors")]
-    Vector3 topPos;
-    Vector3 bottomPos;
-
-    [Header("Floor points")]
     public Transform[] floors;
+    public float liftSpeed = 3f;
+
     private int currentFloor = 0;
     private bool isMoving = false;
 
-    private void Start()
+    public void OnInteract(GameObject user)
     {
-        bottomPos = lift.transform.position;
-        topPos = bottomPos + new Vector3(0, travelDistance, 0);
-    }
-
-    public IEnumerator OperateLift(int targetFloor)
-    {
-        // The lift is moving!
-        isMoving = true;
-
-        // Close all doors
-        CloseDoors(currentFloor);
-        yield return new WaitForSeconds(2);
-
-        Vector3 targetPos = floors[targetFloor].position;
-
-        while (Vector3.Distance(lift.transform.position, targetPos) > 0.01f)
-        {
-            lift.transform.position = Vector3.MoveTowards(lift.transform.position, targetPos, 3f * Time.deltaTime);
-            yield return null;
-        }
-
-        // Lift has arrived at its destination.
-        currentFloor = targetFloor;
-
-        OpenDoors(currentFloor);
-
-        isMoving = false;
-    }
-
-    public void OpenDoors(int floorIndex)
-    {
-        liftDoors[0].SetBool("openingDoors", true);
-        liftDoors[floorIndex + 1].SetBool("openingDoors", true);
-    }
-
-    public void CloseDoors(int floorIndex)
-    {
-        liftDoors[0].SetBool("closingDoors", true);
-        liftDoors[floorIndex + 1].SetBool("closingDoors", true);
-    }
-
-    public void GoToFloor(int floorIndex)
-    {
-        if (isMoving || floorIndex == currentFloor) return;
-        StartCoroutine(OperateLift(floorIndex));
-    }
-
-    public void OnInteract() { }
-
-    public void OnLookAt()
-    {
-        Debug.Log("Looking at the lift button");
+        Toggle();
     }
 
     public void Toggle()
     {
-        if (isMoving) return;
-
         int nextFloor = (currentFloor + 1) % floors.Length;
-
-        rMaster.buttonPressed = true;
-        rMaster.inLift = true;
-
-        GoToFloor(nextFloor);
+        MoveToFloor(nextFloor);
     }
 
+    public void MoveToFloor(int floorIndex)
+    {
+        if (isMoving || floorIndex == currentFloor) return;
+
+        // Centralized state handling
+        if (rMaster != null)
+        {
+            rMaster.buttonPressed = true;
+            rMaster.inLift = true;
+        }
+
+        StartCoroutine(OperateLift(floorIndex));
+    }
+
+    private IEnumerator OperateLift(int targetFloor)
+    {
+        isMoving = true;
+        SetDoorState(currentFloor, false); // Close
+        yield return new WaitForSeconds(2);
+
+        while (Vector3.Distance(transform.position, floors[targetFloor].position) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, floors[targetFloor].position, liftSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        currentFloor = targetFloor;
+        SetDoorState(currentFloor, true); // Open
+        isMoving = false;
+    }
+
+    private void SetDoorState(int floorIndex, bool open)
+    {
+        string state = open ? "openingDoors" : "closingDoors";
+        liftDoors[0].SetBool(state, open);
+        if (floorIndex + 1 < liftDoors.Length)
+            liftDoors[floorIndex + 1].SetBool(state, open);
+    }
+
+    public void OnLookAt() { }
     public void OnLookAway() { }
 }

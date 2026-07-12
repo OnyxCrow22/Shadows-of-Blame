@@ -1,28 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class SafehouseCheck : MonoBehaviour
+public class SafehouseZone : MonoBehaviour
 {
-    public OnTheRun OTR;
-    public bool inSafehouse = false;
+    public static event Action<bool> OnSafehouseStateChanged;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && OTR.GangEvidence)
-        {
-            inSafehouse = true;
-            OTR.inSafehouse = true;
-            OTR.objective.text = "Place the evidence on the wall in the evidence room.";
-        }
+        if (!other.CompareTag("Player")) return;
+
+        OnSafehouseStateChanged?.Invoke(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (OTR.Escaped)
-        {
-            inSafehouse = false;
-            OTR.objective.text = "Go back inside the safehouse";
-        }
+        if (!other.CompareTag("Player")) return;
+
+        OnSafehouseStateChanged?.Invoke(false);
     }
 }

@@ -1,32 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LiftCall : MonoBehaviour, IInteractable
 {
     public Lift liftToCall;
     public int floorButton;
+    // Missing required property[cite: 12]
+    public bool isTriggered { get; set; }
 
-    public void OnInteract()
+    public void OnInteract(GameObject user) // Missing required parameter[cite: 12]
     {
-
-    }
-
-    public void OnLookAt()
-    {
-
+        Toggle();
     }
 
     public void Toggle()
     {
-        liftToCall.rMaster.buttonPressed = true;
-        liftToCall.rMaster.inLift = true;
-
-        liftToCall.GoToFloor(floorButton);
+        // Updated to match the new method name in Lift.cs
+        liftToCall.MoveToFloor(floorButton);
     }
 
-    public void OnLookAway()
-    {
-
-    }
+    public void OnLookAt() { }
+    public void OnLookAway() { }
 }

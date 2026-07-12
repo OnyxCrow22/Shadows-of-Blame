@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyCoverSystem : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class EnemyCoverSystem : MonoBehaviour
     public LoseSightEvent lostSight;
 
     private Coroutine CheckFOVCoroutine;
-    private Coroutine MovementCoroutine;
-
 
     private void Awake()
     {
@@ -23,7 +22,8 @@ public class EnemyCoverSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!CheckForFOV(other.transform))
+        // Only track specific targets
+        if (other.CompareTag("Player"))
         {
             CheckFOVCoroutine = StartCoroutine(CheckForFieldOV(other.transform));
         }
@@ -31,54 +31,40 @@ public class EnemyCoverSystem : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        lostSight?.Invoke(other.transform);
-        if (CheckFOVCoroutine != null)
+        if (other.CompareTag("Player"))
         {
-            StopCoroutine(CheckFOVCoroutine);
+            lostSight?.Invoke(other.transform);
+            if (CheckFOVCoroutine != null) StopCoroutine(CheckFOVCoroutine);
         }
     }
 
     private bool CheckForFOV(Transform target)
     {
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        float dotProduct = Vector3.Dot(transform.forward, direction);
-        if (dotProduct >= Mathf.Cos(FOV))
+        Vector3 directionToTarget = (target.position - transform.position).normalized;
+        float dotProduct = Vector3.Dot(transform.forward, directionToTarget);
+
+        // Check if target is within FOV angle
+        if (dotProduct >= Mathf.Cos(FOV * Mathf.Deg2Rad))
         {
-            if (Physics.Raycast(target.transform.position, direction, out RaycastHit hit, sCol.radius, LineofSight))
+            if (Physics.Raycast(transform.position + Vector3.up, directionToTarget, out RaycastHit hit, sCol.radius, LineofSight))
             {
-                sighted?.Invoke(target);
-                return true;
+                if (hit.transform == target)
+                {
+                    sighted?.Invoke(target);
+                    return true;
+                }
             }
         }
-
         return false;
     }
 
     private IEnumerator CheckForFieldOV(Transform target)
     {
         WaitForSeconds wait = new WaitForSeconds(0.5f);
-
-        while (!CheckForFOV(target))
+        while (true) // Keep checking while in trigger
         {
+            CheckForFOV(target);
             yield return wait;
-        }
-    }
-
-    public void HandleGainSight(Transform target)
-    {
-        if (MovementCoroutine != null)
-        {
-            StopCoroutine(MovementCoroutine);
-        }
-
-        MovementCoroutine = StartCoroutine(GetComponent<EnemyMovementSM>().HideIntoCover(target));
-    }
-
-    public void HandleLostSight(Transform target)
-    {
-        if (MovementCoroutine != null)
-        {
-            StopCoroutine(MovementCoroutine);
         }
     }
 }

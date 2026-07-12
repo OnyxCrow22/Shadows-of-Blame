@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class NPCMovementSM : NPCStateMachine
 {
+    [Header("References")]
     public NavMeshAgent NPC;
     public GameObject player;
     public GameObject hiddenGun;
@@ -14,9 +15,8 @@ public class NPCMovementSM : NPCStateMachine
     public GameObject NPCFOV;
     public AudioSource NPCSound;
     public AudioClip[] clips;
-    GameObject[] male;
-    GameObject[] female;
 
+    [Header("State Flags")]
     public bool spawnedIn = false;
     public bool isWalking = false;
     public bool isFleeing = false;
@@ -25,14 +25,10 @@ public class NPCMovementSM : NPCStateMachine
     public bool canReturn = false;
     public bool hostileNPC = false;
     public bool neturalNPC = false;
-    public bool arrived = false;
 
-    public bool isMale = false;
-    public bool isFemale = false;
-
-    public int aggression;
-
-    public NPCHealth nHealth;
+    [Header("Stats")]
+    public int aggression; // Flee or fight against the player
+    public HealthSystem nHealth;
     public PoliceLevel police;
     public NPCGun hidden;
     public FollowWaypoints walking;
@@ -45,9 +41,7 @@ public class NPCMovementSM : NPCStateMachine
     public NPCFlee fleeState;
     [HideInInspector]
     public NPCShoot fireState;
-    // DEPRACATED SCRIPTS - DO NOT ADD
-    [HideInInspector]
-    public NPCAttack meleeState;
+
     private void Awake()
     {
         idleState = new NPCIdle(this);
@@ -55,55 +49,49 @@ public class NPCMovementSM : NPCStateMachine
         fleeState = new NPCFlee(this);
         fireState = new NPCShoot(this);
 
-        // DEPRACATED SCRIPTS - DO NOT ADD
-
-        // meleeState = new NPCAttack(this);
-
-        aggression = Random.Range(0, 2);
+        // Randomize personality upon spawn
+        aggression = (Random.value < 0.20f) ? 1 : 0;
     }
 
     public IEnumerator ScreamFlee()
     {
-        if (neturalNPC)
+        if (neturalNPC && !isFleeing)
         {
+            isFleeing = true; // Set flag immediately to prevent re-entry
+
             NPC.isStopped = true;
             NPCAnim.SetBool("scream", true);
-            yield return new WaitForSeconds(3);
-            NPCAnim.SetBool("scream", false);
-            NPC.SetDestination(walking.newPosition);
-            ChangeState(fleeState);
-            NPC.isStopped = false;
-            NPCAnim.SetBool("flee", true);
-            walking.FleeFromPlayer();
-            isWalking = false;
-            isFleeing = true;
+            yield return new WaitForSeconds(3f);
 
-            if (isFleeing)
-            {
-                StartCoroutine(ReturnDelay());
-                canReturn = false;
-            }
+            NPCAnim.SetBool("scream", false);
+            NPCAnim.SetBool("flee", true);
+
+            NPC.SetDestination(walking.newPosition);
+            NPC.isStopped = false;
+
+            walking.FleeFromPlayer();
+
+            // Trigger state transition only after scream finishes
+            ChangeState(fleeState);
+
+            StartCoroutine(ReturnDelay());
         }
     }
 
     public IEnumerator ReturnDelay()
     {
-        if (!canReturn)
-        {
-            canReturn = false;
-            yield return new WaitForSeconds(20);
-            canReturn = true;
-            NPC.SetDestination(walking.currentPedestrianNode.transform.position);
-            yield break;
-        }
+        canReturn = false;
+        yield return new WaitForSeconds(20f);
+        canReturn = true;
+
+        // Reset state back to walking once calm
+        NPC.SetDestination(walking.currentPedestrianNode.transform.position);
+        ChangeState(walkingState);
     }
 
     public void SearchNPCS()
     {
-        male = GameObject.FindGameObjectsWithTag("MaleNPC");
-        female = GameObject.FindGameObjectsWithTag("FemaleNPC");
-
-        if (male.Length > 0 || female.Length > 0 && neturalNPC)
+        if (neturalNPC)
         {
             NPCSound.Play();
         }

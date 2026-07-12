@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class NoAStarWaypoint : MonoBehaviour
 {
-    public AICarController car;
     public Transform[] waypoints;
     int destinations;
     private void Update()

@@ -1,51 +1,31 @@
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public struct Link
-{
-    public enum direction { ONEWAY, TWOWAY, TURNLEFT, TURNRIGHT, SLIP, NOTURNLEFT, NOTURNRIGHT }
-    public GameObject lastNode, nextNode;
-    public direction dirCheck;
-}
 
 public class WaypointManager : MonoBehaviour
 {
-    [Header("Waypoint References")]
-    public GameObject[] waypoints;
-    public GameObject[] pavementNodes;
-    public Link[] links;
     public Graph graph = new Graph();
+    public float connectionDistance = 10f; // Max distance to auto-link nodes
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (waypoints.Length > 0)
+        // 1. Find nodes by tag, not by manual inspector arrays
+        GameObject[] nodes = GameObject.FindGameObjectsWithTag("Waypoint");
+
+        // 2. Add all found nodes to graph
+        foreach (GameObject node in nodes)
         {
-            foreach (GameObject waypoints in waypoints)
+            graph.AddNode(node);
+        }
+
+        // 3. Auto-link nodes based on proximity
+        foreach (GameObject nodeA in nodes)
+        {
+            foreach (GameObject nodeB in nodes)
             {
-                graph.AddNode(waypoints);
-            }
-            foreach (Link l in links)
-            {
-                graph.AddEdge(l.lastNode, l.nextNode);
-                if (l.dirCheck == Link.direction.TWOWAY)
+                if (nodeA != nodeB && Vector3.Distance(nodeA.transform.position, nodeB.transform.position) <= connectionDistance)
                 {
-                    graph.AddEdge(l.lastNode, l.nextNode);
+                    graph.AddEdge(nodeA, nodeB);
                 }
             }
         }
-
-        if (pavementNodes.Length > 0)
-        {
-            foreach (GameObject pavementN in pavementNodes)
-            {
-                graph.AddNode(pavementN);
-            }
-        }
-
-        pavementNodes = GameObject.FindGameObjectsWithTag("PedestrianNodes");
     }
 }

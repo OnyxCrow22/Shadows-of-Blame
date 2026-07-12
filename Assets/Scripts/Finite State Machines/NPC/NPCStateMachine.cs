@@ -31,10 +31,17 @@ public class NPCStateMachine : MonoBehaviour
 
     public void ChangeState(NPCBaseState newState)
     {
-        currentState.Exit();
+        if (currentState != null)
+        {
+            currentState.Exit();
+        }
 
         currentState = newState;
-        currentState.Enter();
+
+        if (currentState != null)
+        {
+            currentState.Enter();
+        }
     }
 
     protected virtual NPCBaseState GetInitialState()

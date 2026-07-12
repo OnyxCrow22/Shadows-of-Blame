@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RemoveNPC : MonoBehaviour
 {
-    public void GetRid()
+    public static event Action<GameObject> OnNPCDespawnRequested;
+
+    public void RequestDespawn()
     {
-        Destroy(gameObject);
+        OnNPCDespawnRequested?.Invoke(gameObject);
     }
 }

@@ -21,33 +21,19 @@ public class PoliceShoot : PoliceBaseState
         base.UpdateLogic();
         float DistToPlayer = Vector3.Distance(police.player.transform.position, police.PoliceAI.transform.position);
 
-         if (police.pHealth.health == 0)
-         {
-             police.pHealth.StartCoroutine(police.pHealth.PoliceDeath());
-         }
+        // Is the officer dead?
+        if (police.pHealth.health <= 0) { police.pHealth.StartCoroutine(police.pHealth.PoliceDeath()); return; }
 
-        if (!police.playsm.weapon.gunEquipped && DistToPlayer >= police.policeGun.range || police.playsm.weapon.gunEquipped && DistToPlayer >= police.policeGun.range)
+        // Return to chase sequence if the player is out of range
+        if (DistToPlayer >= police.policeGun.range)
         {
-            policeMachine.ChangeState(police.chaseState);
             police.PoliceAnim.SetBool("shoot", false);
+            police.policeGun.gameObject.SetActive(false);
+            police.isShooting = false;
             police.isChasing = true;
-            police.isShooting = false;
-            police.policeGun.gameObject.SetActive(false);
             police.PoliceAI.isStopped = false;
-            AudioManager.manager.Stop("shootGun");
-            AudioManager.manager.Play("sprinting");
-        }
-
-        if (police.playsm.health.health <= 0)
-        {
-            policeMachine.ChangeState(police.patrolState);
-            police.PoliceAnim.SetBool("playerDead", true);
-            police.isShooting = false;
-            police.isChasing = false;
-            police.isPatrolling = true;
-            police.policeGun.gameObject.SetActive(false);
-            AudioManager.manager.Stop("shootGun");
-            AudioManager.manager.Play("walk");
+            policeMachine.ChangeState(police.chaseState);
+            return;
         }
     }
 

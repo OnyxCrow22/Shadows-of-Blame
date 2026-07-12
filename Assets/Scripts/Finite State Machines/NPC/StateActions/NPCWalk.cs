@@ -8,83 +8,77 @@ public class NPCWalk : NPCBaseState
     private NPCMovementSM AI;
     float WalkDist = 120f;
 
-
     public NPCWalk(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
         AI = npcStateMachine;
     }
 
-    public override void Enter()
-    {
-
-    }
-
     public override void UpdateLogic()
     {
+        base.UpdateLogic();
+
         float distanceFromPlayer = Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position);
-        Ray gunRay = new Ray(AI.NPCFOV.transform.position, Vector3.forward);
+        Ray gunRay = new Ray(AI.NPCFOV.transform.position, AI.NPCFOV.transform.forward);
         RaycastHit gunHit;
         float radius = 20;
 
-        if (Vector3.Distance(AI.player.transform.position, AI.NPC.transform.position) > WalkDist)
+        if (distanceFromPlayer > WalkDist)
         {
-            npcStateMachine.ChangeState(AI.idleState);
             AI.NPCAnim.SetBool("walking", false);
+            npcStateMachine.ChangeState(AI.idleState);
+            return;
         }
 
-        // Player is crazy, run away!
-        if (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting || (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade || AI.playsm.isShooting))
+        // Is the civilian dead?
+        if (AI.nHealth.health <= 0)
         {
-            // NPC is a female, they aren't aggressive.
-            if (AI.isFemale)
+            AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
+            return;
+        }
+
+        // Threat Detection Check
+        if ((Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.isShooting) ||
+            (Physics.Raycast(gunRay, out gunHit, radius) && AI.playsm.throwingGrenade) ||
+            AI.playsm.isShooting)
+        {
+            // Is the civilian not fleeing or shooting?
+            if (!AI.isFleeing && !AI.isShooting)
             {
-                AI.aggression = 0;
+                AI.aggression = (Random.value < 0.20f) ? 1 : 0; // Have a 20% chance of turning aggressive, and an 80% of fleeing.
             }
-            // NPC is not aggressive, they need to run away!
+
+            // NPC flees from the player
             if (AI.aggression == 0)
             {
-                AI.StartCoroutine(AI.ScreamFlee());
                 AI.neturalNPC = true;
                 AI.isWalking = false;
                 AI.isFleeing = true;
 
                 AI.SearchNPCS();
+                AI.StartCoroutine(AI.ScreamFlee());
+                AI.StartCoroutine(AI.ReturnDelay());
 
-                if (AI.isFleeing)
-                {
-                    AI.StartCoroutine(AI.ReturnDelay());
-                    int RandomSpeedIndex = Random.Range(4, 7);
-                    AI.NPC.speed = RandomSpeedIndex;
-                }
+                AI.NPC.speed = Random.Range(4, 7);
+
+                npcStateMachine.ChangeState(AI.fleeState);
+                return;
             }
-            // NPC is aggressive, they will not run away easily.
-            else if (AI.aggression == 1 && AI.isMale)
+            // NPC decides to fight back against the player
+            else if (AI.aggression == 1)
             {
-                npcStateMachine.ChangeState(AI.fireState);
-                AI.hiddenGun.SetActive(true);
-                AI.NPCAnim.SetBool("shoot", true);
-                AudioManager.manager.Play("shoot");
-                AudioManager.manager.Stop("walk");
-                AI.NPCAnim.SetTrigger("gunEquipped");
                 AI.isWalking = false;
                 AI.isShooting = true;
                 AI.hostileNPC = true;
+                AI.hiddenGun.SetActive(true);
+                AI.NPCAnim.SetBool("shoot", true);
+                AI.NPCAnim.SetTrigger("gunEquipped");
+
+                AudioManager.manager.Play("shoot");
+                AudioManager.manager.Stop("walk");
+
+                npcStateMachine.ChangeState(AI.fireState);
+                return;
             }
         }
-
-        if (AI.nHealth.health <= 0)
-        {
-            AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
-        }
-    }
-
-    public void OnBecameInvisible()
-    {
-        AI.NPC.gameObject.AddComponent<RemoveNPC>();
-    }
-
-    public override void UpdatePhysics()
-    {
-        base.UpdatePhysics();
     }
 }

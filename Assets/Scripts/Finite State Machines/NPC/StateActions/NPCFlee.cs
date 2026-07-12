@@ -5,7 +5,6 @@ using UnityEngine;
 public class NPCFlee : NPCBaseState
 {
     private NPCMovementSM AI;
-    float FleeDist = 64;
 
     public NPCFlee(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
@@ -14,22 +13,31 @@ public class NPCFlee : NPCBaseState
 
     public override void Enter()
     {
-
+        base.Enter();
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        // Okay, we can calm down now, as the player is no longer holding a gun.
-        if (!AI.playsm.weapon.gunEquipped && FleeDist >= 64 && AI.canReturn|| !AI.playsm.hasThrownGrenade && FleeDist >= 64 && AI.canReturn)
+
+        float currentDistanceToPlayer = Vector3.Distance(AI.NPC.transform.position, AI.player.transform.position);
+
+        // Okay, we can calm down now, if the player isn't actively threatening and is far away
+        if (AI.canReturn && currentDistanceToPlayer >= 64f)
         {
-            npcStateMachine.ChangeState(AI.walkingState);
-            AI.isFleeing = false;
-            AI.isWalking = true;
-            AI.NPCAnim.SetBool("walking", true);
-            AI.NPCAnim.SetBool("flee", false);
-            int RandomSpeedIndex = Random.Range(1, 3);
-            AI.NPC.speed = RandomSpeedIndex;
+            if (!AI.playsm.weapon.gunEquipped || !AI.playsm.hasThrownGrenade)
+            {
+                AI.isFleeing = false;
+                AI.isWalking = true;
+                AI.NPCAnim.SetBool("walking", true);
+                AI.NPCAnim.SetBool("flee", false);
+
+                int RandomSpeedIndex = Random.Range(1, 3);
+                AI.NPC.speed = RandomSpeedIndex;
+
+                npcStateMachine.ChangeState(AI.walkingState);
+                return;
+            }
         }
     }
 

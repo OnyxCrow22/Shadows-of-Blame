@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class EnemyBaseState
 {
-    public string name;
+    public string Name { get; protected set; }
     protected EnemyStateMachine enemyStateMachine;
 
     public EnemyBaseState(string name, EnemyStateMachine enemyStateMachine)
     {
         this.enemyStateMachine = enemyStateMachine;
-        this.name = name;
+        this.Name = name;
     }
 
     public virtual void Enter() { }

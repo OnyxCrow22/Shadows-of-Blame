@@ -1,51 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PunchSystem : MonoBehaviour
 {
-    [Header("Punching statistics")]
-    public int damage;
+    public int damage = 10;
+    public float punchRange = 8f;
+    public float punchCooldown = 0.3f;
 
-    [Header("Punch References")]
-    public GameObject FOV;
-    RaycastHit punchHit;
-    public LayerMask Enemy, NPC;
+    public Transform FOV;
+    public LayerMask hittableMask;
     public PlayerMovementSM playsm;
+
+    private float nextPunchTime;
 
     private void Update()
     {
-        InputCheck();
+        if (Time.time >= nextPunchTime)
+            CheckInput();
     }
 
-    public void InputCheck()
+    private void CheckInput()
     {
         if (playsm.attackPressed && !playsm.weapon.gunEquipped)
-        {
-            PunchSomething();
-        }
+            Punch();
     }
 
-    private void PunchSomething()
+    private void Punch()
     {
-        float punchRange = 8;
-        Ray punchRay = new Ray(FOV.transform.position, FOV.transform.forward);
-        Debug.DrawRay(FOV.transform.position, FOV.transform.forward, Color.cyan);
-        if (Physics.Raycast(punchRay, out punchHit, punchRange, Enemy) || (Physics.Raycast(punchRay, out punchHit, punchRange, NPC)))
+        nextPunchTime = Time.time + punchCooldown;
+
+        Ray ray = new Ray(FOV.position, FOV.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, punchRange, hittableMask))
         {
-            Debug.Log(punchHit.collider.name);
-
-            if (punchHit.collider.CompareTag("SaintMarysGangMember") || punchHit.collider.CompareTag("SaintMarysGangLeader") || punchHit.collider.CompareTag("NorthbyGangMember") || punchHit.collider.CompareTag("NorthbyGangLeader") || punchHit.collider.CompareTag("NorthBeachGangMember"))
-                punchHit.collider.GetComponent<EnemyHealth>().LoseHealth(damage);
-
-            if (punchHit.collider.CompareTag("FemaleNPC") || (punchHit.collider.CompareTag("MaleNPC")))
-                Debug.Log("WHACK!");
-                punchHit.collider.GetComponent<NPCHealth>().LoseHealth(damage);
-
-            if (punchHit.collider.CompareTag("Police"))
-                punchHit.collider.GetComponent<PoliceHealth>().LoseHealth(damage);
-
-            AudioManager.manager.Play("Punch");
-        } 
+            IDamageable hittable = hit.collider.GetComponent<IDamageable>();
+            if (hittable != null)
+            {
+                hittable.TakeDamage(damage);
+                AudioManager.manager.Play("Punch");
+            }
+        }
     }
 }

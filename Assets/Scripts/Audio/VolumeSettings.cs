@@ -5,46 +5,74 @@ using TMPro;
 
 public class VolumeSettings : MonoBehaviour
 {
-    public AudioMixer master;
-    public Slider musicSlider;
-    public Slider sfxSlider;
-    public TextMeshProUGUI MusicVolText;
-    public TextMeshProUGUI SFXVolText;
+    [Header("Audio Configurations")]
+    [SerializeField] private AudioMixer master;
 
-    public const string MIXER_MUSIC = "MusicVol";
-    public const string MIXER_SFX = "SFXVol";
+    private string mixerMusicParam = AudioManager.MIXER_MUSIC;
+    private string mixerSfxParam = AudioManager.MIXER_SFX;
 
-    void Awake()
+    [Header("UI Components")]
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
+    [SerializeField] private TextMeshProUGUI musicVolText;
+    [SerializeField] private TextMeshProUGUI sfxVolText;
+
+    private void OnEnable()
     {
+        // Register UI listeners safely when the menu becomes active
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
         sfxSlider.onValueChanged.AddListener(SetSFXVolume);
     }
 
-    void Start()
+    private void Start()
     {
-        // Get the slider values from the PlayerPrefs.
-        musicSlider.value = PlayerPrefs.GetFloat(AudioManager.MUSIC_KEY, 1f);
-        sfxSlider.value = PlayerPrefs.GetFloat(AudioManager.SFX_KEY, 1f);
+        // Retrieve stored volume properties, defaulting to a full 1.0f volume allocation
+        musicSlider.value = PlayerPrefs.GetFloat(AudioManager.MUSIC_PREF, 1f);
+        sfxSlider.value = PlayerPrefs.GetFloat(AudioManager.SFX_PREF, 1f);
+
+        // Force initialize UI text display readouts on first run
+        UpdateSliderText(musicVolText, musicSlider.value);
+        UpdateSliderText(sfxVolText, sfxSlider.value);
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        // Save the slider values to PlayerPrefs.
-        PlayerPrefs.SetFloat(AudioManager.MUSIC_KEY, musicSlider.value);
-        PlayerPrefs.SetFloat(AudioManager.SFX_KEY, sfxSlider.value);
+        // Unregister listeners to eliminate lingering background memory allocation references
+        musicSlider.onValueChanged.RemoveListener(SetMusicVolume);
+        sfxSlider.onValueChanged.RemoveListener(SetSFXVolume);
+
+        // Save slider records safely to disk layout storage structures
+        PlayerPrefs.SetFloat(AudioManager.MUSIC_PREF, musicSlider.value);
+        PlayerPrefs.SetFloat(AudioManager.SFX_PREF, sfxSlider.value);
+        PlayerPrefs.Save();
     }
 
-    // Set the Music volume, and output the result to the audioMixerGroup.
     public void SetMusicVolume(float value)
     {
-        master.SetFloat(MIXER_MUSIC, Mathf.Log10(value) * 20);
-        MusicVolText.text = value.ToString("0.00");
+        CalculateVolume(mixerMusicParam, value);
+        UpdateSliderText(musicVolText, value);
     }
 
-    // Set the SFX Volume, and output the result to the audioMixerGroup. Also change the text to update based on the value.
     public void SetSFXVolume(float value)
     {
-        master.SetFloat(MIXER_SFX, Mathf.Log10(value) * 20);
-        SFXVolText.text = value.ToString("0.00");
+        CalculateVolume(mixerSfxParam, value);
+        UpdateSliderText(sfxVolText, value);
+    }
+
+    private void CalculateVolume(string parameterName, float sliderValue)
+    {
+        // Clamp minimum value to 0.0001f to prevent a mathematical Log10(0) negative infinity error
+        float safeValue = Mathf.Max(sliderValue, 0.0001f);
+        float decibels = Mathf.Log10(safeValue) * 20f;
+
+        master.SetFloat(parameterName, decibels);
+    }
+
+    private void UpdateSliderText(TextMeshProUGUI textComponent, float value)
+    {
+        if (textComponent != null)
+        {
+            textComponent.text = value.ToString("0.00");
+        }
     }
 }

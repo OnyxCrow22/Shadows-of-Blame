@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
+    // Required by interface
+    public bool isTriggered { get; set; }
+
     public bool isOpen = false;
     public bool isAnimating = false;
     public AudioClip[] doorClips;
@@ -10,7 +13,11 @@ public class Door : MonoBehaviour, IInteractable
     public Animator doorAnim;
     public RaycastMaster rMaster;
 
-    public void OnInteract() { }
+    // Interface method with required parameter
+    public void OnInteract(GameObject interactedObj)
+    {
+        Toggle();
+    }
 
     public void OnLookAt() { }
 
@@ -37,12 +44,11 @@ public class Door : MonoBehaviour, IInteractable
 
         doorAnim.SetBool("closeDoor", false);
         doorAnim.SetBool("openDoor", false);
-
         doorAnim.SetBool(animParam, true);
 
         if (clip != null) doorSound.PlayOneShot(clip);
 
-        rMaster.interactKey.SetActive(false);
+        if (rMaster != null) rMaster.interactKey.SetActive(false);
 
         yield return new WaitForSeconds(2f);
 

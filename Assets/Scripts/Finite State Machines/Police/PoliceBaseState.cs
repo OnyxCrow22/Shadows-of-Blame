@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PoliceBaseState
 {
-    public string name;
+    public string Name { get; protected set; }
     protected PoliceStateMachine policeMachine;
 
     public PoliceBaseState(string name, PoliceStateMachine policeMachine)
     {
         this.policeMachine = policeMachine;
-        this.name = name;
+        this.Name = name;
     }
 
     public virtual void Enter() { }

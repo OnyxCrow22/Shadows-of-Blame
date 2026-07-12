@@ -8,30 +8,33 @@ public class WeaponWheelButtonController : MonoBehaviour
     public string itemName;
     public TextMeshProUGUI itemText;
     public Image selectedImage;
-    bool selected = false;
     public Sprite icon;
-    // Start is called before the first frame update
 
-    // Update is called once per frame
-    void Update()
+    private bool selected = false;
+
+    private void Update()
     {
-       if (selected)
-       {
+        if (selected)
+        {
             selectedImage.sprite = icon;
             itemText.text = itemName;
-       }
+        }
     }
 
     public void Selected()
     {
         selected = true;
-        WeaponWheelController.weaponID = ID;
+        Object.FindAnyObjectByType<WeaponWheelController>().selectedID = ID;
+
+
     }
 
     public void DeSelected()
     {
         selected = false;
-        WeaponWheelController.weaponID = 0;
+        Object.FindAnyObjectByType<WeaponWheelController>().selectedID = ID;
+
+
     }
 
     public void HoverEnter()

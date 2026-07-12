@@ -1,47 +1,94 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
-public class RandomNP : MonoBehaviour
+public class RandomPlateGenerator : MonoBehaviour
 {
-    [Header("Number Plate References")]
-    public TextMeshPro FrontPlate, BackPlate;
-    public int letters = 5;
-    public int numbers = 2;
-    private const string npLetters = "ABCDEFGHIJKLMNOPQRSTUVWYXZ";
-    private const string npNumbers = "1234567890";
-    // Start is called before the first frame update
-    void Start()
+    public TextMeshPro frontPlate;
+    public TextMeshPro backPlate;
+
+    public RegionalData regionData;
+
+    private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private const string Numbers = "0123456789";
+
+    private void Awake()
     {
-        string RandomNumberPlate = GeneratePlate();
-        FrontPlate.text = RandomNumberPlate;
-        BackPlate.text = RandomNumberPlate;
+        string plate = GeneratePlateForCountry(regionData.regionalArea);
+
+        if (frontPlate != null)
+            frontPlate.text = plate;
+
+        if (backPlate != null)
+            backPlate.text = plate;
     }
 
-    string GeneratePlate()
+    private string GeneratePlateForCountry(string country)
     {
-        string blankPlate = "";
-        for (int i = 0; i < 2; i++)
+        switch (country)
         {
-            int randIndex = Random.Range(0, npLetters.Length);
-            blankPlate += npLetters[randIndex];
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            int randIndex = Random.Range(0, npNumbers.Length);
-            blankPlate += npNumbers[randIndex];
-        }
+            case "Westral Federation":
+                return GenerateWEFPlate();
 
-        blankPlate += " ";
+            case "Rey Del Sur":
+                return GenerateRDSPlate();
 
-        for (int i = 0; i < 3; i++)
-        {
-            int randIndex = Random.Range(0, npLetters.Length);
-            blankPlate += npLetters[randIndex];
+            case "United Republic of Melasa":
+                return GenerateURMPlate();
+
+            default:
+                return GenerateGenericPlate();
         }
+    }
 
-        return blankPlate;
+    private string GenerateWEFPlate()
+    {
+        string part1 = RandLetters(1) + RandNumbers(1);     // A4
+        string part2 = RandAlphaNum(3);                     // NU1
+        return $"WEF-{part1}-{part2}";
+    }
+
+    private string GenerateRDSPlate()
+    {
+        string part1 = RandLetters(1) + RandNumbers(1);     // N6
+        string part2 = RandNumbers(2) + RandLetters(1);     // 14M
+        return $"RDS-{part1}-{part2}";
+    }
+
+    private string GenerateURMPlate()
+    {
+        string part1 = RandLetters(2);                      // MM
+        string part2 = RandNumbers(3);                      // 314
+        return $"URM-{part1}-{part2}";
+    }
+
+    private string GenerateGenericPlate()
+    {
+        // fallback fictional format
+        return $"{RandLetters(3)}-{RandNumbers(3)}";
+    }
+
+    private string RandLetters(int count)
+    {
+        string s = "";
+        for (int i = 0; i < count; i++)
+            s += Letters[Random.Range(0, Letters.Length)];
+        return s;
+    }
+
+    private string RandNumbers(int count)
+    {
+        string s = "";
+        for (int i = 0; i < count; i++)
+            s += Numbers[Random.Range(0, Numbers.Length)];
+        return s;
+    }
+
+    private string RandAlphaNum(int count)
+    {
+        string chars = Letters + Numbers;
+        string s = "";
+        for (int i = 0; i < count; i++)
+            s += chars[Random.Range(0, chars.Length)];
+        return s;
     }
 }

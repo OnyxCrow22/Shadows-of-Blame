@@ -4,15 +4,15 @@ public class Grenade : MonoBehaviour
 {
     public float delay = 3f;
     public float radius = 15f;
-    public float force = 700;
-    public float grenadeDamage = 100;
+    public float force = 700f;
+    public float grenadeDamage = 100f;
+
     public GameObject explosionVFX;
-    public GameObject grenade;
-    public bool hasExploded = false;
 
     private float countdown;
+    private bool hasExploded = false;
 
-    void Start()
+    private void Start()
     {
         countdown = delay;
     }
@@ -20,46 +20,46 @@ public class Grenade : MonoBehaviour
     private void Update()
     {
         countdown -= Time.deltaTime;
-        if (countdown <= 0 && !hasExploded)
+
+        if (countdown <= 0f && !hasExploded)
         {
             Explode();
             hasExploded = true;
         }
     }
 
-    public void Explode()
+    private void Explode()
     {
-        // Spawn the grenade explosion VFX, along with the grenade itself
-        Instantiate(explosionVFX, transform.position, transform.rotation);
+        // VFX
+        Instantiate(explosionVFX, transform.position, Quaternion.identity);
 
-        Collider[] cols = Physics.OverlapSphere(transform.position, radius);
+        // SFX
+        if (AudioManager.manager != null)
+            AudioManager.manager.Play("GrenadeExplosion");
 
-        if (AudioManager.manager != null) AudioManager.manager.Play("GrenadeExplosion");
+        // Physics + Damage
+        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
 
-        foreach (Collider nearbyObject in cols)
+        foreach (Collider col in hits)
         {
-            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
-            if (rb != null)
+            // Explosion force
+            if (col.attachedRigidbody != null)
             {
-                // Add explosion force to nearby rigidbodies
-                rb.AddExplosionForce(force, transform.position, radius);
-            }
-            EnemyHealth damage = nearbyObject.GetComponent<EnemyHealth>();
-            if (damage != null)
-            {
-                damage.LoseHealth(damage.healthLoss + grenadeDamage);
+                col.attachedRigidbody.AddExplosionForce(force, transform.position, radius);
             }
 
-            NPCHealth NPCS = nearbyObject.GetComponent<NPCHealth>();
-            if (NPCS != null)
+            // Damage
+            if (col.TryGetComponent(out IDamageable dmg))
             {
-                NPCS.LoseHealth(NPCS.healthLoss + grenadeDamage);
+                dmg.TakeDamage(grenadeDamage);
             }
         }
 
-        if (GetComponent<MeshRenderer>()) GetComponent<MeshRenderer>().enabled = false;
+        // Hide grenade mesh
+        MeshRenderer mr = GetComponent<MeshRenderer>();
+        if (mr != null)
+            mr.enabled = false;
 
         Destroy(gameObject);
     }
 }
-

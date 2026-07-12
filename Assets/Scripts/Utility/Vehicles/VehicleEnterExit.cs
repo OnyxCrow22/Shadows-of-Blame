@@ -1,110 +1,93 @@
-using System.Collections;
-using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
-public class VehicleEnterExit : MonoBehaviour, IInteractable
+public class VehicleEntrySystem : MonoBehaviour
 {
-    [Header("Vehicle References")]
-    private DefineVehicle currentVehicle;
-    public PlayerMovementSM playsm;
+    public VehicleDefinition vehicle;
+    public VehicleState vehicleState;
+
     public GameObject player;
-    public RaycastMaster rMaster;
-    public bool inVehicle = false;
-    public float waitTime; // Time to wait for entering/exiting animations
+    public PlayerInput playerInput;
 
-    public void OnLookAt()
+    public Animator playerAnimator;
+    public Camera playerCamera;
+    public Camera vehicleCamera;
+
+    public float animationWait = 1f;
+
+    private bool inVehicle = false;
+
+    public void EnterVehicle()
     {
-        if (!inVehicle) 
-            rMaster.interactKey.SetActive(true);
+        if (inVehicle) return;
+        StartCoroutine(EnterRoutine());
     }
 
-    public void OnInteract() { }
-
-    public void OnLookAway()
+    public void ExitVehicle()
     {
-        rMaster.interactKey.SetActive(false);
+        if (!inVehicle) return;
+        StartCoroutine(ExitRoutine());
     }
 
-    public void Toggle()
-    {
-        if (!inVehicle)
-        {
-            StartCoroutine(EnteringVehicle());
-        }
-        else
-        {
-            StartCoroutine(ExitingVehicle());
-        }
-    }
-
-    // This code will no longer use hard-coded wait times for entering/exiting vehicles.
-    // Also, the player will always face the correct direction when entering the vehicle, not getting in backwards.
-    // It will also remove the redundant disabling of components that have nothing to do with the vehicle.
-    public IEnumerator EnteringVehicle()
+    private IEnumerator EnterRoutine()
     {
         inVehicle = true;
-        rMaster.interactKey.SetActive(false);
+        vehicleState.SetPlayerInside(true);
 
-        currentVehicle.vehicleCollider.enabled = false;
-        playsm.anim.SetBool("enteringCar", true);
-        currentVehicle.doorAnimator.SetBool("doorOpen", true);
-        AudioManager.manager.Play("CarDoor");
+        // Play animations
+        vehicle.doorAnimator.SetBool("doorOpen", true);
+        playerAnimator.SetBool("enteringCar", true);
 
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(animationWait);
 
-        // Switches the cameras
-        currentVehicle.vehicleCamera.SetActive(true);
-        rMaster.playerCamera.SetActive(false);
+        // Move player to seat
+        player.transform.position = vehicle.seat.position;
+        player.transform.rotation = vehicle.seat.rotation;
 
-        // Moves the player to the vehicle seat
-        player.transform.position = currentVehicle.seat.position;
-        player.transform.rotation = currentVehicle.seat.rotation;
-        player.transform.SetParent(currentVehicle.transform);
+        // Switch cameras
+        playerCamera.gameObject.SetActive(false);
+        vehicleCamera.gameObject.SetActive(true);
 
-        // Disable player collider and character controller
-        playsm.enabled = false;
-        player.GetComponent<CharacterController>().enabled = false;
+        // Disable player movement
+        playerInput.enabled = false;
 
-        // Disable player controls and enable vehicle controls
-        currentVehicle.carController.enabled = true;
-        playsm.inVehicle = true;
+        // Enable vehicle controls
+        vehicle.physicsController.enabled = true;
+        vehicle.uiController.enabled = true;
 
-        // End the animation
-        playsm.anim.SetBool("enteringCar", false);
-        currentVehicle.doorAnimator.SetBool("doorOpen", false);
+        // End animations
+        vehicle.doorAnimator.SetBool("doorOpen", false);
+        playerAnimator.SetBool("enteringCar", false);
     }
 
-    public IEnumerator ExitingVehicle()
+    private IEnumerator ExitRoutine()
     {
-        playsm.anim.SetBool("exitingCar", true);
-        currentVehicle.doorAnimator.SetBool("doorOpen", true);
-        AudioManager.manager.Play("CarDoor");
+        vehicle.doorAnimator.SetBool("doorOpen", true);
+        playerAnimator.SetBool("exitingCar", true);
 
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(animationWait);
 
-        // Moves the player outside
-        player.transform.SetParent(null);
-        player.transform.position = currentVehicle.exitPoint.position;
-        player.transform.rotation = currentVehicle.exitPoint.rotation;
+        // Move player outside
+        player.transform.position = vehicle.exitPoint.position;
+        player.transform.rotation = vehicle.exitPoint.rotation;
 
-        // Switches the cameras
-        currentVehicle.vehicleCamera.SetActive(false);
-        rMaster.playerCamera.SetActive(true);
+        // Switch cameras
+        vehicleCamera.gameObject.SetActive(false);
+        playerCamera.gameObject.SetActive(true);
 
-        // enable player controls
-        playsm.enabled = true;
-        player.GetComponent<CapsuleCollider>().enabled = true;
-        player.GetComponent<CharacterController>().enabled = true;
+        // Enable player movement
+        playerInput.enabled = true;
 
-        // End the animation
-        // Disable vehicle control script
-        currentVehicle.carController.enabled = false;
+        // Disable vehicle controls
+        vehicle.physicsController.enabled = false;
+        vehicle.uiController.enabled = false;
+
         inVehicle = false;
-        playsm.inVehicle = false;
+        vehicleState.SetPlayerInside(false);
 
-        playsm.anim.SetBool("exitingCar", false);
-        currentVehicle.doorAnimator.SetBool("doorOpen", false);
+        // End animations
+        vehicle.doorAnimator.SetBool("doorOpen", false);
+        playerAnimator.SetBool("exitingCar", false);
     }
 }
-

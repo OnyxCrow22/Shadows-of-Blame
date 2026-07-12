@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class EnemyPatrol : EnemyBaseState
 {
     private EnemyMovementSM esm;
@@ -17,58 +16,86 @@ public class EnemyPatrol : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+
+        // Is the agent on a NavMesh?
+        if (esm.agent.isOnNavMesh)
+        {
+            esm.agent.isStopped = false;
+        }
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
-        float IdleDist = 40;
+        // If the health of the enemy below to or equal to 65HP?
+        if (esm.eHealth.health <= 65)
+        {
+            esm.isPatrol = false;
+            esm.isHiding = true;
+            esm.eAnim.SetFloat("health", esm.eHealth.health);
+            Debug.Log("HIDING!");
 
+            enemyStateMachine.ChangeState(esm.coverState);
+            return; // Halt logic tracking immediately to secure the state transition
+        }
+
+        // Is the player dead?
+        if (esm.playerHealth.health <= 0)
+        {
+            // If the player is dead, drop engagement loops and remain strictly in patrol routing
+            return;
+        }
+
+        float DistToPlayer = Vector3.Distance(esm.target.position, esm.enemy.transform.position);
+        float IdleDist = 40f;
+
+        // Is the distance to the player more than the idle distance range?
+        if (DistToPlayer >= IdleDist)
+        {
+            esm.isPatrol = false;
+            esm.eAnim.SetBool("patrolling", false);
+            AudioManager.manager.Stop("walk");
+
+            enemyStateMachine.ChangeState(esm.idleState);
+            return;
+        }
+
+        // Setup vision scanning arrays targeting explicitly defined Player layers
         RaycastHit patrolHit;
         float rayLength = 20f;
         Ray patrolRay = new Ray(esm.FOV.transform.position, esm.FOV.transform.forward);
 
-        if (DistToPlayer >= IdleDist)
+        // Combat Engagement Logic Checks
+        if (Physics.Raycast(patrolRay, out patrolHit, rayLength, esm.Player))
         {
-            enemyStateMachine.ChangeState(esm.idleState);
-            esm.eAnim.SetBool("patrolling", false);
-            AudioManager.manager.Stop("walk");
-            esm.isPatrol = false;
-        }
+            // Does the player have their gun equipped?
+            if (esm.playsm.weapon.gunEquipped)
+            {
+                esm.isPatrol = false;
+                esm.isShooting = true;
+                esm.eGun.gameObject.SetActive(true);
+                esm.eAnim.SetBool("shoot", true);
+                esm.eAnim.SetTrigger("gunEquipped");
+                AudioManager.manager.Play("shootGun");
+                AudioManager.manager.Stop("walk");
+                Debug.Log("FIRING GUN!");
 
-        if (Physics.Raycast(patrolRay, out patrolHit, rayLength) && !esm.playsm.weapon.gunEquipped)
-        {
-            enemyStateMachine.ChangeState(esm.chaseState);
-            esm.eAnim.SetBool("chase", true);
-            esm.isChasing = true;
-            esm.isPatrol = false;
-            AudioManager.manager.Play("sprinting");
-            AudioManager.manager.Stop("walk");
-            Debug.Log("CHASING PLAYER");
-        }
+                enemyStateMachine.ChangeState(esm.fireState);
+                return;
+            }
+            else
+            {
+                esm.isPatrol = false;
+                esm.isChasing = true;
+                esm.eAnim.SetBool("chase", true);
+                AudioManager.manager.Play("sprinting");
+                AudioManager.manager.Stop("walk");
+                Debug.Log("CHASING PLAYER");
 
-        if (esm.playsm.weapon.gunEquipped && Physics.Raycast(patrolRay, out patrolHit, rayLength))
-        {
-            esm.eGun.gameObject.SetActive(true);
-            enemyStateMachine.ChangeState(esm.fireState);
-            esm.eAnim.SetBool("shoot", true);
-            AudioManager.manager.Play("shootGun");
-            AudioManager.manager.Stop("walk");
-            esm.eAnim.SetTrigger("gunEquipped");
-            esm.isPatrol = false;
-            Debug.Log("FIRING GUN!");
-            esm.isShooting = true;
-        }
-
-        if (esm.eHealth.health <= 65)
-        {
-            enemyStateMachine.ChangeState(esm.coverState);
-            esm.eAnim.SetFloat("health", esm.eHealth.health);
-            esm.isPatrol = false;
-            esm.isHiding = true;
-            Debug.Log("HIDING!");
+                enemyStateMachine.ChangeState(esm.chaseState);
+                return;
+            }
         }
     }
 
@@ -76,20 +103,25 @@ public class EnemyPatrol : EnemyBaseState
     {
         base.UpdatePhysics();
 
-        if (!esm.agent.pathPending && esm.agent.remainingDistance < 0.5 || esm.health.health == 0)
+        // Safe path checks executed cleanly on fixed frame intervals
+        if (esm.agent.isOnNavMesh && !esm.agent.pathPending)
         {
-            GoToNextPoint();
+            if (esm.agent.remainingDistance < 0.5f)
+            {
+                GoToNextPoint();
+            }
+        }
+    }
+
+    private void GoToNextPoint()
+    {
+        // End of path checks
+        if (esm.waypoints.Length == 0)
+        {
+            return;
         }
 
-        void GoToNextPoint()
-        {
-            // End of path
-            if (esm.waypoints.Length == 0)
-            {
-                return;
-            }
-            esm.agent.destination = esm.waypoints[esm.destinations].position;
-           esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
-        }
+        esm.agent.destination = esm.waypoints[esm.destinations].position;
+        esm.destinations = (esm.destinations + 1) % esm.waypoints.Length;
     }
 }

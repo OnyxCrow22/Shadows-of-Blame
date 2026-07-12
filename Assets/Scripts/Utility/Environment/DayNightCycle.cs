@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.Rendering.Universal;
 
 public class DayNightCycle : MonoBehaviour
@@ -36,6 +35,10 @@ public class DayNightCycle : MonoBehaviour
     public bool sunActive = true;
     public bool moonActive = true;
 
+    [Header("Calendar Settings")]
+    public int currentDayIndex = 0; // 0 = Monday, 6 = Sunday
+    private string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +49,19 @@ public class DayNightCycle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float previousTime = currentTime;
         currentTime += Time.deltaTime * timeSpeed;
 
+        // Check if we passed midnight
         if (currentTime >= 24f)
         {
-            currentTime = 0;
+            currentTime -= 24f; // More accurate than setting to 0
+            currentDayIndex++;
+
+            if (currentDayIndex >= 7)
+            {
+                currentDayIndex = 0; // Reset to Monday
+            }
         }
 
         UpdateTimeText();
@@ -66,8 +77,9 @@ public class DayNightCycle : MonoBehaviour
 
     void UpdateTimeText()
     {
-        currentTimeString = Mathf.Floor(currentTime).ToString("00") + ":" + ((currentTime % 1 * 60)).ToString("00");
-        time.text = currentTimeString;
+        string timeString = Mathf.Floor(currentTime).ToString("00") + ":" + ((currentTime % 1 * 60)).ToString("00");
+        // Append the day name to the UI string
+        time.text = daysOfWeek[currentDayIndex] + " | " + timeString;
     }
 
     void UpdateLight()

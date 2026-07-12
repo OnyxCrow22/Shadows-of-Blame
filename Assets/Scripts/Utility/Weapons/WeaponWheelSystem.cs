@@ -3,48 +3,63 @@ using UnityEngine.InputSystem;
 
 public class WeaponWheelSystem : MonoBehaviour
 {
-    public WeaponWheelController weapons;
-    public GameObject MainUI;
-    public GameObject WeaponWheelPanel;
+    public WeaponWheelController wheel;
+    public WeaponManager weaponManager;
+
+    public GameObject mainUI;
+    public GameObject wheelUI;
 
     public static bool isWheelOpen = false;
 
-    [SerializeField]
-    private InputActionReference playerControls;
+    [SerializeField] private InputActionReference wheelAction;
 
-    void OnDisable()
+    private void OnEnable()
     {
-        weapons.CloseWheel();
-        playerControls.action.performed -= OnWheelPerformed;
-        playerControls.action.canceled -= OnWheelCanceled;
+        wheelAction.action.performed += OnWheelPerformed;
+        wheelAction.action.canceled += OnWheelCanceled;
+
+        mainUI.SetActive(true);
+        wheelUI.SetActive(false);
     }
 
-    void OnEnable()
+    private void OnDisable()
     {
-        playerControls.action.performed += OnWheelPerformed;
-        playerControls.action.canceled += OnWheelCanceled;
-        MainUI.SetActive(true);
-        WeaponWheelPanel.SetActive(false);
+        wheel.CloseWheel();
+        wheelAction.action.performed -= OnWheelPerformed;
+        wheelAction.action.canceled -= OnWheelCanceled;
     }
 
-    public void OnWheelPerformed(InputAction.CallbackContext context) => OpenWheel();
-    public void OnWheelCanceled(InputAction.CallbackContext context) => CloseWheel();
+    private void OnWheelPerformed(InputAction.CallbackContext ctx)
+    {
+        OpenWheel();
+    }
 
-    void OpenWheel()
+    private void OnWheelCanceled(InputAction.CallbackContext ctx)
+    {
+        CloseWheel();
+    }
+
+    private void OpenWheel()
     {
         isWheelOpen = true;
-        weapons.WeaponWheel();
-        MainUI.SetActive(false);
-        WeaponWheelPanel.SetActive(true);
-        Time.timeScale = 0.2f; // Slow down time when the wheel is open
+        weaponManager.SetWheelOpen(true);
+
+        wheel.OpenWheel();
+        mainUI.SetActive(false);
+        wheelUI.SetActive(true);
+
+        Time.timeScale = 0.2f;
     }
-    
-    void CloseWheel()
+
+    private void CloseWheel()
     {
         isWheelOpen = false;
-        weapons.CloseWheel();
-        MainUI.SetActive(true);
-        WeaponWheelPanel.SetActive(false);
-        Time.timeScale = 1f; // Resume normal time when the wheel is closed
+        weaponManager.SetWheelOpen(false);
+
+        wheel.CloseWheel();
+        mainUI.SetActive(true);
+        wheelUI.SetActive(false);
+
+        Time.timeScale = 1f;
     }
 }

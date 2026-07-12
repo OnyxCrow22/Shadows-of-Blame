@@ -20,8 +20,13 @@ public class BrightnessControl : MonoBehaviour
 
     private void Start()
     {
+        // Load values
         sunBrightnessSlider.value = PlayerPrefs.GetFloat("sunBrightness", 1f);
         moonBrightnessSlider.value = PlayerPrefs.GetFloat("moonBrightness", 1f);
+
+        // Explicitly update lights with the loaded values
+        SetSunIntensity(sunBrightnessSlider.value);
+        SetMoonIntensity(moonBrightnessSlider.value);
     }
 
     private void OnDisable()
@@ -32,13 +37,15 @@ public class BrightnessControl : MonoBehaviour
 
     public void SetSunIntensity(float value)
     {
-        sunlightIntenstity.intensity = value;
-        sunBrightnessValue.text = value.ToString("0.00");
+        sunlightIntenstity.intensity = value; // Update the light
+        sunBrightnessValue.text = value.ToString("0.00"); // Update the UI
+        PlayerPrefs.SetFloat("sunBrightness", value); // Save immediately
     }
 
     public void SetMoonIntensity(float value)
     {
         moonLightIntenstity.intensity = value;
         moonBrightnessValue.text = value.ToString("0.00");
+        PlayerPrefs.SetFloat("moonBrightness", value);
     }
 }

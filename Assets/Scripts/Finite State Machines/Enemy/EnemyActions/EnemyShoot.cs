@@ -14,50 +14,74 @@ public class EnemyShoot : EnemyBaseState
     public override void Enter()
     {
         base.Enter();
+
+        // Is the enemy on a NavMesh?
+        if (esm.agent.isOnNavMesh)
+        {
+            esm.agent.isStopped = true;
+        }
     }
 
     public override void UpdateLogic()
     {
         base.UpdateLogic();
-        float DistToPlayer = Vector3.Distance(esm.enemy.transform.position, esm.target.position);
 
-        if (esm.eHealth.health <= 65)
-        {
-            enemyStateMachine.ChangeState(esm.coverState);
-            Debug.Log("HIDING!");
-            esm.eAnim.SetBool("shoot", false);
-            esm.eGun.gameObject.SetActive(false);
-            esm.isShooting = false;
-            esm.isHiding = true;
-            AudioManager.manager.Stop("shootGun");
-            AudioManager.manager.Play("walk");
-        }
-
+        // Is the enemy dead?
         if (esm.eHealth.health == 0)
         {
-            esm.eHealth.StartCoroutine(esm.eHealth.Death());
+            esm.eHealth.TakeDamage(esm.eHealth.maxHealth);
+            return; // Instantly halts execution loops
         }
 
-        if (!esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range || esm.playsm.weapon.gunEquipped && DistToPlayer >= esm.eGun.range)
+        // Is the enemy's health below to or equal to 65HP?
+        if (esm.eHealth.health <= 65)
         {
-            enemyStateMachine.ChangeState(esm.chaseState);
+            esm.isShooting = false;
+            esm.isHiding = true;
             esm.eAnim.SetBool("shoot", false);
-            esm.isChasing = true;
-            esm.isShooting = false;
             esm.eGun.gameObject.SetActive(false);
-            esm.agent.isStopped = false;
-            AudioManager.manager.Stop("shootGun");
-            AudioManager.manager.Play("sprinting");
-        }
-
-        if (esm.health.health <= 0)
-        {
-            enemyStateMachine.ChangeState(esm.patrolState);
-            esm.eAnim.SetBool("playerDead", true);
-            esm.isShooting = false;
-            esm.isPatrol = true;
             AudioManager.manager.Stop("shootGun");
             AudioManager.manager.Play("walk");
+            Debug.Log("HIDING!");
+
+            enemyStateMachine.ChangeState(esm.coverState);
+            return;
+        }
+
+        // Is the player dead?
+        if (esm.playerHealth.health <= 0)
+        {
+            esm.isShooting = false;
+            esm.isPatrol = true;
+            esm.eAnim.SetBool("playerDead", true);
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("walk");
+
+            enemyStateMachine.ChangeState(esm.patrolState);
+            return;
+        }
+
+        // Combat Range Target Evaluation Check
+        float DistToPlayer = Vector3.Distance(esm.enemy.transform.position, esm.target.position);
+
+        // Is the distance to the player more than or equal to the Gun range?
+        if (DistToPlayer >= esm.eGun.range)
+        {
+            esm.isChasing = true;
+            esm.isShooting = false;
+            esm.eAnim.SetBool("shoot", false);
+            esm.eGun.gameObject.SetActive(false);
+
+            // Is the enemy on a NavMesh?
+            if (esm.agent.isOnNavMesh)
+            {
+                esm.agent.isStopped = false; // Restore movement capabilities for the chase
+            }
+
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("sprinting");
+
+            enemyStateMachine.ChangeState(esm.chaseState);
         }
     }
 
@@ -65,12 +89,13 @@ public class EnemyShoot : EnemyBaseState
     {
         base.UpdatePhysics();
 
-        esm.enemy.LookAt(esm.target);
-
-        // Finds the distance between the enemy and the player
+        // Target orientation tracking vectors locked strictly to the horizontal plane
         Vector3 direction = esm.target.position - esm.enemy.transform.position;
+        direction.y = 0f;
 
-        // Turns the enemy to face towards the player.
-        esm.enemy.transform.rotation = Quaternion.Slerp(esm.enemy.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        if (direction != Vector3.zero)
+        {
+            esm.enemy.transform.rotation = Quaternion.Slerp(esm.enemy.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        }
     }
 }

@@ -1,72 +1,40 @@
-using System;
 using System.Collections;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class ObjectiveActivate : MonoBehaviour
+public class UniversalObjectiveTrigger : MonoBehaviour, IInteractable
 {
-    [Header("Data")]
-    public string requiredID; // What is required to progress
-    public string objectiveID; // What causes the objective to progress
+    [Header("Configuration")]
+    public string objectiveID;
+
+    public bool isTriggered { get; set; }
 
     [Header("Visuals")]
-    public GameObject beforeState; // What it looks like before the trigger is met
-    public GameObject afterState; // What the object looks like after the trigger is met
-    public bool useCutscene = true;
+    public GameObject beforeState;
+    public GameObject afterState;
 
-    [Header("Events")]
-    public static UnityEvent<string> OnObjectiveComplete = new(); // Create a new event on ObjectiveComplete
-    public UnityEvent onTriggerActivated; // A new event to control a trigger
+    [Header("Optional")]
+    public Animator fadeScreen; // Now you can assign an animator if needed
 
-    private bool hasActivated = false;
-    private CancellationTokenSource cts;
-
-    void OnEnable()
+    // Satisfy the interface
+    public void OnInteract(GameObject interactor)
     {
-        cts = new CancellationTokenSource();
+        StartCoroutine(ActivateSequence());
     }
 
-    void OnDisable()
+    private IEnumerator ActivateSequence()
     {
-        cts?.Cancel();
-        cts?.Dispose();
+        // Handle visual swap
+        if (beforeState) beforeState.SetActive(false);
+        if (afterState) afterState.SetActive(true);
+
+        // Broadcast the completion
+        MissionEvents.OnObjectiveComplete?.Invoke(objectiveID);
+
+        yield break;
     }
 
-    public void OnInteract()
-    {
-        if (hasActivated) // ||  !InventoryManager.Instance.HasItem(requiredID)) return;
-
-        hasActivated = true;
-        _ = ActivateSequenceAsync(cts.Token);
-    }
-
-    public async Task ActivateSequenceAsync(CancellationToken token)
-    {
-        hasActivated = true;
-        onTriggerActivated?.Invoke();
-
-        try
-        {
-            if (useCutscene)
-            {
-                // await CutsceneManager.Instance.PlayAsync("EvidencePlace_Fade", token); // Activate the cutscene
-            }
-            else
-            {
-                await Task.Delay(500, token); // 0.5 milliseconds
-            }
-
-            beforeState.SetActive(false);
-            afterState.SetActive(true);
-
-            OnObjectiveComplete?.Invoke(objectiveID);
-        }
-        catch (OperationCanceledException)
-        {
-            hasActivated = false; // Allow retry
-            Debug.Log("The ObjectiveTrigger sequence was cancelled!");
-        }
-    }
+    // Empty interface requirements
+    public void OnLookAt() { }
+    public void OnLookAway() { }
+    public void Toggle() { }
 }

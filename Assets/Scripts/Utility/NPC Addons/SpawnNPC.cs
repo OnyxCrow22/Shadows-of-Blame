@@ -1,80 +1,60 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SpawnNPC : MonoBehaviour
 {
-    public GameObject[] WalkAI;
-    public int AICount;
-    public GameObject player;
-    public LayerMask pavement;
-    public GameObject[] spawnPoint;
-    [HideInInspector]
-    public GameObject newNPC;
-    [HideInInspector]
-    public NavMeshAgent AI;
-    [HideInInspector]
-    public NPCMovementSM NPCSM;
+    [Header("NPC Setup")]
+    public GameObject[] npcPrefabs;
+    public int maxNPCs = 75;
 
-    public GameObject gameManager;
+    [Header("References")]
+    public GameObject player;
+    public PoliceLevel policeLevel;
+
+    private GameObject[] spawnPoints;
+    private int npcCount;
 
     private void Start()
     {
-        spawnPoint = GameObject.FindGameObjectsWithTag("Spawn");
-        StartCoroutine(Spawn());
+        spawnPoints = GameObject.FindGameObjectsWithTag("Spawn");
+        StartCoroutine(SpawnLoop());
     }
 
-    public IEnumerator Spawn()
+    private IEnumerator SpawnLoop()
     {
-        while (AICount < 75)
+        while (npcCount < maxNPCs)
         {
-            int RandomIndex = Random.Range(0, WalkAI.Length);
-            int RandomSpawnIndex = Random.Range(0, spawnPoint.Length);
-            int RandomSpawnDelay = Random.Range(0, 4);
-            int RandomSpeed = Random.Range(1, 3);
-            newNPC = Instantiate(WalkAI[RandomIndex], spawnPoint[RandomSpawnIndex].transform.position, Quaternion.identity);
+            SpawnOneNPC();
+            npcCount++;
 
-            NPCSM = newNPC.GetComponent<NPCMovementSM>();
-            AI = newNPC.GetComponent<NavMeshAgent>();
-            newNPC.GetComponent<NPCMovementSM>().spawnedIn = true;
-
-            if (newNPC.tag == "MaleNPC")
-            {
-                NPCSM.isMale = true;
-            }
-            else if (newNPC.tag == "FemaleNPC")
-            {
-                NPCSM.isFemale = true;
-                NPCSM.aggression = 0;
-            }
-
-            if (gameManager != null && NPCSM != null)
-            {
-                NPCSM.police = gameManager.GetComponent<PoliceLevel>();
-            }
-
-            if (player != null)
-            {
-                PlayerMovementSM playsm = player.GetComponent<PlayerMovementSM>();
-                player.GetComponent<GameObject>();
-                if (playsm != null && NPCSM != null)
-                {
-                    NPCSM.playsm = playsm;
-                    NPCSM.player = player;
-                }
-
-            }
-
-            AI.speed = RandomSpeed;
-
-            yield return new WaitForSeconds(RandomSpawnDelay);
-            AICount++;
+            yield return new WaitForSeconds(Random.Range(0f, 4f));
         }
-        if (AICount > 75)
-        {
-            StopCoroutine(Spawn());
-            AICount = 0;
-        }
+    }
+
+    private void SpawnOneNPC()
+    {
+        int prefabIndex = Random.Range(0, npcPrefabs.Length);
+        int spawnIndex = Random.Range(0, spawnPoints.Length);
+
+        GameObject npc = Instantiate(
+            npcPrefabs[prefabIndex],
+            spawnPoints[spawnIndex].transform.position,
+            Quaternion.identity
+        );
+
+        NPCMovementSM sm = npc.GetComponent<NPCMovementSM>();
+        NavMeshAgent agent = npc.GetComponent<NavMeshAgent>();
+
+        // Assign core references only
+        sm.player = player;
+        sm.playsm = player.GetComponent<PlayerMovementSM>();
+        sm.police = policeLevel;
+
+        // Mark as spawned
+        sm.spawnedIn = true;
+
+        // Optional random speed
+        agent.speed = Random.Range(1f, 3f);
     }
 }

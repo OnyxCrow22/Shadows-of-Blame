@@ -1,40 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GangCompoundCheck : MonoBehaviour
 {
-    public OnTheRun OTR;
-    public bool arrivedAtCompound = false;
-
-    private void OnTriggerEnter(Collider other)
+    // No more reference to OnTheRun!
+    public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !OTR.EliminatedGang)
+        if (other.CompareTag("Player"))
         {
-            arrivedAtCompound = true;
-
-            if (OTR.enemies.Length <= 0)
-            {
-                OTR.objective.text = "Kill the gang leader.";
-                OTR.InCompound = true;
-                OTR.subObjective.text = "";
-            }
-            else if (OTR.enemies.Length > 0)
-            {
-                OTR.objective.text = "Kill all enemies: " + OTR.gangMembersKilled + " / " + OTR.gangMemberCount;
-                OTR.subObjective.text = "Kill the Gang Leader";
-                OTR.InCompound = true;
-            }
+            // Just broadcast: "Player arrived at compound"
+            MissionEvents.OnPlayerEnteredZone?.Invoke("GangCompound");
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void OnTriggerExit(Collider other)
     {
-        if (!OTR.EliminatedGang)
+        if (other.CompareTag("Player"))
         {
-            arrivedAtCompound = false;
-            OTR.InCompound = false;
-            OTR.objective.text = "Go back to the gang compound.";
+            // Just broadcast: "Player left compound"
+            MissionEvents.OnPlayerExitedZone?.Invoke("GangCompound");
         }
     }
 }

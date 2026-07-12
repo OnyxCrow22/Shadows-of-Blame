@@ -11,38 +11,69 @@ public class NPCShoot : NPCBaseState
         AI = npcStateMachine;
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+
+        // Aggressive NPCs will stand their ground or move tactically while firing
+        if (AI.NPC.isOnNavMesh)
+        {
+            AI.NPC.isStopped = true;
+        }
+    }
+
     public override void UpdateLogic()
     {
         base.UpdateLogic();
 
-        float DistToPlayer = Vector3.Distance(AI.NPC.transform.position, AI.player.transform.position);
-
+        // Has the civilian died?
         if (AI.nHealth.health <= 0)
         {
             AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
+            return;
         }
 
-        if (!AI.playsm.weapon.gunEquipped && DistToPlayer >= 50)
-        {
-            npcStateMachine.ChangeState(AI.walkingState);
-            AI.NPCAnim.SetBool("shoot", false);
-            AI.isWalking = true;
-            AI.isShooting = false;
-            AI.hidden.gameObject.SetActive(false);
-            AI.NPC.isStopped = false;
-            AudioManager.manager.Stop("shootGun");
-            AudioManager.manager.Play("sprinting");
-        }
-
+        // Has the player died?
         if (AI.playsm.health.health <= 0)
         {
-            npcStateMachine.ChangeState(AI.walkingState);
             AI.NPCAnim.SetBool("shoot", false);
             AI.NPCAnim.SetBool("playerDead", true);
-            AI.hidden.gameObject.SetActive(false);
-            AI.NPC.isStopped = false;
+            AI.hiddenGun.SetActive(false);
+
+            if (AI.NPC.isOnNavMesh)
+            {
+                AI.NPC.isStopped = false;
+            }
+
             AudioManager.manager.Stop("shootGun");
             AudioManager.manager.Play("walk");
+            AI.isWalking = true;
+            AI.isShooting = false;
+
+            npcStateMachine.ChangeState(AI.walkingState);
+            return;
+        }
+
+        float DistToPlayer = Vector3.Distance(AI.NPC.transform.position, AI.player.transform.position);
+
+        // Has the player put their gun away?
+        if (!AI.playsm.weapon.gunEquipped && DistToPlayer >= 50f)
+        {
+            AI.NPCAnim.SetBool("shoot", false);
+            AI.hiddenGun.SetActive(false);
+
+            if (AI.NPC.isOnNavMesh)
+            {
+                AI.NPC.isStopped = false;
+            }
+
+            AudioManager.manager.Stop("shootGun");
+            AudioManager.manager.Play("sprinting");
+            AI.isWalking = true;
+            AI.isShooting = false;
+
+            npcStateMachine.ChangeState(AI.walkingState);
+            return;
         }
     }
 
@@ -50,12 +81,13 @@ public class NPCShoot : NPCBaseState
     {
         base.UpdatePhysics();
 
-        AI.NPC.transform.LookAt(AI.player.transform.position);
-
-        // Finds the distance between the enemy and the player
+        // Safe target orientation tracking vectors locked strictly to horizontal plane
         Vector3 direction = AI.player.transform.position - AI.NPC.transform.position;
+        direction.y = 0f;
 
-        // Turns the enemy to face towards the player.
-        AI.NPC.transform.rotation = Quaternion.Slerp(AI.NPC.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        if (direction != Vector3.zero)
+        {
+            AI.NPC.transform.rotation = Quaternion.Slerp(AI.NPC.transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        }
     }
 }

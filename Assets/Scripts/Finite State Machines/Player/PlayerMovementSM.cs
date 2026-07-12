@@ -40,7 +40,7 @@ public class PlayerMovementSM : PlayerStateMachine
     public float currentSpeed;
 
     public Gun weapon;
-    public PlayerHealth health;
+    public HealthSystem health;
     public PunchSystem punching;
 
     // States

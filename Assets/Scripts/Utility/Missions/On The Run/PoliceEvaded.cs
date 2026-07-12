@@ -1,20 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PoliceEvaded : MonoBehaviour
 {
-    public PoliceLevel police;
-    public OnTheRun OTR;
-    public GangEvidenceCollect GECollect;
-    public bool lostPolice = false;
+    [SerializeField] private PoliceLevel police;
 
-    public void EvadedPolice()
+    public bool HasLostPolice { get; private set; }
+
+    /// <summary>
+    /// Call this when the player has successfully evaded the police.
+    /// </summary>
+    public void OnPoliceEvaded()
     {
         if (PoliceLevel.policeLevels >= 1)
         {
-            PoliceLevel.activateLevel = true;
+            HasLostPolice = true;
+
+            // Stop activating higher levels once evaded
+            PoliceLevel.activateLevel = false;
+
+            // Sync any visual / HUD representation of police level
             police.UpdateLevel();
+
+            // Notify mission flow
+            MissionEvents.RaisePoliceEvaded();
         }
     }
 }
