@@ -5,10 +5,12 @@ using UnityEngine;
 public class NPCFlee : NPCBaseState
 {
     private NPCMovementSM AI;
+    private WeaponManager weaponManager;
 
     public NPCFlee(NPCMovementSM npcStateMachine) : base("NPCWalk", npcStateMachine)
     {
         AI = npcStateMachine;
+        weaponManager = npcStateMachine.GetComponent<WeaponManager>();
     }
 
     public override void Enter()
@@ -25,7 +27,7 @@ public class NPCFlee : NPCBaseState
         // Okay, we can calm down now, if the player isn't actively threatening and is far away
         if (AI.canReturn && currentDistanceToPlayer >= 64f)
         {
-            if (!AI.playsm.weapon.gunEquipped || !AI.playsm.hasThrownGrenade)
+            if (weaponManager.CurrentWeaponType == WeaponType.Gun|| !AI.playsm.hasThrownGrenade)
             {
                 AI.isFleeing = false;
                 AI.isWalking = true;

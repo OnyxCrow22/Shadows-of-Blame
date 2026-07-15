@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e547caa7fa1c4e4896446826e8567b4, type: 3}
+  m_Name: Corporate Espionage
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionTitle: Corporate Espionage
+  objectiveDescriptions:
+  - Leave the safehouse.
+  - Go to Cape Winslow.
+  - Wait until the team is ready.
+  - Go to WestralTech's data centre.
+  - Get inside.
+  - Hack the servers.
+  - Upload evidence of corruption.
+  - Escape the data centre.
+  - Lose the police.
+  - Go to Tarnside
+  - Enter the safehouse.
+  - Send evidence to MNN.
+  - Go to bed.

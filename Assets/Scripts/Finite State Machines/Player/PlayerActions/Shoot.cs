@@ -8,6 +8,7 @@ public class Shoot : PlayerBaseState
     private PlayerMovementSM playsm;
     private bool durationCheck;
     private float stateTimer;
+    private bool aiming = false;
 
     public Shoot(PlayerMovementSM playerStateMachine) : base("Shoot", playerStateMachine)
     {
@@ -49,7 +50,7 @@ public class Shoot : PlayerBaseState
                 playsm.isShooting = false;
                 playsm.anim.SetBool(playsm.firingHash, false);
 
-                if (playsm.weapon.aiming)
+                if (aiming)
                 {
                     if (playsm.moveInput.magnitude >= 0.2f)
                     {

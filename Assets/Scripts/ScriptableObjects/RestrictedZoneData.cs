@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Zones/Restricted Zone")]
+[CreateAssetMenu(menuName = "ShadowsOfBlame/Restricted Zone")]
 public class RestrictedZoneData : ScriptableObject
 {
     public string zoneName;

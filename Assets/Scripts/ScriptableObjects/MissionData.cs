@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "ShadowsOfBlame/Mission Data")]
 public class MissionData : ScriptableObject
 {
     public string missionTitle;

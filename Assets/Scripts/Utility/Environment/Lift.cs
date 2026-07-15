@@ -10,6 +10,8 @@ public class Lift : MonoBehaviour, IInteractable
     public float liftSpeed = 3f;
 
     private int currentFloor = 0;
+    private bool buttonPressed = false;
+    private bool inLift = false;
     private bool isMoving = false;
 
     public void OnInteract(GameObject user)
@@ -30,8 +32,8 @@ public class Lift : MonoBehaviour, IInteractable
         // Centralized state handling
         if (rMaster != null)
         {
-            rMaster.buttonPressed = true;
-            rMaster.inLift = true;
+            buttonPressed = true;
+            inLift = true;
         }
 
         StartCoroutine(OperateLift(floorIndex));

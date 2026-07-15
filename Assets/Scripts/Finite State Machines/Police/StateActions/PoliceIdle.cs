@@ -26,7 +26,7 @@ public class PoliceIdle : PoliceBaseState
         }
         if (wanted.pHealth.health == 0)
         {
-            wanted.pHealth.StartCoroutine(wanted.pHealth.PoliceDeath());
+            // wanted.pHealth.StartCoroutine(wanted.pHealth.PoliceDeath());
         }
     }
 

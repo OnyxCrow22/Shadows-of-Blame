@@ -6,11 +6,13 @@ public class PlayerState : MonoBehaviour
     public bool HasWesteriaAccess = false;
     public bool HasWestralAccess = false;
     public bool HasMelasaAccess = false;
+    public bool IsInWestInsbury = false;
 
     [Header("Player Status")]
     public bool IsDead = false;
     public bool IsInVehicle = false;
     public bool IsInCutscene = false;
+    public bool IsAiming = false;
 
     [Header("Mission Flags")]
     public bool CanRespawn = true;
@@ -36,5 +38,10 @@ public class PlayerState : MonoBehaviour
     public void SetMissionState(bool inMission)
     {
         IsInMission = inMission;
+    }
+
+    public void SetAiming(bool aiming)
+    {
+        IsAiming = aiming;
     }
 }

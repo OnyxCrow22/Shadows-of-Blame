@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewTrafficProfile", menuName = "Traffic/Profile")]
+[CreateAssetMenu(fileName = "NewTrafficProfile", menuName = "ShadowsOfBlame/Traffic Profile")]
 public class TrafficProfile : ScriptableObject
 {
     public float redDuration;

@@ -22,7 +22,7 @@ public class FollowWaypoints : MonoBehaviour
 
     private void Start()
     {
-        waypoints = waypointManager.GetComponent<WaypointManager>().waypoints;
+        // waypoints = waypointManager.GetComponent<WaypointManager>().waypoints;
         g = waypointManager.GetComponent<WaypointManager>().graph;
         currentNode = waypoints[0];
         currentDestinationNode = waypoints[0];
@@ -75,7 +75,7 @@ public class FollowWaypoints : MonoBehaviour
     
     public void FleeFromPlayer()
     {
-        if (AI.playsm.weapon.gunEquipped && !AI.canReturn || AI.playsm.hasThrownGrenade && !AI.canReturn)
+        if (!AI.canReturn || AI.playsm.hasThrownGrenade && !AI.canReturn)
         {
             runDist = AI.NPC.transform.position - AI.player.transform.position;
 

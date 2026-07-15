@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class UIController : MonoBehaviour
     public GameObject audioSettings;
     public GameObject graphicsPanel;
     public GameObject instructionsPanel;
+
+    public RegionDisplayUI regions; // A new holder for regional scripts.
+
+    
 
     private void OnEnable()
     {
@@ -47,5 +52,21 @@ public class UIController : MonoBehaviour
         instructionsPanel.SetActive(false);
 
         screen.SetActive(true);
+    }
+
+    public void DisplayRegion(RegionData region)
+    {
+        if (regions != null)
+        {
+            regions.DisplayRegion(region);
+        }
+    }
+
+    public void ClearRegionDisplay()
+    {
+        if (regions != null)
+        {
+            regions.ClearRegionDisplay();
+        }
     }
 }

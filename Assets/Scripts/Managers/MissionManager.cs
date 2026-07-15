@@ -1,5 +1,6 @@
 using UnityEngine;
-using TMPro; // Assuming you are using TextMeshPro for your UI
+using TMPro;
+using System; // Assuming you are using TextMeshPro for your UI
 
 public class MissionManager : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class MissionManager : MonoBehaviour
         MissionEvents.OnObjectiveComplete += AdvanceMission;
         // Optional: Listen for other events like death or collection
         MissionEvents.OnGangLeaderKilled += HandleLeaderKilled;
+    }
+
+    private void AdvanceMission(bool obj)
+    {
+        throw new NotImplementedException();
     }
 
     void OnDisable()

@@ -3,10 +3,12 @@ using UnityEngine;
 public class EnemyChase : EnemyBaseState
 {
     private EnemyMovementSM esm;
+    private WeaponManager weaponManager;
 
     public EnemyChase(EnemyMovementSM enemyStateMachine) : base("Chase", enemyStateMachine)
     {
         esm = enemyStateMachine;
+        weaponManager = enemyStateMachine.GetComponent<WeaponManager>();
     }
 
     public override void Enter()
@@ -44,7 +46,7 @@ public class EnemyChase : EnemyBaseState
         }
 
         // Is the player's weapon equipped?
-        if (esm.playsm.weapon.gunEquipped)
+        if (weaponManager.CurrentWeaponType == WeaponType.Gun && Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 20)
         {
             esm.isChasing = false;
             esm.eGun.gameObject.SetActive(true);

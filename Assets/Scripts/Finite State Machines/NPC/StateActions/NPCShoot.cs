@@ -5,10 +5,12 @@ using UnityEngine;
 public class NPCShoot : NPCBaseState
 {
     private NPCMovementSM AI;
+    private WeaponManager weaponManager;
 
     public NPCShoot(NPCMovementSM npcStateMachine) : base("Shoot", npcStateMachine)
     {
         AI = npcStateMachine;
+        weaponManager = npcStateMachine.GetComponent<WeaponManager>();
     }
 
     public override void Enter()
@@ -29,7 +31,7 @@ public class NPCShoot : NPCBaseState
         // Has the civilian died?
         if (AI.nHealth.health <= 0)
         {
-            AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
+            // Needs to die.
             return;
         }
 
@@ -57,7 +59,7 @@ public class NPCShoot : NPCBaseState
         float DistToPlayer = Vector3.Distance(AI.NPC.transform.position, AI.player.transform.position);
 
         // Has the player put their gun away?
-        if (!AI.playsm.weapon.gunEquipped && DistToPlayer >= 50f)
+        if (weaponManager.CurrentWeaponType != WeaponType.Gun && DistToPlayer >= 50f)
         {
             AI.NPCAnim.SetBool("shoot", false);
             AI.hiddenGun.SetActive(false);

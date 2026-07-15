@@ -72,6 +72,7 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector] public int jumpingHash;
     [HideInInspector] public int firingHash;
     [HideInInspector] public int punchingHash;
+    [HideInInspector] public int aimingHash;
 
     private void Awake()
     {
@@ -85,6 +86,7 @@ public class PlayerMovementSM : PlayerStateMachine
         jumpingHash = Animator.StringToHash("Jump");
         firingHash = Animator.StringToHash("Shoot");
         punchingHash = Animator.StringToHash("Punch");
+        aimingHash = Animator.StringToHash("Aim");
 
         idleState = new Idle(this);
         walkingState = new Walk(this);
@@ -113,6 +115,7 @@ public class PlayerMovementSM : PlayerStateMachine
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        /*
         if (!context.performed) return;
 
         if (weapon.gunEquipped && !isShooting)
@@ -129,8 +132,10 @@ public class PlayerMovementSM : PlayerStateMachine
             AudioManager.manager.Play("Punch");
             anim.SetBool(punchingHash, true);
         }
+        */
     }
 
+    /*
     public void OnWeaponEquip(InputAction.CallbackContext context)
     {
         if (context.performed && weapon.pressCount == 0)
@@ -165,6 +170,8 @@ public class PlayerMovementSM : PlayerStateMachine
         }
     }
 
+    */
+
     public void OnSprint(InputAction.CallbackContext context)
     {
         // Sprint input handled in Walk state
@@ -198,7 +205,6 @@ public class PlayerMovementSM : PlayerStateMachine
 
         }
     }
-
     protected override PlayerBaseState GetInitialState()
     {
         return idleState;

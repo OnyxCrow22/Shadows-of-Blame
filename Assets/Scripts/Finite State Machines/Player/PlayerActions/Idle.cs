@@ -4,6 +4,7 @@ public class Idle : PlayerBaseState
 {
     private PlayerMovementSM playsm;
     private Vector3 physicsVelocity;
+    private PlayerState pState;
 
     public Idle(PlayerMovementSM playerStateMachine) : base("Idle", playerStateMachine)
     {
@@ -24,7 +25,7 @@ public class Idle : PlayerBaseState
         playsm.currentSpeed = Mathf.MoveTowards(playsm.currentSpeed, 0f, playsm.acceleration * Time.deltaTime);
         playsm.anim.SetFloat(playsm.forwardSpeedHash, playsm.currentSpeed, 0.1f, Time.deltaTime);
 
-        if (playsm.moveInput.magnitude >= 0.2f && !playsm.weapon.aiming)
+        if (playsm.moveInput.magnitude >= 0.2f || !pState.IsAiming)
         {
             playerStateMachine.ChangeState(playsm.walkingState);
             return;

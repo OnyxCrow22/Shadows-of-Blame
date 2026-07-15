@@ -3,10 +3,12 @@ using UnityEngine;
 public class PoliceChase : PoliceBaseState
 {
     private PoliceMovementSM police;
+    private WeaponManager weaponManager;
 
     public PoliceChase(PoliceMovementSM policeMachine) : base("Chase", policeMachine)
     {
         police = policeMachine;
+        weaponManager = policeMachine.GetComponent<WeaponManager>();
     }
 
     public override void UpdateLogic()
@@ -16,7 +18,7 @@ public class PoliceChase : PoliceBaseState
         // Is the player dead?
         if (police.pHealth.health <= 0)
         {
-            police.pHealth.StartCoroutine(police.pHealth.PoliceDeath());
+            // police.pHealth.StartCoroutine(police.pHealth.PoliceDeath());
             return;
         }
 
@@ -29,7 +31,7 @@ public class PoliceChase : PoliceBaseState
         }
 
         // Player is armed near an officer
-        if (police.playsm.weapon.gunEquipped)
+        if (weaponManager.CurrentWeaponType == WeaponType.Gun && Vector3.Distance(police.PoliceAI.transform.position, police.playsm.player.position) <= 20)
         {
             police.PoliceAnim.SetBool("shoot", true);
             police.pGun.gameObject.SetActive(true);

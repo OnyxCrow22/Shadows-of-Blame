@@ -32,7 +32,7 @@ public class NPCWalk : NPCBaseState
         // Is the civilian dead?
         if (AI.nHealth.health <= 0)
         {
-            AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
+            // AI.nHealth.StartCoroutine(AI.nHealth.NPCDeath());
             return;
         }
 

@@ -7,10 +7,12 @@ using UnityEngine.AI;
 public class EnemyPatrol : EnemyBaseState
 {
     private EnemyMovementSM esm;
+    private WeaponManager weaponManager;
 
     public EnemyPatrol(EnemyMovementSM enemyStateMachine) : base("Patrol", enemyStateMachine)
     {
         esm = enemyStateMachine;
+        weaponManager = enemyStateMachine.GetComponent<WeaponManager>();
     }
 
     public override void Enter()
@@ -70,7 +72,7 @@ public class EnemyPatrol : EnemyBaseState
         if (Physics.Raycast(patrolRay, out patrolHit, rayLength, esm.Player))
         {
             // Does the player have their gun equipped?
-            if (esm.playsm.weapon.gunEquipped)
+            if (weaponManager.CurrentWeaponType == WeaponType.Gun && Vector3.Distance(esm.enemy.transform.position, esm.target.position) <= 20)
             {
                 esm.isPatrol = false;
                 esm.isShooting = true;

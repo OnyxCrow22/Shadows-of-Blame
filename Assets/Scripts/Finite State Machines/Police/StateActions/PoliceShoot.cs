@@ -22,7 +22,7 @@ public class PoliceShoot : PoliceBaseState
         float DistToPlayer = Vector3.Distance(police.player.transform.position, police.PoliceAI.transform.position);
 
         // Is the officer dead?
-        if (police.pHealth.health <= 0) { police.pHealth.StartCoroutine(police.pHealth.PoliceDeath()); return; }
+        if (police.pHealth.health <= 0) // { police.pHealth.StartCoroutine(police.pHealth.PoliceDeath()); return; }
 
         // Return to chase sequence if the player is out of range
         if (DistToPlayer >= police.policeGun.range)

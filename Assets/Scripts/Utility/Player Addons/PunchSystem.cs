@@ -20,7 +20,7 @@ public class PunchSystem : MonoBehaviour
 
     private void CheckInput()
     {
-        if (playsm.attackPressed && !playsm.weapon.gunEquipped)
+        if (playsm.attackPressed) //&& !playsm.weapon.gunEquipped)
             Punch();
     }
 

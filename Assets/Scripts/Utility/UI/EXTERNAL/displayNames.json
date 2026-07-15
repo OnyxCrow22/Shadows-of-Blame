@@ -1,0 +1,14 @@
+{
+    "cities": {
+        "capitalCity" : "West Insbury",
+        "swCity": "Cape Winslow",
+        "neCity": "Saint Mary's",
+        "seCity": "Haddock Bay"
+    },
+    "districts": {
+        "WestInsbury": ["West Riverside", "Halifax Park", "Crescent Hills", "Haywood"],
+        "CapeWinslow": ["Tech Quarter", "Northwest Quarter", "Historic Quarter", "Tamside"],
+        "Saint Mary's": ["Westral Square"],
+        "Haddock Bay": ["Presidential Hill", "Old Town", "New Bay"]
+    }
+}

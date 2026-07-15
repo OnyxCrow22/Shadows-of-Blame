@@ -9,10 +9,12 @@ public class NoAStarWaypoint : MonoBehaviour
     int destinations;
     private void Update()
     {
+        /*
         if (!car.vehicle.pathPending && car.vehicle.remainingDistance < 0.5f)
         {
             GoToNextPoint();
         }
+        */
 
         void GoToNextPoint()
         {
@@ -21,7 +23,7 @@ public class NoAStarWaypoint : MonoBehaviour
             {
                 return;
             }
-            car.vehicle.destination = waypoints[destinations].position;
+            // car.vehicle.destination = waypoints[destinations].position;
             destinations = (destinations + 1) % waypoints.Length;
         }
     }

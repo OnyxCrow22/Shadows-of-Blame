@@ -1,1 +1,4 @@
-﻿public class EnemyGun : NPCGun { }
+﻿public class EnemyGun : NPCGun
+{
+
+}

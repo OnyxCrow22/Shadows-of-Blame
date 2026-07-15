@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
+// Responsible for playing the credits sequence and notifying other systems when it starts and ends.
 public class CreditsManager : MonoBehaviour
 {
     public static event Action OnCreditsStarted;

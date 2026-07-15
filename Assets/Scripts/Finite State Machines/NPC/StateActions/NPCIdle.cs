@@ -5,10 +5,12 @@ using UnityEngine;
 public class NPCIdle : NPCBaseState
 {
     private NPCMovementSM AI;
+    private WeaponManager weaponManager;
 
     public NPCIdle(NPCMovementSM npcStateMachine) : base("NPCIdle", npcStateMachine)
     {
         AI = npcStateMachine;
+        weaponManager = npcStateMachine.GetComponent<WeaponManager>();
     }
 
     public override void UpdateLogic()
@@ -19,7 +21,7 @@ public class NPCIdle : NPCBaseState
         Ray gunRay = new Ray(AI.NPCFOV.transform.position, AI.NPCFOV.transform.forward);
         float threatRadius = 20f;
 
-        if (AI.playsm.isShooting || AI.playsm.throwingGrenade || AI.playsm.weapon.gunEquipped)
+        if (AI.playsm.isShooting || AI.playsm.throwingGrenade || weaponManager.CurrentWeaponType == WeaponType.Gun)
         {
             if (DistToPlayer <= threatRadius)
             {

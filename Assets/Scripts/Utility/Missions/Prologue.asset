@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e547caa7fa1c4e4896446826e8567b4, type: 3}
+  m_Name: Prologue
+  m_EditorClassIdentifier: Assembly-CSharp::MissionData
+  missionTitle: Prologue
+  objectiveDescriptions:
+  - Objective Failed.
+  - Locate the server room.
+  - Locate the broken computer.
+  - Escape the building.
+  - Find a way downstairs undetected.
+  - Get to Staircase A23 undetected.
+  - Descend to Level B2.
+  - Descend to Level B2.
+  - Locate your car.
+  - Locate and hotwire a car.
+  - Locate and hotwire a car.
+  - Escape the city.
+  - Drive to Saint Mary's.
+  - Drive to your safehouse.
+  - Go upstairs.
+  - Go to bed.

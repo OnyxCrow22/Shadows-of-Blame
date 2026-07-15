@@ -12,16 +12,16 @@ public class TrafficLightCheck : MonoBehaviour
     {
         if (other.CompareTag("Vehicle"))
         {
-            AICarController stopCheck = currentCar.GetComponent<AICarController>();
+            // AICarController stopCheck = currentCar.GetComponent<AICarController>();
             if (currentCar != null)
             {
                 if (lights.red == true || lights.amber == true)
                 {
-                    stopCheck.vehicle.isStopped = true;
+                   // stopCheck.vehicle.isStopped = true;
                 }
                 else if (lights.green)
                 {
-                    stopCheck.vehicle.isStopped = false;
+                   // stopCheck.vehicle.isStopped = false;
                 }
             }
         }
