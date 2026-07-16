@@ -23,7 +23,7 @@ public class PoliceChase : PoliceBaseState
         }
 
         // 2. Is the wanted level gone, or is the player dead?
-        if (PoliceLevel.policeLevels == 0 || police.playsm.health.health <= 0)
+        if (PoliceLevel.policeLevels == 0)
         {
             police.PoliceAnim.SetBool("chase", false);
             policeMachine.ChangeState(police.patrolState);

@@ -8,11 +8,13 @@ public class Shoot : PlayerBaseState
     private PlayerMovementSM playsm;
     private bool durationCheck;
     private float stateTimer;
-    private bool aiming = false;
+
+    private PlayerState pState;
 
     public Shoot(PlayerMovementSM playerStateMachine) : base("Shoot", playerStateMachine)
     {
         playsm = playerStateMachine;
+        pState = playsm.brainHub.playerState; // Access the PlayerState through the PlayerNexus
     }
 
     public override void Enter()
@@ -22,6 +24,8 @@ public class Shoot : PlayerBaseState
         durationCheck = false;
         stateTimer = 0;
         playsm.currentSpeed = 0;
+
+        playsm.TriggerShotSound();
     }
 
     public override void UpdateLogic()
@@ -30,6 +34,12 @@ public class Shoot : PlayerBaseState
 
         if (!durationCheck)
         {
+
+            if (playsm.anim.IsInTransition(0))
+            {
+                return;
+            }
+
             AnimatorStateInfo stateInformation = playsm.anim.GetCurrentAnimatorStateInfo(0);
 
             if (stateInformation.shortNameHash == playsm.firingHash)
@@ -50,19 +60,6 @@ public class Shoot : PlayerBaseState
                 playsm.isShooting = false;
                 playsm.anim.SetBool(playsm.firingHash, false);
 
-                if (aiming)
-                {
-                    if (playsm.moveInput.magnitude >= 0.2f)
-                    {
-                        playerStateMachine.ChangeState(playsm.walkingState);
-                    }
-                    else
-                    {
-                        playerStateMachine.ChangeState(playsm.idleState);
-                    }
-                    return;
-                }
-
                 if (playsm.moveInput.magnitude > 0.2f)
                 {
                     playerStateMachine.ChangeState(playsm.walkingState);
@@ -71,7 +68,6 @@ public class Shoot : PlayerBaseState
                 {
                     playerStateMachine.ChangeState(playsm.idleState);
                 }
-                playsm.anim.SetBool(playsm.punchingHash, false);
                 return;
             }
         }
@@ -81,7 +77,7 @@ public class Shoot : PlayerBaseState
     {
         base.UpdatePhysics();
 
-        Vector3 gravityMove = new Vector3(0f, playsm.gravity * Time.deltaTime, 0f);
+        Vector3 gravityMove = new Vector3(0f, playsm.gravity, 0f);
         playsm.har.Move(gravityMove * Time.deltaTime);
     }
 }

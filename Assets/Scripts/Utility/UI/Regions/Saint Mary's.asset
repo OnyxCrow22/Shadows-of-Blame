@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RegionData
   cityName: Saint Mary's
   districtNames: []
-  roadNames:
-  - Government Road
+  streetNames:
   - Kingston Street
-  - Empire Road
+  - Government Road
   - Westral Square
+  - Empire Road

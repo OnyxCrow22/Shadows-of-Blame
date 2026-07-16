@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,14 +16,13 @@ public class Sprint : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        AudioManager.manager.Play("sprinting");
+        playsm.TriggerSprintSound();
     }
 
     public override void Exit()
     {
         base.Exit();
-
-        AudioManager.manager.Stop("sprinting");
+        playsm.TriggerSprintEnd();
     }
 
     public override void UpdateLogic()

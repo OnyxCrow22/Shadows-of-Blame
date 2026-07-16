@@ -7,6 +7,7 @@ public class Punch : PlayerBaseState
     private PlayerMovementSM playsm;
     private bool durationCheck;
     private float stateTimer;
+    public int targetLayer = 0;
 
     public Punch(PlayerMovementSM playerStateMachine) : base("Punch", playerStateMachine)
     {
@@ -20,6 +21,7 @@ public class Punch : PlayerBaseState
         playsm.currentSpeed = 0;
         durationCheck = false;
         stateTimer = 0;
+        playsm.TriggerPunchSound();
     }
 
     public override void UpdateLogic()
@@ -29,6 +31,11 @@ public class Punch : PlayerBaseState
         // Query with the Animator
         if (!durationCheck)
         {
+            if (playsm.anim.IsInTransition(0))
+            {
+                return;
+            }
+
             AnimatorStateInfo stateInformation = playsm.anim.GetCurrentAnimatorStateInfo(0);
 
             if (stateInformation.shortNameHash == playsm.punchingHash)
@@ -66,7 +73,7 @@ public class Punch : PlayerBaseState
     {
         base.UpdatePhysics();
 
-        Vector3 gravityMove = new Vector3(0f, playsm.gravity * Time.deltaTime, 0f);
+        Vector3 gravityMove = new Vector3(0f, playsm.gravity, 0f);
         playsm.har.Move(gravityMove * Time.deltaTime);
     }
 }

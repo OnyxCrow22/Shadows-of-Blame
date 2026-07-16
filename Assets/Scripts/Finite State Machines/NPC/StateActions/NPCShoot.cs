@@ -36,7 +36,7 @@ public class NPCShoot : NPCBaseState
         }
 
         // Has the player died?
-        if (AI.playsm.health.health <= 0)
+        if (AI.nHealth.health > 0)
         {
             AI.NPCAnim.SetBool("shoot", false);
             AI.NPCAnim.SetBool("playerDead", true);

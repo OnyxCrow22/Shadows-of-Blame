@@ -54,11 +54,11 @@ public class UIController : MonoBehaviour
         screen.SetActive(true);
     }
 
-    public void DisplayRegion(RegionData region)
+    public void DisplayRegion(RegionData region, string street = "")
     {
         if (regions != null)
         {
-            regions.DisplayRegion(region);
+            regions.DisplayRegion(region, street);
         }
     }
 

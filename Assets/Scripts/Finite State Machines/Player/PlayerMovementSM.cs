@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerMovementSM : PlayerStateMachine
 {
@@ -15,12 +17,13 @@ public class PlayerMovementSM : PlayerStateMachine
     public Transform groundCheck;
     public Transform player;
 
+    // The centralised brain
+    public PlayerNexus brainHub;
+
     // bools
     public bool Crouched;
     public bool Jumping = false;
     public bool isShooting;
-    public bool isPlayerDead = false;
-    public bool inVehicle = false;
     public bool isGrounded = true;
     public bool isPunching;
 
@@ -35,13 +38,22 @@ public class PlayerMovementSM : PlayerStateMachine
     [HideInInspector] public bool sprintPressed;
     [HideInInspector] public bool crouchPressed;
     [HideInInspector] public float turnSmoothVelocity;
+
+    public static event Action OnShowRegionPressed;
+    public static event Action OnSprintPressed;
+    public static event Action OnSprintEnded;
+    public static event Action OnWalkPressed;
+    public static event Action OnWalkEnded;
+    public static event Action OnJumped;
+    public static event Action OnLanded;
+
+    public static event Action OnPunch;
+    public static event Action OnShot;
+
     public float controllerSensitvity = 100f;
     public float acceleration = 10f;
     public float currentSpeed;
 
-    public Gun weapon;
-    public HealthSystem health;
-    public PunchSystem punching;
 
     // States
     [HideInInspector]
@@ -96,6 +108,8 @@ public class PlayerMovementSM : PlayerStateMachine
         crouchWalking = new CrouchWalking(this);
         jumpingState = new Jump(this);
         punchingState = new Punch(this);
+
+        brainHub = GetComponent<PlayerNexus>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -112,6 +126,37 @@ public class PlayerMovementSM : PlayerStateMachine
             ChangeState(jumpingState);
         }
     }
+
+    public void OnShowRegion(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (OnShowRegionPressed != null)
+            {
+                OnShowRegionPressed.Invoke();
+            }
+            else
+            {
+                Debug.LogWarning("No subscribers for OnShowRegionPressed event.");
+            }
+        }
+    }
+
+    public void TriggerSprintSound() => OnSprintPressed?.Invoke();
+
+    public void TriggerSprintEnd() => OnSprintEnded?.Invoke();
+
+    public void TriggerWalkSound() => OnWalkPressed?.Invoke();
+
+    public void TriggerWalkEnd() => OnWalkEnded?.Invoke();
+
+    public void TriggerJumpPerformed() => OnJumped?.Invoke();
+    
+    public void TriggerLanded() => OnLanded?.Invoke();
+
+    public void TriggerPunchSound() => OnPunch?.Invoke();
+
+    public void TriggerShotSound() => OnShot?.Invoke();
 
     public void OnAttack(InputAction.CallbackContext context)
     {
@@ -153,12 +198,12 @@ public class PlayerMovementSM : PlayerStateMachine
     {
         if (context.performed && weapon.gunEquipped)
         {
-            weapon.aiming = true;
+            PlayerState.IsAiming = true;
         }
 
         if (context.canceled)
         {
-            weapon.aiming = false;
+            PlayerState.IsAiming = false;
         }
     }
 
@@ -195,15 +240,6 @@ public class PlayerMovementSM : PlayerStateMachine
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-
-        if (!inVehicle)
-        {
-
-        }
-        else
-        {
-
-        }
     }
     protected override PlayerBaseState GetInitialState()
     {

@@ -9,13 +9,16 @@ public class CutsceneController : MonoBehaviour
     public TextMeshProUGUI newsText; // Reference to the TextMeshProUGUI component for displaying news text
     public float lineDisplayDuration = 2f; // Duration to display each line of news text
     public float characterDuration = 0.05f; // Duration for each character to appear
-    public int currentFileIndex, currentLineIndex; // Track the current file and line being displayed
+    private int currentFileIndex, currentLineIndex; // Track the current file and line being displayed
     public Coroutine currentCutscene; // Reference to the active coroutine for displaying news text
-    public CharacterController player; 
+    public PlayerMovementSM player; // Reference to the PlayerMovementSM script for controlling player movement
     public Camera playerCam;
 
     void Start()
     {
+        currentFileIndex = 0;
+        currentLineIndex = 0;
+        
         player.enabled = false; // Disable player movement during the cutscene
         playerCam.enabled = false; // Disable player camera control during the cutscene
 
@@ -49,10 +52,15 @@ public class CutsceneController : MonoBehaviour
 
                 currentLineIndex = 0; // Reset line index for the next file
                 currentFileIndex++;
+
+                if (currentFileIndex >= newsFiles.Length)
+                {
+                    player.enabled = true; // Re-enable player movement after the cutscene
+                    playerCam.enabled = true; // Re-enable player camera control after the cutscene
+                    yield break; // Exit the coroutine after all files have been displayed
+                }
                 
-            yield return null;
+            yield return null; // Only perform if another file is available to display
         }
-            player.enabled = true; // Re-enable player movement after the cutscene
-            playerCam.enabled = true; // Re-enable player camera control after the cutscene
     }
 }

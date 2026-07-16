@@ -8,6 +8,8 @@ public class DistrictZone : MonoBehaviour
     public List<Collider> districtColliders; // List of colliders representing districts
     public UIController UI;
 
+    private int activeColliderIndex;
+
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -37,8 +39,13 @@ public class DistrictZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UI.DisplayRegion(regionData);
-            Debug.Log($"Player has entered the district zone: {regionData.cityName}");
+            activeColliderIndex++;
+
+            if (activeColliderIndex == 1)
+            {
+                UI.DisplayRegion(regionData);
+                Debug.Log($"Player has entered the district zone: {regionData.cityName}");
+            }
         }
     }
 
@@ -46,8 +53,14 @@ public class DistrictZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            UI.ClearRegionDisplay();
-            Debug.Log($"Player has exited the district zone: {regionData.cityName}");
+            activeColliderIndex--;
+
+            if (activeColliderIndex <= 0)
+            {
+                activeColliderIndex = 0; // Ensure the index doesn't go below 0
+                UI.ClearRegionDisplay();
+                Debug.Log($"Player has exited the district zone: {regionData.cityName}");
+            }
         }
     }
 }

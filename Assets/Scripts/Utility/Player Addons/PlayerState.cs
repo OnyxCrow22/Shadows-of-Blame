@@ -13,6 +13,7 @@ public class PlayerState : MonoBehaviour
     public bool IsInVehicle = false;
     public bool IsInCutscene = false;
     public bool IsAiming = false;
+    public bool isAttacking = false;
 
     [Header("Mission Flags")]
     public bool CanRespawn = true;

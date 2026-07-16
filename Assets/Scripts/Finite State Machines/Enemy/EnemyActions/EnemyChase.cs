@@ -37,7 +37,7 @@ public class EnemyChase : EnemyBaseState
         if (esm.playerHealth.health <= 0)
         {
             esm.isChasing = false;
-            esm.playsm.isPlayerDead = true;
+            // PlayerState.IsDead = true;
             esm.eAnim.SetBool("patrolling", true);
             AudioManager.manager.Play("walk");
             AudioManager.manager.Stop("sprinting");

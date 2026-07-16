@@ -6,14 +6,12 @@ public class RandomPlateGenerator : MonoBehaviour
     public TextMeshPro frontPlate;
     public TextMeshPro backPlate;
 
-    public RegionalData regionData;
-
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private const string Numbers = "0123456789";
 
     private void Awake()
     {
-        string plate = GeneratePlateForCountry(regionData.regionalArea);
+        string plate = ""; //GeneratePlateForCountry(regionData.regionalArea);
 
         if (frontPlate != null)
             frontPlate.text = plate;

@@ -172,6 +172,15 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShowRegion"",
+                    ""type"": ""Button"",
+                    ""id"": ""5dd4a955-06f4-450e-8dad-c435c09fe8cd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -414,6 +423,28 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f1a0d90-351d-40a9-b71e-80267a0c6492"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowRegion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""158caae2-fbb3-484a-9093-b86c6c4f5d48"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": ""Tap"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowRegion"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1081,6 +1112,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_Movement_Interact = m_Movement.FindAction("Interact", throwIfNotFound: true);
         m_Movement_Prone = m_Movement.FindAction("Prone", throwIfNotFound: true);
         m_Movement_Pause = m_Movement.FindAction("Pause", throwIfNotFound: true);
+        m_Movement_ShowRegion = m_Movement.FindAction("ShowRegion", throwIfNotFound: true);
         // Weapon Combat
         m_WeaponCombat = asset.FindActionMap("Weapon Combat", throwIfNotFound: true);
         m_WeaponCombat_Fire = m_WeaponCombat.FindAction("Fire", throwIfNotFound: true);
@@ -1197,6 +1229,7 @@ public partial class @Player: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Interact;
     private readonly InputAction m_Movement_Prone;
     private readonly InputAction m_Movement_Pause;
+    private readonly InputAction m_Movement_ShowRegion;
     /// <summary>
     /// Provides access to input actions defined in input action map "Movement".
     /// </summary>
@@ -1244,6 +1277,10 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Movement/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Movement_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Movement/ShowRegion".
+        /// </summary>
+        public InputAction @ShowRegion => m_Wrapper.m_Movement_ShowRegion;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1297,6 +1334,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @ShowRegion.started += instance.OnShowRegion;
+            @ShowRegion.performed += instance.OnShowRegion;
+            @ShowRegion.canceled += instance.OnShowRegion;
         }
 
         /// <summary>
@@ -1335,6 +1375,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @ShowRegion.started -= instance.OnShowRegion;
+            @ShowRegion.performed -= instance.OnShowRegion;
+            @ShowRegion.canceled -= instance.OnShowRegion;
         }
 
         /// <summary>
@@ -1891,6 +1934,13 @@ public partial class @Player: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ShowRegion" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShowRegion(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Weapon Combat" which allows adding and removing callbacks.

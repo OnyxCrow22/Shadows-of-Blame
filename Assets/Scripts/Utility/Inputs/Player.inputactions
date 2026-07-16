@@ -86,6 +86,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShowRegion",
+                    "type": "Button",
+                    "id": "5dd4a955-06f4-450e-8dad-c435c09fe8cd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -328,6 +337,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f1a0d90-351d-40a9-b71e-80267a0c6492",
+                    "path": "<Keyboard>/z",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowRegion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "158caae2-fbb3-484a-9093-b86c6c4f5d48",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowRegion",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

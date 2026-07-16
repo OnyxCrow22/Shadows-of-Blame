@@ -4,8 +4,8 @@ using UnityEngine;
 public class GPSManager : MonoBehaviour
 {
     public Transform player;
-    private List<RegionalData> regions = new List<RegionalData>();
 
+    /*
     public void RegisterRegion(RegionalData region)
     {
         regions.Add(region);
@@ -31,5 +31,5 @@ public class GPSManager : MonoBehaviour
             // Tell Harrison UI:
             // city, district, roadName, regionalArea
         }
+        */
     }
-}

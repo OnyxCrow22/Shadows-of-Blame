@@ -16,14 +16,13 @@ public class Walk : PlayerBaseState
     public override void Enter()
     {
         base.Enter();
-        AudioManager.manager.Play("walk");
+        playsm.TriggerWalkSound();
     }
 
     public override void Exit()
     {
         base.Exit();
-
-        AudioManager.manager.Stop("walk");
+        playsm.TriggerWalkEnd();
     }
 
     public override void UpdateLogic()

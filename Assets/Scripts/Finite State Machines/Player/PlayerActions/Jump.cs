@@ -36,6 +36,8 @@ public class Jump : PlayerBaseState
 
         // Add a delay of 0.15 seconds before jumping again
         jumpDelay = 0.15f;
+
+        playsm.TriggerJumpPerformed();
     }
 
     public override void UpdateLogic()
@@ -66,11 +68,20 @@ public class Jump : PlayerBaseState
         {
             playsm.Jumping = false;
             playsm.isGrounded = true;
+            playsm.TriggerLanded();
 
             if (playsm.moveInput.magnitude >= 0.2f)
             {
-                playsm.currentSpeed = playsm.sprintPressed ? 8f : 3f;
-                playerStateMachine.ChangeState(playsm.walkingState);
+                if (playsm.sprintPressed)
+                {
+                    playsm.currentSpeed = 8f;
+                    playerStateMachine.ChangeState(playsm.runningState);
+                }
+                else
+                {
+                    playsm.currentSpeed = 3f;
+                    playerStateMachine.ChangeState(playsm.walkingState);
+                }
             }
             else
             {
