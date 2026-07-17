@@ -14,12 +14,20 @@ public class PlayerAudioHandler : MonoBehaviour
     {
         PlayerMovementSM.OnJumped += HandleJumpSound;
         PlayerMovementSM.OnSprintEnded += HandleSprintStop;
-
+        PlayerMovementSM.OnSprintPressed += HandleSprintSound;
+        PlayerMovementSM.OnLanded += HandleLandSound;
+        PlayerMovementSM.OnPunch += HandlePunchSound;
+        PlayerMovementSM.OnShot += HandleShootSound;
     }   
 
     void OnDisable()
     {
-
+        PlayerMovementSM.OnJumped -= HandleJumpSound;
+        PlayerMovementSM.OnSprintEnded -= HandleSprintStop;
+        PlayerMovementSM.OnSprintPressed -= HandleSprintSound;
+        PlayerMovementSM.OnLanded -= HandleLandSound;
+        PlayerMovementSM.OnPunch -= HandlePunchSound;
+        PlayerMovementSM.OnShot -= HandleShootSound;
     }
 
     public void HandleSprintSound()
