@@ -12,20 +12,6 @@ public class UIController : MonoBehaviour
 
     public RegionDisplayUI regions; // A new holder for regional scripts.
 
-    
-
-    private void OnEnable()
-    {
-        GameStateManager.OnPaused += ShowPauseMenu;
-        GameStateManager.OnResumed += HidePauseMenu;
-    }
-
-    private void OnDisable()
-    {
-        GameStateManager.OnPaused -= ShowPauseMenu;
-        GameStateManager.OnResumed -= HidePauseMenu;
-    }
-
     private void ShowPauseMenu()
     {
         mainUI.SetActive(false);

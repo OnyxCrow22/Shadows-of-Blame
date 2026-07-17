@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class VehicleRadioInput : MonoBehaviour
 {
     public RadioManager radio;
-    public RadioUIController ui;
     public VehicleState vehicleState;
 
     public void OnRadioToggle(InputAction.CallbackContext ctx)
@@ -15,8 +14,6 @@ public class VehicleRadioInput : MonoBehaviour
             radio.Stop();
         else
             radio.Play();
-
-        ui.UpdateSongName(radio.GetCurrentTrack());
     }
 
     public void OnRadioNext(InputAction.CallbackContext ctx)
@@ -24,6 +21,5 @@ public class VehicleRadioInput : MonoBehaviour
         if (!ctx.performed || !vehicleState.IsPlayerInside) return;
 
         radio.NextTrack();
-        ui.UpdateSongName(radio.GetCurrentTrack());
     }
 }

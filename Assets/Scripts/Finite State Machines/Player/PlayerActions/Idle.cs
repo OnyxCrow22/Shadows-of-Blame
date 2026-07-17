@@ -28,12 +28,6 @@ public class Idle : PlayerBaseState
 
         if (playsm.moveInput.magnitude >= 0.2f)
         {
-            if (pState.IsAiming)
-            {
-                // If the player is aiming, we might want to handle movement differently, but for now, we'll just keep them in idle.
-                return;
-            }
-
             playerStateMachine.ChangeState(playsm.walkingState);
             return;
         }

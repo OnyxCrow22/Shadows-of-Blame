@@ -19,4 +19,39 @@ public class PlayerNexus : MonoBehaviour
         activeGun = GetComponentInChildren<Gun>();
         playerPunch = GetComponent<PunchSystem>();
     }
+
+    public void SaveGame()
+    {
+        float currentHealthVal = playerHealth != null ? playerHealth.health : 100f;
+
+        SaveSystem.SavePlayer(transform.position, currentHealthVal);
+        Debug.Log("Game Saved!");
+    }
+
+    public void LoadGame()
+    {
+        PlayerData loadData = SaveSystem.LoadPlayer();
+
+        if (loadData != null)
+        {
+            CharacterController controller = GetComponent<CharacterController>();
+            if (controller != null) controller.enabled = false;
+
+            transform.position = loadData.ConvertPosition();
+
+            if (playerHealth != null)
+            {
+                playerHealth.health = loadData.playerHealth;
+                // Refresh UI at some point.
+            }
+
+            if (controller != null) controller.enabled = true;
+
+            Debug.Log("Game loaded!");
+        }
+        else
+        {
+            Debug.Log("No save game found!");
+        }
+    }
 }
