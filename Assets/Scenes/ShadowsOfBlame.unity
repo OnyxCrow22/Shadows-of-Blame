@@ -2695,7 +2695,7 @@ PrefabInstance:
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: dead
       value: 
@@ -6205,7 +6205,7 @@ PrefabInstance:
     - target: {fileID: -7319527457188759884, guid: dcc01e6512ec7fe4cab0115b216cc990, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -7319527457188759884, guid: dcc01e6512ec7fe4cab0115b216cc990, type: 3}
       propertyPath: esm
       value: 
@@ -10878,7 +10878,7 @@ PrefabInstance:
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: panel
       value: 
@@ -17803,7 +17803,7 @@ PrefabInstance:
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: panel
       value: 
@@ -32620,7 +32620,7 @@ PrefabInstance:
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: panel
       value: 
@@ -34024,6 +34024,66 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0213a662c476114eaf4827835151db2, type: 3}
+--- !u!1 &257115301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 257115304}
+  - component: {fileID: 257115303}
+  - component: {fileID: 257115302}
+  m_Layer: 0
+  m_Name: VisualScripting SceneVariables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &257115302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257115301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765181c9ef4b24d32a4f7cbd2ef370dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.VisualScripting.Core::Unity.VisualScripting.SceneVariables
+--- !u!114 &257115303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257115301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.VisualScripting.Core::Unity.VisualScripting.Variables
+  _data:
+    _json: '{"declarations":{"Kind":"Scene","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!4 &257115304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257115301}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &257400904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39660,7 +39720,7 @@ PrefabInstance:
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: panel
       value: 
@@ -54695,7 +54755,7 @@ PrefabInstance:
     - target: {fileID: -7319527457188759884, guid: dcc01e6512ec7fe4cab0115b216cc990, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -7319527457188759884, guid: dcc01e6512ec7fe4cab0115b216cc990, type: 3}
       propertyPath: esm
       value: 
@@ -58519,7 +58579,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1790633499}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WestralWoes, Assembly-CSharp
         m_MethodName: Start
         m_Mode: 1
@@ -85253,7 +85313,7 @@ PrefabInstance:
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: dead
       value: 
@@ -115742,7 +115802,7 @@ PrefabInstance:
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: panel
       value: 
@@ -119842,7 +119902,7 @@ PrefabInstance:
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: panel
       value: 
@@ -141091,7 +141151,7 @@ PrefabInstance:
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: panel
       value: 
@@ -187887,7 +187947,7 @@ PrefabInstance:
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: OTR
       value: 
-      objectReference: {fileID: 1790633498}
+      objectReference: {fileID: 0}
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: panel
       value: 
@@ -191649,7 +191709,7 @@ PrefabInstance:
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: -8960764996840338324, guid: 9df3caa51728dc2449b7e41b70f86a30, type: 3}
       propertyPath: panel
       value: 
@@ -211490,8 +211550,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1790633497}
-  - component: {fileID: 1790633498}
   - component: {fileID: 1790633499}
+  - component: {fileID: 1790633498}
   m_Layer: 0
   m_Name: MissionManager
   m_TagString: Untagged
@@ -211523,9 +211583,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1790633496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a1bc4449eca1d418559b24d1f160da, type: 3}
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Unity.VisualScripting.Flow::Unity.VisualScripting.ScriptMachine
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 750a527c7507c4044bb14a805f31b3d7, type: 2}
 --- !u!114 &1790633499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211533,11 +211597,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790633496}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c179ac8656ab44a9e7ac965cafac23, type: 3}
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Unity.VisualScripting.Core::Unity.VisualScripting.Variables
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
 --- !u!1001 &1791451184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215319,7 +215386,7 @@ PrefabInstance:
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 8895184578440918862, guid: d0c730412fe50b642989976cea0103af, type: 3}
       propertyPath: dead
       value: 
@@ -226656,7 +226723,7 @@ PrefabInstance:
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: OTR
       value: 
-      objectReference: {fileID: 1790633498}
+      objectReference: {fileID: 0}
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: panel
       value: 
@@ -239323,7 +239390,7 @@ PrefabInstance:
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: OTR
       value: 
-      objectReference: {fileID: 1790633498}
+      objectReference: {fileID: 0}
     - target: {fileID: 3894385897325776204, guid: 68c7b37d25346f6478396784f3f5d047, type: 3}
       propertyPath: panel
       value: 
@@ -246634,7 +246701,7 @@ PrefabInstance:
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: WW
       value: 
-      objectReference: {fileID: 1790633499}
+      objectReference: {fileID: 0}
     - target: {fileID: 4936399009956760129, guid: e42bca9288d3ca74a86eb7d473b95831, type: 3}
       propertyPath: panel
       value: 
@@ -260522,3 +260589,4 @@ SceneRoots:
   - {fileID: 2103006001}
   - {fileID: 606817657}
   - {fileID: 2025821403}
+  - {fileID: 257115304}
