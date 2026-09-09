@@ -1,16 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Node
 {
     [Header("Node References")]
     public List<Edge> edgeList = new List<Edge>();
-    public Node path = null;
+    [SerializeReference] public Node path;
     GameObject ID;
 
     public float f, g, h;
-    public Node cameFrom;
+    [SerializeReference] public Node cameFrom;
 
     public Node(GameObject i)
     {

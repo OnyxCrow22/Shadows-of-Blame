@@ -5,5 +5,5 @@ using UnityEngine;
 public class MissionData : ScriptableObject
 {
     public string missionTitle;
-    public List<string> objectiveDescriptions;
+    public List<ObjectiveData> objectiveDescriptions;
 }

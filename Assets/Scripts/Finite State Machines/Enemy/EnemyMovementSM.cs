@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,7 +35,7 @@ public class EnemyMovementSM : EnemyStateMachine
     public NavMeshAgent agent;
     [HideInInspector]
     public Collider coverObj;
-    public Collider[] cols = new Collider[20]; // Pre-allocated size buffer to prevent memory leaks during NonAlloc loops
+    public readonly Collider[] cols = new Collider[20]; // Pre-allocated size buffer to prevent memory leaks during NonAlloc loops
     public LayerMask hideableLayers, Player;
 
     [Header("External Scripts")]

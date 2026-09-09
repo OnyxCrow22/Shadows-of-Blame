@@ -1,13 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Graph
 {
     [Header("A* references")]
     List<Edge> edges = new List<Edge>();
     List<Node> nodes = new List<Node>();
-    public List<Node> pathList = new List<Node>();
+    [SerializeReference] public List<Node> pathList = new List<Node>();
 
     public Graph() { }
 

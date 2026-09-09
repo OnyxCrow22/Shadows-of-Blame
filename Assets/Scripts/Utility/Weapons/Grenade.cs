@@ -2,64 +2,68 @@ using UnityEngine;
 
 public class Grenade : MonoBehaviour
 {
+    [Header("Grenade Settings")]
     public float delay = 3f;
     public float radius = 15f;
     public float force = 700f;
     public float grenadeDamage = 100f;
 
+    [Header("Grenade References")]
     public GameObject explosionVFX;
 
+    private static readonly Collider[] hitColliders = new Collider[32];
     private float countdown;
-    private bool hasExploded = false;
+    private bool hasExploded;
 
-    private void Start()
+    private void OnEnable()
     {
         countdown = delay;
+        hasExploded = false;
     }
 
     private void Update()
     {
+        if (hasExploded) return;
+
         countdown -= Time.deltaTime;
 
-        if (countdown <= 0f && !hasExploded)
+        if (countdown <= 0f)
         {
-            Explode();
             hasExploded = true;
+            Explode(transform.position, radius);
         }
     }
 
-    private void Explode()
+    private void Explode(Vector3 centre, float radius)
     {
         // VFX
-        Instantiate(explosionVFX, transform.position, Quaternion.identity);
+        if (explosionVFX != null)
+            Instantiate(explosionVFX, centre, Quaternion.identity);
 
         // SFX
         if (AudioManager.manager != null)
             AudioManager.manager.Play("GrenadeExplosion");
 
         // Physics + Damage
-        Collider[] hits = Physics.OverlapSphere(transform.position, radius);
+        int numHit = Physics.OverlapSphereNonAlloc(centre, radius, hitColliders);
 
-        foreach (Collider col in hits)
+        for (int i = 0; i < numHit; i++)
         {
-            // Explosion force
-            if (col.attachedRigidbody != null)
+            Collider col = hitColliders[i];
+            if (col == null) continue;
+
+            Rigidbody rb = col.attachedRigidbody;
+
+            if (rb != null)
             {
-                col.attachedRigidbody.AddExplosionForce(force, transform.position, radius);
+                rb.AddExplosionForce(force, centre, radius);
             }
 
-            // Damage
-            if (col.TryGetComponent(out IDamageable dmg))
+            if (col.TryGetComponent(out IDamageable damage))
             {
-                dmg.TakeDamage(grenadeDamage);
+                damage.TakeDamage(grenadeDamage);
             }
         }
-
-        // Hide grenade mesh
-        MeshRenderer mr = GetComponent<MeshRenderer>();
-        if (mr != null)
-            mr.enabled = false;
-
         Destroy(gameObject);
     }
 }

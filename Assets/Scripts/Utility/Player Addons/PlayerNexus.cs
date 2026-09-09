@@ -46,12 +46,6 @@ public class PlayerNexus : MonoBehaviour
             }
 
             if (controller != null) controller.enabled = true;
-
-            Debug.Log("Game loaded!");
-        }
-        else
-        {
-            Debug.Log("No save game found!");
         }
     }
 }

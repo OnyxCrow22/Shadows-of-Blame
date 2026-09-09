@@ -8,7 +8,7 @@ public class RegionDisplayUI : MonoBehaviour
     public TextMeshProUGUI streetNameText; // Reference to the TextMeshProUGUI component for displaying the street name
     public float displayDuration = 3f; // Duration to display the region name
     public float fadeDuration = 1f; // Duration for the fade-out effect
-    public Coroutine activeFade;
+    protected Coroutine activeFade;
     private RegionData currentActiveRegion; // Track the currently active region to prevent redundant displays
     private string currentStreetName; // Track the currently active street name to prevent redundant displays
 

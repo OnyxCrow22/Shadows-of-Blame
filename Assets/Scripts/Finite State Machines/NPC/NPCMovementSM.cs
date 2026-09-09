@@ -28,6 +28,8 @@ public class NPCMovementSM : NPCStateMachine
 
     [Header("Stats")]
     public int aggression; // Flee or fight against the player
+
+    public int prefabPoolIndex;
     public HealthSystem nHealth;
     public PoliceLevel police;
     public NPCGun hidden;

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class PolicePatrol : PoliceBaseState
 {
     private PoliceMovementSM wanted;

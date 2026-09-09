@@ -22,7 +22,8 @@ public class VehicleUIController : MonoBehaviour
 
     public void UpdateSpeed(float mph)
     {
-        speedText.text = $"{mph:00} MPH";
+        // Fixed garbage collection issue
+        speedText.SetText($"{0:00} MPH", mph);
 
         float t = Mathf.Clamp01(mph / maxSpeedMPH);
         float angle = Mathf.Lerp(minNeedleAngle, maxNeedleAngle, t);

@@ -1,5 +1,4 @@
-using UnityEngine;
-
+[System.Serializable]
 public class EnemyBaseState
 {
     public string Name { get; protected set; }

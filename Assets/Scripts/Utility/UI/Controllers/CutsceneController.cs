@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
@@ -10,7 +9,7 @@ public class CutsceneController : MonoBehaviour
     public float lineDisplayDuration = 2f; // Duration to display each line of news text
     public float characterDuration = 0.05f; // Duration for each character to appear
     private int currentFileIndex, currentLineIndex; // Track the current file and line being displayed
-    public Coroutine currentCutscene; // Reference to the active coroutine for displaying news text
+    protected Coroutine currentCutscene; // Reference to the active coroutine for displaying news text
     public PlayerMovementSM player; // Reference to the PlayerMovementSM script for controlling player movement
     public Camera playerCam;
 

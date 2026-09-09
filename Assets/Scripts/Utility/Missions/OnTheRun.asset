@@ -14,13 +14,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissionData
   missionTitle: On The Run
   objectiveDescriptions:
-  - Leave your safehouse.
-  - Go to Westral Square
-  - Investigate Westral Square for clues.
-  - Go to the lakehouse.
-  - Kill the gang members.
-  - Kill the gang leader.
-  - Take the evidence from the leader.
-  - Lose the police.
-  - Go to your safehouse.
-  - Put the evidence on the board upstairs.
+  - objectiveID: OTR_LeaveSafehouse
+    description: Leave your safehouse.
+    requirements: []
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_WestralSquare
+    description: Go to Westral Square
+    requirements: []
+    exclusivity: []
+    isOptional: 1
+  - objectiveID: OTR_InvestigationWS
+    description: Investigate Westral Square
+    requirements:
+    - OTR_WestralSquare
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_WestralSquareCollect
+    description: Collect Evidence
+    requirements:
+    - OTR_InvestigationWS
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_LakeOak
+    description: Go to Lake Pineoak
+    requirements: []
+    exclusivity: []
+    isOptional: 1
+  - objectiveID: OTR_GangMembers
+    description: Kill the gang members
+    requirements:
+    - OTR_LakeOak
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_GangLeader
+    description: Kill the gang leader
+    requirements:
+    - OTR_GangMembers
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_PineOakCollect
+    description: Collect the evidence from the body.
+    requirements:
+    - OTR_GangLeader
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_PoliceAmbush
+    description: Lose the Police.
+    requirements:
+    - OTR_GangMembers
+    - OTR_GangLeader
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_BackHome
+    description: Go to Kingston Street
+    requirements:
+    - OTR_WestralSquareCollect
+    - OTR_PineOakCollect
+    exclusivity: []
+    isOptional: 0
+  - objectiveID: OTR_EvidencePlace
+    description: Place the evidence on the evidence wall
+    requirements:
+    - OTR_BackHome
+    exclusivity: []
+    isOptional: 0

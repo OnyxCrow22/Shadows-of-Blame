@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 
 public class ThrowableWeapon : MonoBehaviour
 {
@@ -14,6 +15,27 @@ public class ThrowableWeapon : MonoBehaviour
     [Header("References")]
     public PlayerInput playerInput;
     public WeaponManager weaponManager;   // NEW: central weapon system
+
+    private IObjectPool<GameObject> GrenadePool;
+
+    public float CooldownRemaining => cooldownTimer;
+    public float CooldownNormalise => Mathf.Clamp01(cooldownTimer / cooldown);
+
+    private void Awake()
+    {
+        InitialisePool();
+    }
+
+    public void InitialisePool()
+    {
+        GrenadePool = new ObjectPool<GameObject>(createFunc: () => Instantiate(grenadePrefab),
+            actionOnGet: (g) => g.SetActive(true),
+            actionOnRelease: (g) => g.SetActive(false),
+            actionOnDestroy: (g) => Destroy(g),
+            collectionCheck: false,
+            defaultCapacity: 5,
+            maxSize: 15);
+    }    
 
     private void Update()
     {
@@ -40,11 +62,16 @@ public class ThrowableWeapon : MonoBehaviour
     private void ThrowGrenade()
     {
         // Spawn grenade
-        GameObject g = Instantiate(grenadePrefab, throwPoint.position, throwPoint.rotation);
+        GameObject g = GrenadePool.Get();
+
+        g.transform.SetPositionAndRotation(throwPoint.position, throwPoint.rotation);
 
         // Apply force
         if (g.TryGetComponent(out Rigidbody rb))
         {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
             rb.AddForce(throwPoint.forward * throwForce, ForceMode.VelocityChange);
         }
 
@@ -53,5 +80,10 @@ public class ThrowableWeapon : MonoBehaviour
 
         // Notify animation system
         weaponManager.TriggerGrenadeThrowAnimation();
+    }
+
+    public void ReleaseGrenade(GameObject grenade)
+    {
+        GrenadePool.Release(grenade);
     }
 }

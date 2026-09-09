@@ -37,7 +37,7 @@ public class DayNightCycle : MonoBehaviour
 
     [Header("Calendar Settings")]
     public int currentDayIndex = 0; // 0 = Monday, 6 = Sunday
-    private string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+    private readonly string[] daysOfWeek = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
     // Start is called before the first frame update
     void Start()

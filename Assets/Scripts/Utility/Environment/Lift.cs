@@ -10,8 +10,8 @@ public class Lift : MonoBehaviour, IInteractable
     public float liftSpeed = 3f;
 
     private int currentFloor = 0;
-    private bool buttonPressed = false;
-    private bool inLift = false;
+    protected bool buttonPressed;
+    protected bool inLift;
     private bool isMoving = false;
 
     public void OnInteract(GameObject user)

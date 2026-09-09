@@ -1,5 +1,4 @@
-using UnityEngine;
-
+[System.Serializable]
 public class PoliceBaseState
 {
     public string Name { get; protected set; }
