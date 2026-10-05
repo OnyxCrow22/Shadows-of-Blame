@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="SettingsMenu" src="project://database/Assets/Scripts/Utility/UI/EXTERNAL/SettingsMenu.uxml?fileID=9197481963319205126&amp;guid=5f5b78c2da7cc124e9a7f7dd8da7be09&amp;type=3#SettingsMenu"/>
+    <Style src="project://database/Assets/Scripts/Utility/UI/EXTERNAL/SettingsMenuStyle.uss?fileID=7433441132597879392&amp;guid=1f106ccd33194cd438f99de294a9a154&amp;type=3#SettingsMenuStyle"/>
+    <Style src="project://database/Assets/Scripts/Utility/UI/EXTERNAL/FrontEnd.uss?fileID=7433441132597879392&amp;guid=0df60269c3d593d48a0ec2955ee9a582&amp;type=3#FrontEnd"/>
+    <ui:VisualElement name="main-menu-root" class="main-menu-root">
+        <ui:VisualElement class="background-holder"/>
+        <ui:VisualElement class="">
+            <ui:VisualElement class="title-block">
+                <ui:Label text="SHADOWS OF BLAME" class="title-main"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="button-holder">
+                <ui:Button name="newgame-btn" text="New Game" class="menu-btns"/>
+                <ui:Button name="continue-btn" text="Load Game" class="menu-btns"/>
+                <ui:Button name="casefiles-btn" text="Recorded Cases" class="menu-btns"/>
+                <ui:Button name="settings-btn" text="Settings" class="menu-btns"/>
+                <ui:Button name="application-quit-btn" text="Quit to Desktop" class="menu-btns"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:Instance template="SettingsMenu" enabled="true" name="settings-root" class="hidden settings-root" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; align-items: center; justify-content: center;"/>
+</ui:UXML>

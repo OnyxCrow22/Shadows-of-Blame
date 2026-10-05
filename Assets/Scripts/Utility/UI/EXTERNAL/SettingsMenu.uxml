@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <Style src="FrontEnd.uss" />
+    <Style src="SettingsMenuStyle.uss" />
+
+    <ui:VisualElement class="settings-root">
+        <ui:VisualElement class="settings-panel">
+
+            <!-- TABS - only buttons in here -->
+            <ui:VisualElement class="settings-tabs">
+                <ui:Button name="tab-audio" class="settings-tab active" text="Audio" />
+                <ui:Button name="tab-graphics" class="settings-tab" text="Graphics" />
+                <ui:Button name="tab-controls" class="settings-tab" text="Controls" />
+            </ui:VisualElement>
+
+            <!-- AUDIO PAGE -->
+            <ui:VisualElement name="page-audio" class="settings-page">
+                <ui:Label text="Master Volume" class="settings-label" />
+                <ui:Slider name="master-slider" low-value="0" high-value="1" value="1" class="settings-slider" />
+                <ui:Label text="Music Volume" class="settings-label" />
+                <ui:Slider name="music-slider" low-value="0" high-value="1" value="0.8" class="settings-slider" />
+                <ui:Label text="SFX Volume" class="settings-label" />
+                <ui:Slider name="sfx-slider" low-value="0" high-value="1" value="0.8" class="settings-slider" />
+            </ui:VisualElement>
+
+            <!-- GRAPHICS PAGE - hidden by default -->
+            <ui:VisualElement name="page-graphics" class="settings-page hidden">
+                <ui:Label text="Quality" class="settings-label" />
+                <ui:DropdownField name="quality-dropdown" class="settings-dropdown" />
+                <ui:Toggle name="fullscreen-toggle" label="Enable Fullscreen Mode" class="settings-toggle" />
+                <ui:Toggle name="vsync-toggle" label="Enable Vertical Synchronisation (VSync)" class="settings-toggle" />
+            </ui:VisualElement>
+
+            <!-- CONTROLS PAGE - hidden by default -->
+            <ui:VisualElement name="page-controls" class="settings-page hidden">
+                <ui:Label text="Mouse Sensitivity" class="settings-label" />
+                <ui:Slider name="mouse-sensitivity-slider" low-value="0.1" high-value="3" value="1" class="settings-slider" />
+                <ui:Toggle name="invert-toggle" label="Invert Mouse Y-Axis" class="settings-toggle" />
+                <ui:Button name="rebind-controls-btn" text="Rebind Controls" class="menu-btns" />
+            </ui:VisualElement>
+
+            <ui:Button name="back-btn" text="Back to Main Menu" class="menu-btns" />
+
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

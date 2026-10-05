@@ -1,0 +1,73 @@
+.main-menu-root {
+    width: 100%;
+    height: 100%;
+    background-color: #0A0E14;
+}
+
+.background-holder {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('project://database/Assets/Textures/UI/ShadowsOfBlamePauseMenuScreen.png');
+}
+
+.content-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* <-- keeps everything left, not center */
+    padding-left: 140px;
+    background-color: rgba(10, 14, 20, 0.65);
+}
+
+.title-block {
+    margin-bottom: 50px;
+}
+
+.title-main {
+    -unity-font-definition: url('project://database/Assets/Fonts/BebasNeue-Regular.ttf');
+    font-size: 52px;
+    color: white;
+    letter-spacing: 5px;
+
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.9);
+}
+
+.button-holder {
+    flex-direction: column;
+    width: 340px;
+    top: 10px;
+}
+
+.menu-btns {
+    width: 100%;
+    height: 46px;
+    -unity-font-definition: url('project://database/Assets/Fonts/BebasNeue-Regular.ttf');
+    font-size: 20px;
+    color: #EAE2D0;
+    background-color: rgba(26, 26, 26, 0.86);
+    border-width: 2px;
+    border-color: #4A0404;
+    border-left-width: 4px;
+    padding-left: 20px;
+    border-radius: 2px;
+}
+
+.menu-btns:hover {
+    color: white;
+    border-left-color: #C59A2C;
+    background-color: rgba(197, 154, 44, 0.15);
+}
+
+.menu-btns:active {
+    color: yellow;
+    border-left-color: #C59A2C;
+    background-color: rgba(197, 154, 44, 0.15);
+}
